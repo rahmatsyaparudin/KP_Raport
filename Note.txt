@@ -1,0 +1,12 @@
+11-8-2015 02:00 AM
+Form Login sudah berhasil konek ke database
+Main menu baru tampilan profil sekolah
+BELUM ADA KONEKSI GLOBAL
+profil sekolah RU ( Tapi NPSN belum bisa di edit)
+
+11-08-2015 12:04 PM
+Main menu tambah Data Guru
+Sudah pakai Koneksi Global
+profil sekolah RU ( Tapi NPSN belum bisa di edit)
+form Pengajar sudah bisa CRUD (id_guru: disabled, angka random)
+
