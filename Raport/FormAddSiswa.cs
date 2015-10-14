@@ -18,14 +18,14 @@ namespace Raport
         private string table;
         private string field;
         private string cond;
-        string passKode;
         DateTime passLahir, passMasuk;
-        string loadValue;
+        public string loadValue, tahuj, passKode;
         
         public FormAddSiswa()
         {
             InitializeComponent();
             getCombo();
+            tahun_lbl.Text = tahuj;
         }
 
         //Passing Value From FormSiswa
@@ -33,6 +33,12 @@ namespace Raport
         {
             get { return loadValue; }
             set { loadValue = value; }
+        }
+
+        public string tahun_ajaran
+        {
+            get { return tahuj; }
+            set { tahuj = value; }
         }
 
         public string valueKelas
@@ -56,6 +62,7 @@ namespace Raport
         //Load Siswa untuk aksi tambah atau update siswa
         private void FormAddSiswa_Load(object sender, EventArgs e)
         {
+            tahun_lbl.Text = tahuj;
             if (loadValue == "Update")
             {
                 getTahunAjaran();
@@ -71,7 +78,6 @@ namespace Raport
         //Menentukan Kelas sesuai dengan tahun ajaran pendaftaran 
         public void getTahunAjaran()
         {
-            this.tahun_lbl.Text = diterima_date.Value.Year.ToString();
             fillCombo();
             dikelas_combo.Text = passKode;
         }
@@ -99,7 +105,7 @@ namespace Raport
                 string idValue = "kode_kelas";
                 string dispValue = "nama_kelas";
                 this.table = "kelas";
-                this.cond = "status_kelas = 'Aktif' AND tahun_ajaran LIKE '"+ tahun_lbl.Text +"%'";
+                this.cond = "status_kelas = 'Aktif' AND tahun_ajaran = '"+ tahun_lbl.Text +"'";
                 string sortby = "nama_kelas";
 
                 dikelas_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
@@ -420,11 +426,7 @@ namespace Raport
         //Event Tanggal diterima
 
         //Event diterima di kelas
-        private void diterima_date_ValueChanged(object sender, EventArgs e)
-        {
-            getTahunAjaran();
-        }
-
+        
         //Event Alamat Siswa
 
         //Event Nama Ayah

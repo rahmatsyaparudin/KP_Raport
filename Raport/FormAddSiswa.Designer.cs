@@ -87,10 +87,11 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.kode_lbl = new System.Windows.Forms.Label();
             this.nis_lbl = new System.Windows.Forms.Label();
-            this.tahun_lbl = new System.Windows.Forms.Label();
             this.id_lbl = new System.Windows.Forms.Label();
             this.nis_toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.title_lbl = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.tahun_lbl = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -365,7 +366,6 @@
             this.diterima_date.Name = "diterima_date";
             this.diterima_date.Size = new System.Drawing.Size(141, 29);
             this.diterima_date.TabIndex = 31;
-            this.diterima_date.ValueChanged += new System.EventHandler(this.diterima_date_ValueChanged);
             // 
             // asalSekolah_txt
             // 
@@ -696,7 +696,7 @@
             // 
             // update_btn
             // 
-            this.update_btn.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.update_btn.BackColor = System.Drawing.Color.Lavender;
             this.update_btn.FlatAppearance.BorderSize = 0;
             this.update_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.update_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -713,7 +713,7 @@
             // 
             // save_btn
             // 
-            this.save_btn.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.save_btn.BackColor = System.Drawing.Color.Lavender;
             this.save_btn.FlatAppearance.BorderSize = 0;
             this.save_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.save_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -730,7 +730,7 @@
             // 
             // delete_btn
             // 
-            this.delete_btn.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.delete_btn.BackColor = System.Drawing.Color.Lavender;
             this.delete_btn.FlatAppearance.BorderSize = 0;
             this.delete_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.delete_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -747,7 +747,7 @@
             // 
             // cancel_btn
             // 
-            this.cancel_btn.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.cancel_btn.BackColor = System.Drawing.Color.Lavender;
             this.cancel_btn.FlatAppearance.BorderSize = 0;
             this.cancel_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancel_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -778,7 +778,7 @@
             // kode_lbl
             // 
             this.kode_lbl.AutoSize = true;
-            this.kode_lbl.Location = new System.Drawing.Point(333, 54);
+            this.kode_lbl.Location = new System.Drawing.Point(603, 0);
             this.kode_lbl.Name = "kode_lbl";
             this.kode_lbl.Size = new System.Drawing.Size(97, 21);
             this.kode_lbl.TabIndex = 1;
@@ -788,22 +788,12 @@
             // nis_lbl
             // 
             this.nis_lbl.AutoSize = true;
-            this.nis_lbl.Location = new System.Drawing.Point(436, 54);
+            this.nis_lbl.Location = new System.Drawing.Point(603, 21);
             this.nis_lbl.Name = "nis_lbl";
             this.nis_lbl.Size = new System.Drawing.Size(89, 21);
             this.nis_lbl.TabIndex = 2;
             this.nis_lbl.Text = "NIS Siswa";
             this.nis_lbl.Visible = false;
-            // 
-            // tahun_lbl
-            // 
-            this.tahun_lbl.AutoSize = true;
-            this.tahun_lbl.Location = new System.Drawing.Point(526, 54);
-            this.tahun_lbl.Name = "tahun_lbl";
-            this.tahun_lbl.Size = new System.Drawing.Size(108, 21);
-            this.tahun_lbl.TabIndex = 3;
-            this.tahun_lbl.Text = "Tahun Ajaran";
-            this.tahun_lbl.Visible = false;
             // 
             // id_lbl
             // 
@@ -823,11 +813,31 @@
             // 
             this.title_lbl.AutoSize = true;
             this.title_lbl.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.title_lbl.Location = new System.Drawing.Point(226, 23);
+            this.title_lbl.Location = new System.Drawing.Point(204, 13);
             this.title_lbl.Name = "title_lbl";
             this.title_lbl.Size = new System.Drawing.Size(142, 31);
             this.title_lbl.TabIndex = 57;
             this.title_lbl.Text = "Form Siswa";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(201, 42);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(161, 31);
+            this.label24.TabIndex = 58;
+            this.label24.Text = "Tahun Ajaran";
+            // 
+            // tahun_lbl
+            // 
+            this.tahun_lbl.AutoSize = true;
+            this.tahun_lbl.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tahun_lbl.Location = new System.Drawing.Point(357, 42);
+            this.tahun_lbl.Name = "tahun_lbl";
+            this.tahun_lbl.Size = new System.Drawing.Size(161, 31);
+            this.tahun_lbl.TabIndex = 3;
+            this.tahun_lbl.Text = "Tahun Ajaran";
             // 
             // FormAddSiswa
             // 
@@ -836,6 +846,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.ClientSize = new System.Drawing.Size(732, 505);
+            this.Controls.Add(this.label24);
             this.Controls.Add(this.title_lbl);
             this.Controls.Add(this.id_lbl);
             this.Controls.Add(this.tahun_lbl);
@@ -925,9 +936,10 @@
         public System.Windows.Forms.Button cancel_btn;
         public System.Windows.Forms.Label kode_lbl;
         public System.Windows.Forms.Label nis_lbl;
-        public System.Windows.Forms.Label tahun_lbl;
         public System.Windows.Forms.Label id_lbl;
         public System.Windows.Forms.ToolTip nis_toolTip;
         public System.Windows.Forms.Label title_lbl;
+        public System.Windows.Forms.Label label24;
+        public System.Windows.Forms.Label tahun_lbl;
     }
 }

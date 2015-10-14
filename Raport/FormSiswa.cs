@@ -18,15 +18,23 @@ namespace Raport
         private string table;
         private string field;
         private string cond;
+        public string tahuj;
 
         public FormSiswa()
         {
             InitializeComponent();
         }
 
+        public string tahun_ajaran
+        {
+            get { return tahuj; }
+            set { tahuj = value; }
+        }
+
         private void add_toolStr_Click(object sender, EventArgs e)
         {
             FormAddSiswa fAddSiswa = new FormAddSiswa();
+            fAddSiswa.tahun_ajaran = tahuj;
             fAddSiswa.title_lbl.Text = "Form Tambah Data Siswa";
             fAddSiswa.update_btn.Enabled = false;
             fAddSiswa.delete_btn.Enabled = false;
@@ -67,6 +75,7 @@ namespace Raport
                 string dateLahir, dateMasuk, format;
                 System.Globalization.CultureInfo provider = System.Globalization.CultureInfo.InvariantCulture;
                 fEditSiswa.valueLoad = "Update";
+                fEditSiswa.tahun_ajaran = tahuj;
 
                 DataGridViewRow row = this.siswa_grid.Rows[e.RowIndex];
                 fEditSiswa.nis_txt.Text = row.Cells["NIS"].Value.ToString();
@@ -107,7 +116,7 @@ namespace Raport
                     MessageBox.Show(ex.Message);
                 }
 
-                fEditSiswa.title_lbl.Text = "Form Edit Data Siswa";
+                fEditSiswa.title_lbl.Text = "   Form Edit Data Siswa";
                 fEditSiswa.nis_txt.ReadOnly = true;
                 fEditSiswa.nis_txt.BackColor = SystemColors.ControlDark;
                 fEditSiswa.nis_txt.TabStop = false;

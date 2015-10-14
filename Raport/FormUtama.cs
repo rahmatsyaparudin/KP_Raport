@@ -37,9 +37,16 @@ namespace Raport
         {
             Application.Run(new SplashScreen());
         }
+
+        public void getCombo()
+        {
+            tahuj_combo.DataSource = db.getTahuj();
+            tahuj_combo.DisplayMember = "valueDisplay";
+        }
         
         private void FormUtama_Load(object sender, EventArgs e)
         {
+            getCombo();
             jamku = DateTime.Now;
             query = "SELECT * FROM profil_sekolah";
             MySqlCommand getProfil = new MySqlCommand(query, myConn);
@@ -144,6 +151,7 @@ namespace Raport
         private void siswa_menu_Click(object sender, EventArgs e)
         {
             FormSiswa fSiswa = new FormSiswa();
+            fSiswa.tahun_ajaran = tahuj_combo.Text.ToString();
             fSiswa.ShowDialog();
         }
 
@@ -277,6 +285,28 @@ namespace Raport
                 nilai_menu.BackColor = Color.BurlyWood;
                 deskripsi_menu.BackColor = Color.Magenta;
             }
+        }
+
+        private void set_btn_Click(object sender, EventArgs e)
+        {
+            string tahuj = tahuj_combo.Text.ToString();
+            tahuj_combo.Enabled = false;
+            set_btn.Enabled = false;
+            change_btn.Enabled = true;
+
+            if (tahuj_combo.Text != "")
+            {
+                siswa_menu.Enabled = true;
+                deskripsi_menu.Enabled = true;
+                nilai_menu.Enabled = true;
+            }
+        }
+
+        private void change_btn_Click(object sender, EventArgs e)
+        {
+            tahuj_combo.Enabled = true;
+            set_btn.Enabled = true;
+            change_btn.Enabled = false;
         }
     }
 }

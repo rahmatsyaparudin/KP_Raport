@@ -209,6 +209,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\eskul.png" />
     <None Include="Resources\save.png" />
   </ItemGroup>
   <ItemGroup>
@@ -273,6 +274,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\kelas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\deskripsi.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
