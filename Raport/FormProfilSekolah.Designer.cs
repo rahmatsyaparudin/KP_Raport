@@ -71,6 +71,7 @@
             this.nama_txt = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.npsn_lbl = new System.Windows.Forms.Label();
             this.edit_box.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -88,6 +89,7 @@
             // edit_box
             // 
             this.edit_box.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.edit_box.Controls.Add(this.npsn_lbl);
             this.edit_box.Controls.Add(this.label24);
             this.edit_box.Controls.Add(this.label23);
             this.edit_box.Controls.Add(this.label22);
@@ -603,6 +605,16 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
+            // npsn_lbl
+            // 
+            this.npsn_lbl.AutoSize = true;
+            this.npsn_lbl.Location = new System.Drawing.Point(11, 23);
+            this.npsn_lbl.Name = "npsn_lbl";
+            this.npsn_lbl.Size = new System.Drawing.Size(48, 23);
+            this.npsn_lbl.TabIndex = 39;
+            this.npsn_lbl.Text = "npsn";
+            this.npsn_lbl.Visible = false;
+            // 
             // FormProfilSekolah
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -672,5 +684,6 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Button edit_btn;
+        private System.Windows.Forms.Label npsn_lbl;
     }
 }

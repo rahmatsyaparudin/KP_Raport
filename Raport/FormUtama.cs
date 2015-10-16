@@ -307,6 +307,10 @@ namespace Raport
             tahuj_combo.Enabled = true;
             set_btn.Enabled = true;
             change_btn.Enabled = false;
+
+            siswa_menu.Enabled = false;
+            deskripsi_menu.Enabled = false;
+            nilai_menu.Enabled = false;
         }
     }
 }

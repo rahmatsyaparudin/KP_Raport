@@ -51,24 +51,25 @@
             this.cancel_btn = new System.Windows.Forms.Button();
             this.save_btn = new System.Windows.Forms.Button();
             this.kelas_tab = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.class_schedule = new System.Windows.Forms.TabPage();
+            this.schedule_grid = new System.Windows.Forms.DataGridView();
             this.cancel2_btn = new System.Windows.Forms.Button();
             this.create_btn = new System.Windows.Forms.Button();
             this.wali_txt = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.kelas_tree = new System.Windows.Forms.TreeView();
             this.pilihKelas_combo = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.pilihTahun_combo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.view_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataKelas_grid)).BeginInit();
             this.sortBy_combo.SuspendLayout();
             this.create_tab.SuspendLayout();
             this.kelas_tab.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.class_schedule.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -205,7 +206,7 @@
             this.kelas_txt.MaxLength = 10;
             this.kelas_txt.Name = "kelas_txt";
             this.kelas_txt.Size = new System.Drawing.Size(184, 29);
-            this.kelas_txt.TabIndex = 13;
+            this.kelas_txt.TabIndex = 3;
             this.kelas_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.kelas_txt_KeyPress);
             // 
             // id_txt
@@ -225,31 +226,32 @@
             this.tahun_combo.FormattingEnabled = true;
             this.tahun_combo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tahun_combo.IntegralHeight = false;
-            this.tahun_combo.Location = new System.Drawing.Point(155, 124);
+            this.tahun_combo.Location = new System.Drawing.Point(155, 83);
             this.tahun_combo.Name = "tahun_combo";
             this.tahun_combo.Size = new System.Drawing.Size(184, 27);
-            this.tahun_combo.TabIndex = 7;
+            this.tahun_combo.TabIndex = 4;
             // 
             // wali_combo
             // 
             this.wali_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.wali_combo.DropDownWidth = 250;
             this.wali_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.wali_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wali_combo.FormattingEnabled = true;
             this.wali_combo.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.wali_combo.IntegralHeight = false;
             this.wali_combo.ItemHeight = 19;
-            this.wali_combo.Location = new System.Drawing.Point(155, 86);
+            this.wali_combo.Location = new System.Drawing.Point(155, 116);
             this.wali_combo.Name = "wali_combo";
-            this.wali_combo.Size = new System.Drawing.Size(184, 27);
+            this.wali_combo.Size = new System.Drawing.Size(259, 27);
             this.wali_combo.Sorted = true;
-            this.wali_combo.TabIndex = 6;
+            this.wali_combo.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(22, 88);
+            this.label3.Location = new System.Drawing.Point(22, 118);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 21);
             this.label3.TabIndex = 2;
@@ -259,7 +261,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(22, 127);
+            this.label2.Location = new System.Drawing.Point(22, 86);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 21);
             this.label2.TabIndex = 1;
@@ -286,7 +288,7 @@
             this.delete_btn.Location = new System.Drawing.Point(179, 210);
             this.delete_btn.Name = "delete_btn";
             this.delete_btn.Size = new System.Drawing.Size(93, 29);
-            this.delete_btn.TabIndex = 11;
+            this.delete_btn.TabIndex = 9;
             this.delete_btn.Text = "Delete";
             this.delete_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.delete_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -304,7 +306,7 @@
             this.update_btn.Location = new System.Drawing.Point(64, 210);
             this.update_btn.Name = "update_btn";
             this.update_btn.Size = new System.Drawing.Size(97, 29);
-            this.update_btn.TabIndex = 10;
+            this.update_btn.TabIndex = 8;
             this.update_btn.Text = "Update";
             this.update_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.update_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -321,7 +323,7 @@
             this.cancel_btn.Location = new System.Drawing.Point(179, 175);
             this.cancel_btn.Name = "cancel_btn";
             this.cancel_btn.Size = new System.Drawing.Size(93, 29);
-            this.cancel_btn.TabIndex = 9;
+            this.cancel_btn.TabIndex = 7;
             this.cancel_btn.Text = "Cancel";
             this.cancel_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -338,7 +340,7 @@
             this.save_btn.Location = new System.Drawing.Point(64, 175);
             this.save_btn.Name = "save_btn";
             this.save_btn.Size = new System.Drawing.Size(97, 29);
-            this.save_btn.TabIndex = 8;
+            this.save_btn.TabIndex = 6;
             this.save_btn.Text = "Save";
             this.save_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.save_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -349,7 +351,7 @@
             // 
             this.kelas_tab.Controls.Add(this.view_tab);
             this.kelas_tab.Controls.Add(this.create_tab);
-            this.kelas_tab.Controls.Add(this.tabPage1);
+            this.kelas_tab.Controls.Add(this.class_schedule);
             this.kelas_tab.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kelas_tab.Location = new System.Drawing.Point(0, 156);
             this.kelas_tab.Name = "kelas_tab";
@@ -357,31 +359,48 @@
             this.kelas_tab.Size = new System.Drawing.Size(783, 460);
             this.kelas_tab.TabIndex = 0;
             // 
-            // tabPage1
+            // class_schedule
             // 
-            this.tabPage1.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.tabPage1.Controls.Add(this.cancel2_btn);
-            this.tabPage1.Controls.Add(this.create_btn);
-            this.tabPage1.Controls.Add(this.wali_txt);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.kelas_tree);
-            this.tabPage1.Controls.Add(this.pilihKelas_combo);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.pilihTahun_combo);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Location = new System.Drawing.Point(4, 30);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(775, 426);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Create Schedule";
+            this.class_schedule.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.class_schedule.Controls.Add(this.schedule_grid);
+            this.class_schedule.Controls.Add(this.cancel2_btn);
+            this.class_schedule.Controls.Add(this.create_btn);
+            this.class_schedule.Controls.Add(this.wali_txt);
+            this.class_schedule.Controls.Add(this.label6);
+            this.class_schedule.Controls.Add(this.pilihKelas_combo);
+            this.class_schedule.Controls.Add(this.label5);
+            this.class_schedule.Controls.Add(this.pilihTahun_combo);
+            this.class_schedule.Controls.Add(this.label4);
+            this.class_schedule.Location = new System.Drawing.Point(4, 30);
+            this.class_schedule.Name = "class_schedule";
+            this.class_schedule.Padding = new System.Windows.Forms.Padding(3);
+            this.class_schedule.Size = new System.Drawing.Size(775, 426);
+            this.class_schedule.TabIndex = 2;
+            this.class_schedule.Text = "Class Schedule";
+            // 
+            // schedule_grid
+            // 
+            this.schedule_grid.AllowUserToAddRows = false;
+            this.schedule_grid.AllowUserToDeleteRows = false;
+            this.schedule_grid.AllowUserToResizeColumns = false;
+            this.schedule_grid.AllowUserToResizeRows = false;
+            this.schedule_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.schedule_grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.schedule_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.schedule_grid.Enabled = false;
+            this.schedule_grid.Location = new System.Drawing.Point(45, 89);
+            this.schedule_grid.Name = "schedule_grid";
+            this.schedule_grid.RowHeadersWidth = 30;
+            this.schedule_grid.Size = new System.Drawing.Size(670, 269);
+            this.schedule_grid.TabIndex = 17;
+            this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
             // 
             // cancel2_btn
             // 
             this.cancel2_btn.Enabled = false;
             this.cancel2_btn.Image = global::Raport.Properties.Resources.cancel;
             this.cancel2_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cancel2_btn.Location = new System.Drawing.Point(234, 378);
+            this.cancel2_btn.Location = new System.Drawing.Point(365, 373);
             this.cancel2_btn.Name = "cancel2_btn";
             this.cancel2_btn.Size = new System.Drawing.Size(85, 32);
             this.cancel2_btn.TabIndex = 8;
@@ -395,7 +414,7 @@
             this.create_btn.Enabled = false;
             this.create_btn.Image = global::Raport.Properties.Resources.edit_add;
             this.create_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.create_btn.Location = new System.Drawing.Point(133, 378);
+            this.create_btn.Location = new System.Drawing.Point(263, 373);
             this.create_btn.Name = "create_btn";
             this.create_btn.Size = new System.Drawing.Size(85, 32);
             this.create_btn.TabIndex = 7;
@@ -406,7 +425,7 @@
             // 
             // wali_txt
             // 
-            this.wali_txt.Location = new System.Drawing.Point(133, 56);
+            this.wali_txt.Location = new System.Drawing.Point(133, 54);
             this.wali_txt.Name = "wali_txt";
             this.wali_txt.ReadOnly = true;
             this.wali_txt.Size = new System.Drawing.Size(317, 29);
@@ -421,18 +440,6 @@
             this.label6.Size = new System.Drawing.Size(88, 21);
             this.label6.TabIndex = 5;
             this.label6.Text = "Wali Kelas";
-            // 
-            // kelas_tree
-            // 
-            this.kelas_tree.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.kelas_tree.CheckBoxes = true;
-            this.kelas_tree.Enabled = false;
-            this.kelas_tree.Location = new System.Drawing.Point(23, 104);
-            this.kelas_tree.Name = "kelas_tree";
-            this.kelas_tree.ShowNodeToolTips = true;
-            this.kelas_tree.Size = new System.Drawing.Size(427, 268);
-            this.kelas_tree.TabIndex = 4;
-            this.kelas_tree.MouseMove += new System.Windows.Forms.MouseEventHandler(this.kelas_tree_MouseMove);
             // 
             // pilihKelas_combo
             // 
@@ -477,16 +484,6 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Tahun Ajaran";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Raport.Properties.Resources.kelas;
-            this.pictureBox1.Location = new System.Drawing.Point(349, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(90, 97);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -496,6 +493,16 @@
             this.label7.Size = new System.Drawing.Size(153, 36);
             this.label7.TabIndex = 2;
             this.label7.Text = "Data Kelas";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Raport.Properties.Resources.kelas;
+            this.pictureBox1.Location = new System.Drawing.Point(349, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(90, 97);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // FormKelas
             // 
@@ -520,8 +527,9 @@
             this.create_tab.ResumeLayout(false);
             this.create_tab.PerformLayout();
             this.kelas_tab.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.class_schedule.ResumeLayout(false);
+            this.class_schedule.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -550,12 +558,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ComboBox sort_combo;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage class_schedule;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox pilihTahun_combo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox pilihKelas_combo;
-        private System.Windows.Forms.TreeView kelas_tree;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox wali_txt;
         private System.Windows.Forms.Button cancel_btn;
@@ -565,5 +572,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox search_txt;
+        private System.Windows.Forms.DataGridView schedule_grid;
     }
 }

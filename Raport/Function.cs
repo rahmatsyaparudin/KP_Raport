@@ -118,6 +118,29 @@ namespace Raport
             return result;
         }
 
+        public DataTable showMapel(string idValue, string dispValue, string table, string cond)
+        {
+            DataTable result = new DataTable();
+            MySqlConnection MyConn = new MySqlConnection(ConnString);
+            MyConn.Open();
+            string query = "SELECT " + idValue + ", " + dispValue + " FROM " + table + " WHERE " + cond;
+            MySqlCommand MyComm = new MySqlCommand(query, MyConn);
+            MySqlDataReader myReader = MyComm.ExecuteReader();
+            DataColumn dc1 = new DataColumn("valueID");
+            DataColumn dc2 = new DataColumn("valueDisplay");
+            result.Columns.Add(dc1);
+            result.Columns.Add(dc2);
+
+            while (myReader.Read())
+            {
+                string sName = myReader.GetString(dispValue);
+                string sId = myReader.GetString(idValue);
+                result.Rows.Add(sId, sName);
+            }
+            MyConn.Close();
+            return result;
+        }
+
         public DataTable getTahuj()
         {
             DataTable result = new DataTable();

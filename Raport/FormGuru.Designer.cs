@@ -65,6 +65,10 @@
             this.historiGuru_grid = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.kategoriA = new System.Windows.Forms.CheckedListBox();
+            this.kategoriB = new System.Windows.Forms.CheckedListBox();
+            this.kategoriC = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGuru_grid)).BeginInit();
             this.guru_tab.SuspendLayout();
@@ -75,6 +79,7 @@
             this.histori_toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.historiGuru_grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -342,6 +347,7 @@
             this.guru_tab.Controls.Add(this.view_tab);
             this.guru_tab.Controls.Add(this.edit_tab);
             this.guru_tab.Controls.Add(this.history_tab);
+            this.guru_tab.Controls.Add(this.tabPage1);
             this.guru_tab.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guru_tab.Location = new System.Drawing.Point(0, 156);
             this.guru_tab.Name = "guru_tab";
@@ -508,6 +514,46 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.kategoriC);
+            this.tabPage1.Controls.Add(this.kategoriB);
+            this.tabPage1.Controls.Add(this.kategoriA);
+            this.tabPage1.Location = new System.Drawing.Point(4, 30);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(775, 396);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Teaching";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // kategoriA
+            // 
+            this.kategoriA.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kategoriA.FormattingEnabled = true;
+            this.kategoriA.Location = new System.Drawing.Point(58, 103);
+            this.kategoriA.Name = "kategoriA";
+            this.kategoriA.Size = new System.Drawing.Size(197, 244);
+            this.kategoriA.TabIndex = 0;
+            // 
+            // kategoriB
+            // 
+            this.kategoriB.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kategoriB.FormattingEnabled = true;
+            this.kategoriB.Location = new System.Drawing.Point(272, 103);
+            this.kategoriB.Name = "kategoriB";
+            this.kategoriB.Size = new System.Drawing.Size(197, 244);
+            this.kategoriB.TabIndex = 1;
+            // 
+            // kategoriC
+            // 
+            this.kategoriC.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kategoriC.FormattingEnabled = true;
+            this.kategoriC.Location = new System.Drawing.Point(498, 103);
+            this.kategoriC.Name = "kategoriC";
+            this.kategoriC.Size = new System.Drawing.Size(197, 244);
+            this.kategoriC.TabIndex = 2;
+            // 
             // FormGuru
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -538,6 +584,7 @@
             this.histori_toolStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.historiGuru_grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -578,5 +625,9 @@
         private System.Windows.Forms.ToolStrip histori_toolStrip;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.TextBox search_txt;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.CheckedListBox kategoriA;
+        private System.Windows.Forms.CheckedListBox kategoriB;
+        private System.Windows.Forms.CheckedListBox kategoriC;
     }
 }

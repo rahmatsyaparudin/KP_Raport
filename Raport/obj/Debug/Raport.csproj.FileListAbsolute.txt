@@ -34,3 +34,6 @@ D:\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.FormUtama.resources
 D:\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.Properties.Resources.resources
 D:\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.SplashScreen.resources
 D:\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.csproj.GenerateResource.Cache
+D:\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.csprojResolveAssemblyReference.cache
+D:\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.FormDeskripsi.resources
+D:\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.FormNilai.resources

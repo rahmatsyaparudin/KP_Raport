@@ -31,7 +31,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -39,33 +38,23 @@
             this.search_txt = new System.Windows.Forms.TextBox();
             this.sortby_combo = new System.Windows.Forms.ComboBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.add_toolStr = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.refresh_toolStr = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.siswa_grid = new System.Windows.Forms.DataGridView();
             this.siswa_tab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.add_toolStr = new System.Windows.Forms.ToolStripButton();
+            this.refresh_toolStr = new System.Windows.Forms.ToolStripButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.siswa_grid)).BeginInit();
             this.siswa_tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBox1.Image = global::Raport.Properties.Resources.siswa;
-            this.pictureBox1.Location = new System.Drawing.Point(393, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(105, 97);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // tabPage3
             // 
@@ -148,30 +137,10 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // add_toolStr
-            // 
-            this.add_toolStr.Image = global::Raport.Properties.Resources.add;
-            this.add_toolStr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.add_toolStr.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.add_toolStr.Name = "add_toolStr";
-            this.add_toolStr.Size = new System.Drawing.Size(94, 25);
-            this.add_toolStr.Text = "Add New";
-            this.add_toolStr.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.add_toolStr.Click += new System.EventHandler(this.add_toolStr_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
-            // 
-            // refresh_toolStr
-            // 
-            this.refresh_toolStr.Image = global::Raport.Properties.Resources.refresh;
-            this.refresh_toolStr.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.refresh_toolStr.Name = "refresh_toolStr";
-            this.refresh_toolStr.Size = new System.Drawing.Size(119, 25);
-            this.refresh_toolStr.Text = "Refresh Data";
-            this.refresh_toolStr.Click += new System.EventHandler(this.refresh_toolStr_Click);
             // 
             // toolStripSeparator2
             // 
@@ -261,6 +230,37 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Data Siswa";
             // 
+            // add_toolStr
+            // 
+            this.add_toolStr.Image = global::Raport.Properties.Resources.add;
+            this.add_toolStr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.add_toolStr.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.add_toolStr.Name = "add_toolStr";
+            this.add_toolStr.Size = new System.Drawing.Size(94, 25);
+            this.add_toolStr.Text = "Add New";
+            this.add_toolStr.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.add_toolStr.Click += new System.EventHandler(this.add_toolStr_Click);
+            // 
+            // refresh_toolStr
+            // 
+            this.refresh_toolStr.Image = global::Raport.Properties.Resources.refresh;
+            this.refresh_toolStr.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refresh_toolStr.Name = "refresh_toolStr";
+            this.refresh_toolStr.Size = new System.Drawing.Size(119, 25);
+            this.refresh_toolStr.Text = "Refresh Data";
+            this.refresh_toolStr.Click += new System.EventHandler(this.refresh_toolStr_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBox1.Image = global::Raport.Properties.Resources.siswa;
+            this.pictureBox1.Location = new System.Drawing.Point(393, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(105, 97);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // FormSiswa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -273,9 +273,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "FormSiswa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormSiswa";
+            this.Text = "Data Siswa SMANJAK 1";
             this.Load += new System.EventHandler(this.FormSiswa_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -284,6 +283,7 @@
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.siswa_grid)).EndInit();
             this.siswa_tab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

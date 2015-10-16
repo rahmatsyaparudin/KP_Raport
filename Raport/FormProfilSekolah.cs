@@ -38,6 +38,7 @@ namespace Raport
                 {
                     nama_txt.Text = myReader.GetString("nama_sekolah");
                     npsn_txt.Text = myReader.GetString("npsn");
+                    npsn_lbl.Text = myReader.GetString("npsn");
                     nss_txt.Text = myReader.GetString("nss");
                     alamat_txt.Text = myReader.GetString("alamat_sekolah");
                     pos_txt.Text = myReader.GetInt32("kode_pos").ToString();
@@ -74,11 +75,12 @@ namespace Raport
                         "', provinsi='" + this.provinsi_txt.Text + 
                         "', website='" + this.website_txt.Text +
                         "', email='" + this.email_txt.Text + "'";
-                this.cond = "npsn = '" + this.npsn_txt.Text + "'";
+                this.cond = "npsn = '" + this.npsn_lbl.Text + "'";
 
                 db.updateData(table, field, cond);
                 MessageBox.Show("Edit Profil Sekolah Berhasil \n Data Tersimpan");
                 editClick();
+                getData();
             }
             catch (Exception ex)
             {
@@ -120,6 +122,7 @@ namespace Raport
             cancel_btn.Hide();
         }
 
+
         private void cancel_btn_Click(object sender, EventArgs e)
         {
             editClick();
@@ -140,8 +143,8 @@ namespace Raport
             save_btn.Show();
             cancel_btn.Show();
 
+            npsn_txt.ReadOnly = false;
             nama_txt.ReadOnly = false;
-            npsn_txt.Enabled = false;
             nss_txt.ReadOnly = false;
             alamat_txt.ReadOnly = false;
             pos_txt.ReadOnly = false;

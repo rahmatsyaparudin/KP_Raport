@@ -861,7 +861,7 @@
             this.MaximizeBox = false;
             this.Name = "FormAddSiswa";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Tambah Data Siswa";
+            this.Text = "Pengolah Data Siswa";
             this.Load += new System.EventHandler(this.FormAddSiswa_Load);
             this.groupBox1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
