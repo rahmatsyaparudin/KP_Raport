@@ -465,7 +465,7 @@ namespace Raport
                 DataTable tabel = db.GetDataTable(field, table, cond);
                 this.schedule_grid.DataSource = tabel;
                 
-                //Membuat combobox guru mapel
+                //Membuat combobox guru Mapel
                 cmb.HeaderText = "Pengajar Mapel (Wajib Diisi)";
                 cmb.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 cmb.ReadOnly = false;
