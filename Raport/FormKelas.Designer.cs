@@ -387,13 +387,14 @@
             this.edit2_btn.Enabled = false;
             this.edit2_btn.Image = global::Raport.Properties.Resources.edit;
             this.edit2_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.edit2_btn.Location = new System.Drawing.Point(172, 373);
+            this.edit2_btn.Location = new System.Drawing.Point(551, 54);
             this.edit2_btn.Name = "edit2_btn";
             this.edit2_btn.Size = new System.Drawing.Size(85, 32);
             this.edit2_btn.TabIndex = 19;
             this.edit2_btn.Text = "Edit";
             this.edit2_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.edit2_btn.UseVisualStyleBackColor = true;
+            this.edit2_btn.Click += new System.EventHandler(this.edit2_btn_Click);
             // 
             // id_lbl
             // 
@@ -414,19 +415,18 @@
             this.schedule_grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.schedule_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.schedule_grid.Enabled = false;
-            this.schedule_grid.Location = new System.Drawing.Point(45, 89);
+            this.schedule_grid.Location = new System.Drawing.Point(19, 92);
             this.schedule_grid.Name = "schedule_grid";
             this.schedule_grid.RowHeadersWidth = 30;
-            this.schedule_grid.Size = new System.Drawing.Size(670, 269);
+            this.schedule_grid.Size = new System.Drawing.Size(736, 269);
             this.schedule_grid.TabIndex = 17;
-            this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
             // 
             // cancel2_btn
             // 
             this.cancel2_btn.Enabled = false;
             this.cancel2_btn.Image = global::Raport.Properties.Resources.cancel;
             this.cancel2_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cancel2_btn.Location = new System.Drawing.Point(365, 373);
+            this.cancel2_btn.Location = new System.Drawing.Point(642, 54);
             this.cancel2_btn.Name = "cancel2_btn";
             this.cancel2_btn.Size = new System.Drawing.Size(85, 32);
             this.cancel2_btn.TabIndex = 8;
@@ -440,7 +440,7 @@
             this.create_btn.Enabled = false;
             this.create_btn.Image = global::Raport.Properties.Resources.edit_add;
             this.create_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.create_btn.Location = new System.Drawing.Point(272, 373);
+            this.create_btn.Location = new System.Drawing.Point(460, 53);
             this.create_btn.Name = "create_btn";
             this.create_btn.Size = new System.Drawing.Size(85, 32);
             this.create_btn.TabIndex = 7;

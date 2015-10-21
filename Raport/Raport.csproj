@@ -68,6 +68,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormAddMapel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddMapel.Designer.cs">
+      <DependentUpon>FormAddMapel.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormAddSiswa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,9 @@
     <Compile Include="SplashScreen.Designer.cs">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FormAddMapel.resx">
+      <DependentUpon>FormAddMapel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormAddSiswa.resx">
       <DependentUpon>FormAddSiswa.cs</DependentUpon>
     </EmbeddedResource>
