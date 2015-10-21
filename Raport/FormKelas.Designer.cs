@@ -52,6 +52,8 @@
             this.save_btn = new System.Windows.Forms.Button();
             this.kelas_tab = new System.Windows.Forms.TabControl();
             this.class_schedule = new System.Windows.Forms.TabPage();
+            this.edit2_btn = new System.Windows.Forms.Button();
+            this.id_lbl = new System.Windows.Forms.Label();
             this.schedule_grid = new System.Windows.Forms.DataGridView();
             this.cancel2_btn = new System.Windows.Forms.Button();
             this.create_btn = new System.Windows.Forms.Button();
@@ -362,6 +364,8 @@
             // class_schedule
             // 
             this.class_schedule.BackColor = System.Drawing.Color.PaleGoldenrod;
+            this.class_schedule.Controls.Add(this.edit2_btn);
+            this.class_schedule.Controls.Add(this.id_lbl);
             this.class_schedule.Controls.Add(this.schedule_grid);
             this.class_schedule.Controls.Add(this.cancel2_btn);
             this.class_schedule.Controls.Add(this.create_btn);
@@ -377,6 +381,28 @@
             this.class_schedule.Size = new System.Drawing.Size(775, 426);
             this.class_schedule.TabIndex = 2;
             this.class_schedule.Text = "Class Schedule";
+            // 
+            // edit2_btn
+            // 
+            this.edit2_btn.Enabled = false;
+            this.edit2_btn.Image = global::Raport.Properties.Resources.edit;
+            this.edit2_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.edit2_btn.Location = new System.Drawing.Point(172, 373);
+            this.edit2_btn.Name = "edit2_btn";
+            this.edit2_btn.Size = new System.Drawing.Size(85, 32);
+            this.edit2_btn.TabIndex = 19;
+            this.edit2_btn.Text = "Edit";
+            this.edit2_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.edit2_btn.UseVisualStyleBackColor = true;
+            // 
+            // id_lbl
+            // 
+            this.id_lbl.AutoSize = true;
+            this.id_lbl.Location = new System.Drawing.Point(456, 23);
+            this.id_lbl.Name = "id_lbl";
+            this.id_lbl.Size = new System.Drawing.Size(19, 21);
+            this.id_lbl.TabIndex = 18;
+            this.id_lbl.Text = "0";
             // 
             // schedule_grid
             // 
@@ -394,6 +420,7 @@
             this.schedule_grid.Size = new System.Drawing.Size(670, 269);
             this.schedule_grid.TabIndex = 17;
             this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
+            this.schedule_grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellContentClick);
             // 
             // cancel2_btn
             // 
@@ -414,7 +441,7 @@
             this.create_btn.Enabled = false;
             this.create_btn.Image = global::Raport.Properties.Resources.edit_add;
             this.create_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.create_btn.Location = new System.Drawing.Point(263, 373);
+            this.create_btn.Location = new System.Drawing.Point(272, 373);
             this.create_btn.Name = "create_btn";
             this.create_btn.Size = new System.Drawing.Size(85, 32);
             this.create_btn.TabIndex = 7;
@@ -573,5 +600,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox search_txt;
         private System.Windows.Forms.DataGridView schedule_grid;
+        private System.Windows.Forms.Label id_lbl;
+        private System.Windows.Forms.Button edit2_btn;
     }
 }

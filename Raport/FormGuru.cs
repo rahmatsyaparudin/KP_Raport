@@ -37,6 +37,26 @@ namespace Raport
             cancelAction();
         }
 
+        public void fillcomboGuru()
+        {
+            try
+            {
+                string idValue = "id_guru";
+                string dispValue = "nama_guru";
+                this.table = "guru";
+                this.cond = "status_guru = 'Aktif'";
+                string sortby = "nama_guru";
+
+                pilihGuru_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
+                pilihGuru_combo.DisplayMember = "valueDisplay";
+                pilihGuru_combo.ValueMember = "valueID";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void loadHistori()
         {
             this.field = "id_guru as 'ID Guru', nama_guru as 'Nama Guru', nip as 'NIP',"+
@@ -134,6 +154,7 @@ namespace Raport
             loadData();
             disableSorting();
             loadHistori();
+            fillcomboGuru();
         }
 
         private void add_btn_Click(object sender, EventArgs e)
@@ -290,6 +311,11 @@ namespace Raport
             DataTable tabel = db.GetDataTable(field, table, cond);
             this.dataGuru_grid.DataSource = tabel;
             dataGuru_grid.Columns[0].Visible = false;
+        }
+
+        private void pilihGuru_combo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -16,10 +16,14 @@ namespace Raport
     {
         MySqlConnection myConn = Function.getKoneksi();
         Function db = new Function();
+        MySqlDataReader myReader;
+        MySqlCommand myComm;
         private string table;
         private string cond;
         private string field;
         private string get_idGuru;
+        private string query;
+        private string id_kelas, idGuru, kodeMapel, kodeKelas;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
         DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
         
@@ -289,6 +293,7 @@ namespace Raport
             if ((pilihTahun_combo.Text == "") || (pilihTahun_combo.SelectedIndex==-1))
             {
                 cancel_schedule();
+                pilihKelas_combo.Enabled = false;
             }
             else
             {
@@ -298,7 +303,7 @@ namespace Raport
                     string idValue = "kode_kelas";
                     string dispValue = "nama_kelas";
                     this.table = "kelas";
-                    this.cond = "tahun_ajaran = '" + this.pilihTahun_combo.Text + "' AND status_kelas = 'Aktif'";
+                    this.cond = "tahun_ajaran = '" + this.pilihTahun_combo.Text + "' AND status_kelas = 'Aktif' ";
                     string sortby = "nama_kelas";
 
                     pilihKelas_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
@@ -312,7 +317,6 @@ namespace Raport
             }
         }
 
-        
 
         private void pilihKelas_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -327,24 +331,44 @@ namespace Raport
             }
             else
             {
-                schedule_grid.Enabled = true;
-                create_btn.Enabled = true;
-                cancel2_btn.Enabled = true;
-                
+                this.id_kelas = this.pilihKelas_combo.SelectedValue.ToString();
                 this.field = "nama_guru";
                 this.table = "guru INNER JOIN kelas USING (id_guru)";
-                this.cond = "nama_kelas = '" + this.pilihKelas_combo.Text + 
+                this.cond = "kode_kelas = '" +id_kelas+ 
                             "' AND status_kelas = 'Aktif' AND tahun_ajaran = '" + this.pilihTahun_combo.Text + "'";
                 string query = "SELECT " + field + " FROM " + table + " WHERE " + cond;
-
-                MySqlCommand getGuru = new MySqlCommand(query, myConn);
+                
+                MySqlCommand myComm = new MySqlCommand(query, myConn);
                 myConn.Open();
-                MySqlDataReader myReader = getGuru.ExecuteReader();
+                myReader = myComm.ExecuteReader();
                 while (myReader.Read())
                 {
                     wali_txt.Text = myReader.GetString("nama_guru");
                 }
                 myConn.Close();
+
+                string check_id = "SELECT COUNT(kode_kelas) as 'id kelas' from detailmapelkelas where kode_kelas = '" + id_kelas + "'";
+                myConn.Open();
+                myComm = new MySqlCommand(check_id, myConn);
+                myReader = myComm.ExecuteReader();
+                while (myReader.Read())
+                {
+                    id_lbl.Text = myReader.GetString("id kelas");
+                }
+                myConn.Close();
+                
+                if (id_lbl.Text == "0")
+                {
+                    schedule_grid.Enabled = true;
+                    create_btn.Enabled = true;
+                    cancel2_btn.Enabled = true;
+                }
+                else if (id_lbl.Text != "0")
+                {
+                    schedule_grid.Enabled = true;
+                    create_btn.Enabled = false;
+                    cancel2_btn.Enabled = false;
+                }
             }         
         }
         
@@ -391,9 +415,9 @@ namespace Raport
                 if ((Convert.ToBoolean(row.Cells[0].Value) == true) && 
                         (Convert.ToString(row.Cells[1].Value) != ""))
                 {
-                    string idGuru = row.Cells[1].Value.ToString();
-                    string kodeMapel = row.Cells[2].Value.ToString();
-                    string kodeKelas = pilihKelas_combo.SelectedValue.ToString();
+                    this.idGuru = row.Cells[1].Value.ToString();
+                    this.kodeMapel = row.Cells[2].Value.ToString();
+                    this.kodeKelas = pilihKelas_combo.SelectedValue.ToString();
                     this.table = "detailmapelkelas";
                     this.field = "DEFAULT, '"+ kodeKelas +"', '"+ kodeMapel + 
                                  "', '"+ idGuru +"', DEFAULT";
@@ -403,13 +427,11 @@ namespace Raport
                 else if ((Convert.ToBoolean(row.Cells[0].Value) == true) &&
                     (Convert.ToString(row.Cells[1].Value) == ""))
                 {
-                    notif = 'C';
                     string warning = row.Cells[4].Value.ToString();
                     MessageBox.Show("Guru "+row.Cells[4].Value.ToString()+" belum dipilih");
                 }
             }
         
-
             if (notif == 'A')
             {
                 MessageBox.Show("Jadwal belum dibuat!");
@@ -419,18 +441,40 @@ namespace Raport
                 MessageBox.Show("Jadwal Kelas " + pilihKelas_combo.Text + " berhasil dibuat!");
                 cancel_schedule();
             }
-            else if (notif == 'C')
-            {
-
-            }
          }
-                
+
+        private void schedule_grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.id_kelas = this.pilihKelas_combo.SelectedValue.ToString();
+            this.query = "SELECT id_detail, kode_kelas, kode_mapel, id_guru FROM detailmapelkelas WHERE kode_kelas = '" + id_kelas + "'";
+            myConn.Open();
+            myComm = new MySqlCommand(query, myConn);
+            myReader = myComm.ExecuteReader();
+            while (myReader.Read())
+            {
+                this.kodeMapel = myReader.GetString("kode_mapel");
+                this.kodeKelas = myReader.GetString("id_guru");
+                foreach (DataGridViewRow row in schedule_grid.Rows)
+                {
+                    if (kodeMapel == row.Cells[2].Value.ToString())
+                    {
+                        row.Cells[0].Value = true;
+                        row.Cells[1].Value = kodeMapel;
+                    }
+                    
+                    this.kodeKelas = pilihKelas_combo.SelectedValue.ToString();
+                }
+            }
+            myConn.Close();
+        }
+
         public void create_schedule()
         {
             try
             {
                 //Membuat Checkbox
                 chk.ReadOnly = false;
+                chk.HeaderText = "Pilih";
                 schedule_grid.Columns.Add(chk);
                 
                 //Mengisi datagrid dari database
@@ -482,6 +526,11 @@ namespace Raport
                     row.Cells[1].ReadOnly = false;
                 }
             }
+        }
+
+        public void edit_schedule()
+        {
+            
         }
         //END CLASS
     }
