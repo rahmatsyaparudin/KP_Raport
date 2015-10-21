@@ -26,7 +26,7 @@ namespace Raport
         private string id_kelas, idGuru, kodeMapel, kodeKelas;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
         DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
-        
+
         public FormKelas()
         {
             InitializeComponent();
@@ -356,7 +356,12 @@ namespace Raport
                     id_lbl.Text = myReader.GetString("id kelas");
                 }
                 myConn.Close();
-                
+
+                foreach (DataGridViewRow row in schedule_grid.Rows)
+                {
+                    row.Cells[0].Value = false;
+                    row.Cells[1].Value = "";
+                }
                 if (id_lbl.Text == "0")
                 {
                     schedule_grid.Enabled = true;
@@ -366,6 +371,7 @@ namespace Raport
                 else if (id_lbl.Text != "0")
                 {
                     schedule_grid.Enabled = true;
+                    edit_schedule();
                     create_btn.Enabled = false;
                     cancel2_btn.Enabled = false;
                 }
@@ -443,31 +449,6 @@ namespace Raport
             }
          }
 
-        private void schedule_grid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            this.id_kelas = this.pilihKelas_combo.SelectedValue.ToString();
-            this.query = "SELECT id_detail, kode_kelas, kode_mapel, id_guru FROM detailmapelkelas WHERE kode_kelas = '" + id_kelas + "'";
-            myConn.Open();
-            myComm = new MySqlCommand(query, myConn);
-            myReader = myComm.ExecuteReader();
-            while (myReader.Read())
-            {
-                this.kodeMapel = myReader.GetString("kode_mapel");
-                this.kodeKelas = myReader.GetString("id_guru");
-                foreach (DataGridViewRow row in schedule_grid.Rows)
-                {
-                    if (kodeMapel == row.Cells[2].Value.ToString())
-                    {
-                        row.Cells[0].Value = true;
-                        row.Cells[1].Value = kodeMapel;
-                    }
-                    
-                    this.kodeKelas = pilihKelas_combo.SelectedValue.ToString();
-                }
-            }
-            myConn.Close();
-        }
-
         public void create_schedule()
         {
             try
@@ -530,7 +511,27 @@ namespace Raport
 
         public void edit_schedule()
         {
-            
+            this.id_kelas = this.pilihKelas_combo.SelectedValue.ToString();
+            this.query = "SELECT id_detail, kode_mapel, id_guru, nama_guru FROM detailmapelkelas JOIN guru USING (id_guru) WHERE kode_kelas = '" + id_kelas + "'";
+            myConn.Open();
+            myComm = new MySqlCommand(query, myConn);
+            myReader = myComm.ExecuteReader();
+            while (myReader.Read())
+            {
+                this.kodeMapel = myReader.GetString("kode_mapel");
+                this.idGuru = myReader.GetString("id_guru");
+
+                foreach (DataGridViewRow row in schedule_grid.Rows)
+                {
+                    if (kodeMapel == row.Cells[2].Value.ToString())
+                    {
+                        row.Cells[0].Value = true;
+                        row.Cells[1].Value = idGuru;
+                    }
+                    this.kodeKelas = pilihKelas_combo.SelectedValue.ToString();
+                }
+            }
+            myConn.Close();
         }
         //END CLASS
     }

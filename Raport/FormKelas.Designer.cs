@@ -420,7 +420,6 @@
             this.schedule_grid.Size = new System.Drawing.Size(670, 269);
             this.schedule_grid.TabIndex = 17;
             this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
-            this.schedule_grid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellContentClick);
             // 
             // cancel2_btn
             // 
