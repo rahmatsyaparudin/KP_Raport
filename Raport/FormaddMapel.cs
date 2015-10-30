@@ -76,10 +76,10 @@ namespace Raport
                 //Mengisi datagrid dari database
                 this.field = "kode_mapel as 'Kode Mapel', kategori_mapel as 'Kategori Mapel', mata_pelajaran as 'Mata Pelajaran', jam_pelajaran as 'JP'";
                 this.table = "mapel";
-                this.cond = "status_mapel = 'Aktif' AND kode_mapel NOT IN (SELECT kode_mapel FROM detailmapelkelas WHERE kode_kelas = '" + getKodeKelas + "') ORDER BY kategori_mapel";
+                this.cond = "status_mapel = 'Aktif' AND kode_mapel NOT IN (SELECT kode_mapel FROM detailmapelkelas WHERE kode_kelas = '" + getKodeKelas + "' AND status = 'Aktif') ORDER BY kategori_mapel";
                 DataTable tabel = db.GetDataTable(field, table, cond);
                 this.schedule_grid.DataSource = tabel;
-
+                
                 //Membuat combobox guru Mapel
                 cmb.HeaderText = "Pengajar Mapel (Wajib Diisi)";
                 cmb.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
@@ -118,13 +118,46 @@ namespace Raport
                 if ((Convert.ToBoolean(row.Cells[0].Value) == true) &&
                         (Convert.ToString(row.Cells[5].Value) != ""))
                 {
-                    this.idGuru = row.Cells[5].Value.ToString();
                     this.kodeMapel = row.Cells[1].Value.ToString();
                     this.kodeKelas = getKodeKelas;
-                    this.table = "detailmapelkelas";
-                    this.field = "DEFAULT, '" + kodeKelas + "', '" + kodeMapel +
-                                 "', '" + idGuru + "', DEFAULT";
-                    db.insertData(table, field);
+
+                    string status_no = "SELECT id_detail, kode_mapel from detailmapelkelas where kode_mapel = '"+ 
+                                            kodeMapel +"' AND kode_kelas = '" + 
+                                            kodeKelas + "' AND status = 'Tidak Aktif'";
+                    myConn.Open();
+                    myComm = new MySqlCommand(status_no, myConn);
+                    myReader = myComm.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        string getMapel = myReader.GetString("kode_mapel");
+                        if (kodeMapel == getMapel)
+                        {
+                            string detail_check = myReader.GetString("id_detail");
+                            this.idGuru = row.Cells[5].Value.ToString();
+                            this.table = "detailmapelkelas";
+                            this.field = "id_guru = '" + idGuru + "', status ='Aktif'";
+                            this.cond = "kode_kelas = '" + kodeKelas + "' AND id_detail = '" + detail_check + "'";
+                            db.updateData(table, field, cond);
+                        }
+                    }
+                    myConn.Close();
+
+                    string status_yes = "SELECT kode_mapel as 'Kode' from mapel where kode_mapel = '" +
+                                        kodeMapel + "' AND kode_mapel NOT IN (SELECT kode_mapel FROM detailmapelkelas WHERE kode_mapel = '" +
+                                        kodeMapel + "' AND kode_kelas = '" + getKodeKelas + "')";
+                    myConn.Open();
+                    myComm = new MySqlCommand(status_yes, myConn);
+                    myReader = myComm.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        string getMapel = myReader.GetString("Kode");
+                        this.idGuru = row.Cells[5].Value.ToString();
+                        this.table = "detailmapelkelas";
+                        this.field = "DEFAULT, '" + kodeKelas + "', '" + kodeMapel +
+                                     "', '" + idGuru + "', DEFAULT";
+                        db.insertData(table, field);
+                    }
+                    myConn.Close();
                     notif = 'B';
                 }
                 else if ((Convert.ToBoolean(row.Cells[0].Value) == true) &&

@@ -64,21 +64,27 @@
             // 
             // cancel_btn
             // 
+            this.cancel_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancel_btn.Image = global::Raport.Properties.Resources.cancel;
             this.cancel_btn.Location = new System.Drawing.Point(353, 22);
             this.cancel_btn.Name = "cancel_btn";
-            this.cancel_btn.Size = new System.Drawing.Size(75, 23);
+            this.cancel_btn.Size = new System.Drawing.Size(89, 33);
             this.cancel_btn.TabIndex = 1;
-            this.cancel_btn.Text = "button2";
+            this.cancel_btn.Text = "Cancel";
+            this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.cancel_btn.UseVisualStyleBackColor = true;
             this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
             // 
             // create_btn
             // 
-            this.create_btn.Location = new System.Drawing.Point(272, 22);
+            this.create_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.create_btn.Image = global::Raport.Properties.Resources.edit_add;
+            this.create_btn.Location = new System.Drawing.Point(259, 22);
             this.create_btn.Name = "create_btn";
-            this.create_btn.Size = new System.Drawing.Size(75, 23);
+            this.create_btn.Size = new System.Drawing.Size(88, 33);
             this.create_btn.TabIndex = 0;
-            this.create_btn.Text = "button1";
+            this.create_btn.Text = "Create";
+            this.create_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.create_btn.UseVisualStyleBackColor = true;
             this.create_btn.Click += new System.EventHandler(this.create_btn_Click);
             // 

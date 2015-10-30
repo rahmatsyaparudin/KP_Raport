@@ -1,4 +1,6 @@
-﻿namespace Raport
+﻿using System;
+
+namespace Raport
 {
     partial class FormKelas
     {
@@ -52,17 +54,33 @@
             this.save_btn = new System.Windows.Forms.Button();
             this.kelas_tab = new System.Windows.Forms.TabControl();
             this.class_schedule = new System.Windows.Forms.TabPage();
-            this.edit2_btn = new System.Windows.Forms.Button();
-            this.id_lbl = new System.Windows.Forms.Label();
+            this.delete2_btn = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.create_tool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.edit_tool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.load_tool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.schedule_grid = new System.Windows.Forms.DataGridView();
             this.cancel2_btn = new System.Windows.Forms.Button();
-            this.create_btn = new System.Windows.Forms.Button();
+            this.save2_btn = new System.Windows.Forms.Button();
+            this.id_lbl = new System.Windows.Forms.Label();
             this.wali_txt = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.pilihKelas_combo = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.pilihTahun_combo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.class_members = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label9 = new System.Windows.Forms.Label();
+            this.setTahun_combo = new System.Windows.Forms.ComboBox();
+            this.viewKelas_combo = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.view_tab.SuspendLayout();
@@ -71,7 +89,12 @@
             this.create_tab.SuspendLayout();
             this.kelas_tab.SuspendLayout();
             this.class_schedule.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).BeginInit();
+            this.class_members.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -151,9 +174,9 @@
             this.create_toolBtn.Image = global::Raport.Properties.Resources.edit_add;
             this.create_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.create_toolBtn.Name = "create_toolBtn";
-            this.create_toolBtn.Size = new System.Drawing.Size(115, 25);
-            this.create_toolBtn.Text = "Create Class";
-            this.create_toolBtn.Click += new System.EventHandler(this.create_toolBtn_Click);
+            this.create_toolBtn.Size = new System.Drawing.Size(102, 25);
+            this.create_toolBtn.Text = "New Class";
+            this.create_toolBtn.Click += new System.EventHandler(this.create_toolBtn_Click_1);
             // 
             // toolStripSeparator1
             // 
@@ -354,6 +377,7 @@
             this.kelas_tab.Controls.Add(this.view_tab);
             this.kelas_tab.Controls.Add(this.create_tab);
             this.kelas_tab.Controls.Add(this.class_schedule);
+            this.kelas_tab.Controls.Add(this.class_members);
             this.kelas_tab.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kelas_tab.Location = new System.Drawing.Point(0, 156);
             this.kelas_tab.Name = "kelas_tab";
@@ -364,11 +388,11 @@
             // class_schedule
             // 
             this.class_schedule.BackColor = System.Drawing.Color.PaleGoldenrod;
-            this.class_schedule.Controls.Add(this.edit2_btn);
-            this.class_schedule.Controls.Add(this.id_lbl);
-            this.class_schedule.Controls.Add(this.schedule_grid);
+            this.class_schedule.Controls.Add(this.delete2_btn);
+            this.class_schedule.Controls.Add(this.panel1);
             this.class_schedule.Controls.Add(this.cancel2_btn);
-            this.class_schedule.Controls.Add(this.create_btn);
+            this.class_schedule.Controls.Add(this.save2_btn);
+            this.class_schedule.Controls.Add(this.id_lbl);
             this.class_schedule.Controls.Add(this.wali_txt);
             this.class_schedule.Controls.Add(this.label6);
             this.class_schedule.Controls.Add(this.pilihKelas_combo);
@@ -382,28 +406,88 @@
             this.class_schedule.TabIndex = 2;
             this.class_schedule.Text = "Class Schedule";
             // 
-            // edit2_btn
+            // delete2_btn
             // 
-            this.edit2_btn.Enabled = false;
-            this.edit2_btn.Image = global::Raport.Properties.Resources.edit;
-            this.edit2_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.edit2_btn.Location = new System.Drawing.Point(551, 54);
-            this.edit2_btn.Name = "edit2_btn";
-            this.edit2_btn.Size = new System.Drawing.Size(85, 32);
-            this.edit2_btn.TabIndex = 19;
-            this.edit2_btn.Text = "Edit";
-            this.edit2_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.edit2_btn.UseVisualStyleBackColor = true;
-            this.edit2_btn.Click += new System.EventHandler(this.edit2_btn_Click);
+            this.delete2_btn.BackColor = System.Drawing.Color.DarkKhaki;
+            this.delete2_btn.FlatAppearance.BorderSize = 0;
+            this.delete2_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delete2_btn.Image = global::Raport.Properties.Resources.delete;
+            this.delete2_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.delete2_btn.Location = new System.Drawing.Point(335, 386);
+            this.delete2_btn.Name = "delete2_btn";
+            this.delete2_btn.Size = new System.Drawing.Size(75, 32);
+            this.delete2_btn.TabIndex = 26;
+            this.delete2_btn.Text = "Delete";
+            this.delete2_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.delete2_btn.UseVisualStyleBackColor = false;
+            this.delete2_btn.Click += new System.EventHandler(this.delete2_btn_Click);
             // 
-            // id_lbl
+            // panel1
             // 
-            this.id_lbl.AutoSize = true;
-            this.id_lbl.Location = new System.Drawing.Point(456, 23);
-            this.id_lbl.Name = "id_lbl";
-            this.id_lbl.Size = new System.Drawing.Size(19, 21);
-            this.id_lbl.TabIndex = 18;
-            this.id_lbl.Text = "0";
+            this.panel1.Controls.Add(this.toolStrip1);
+            this.panel1.Controls.Add(this.schedule_grid);
+            this.panel1.Location = new System.Drawing.Point(23, 81);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(745, 299);
+            this.panel1.TabIndex = 25;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.create_tool,
+            this.toolStripSeparator2,
+            this.edit_tool,
+            this.toolStripSeparator4,
+            this.load_tool,
+            this.toolStripSeparator5});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(745, 28);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // create_tool
+            // 
+            this.create_tool.Image = global::Raport.Properties.Resources.edit_add;
+            this.create_tool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.create_tool.Name = "create_tool";
+            this.create_tool.Size = new System.Drawing.Size(75, 25);
+            this.create_tool.Text = "Create";
+            this.create_tool.Click += new System.EventHandler(this.create_tool_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
+            // 
+            // edit_tool
+            // 
+            this.edit_tool.Image = global::Raport.Properties.Resources.edit;
+            this.edit_tool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.edit_tool.Name = "edit_tool";
+            this.edit_tool.Size = new System.Drawing.Size(56, 25);
+            this.edit_tool.Text = "Edit";
+            this.edit_tool.Click += new System.EventHandler(this.edit_tool_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 28);
+            // 
+            // load_tool
+            // 
+            this.load_tool.Image = global::Raport.Properties.Resources.refresh;
+            this.load_tool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.load_tool.Name = "load_tool";
+            this.load_tool.Size = new System.Drawing.Size(64, 25);
+            this.load_tool.Text = "Load";
+            this.load_tool.Click += new System.EventHandler(this.load_tool_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 28);
             // 
             // schedule_grid
             // 
@@ -412,46 +496,65 @@
             this.schedule_grid.AllowUserToResizeColumns = false;
             this.schedule_grid.AllowUserToResizeRows = false;
             this.schedule_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.schedule_grid.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.schedule_grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.schedule_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.schedule_grid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.schedule_grid.Enabled = false;
-            this.schedule_grid.Location = new System.Drawing.Point(19, 92);
+            this.schedule_grid.Location = new System.Drawing.Point(0, 28);
             this.schedule_grid.Name = "schedule_grid";
             this.schedule_grid.RowHeadersWidth = 30;
-            this.schedule_grid.Size = new System.Drawing.Size(736, 269);
+            this.schedule_grid.Size = new System.Drawing.Size(745, 271);
             this.schedule_grid.TabIndex = 17;
+            this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
             // 
             // cancel2_btn
             // 
+            this.cancel2_btn.BackColor = System.Drawing.Color.DarkKhaki;
             this.cancel2_btn.Enabled = false;
+            this.cancel2_btn.FlatAppearance.BorderSize = 0;
+            this.cancel2_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancel2_btn.Image = global::Raport.Properties.Resources.cancel;
             this.cancel2_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cancel2_btn.Location = new System.Drawing.Point(642, 54);
+            this.cancel2_btn.Location = new System.Drawing.Point(416, 386);
             this.cancel2_btn.Name = "cancel2_btn";
-            this.cancel2_btn.Size = new System.Drawing.Size(85, 32);
-            this.cancel2_btn.TabIndex = 8;
+            this.cancel2_btn.Size = new System.Drawing.Size(87, 32);
+            this.cancel2_btn.TabIndex = 21;
             this.cancel2_btn.Text = "Cancel";
             this.cancel2_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cancel2_btn.UseVisualStyleBackColor = true;
+            this.cancel2_btn.UseVisualStyleBackColor = false;
             this.cancel2_btn.Click += new System.EventHandler(this.cancel2_btn_Click);
             // 
-            // create_btn
+            // save2_btn
             // 
-            this.create_btn.Enabled = false;
-            this.create_btn.Image = global::Raport.Properties.Resources.edit_add;
-            this.create_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.create_btn.Location = new System.Drawing.Point(460, 53);
-            this.create_btn.Name = "create_btn";
-            this.create_btn.Size = new System.Drawing.Size(85, 32);
-            this.create_btn.TabIndex = 7;
-            this.create_btn.Text = "Create";
-            this.create_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.create_btn.UseVisualStyleBackColor = true;
-            this.create_btn.Click += new System.EventHandler(this.create_btn_Click);
+            this.save2_btn.BackColor = System.Drawing.Color.DarkKhaki;
+            this.save2_btn.Enabled = false;
+            this.save2_btn.FlatAppearance.BorderSize = 0;
+            this.save2_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.save2_btn.Image = global::Raport.Properties.Resources.save;
+            this.save2_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.save2_btn.Location = new System.Drawing.Point(254, 386);
+            this.save2_btn.Name = "save2_btn";
+            this.save2_btn.Size = new System.Drawing.Size(75, 32);
+            this.save2_btn.TabIndex = 20;
+            this.save2_btn.Text = "Save";
+            this.save2_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.save2_btn.UseVisualStyleBackColor = false;
+            this.save2_btn.Click += new System.EventHandler(this.save2_btn_Click);
+            // 
+            // id_lbl
+            // 
+            this.id_lbl.AutoSize = true;
+            this.id_lbl.Location = new System.Drawing.Point(456, 15);
+            this.id_lbl.Name = "id_lbl";
+            this.id_lbl.Size = new System.Drawing.Size(19, 21);
+            this.id_lbl.TabIndex = 18;
+            this.id_lbl.Text = "0";
             // 
             // wali_txt
             // 
-            this.wali_txt.Location = new System.Drawing.Point(133, 54);
+            this.wali_txt.Enabled = false;
+            this.wali_txt.Location = new System.Drawing.Point(133, 46);
             this.wali_txt.Name = "wali_txt";
             this.wali_txt.ReadOnly = true;
             this.wali_txt.Size = new System.Drawing.Size(317, 29);
@@ -461,7 +564,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 59);
+            this.label6.Location = new System.Drawing.Point(19, 51);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 21);
             this.label6.TabIndex = 5;
@@ -474,7 +577,7 @@
             this.pilihKelas_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pilihKelas_combo.FormattingEnabled = true;
             this.pilihKelas_combo.IntegralHeight = false;
-            this.pilihKelas_combo.Location = new System.Drawing.Point(325, 21);
+            this.pilihKelas_combo.Location = new System.Drawing.Point(325, 13);
             this.pilihKelas_combo.Name = "pilihKelas_combo";
             this.pilihKelas_combo.Size = new System.Drawing.Size(125, 27);
             this.pilihKelas_combo.TabIndex = 3;
@@ -483,7 +586,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(268, 23);
+            this.label5.Location = new System.Drawing.Point(268, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 21);
             this.label5.TabIndex = 2;
@@ -495,7 +598,7 @@
             this.pilihTahun_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pilihTahun_combo.FormattingEnabled = true;
             this.pilihTahun_combo.IntegralHeight = false;
-            this.pilihTahun_combo.Location = new System.Drawing.Point(133, 21);
+            this.pilihTahun_combo.Location = new System.Drawing.Point(133, 13);
             this.pilihTahun_combo.Name = "pilihTahun_combo";
             this.pilihTahun_combo.Size = new System.Drawing.Size(127, 27);
             this.pilihTahun_combo.TabIndex = 1;
@@ -504,11 +607,103 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 23);
+            this.label4.Location = new System.Drawing.Point(19, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(108, 21);
             this.label4.TabIndex = 0;
             this.label4.Text = "Tahun Ajaran";
+            // 
+            // class_members
+            // 
+            this.class_members.BackColor = System.Drawing.Color.Teal;
+            this.class_members.Controls.Add(this.dataGridView1);
+            this.class_members.Controls.Add(this.label9);
+            this.class_members.Controls.Add(this.setTahun_combo);
+            this.class_members.Controls.Add(this.viewKelas_combo);
+            this.class_members.Controls.Add(this.label8);
+            this.class_members.Controls.Add(this.toolStrip2);
+            this.class_members.Location = new System.Drawing.Point(4, 30);
+            this.class_members.Name = "class_members";
+            this.class_members.Padding = new System.Windows.Forms.Padding(3);
+            this.class_members.Size = new System.Drawing.Size(775, 426);
+            this.class_members.TabIndex = 3;
+            this.class_members.Text = "Class Members";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 36);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(769, 308);
+            this.dataGridView1.TabIndex = 5;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label9.Location = new System.Drawing.Point(242, 9);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(51, 21);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Kelas";
+            // 
+            // setTahun_combo
+            // 
+            this.setTahun_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.setTahun_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.setTahun_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setTahun_combo.FormattingEnabled = true;
+            this.setTahun_combo.IntegralHeight = false;
+            this.setTahun_combo.Location = new System.Drawing.Point(129, 6);
+            this.setTahun_combo.Name = "setTahun_combo";
+            this.setTahun_combo.Size = new System.Drawing.Size(107, 27);
+            this.setTahun_combo.TabIndex = 3;
+            this.setTahun_combo.SelectedIndexChanged += new System.EventHandler(this.setTahun_combo_SelectedIndexChanged);
+            // 
+            // viewKelas_combo
+            // 
+            this.viewKelas_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.viewKelas_combo.Enabled = false;
+            this.viewKelas_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.viewKelas_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewKelas_combo.FormattingEnabled = true;
+            this.viewKelas_combo.IntegralHeight = false;
+            this.viewKelas_combo.Location = new System.Drawing.Point(299, 6);
+            this.viewKelas_combo.Name = "viewKelas_combo";
+            this.viewKelas_combo.Size = new System.Drawing.Size(121, 27);
+            this.viewKelas_combo.TabIndex = 2;
+            this.viewKelas_combo.SelectedIndexChanged += new System.EventHandler(this.viewKelas_combo_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label8.Location = new System.Drawing.Point(21, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(108, 21);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Tahun Ajaran";
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.toolStrip2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel2});
+            this.toolStrip2.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(769, 33);
+            this.toolStrip2.TabIndex = 0;
+            this.toolStrip2.Text = "toolStrip2";
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(24, 30);
+            this.toolStripLabel2.Text = "1";
             // 
             // label7
             // 
@@ -555,13 +750,21 @@
             this.kelas_tab.ResumeLayout(false);
             this.class_schedule.ResumeLayout(false);
             this.class_schedule.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).EndInit();
+            this.class_members.ResumeLayout(false);
+            this.class_members.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
-
         #endregion
 
         private System.Windows.Forms.TabPage view_tab;
@@ -578,7 +781,6 @@
         private System.Windows.Forms.TextBox kelas_txt;
         private System.Windows.Forms.DataGridView dataKelas_grid;
         private System.Windows.Forms.ToolStrip sortBy_combo;
-        private System.Windows.Forms.ToolStripButton create_toolBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton refresh_toolBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
@@ -593,13 +795,30 @@
         private System.Windows.Forms.TextBox wali_txt;
         private System.Windows.Forms.Button cancel_btn;
         private System.Windows.Forms.Button save_btn;
-        private System.Windows.Forms.Button create_btn;
-        private System.Windows.Forms.Button cancel2_btn;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox search_txt;
         private System.Windows.Forms.DataGridView schedule_grid;
         private System.Windows.Forms.Label id_lbl;
-        private System.Windows.Forms.Button edit2_btn;
+        private System.Windows.Forms.Button save2_btn;
+        private System.Windows.Forms.Button cancel2_btn;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton create_tool;
+        private System.Windows.Forms.ToolStripButton edit_tool;
+        private System.Windows.Forms.ToolStripButton load_tool;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton create_toolBtn;
+        private System.Windows.Forms.Button delete2_btn;
+        private System.Windows.Forms.TabPage class_members;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox viewKelas_combo;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ComboBox setTahun_combo;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

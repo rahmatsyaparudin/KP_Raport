@@ -26,7 +26,6 @@ namespace Raport
         {
             try
             {
-                
                 string username = user_txt.Text.Replace("'", "");
                 username = username.Replace("\"", "");
                 string password = pass_txt.Text.Replace("'", "");

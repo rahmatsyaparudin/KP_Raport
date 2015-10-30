@@ -16,7 +16,7 @@ namespace Raport
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormKelas());
+            Application.Run(new FormProfilSekolah());
         }
     }
 }

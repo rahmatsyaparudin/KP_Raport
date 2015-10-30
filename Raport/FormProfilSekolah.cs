@@ -26,6 +26,13 @@ namespace Raport
             InitializeComponent();
         }
 
+        private void FormEditProfilSekolah_Load(object sender, EventArgs e)
+        {
+            editClick();
+            myConn.Close();
+            getData();
+        }
+
         public void getData()
         {
             query = "SELECT * from profil_sekolah";
@@ -130,13 +137,6 @@ namespace Raport
             getData();
         }
 
-        private void FormEditProfilSekolah_Load(object sender, EventArgs e)
-        {
-            editClick();
-            myConn.Close();
-            getData();
-        }
-        
         private void edit_btn_Click(object sender, EventArgs e)
         {
             close_btn.Hide();

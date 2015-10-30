@@ -96,7 +96,7 @@
             this.dataMapel_tab.Padding = new System.Windows.Forms.Padding(3);
             this.dataMapel_tab.Size = new System.Drawing.Size(677, 380);
             this.dataMapel_tab.TabIndex = 1;
-            this.dataMapel_tab.Text = "Data Mapel";
+            this.dataMapel_tab.Text = "View Mapel";
             // 
             // sort_combo
             // 
@@ -215,7 +215,7 @@
             this.addMapel_tab.Padding = new System.Windows.Forms.Padding(3);
             this.addMapel_tab.Size = new System.Drawing.Size(677, 380);
             this.addMapel_tab.TabIndex = 0;
-            this.addMapel_tab.Text = "Tambah Mapel";
+            this.addMapel_tab.Text = "Add Mapel";
             // 
             // getId_txt
             // 

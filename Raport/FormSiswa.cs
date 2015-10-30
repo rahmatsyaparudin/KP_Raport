@@ -25,12 +25,18 @@ namespace Raport
             InitializeComponent();
         }
 
+        private void FormSiswa_Load(object sender, EventArgs e)
+        {
+            loadData();
+        }
+
         public string tahun_ajaran
         {
             get { return tahuj; }
             set { tahuj = value; }
         }
 
+        //TAB VIEW DATA
         private void add_toolStr_Click(object sender, EventArgs e)
         {
             FormAddSiswa fAddSiswa = new FormAddSiswa();
@@ -40,12 +46,7 @@ namespace Raport
             fAddSiswa.delete_btn.Enabled = false;
             fAddSiswa.Show();
         }
-
-        private void FormSiswa_Load(object sender, EventArgs e)
-        {
-            loadData();
-        }
-
+        
         public void loadData()
         {
             this.field = "id_detail as 'ID Detail', detailkelassiswa.kode_kelas as 'Kode Kelas', siswa.nis_siswa as 'NIS', nisn_siswa as 'NISN', nama_siswa as 'Nama Siswa', tempat_lahir as 'Tempat Lahir'," +

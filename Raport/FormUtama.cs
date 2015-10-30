@@ -22,8 +22,7 @@ namespace Raport
         private string cond;
         private string field;
         private string query;
-
-
+        
         public FormUtama()
         {
             Thread t = new Thread(new ThreadStart(SplashStart));
@@ -38,12 +37,6 @@ namespace Raport
             Application.Run(new SplashScreen());
         }
 
-        public void getCombo()
-        {
-            tahuj_combo.DataSource = db.getTahuj();
-            tahuj_combo.DisplayMember = "valueDisplay";
-        }
-        
         private void FormUtama_Load(object sender, EventArgs e)
         {
             getCombo();
@@ -76,9 +69,15 @@ namespace Raport
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            } 
+            }
         }
-
+        
+        public void getCombo()
+        {
+            tahuj_combo.DataSource = db.getTahuj();
+            tahuj_combo.DisplayMember = "valueDisplay";
+        }
+        
         //Update jumlah siswa di kelas
         public void jumlahSiswa()
         {
@@ -166,7 +165,33 @@ namespace Raport
             FormDeskripsi fDesk = new FormDeskripsi();
             fDesk.ShowDialog();
         }
-     
+
+        private void set_btn_Click(object sender, EventArgs e)
+        {
+            string tahuj = tahuj_combo.Text.ToString();
+            tahuj_combo.Enabled = false;
+            set_btn.Enabled = false;
+            change_btn.Enabled = true;
+
+            if (tahuj_combo.Text != "")
+            {
+                siswa_menu.Enabled = true;
+                deskripsi_menu.Enabled = true;
+                nilai_menu.Enabled = true;
+            }
+        }
+
+        private void change_btn_Click(object sender, EventArgs e)
+        {
+            tahuj_combo.Enabled = true;
+            set_btn.Enabled = true;
+            change_btn.Enabled = false;
+
+            siswa_menu.Enabled = false;
+            deskripsi_menu.Enabled = false;
+            nilai_menu.Enabled = false;
+        }
+
         private void clock_timer_Tick(object sender, EventArgs e)
         {
             string[] bulan = { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" };
@@ -287,30 +312,6 @@ namespace Raport
             }
         }
 
-        private void set_btn_Click(object sender, EventArgs e)
-        {
-            string tahuj = tahuj_combo.Text.ToString();
-            tahuj_combo.Enabled = false;
-            set_btn.Enabled = false;
-            change_btn.Enabled = true;
-
-            if (tahuj_combo.Text != "")
-            {
-                siswa_menu.Enabled = true;
-                deskripsi_menu.Enabled = true;
-                nilai_menu.Enabled = true;
-            }
-        }
-
-        private void change_btn_Click(object sender, EventArgs e)
-        {
-            tahuj_combo.Enabled = true;
-            set_btn.Enabled = true;
-            change_btn.Enabled = false;
-
-            siswa_menu.Enabled = false;
-            deskripsi_menu.Enabled = false;
-            nilai_menu.Enabled = false;
-        }
+        //END CLASS
     }
 }
