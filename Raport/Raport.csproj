@@ -54,6 +54,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
@@ -128,6 +129,12 @@
     <Compile Include="FormLogin.Designer.cs">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormSetDatabase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSetDatabase.Designer.cs">
+      <DependentUpon>FormSetDatabase.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSiswa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSetDatabase.resx">
+      <DependentUpon>FormSetDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSiswa.resx">
       <DependentUpon>FormSiswa.cs</DependentUpon>
@@ -295,6 +305,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\deskripsi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\setting.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

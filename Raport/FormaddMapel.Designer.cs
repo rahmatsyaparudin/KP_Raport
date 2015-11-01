@@ -32,6 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.cancel_btn = new System.Windows.Forms.Button();
             this.create_btn = new System.Windows.Forms.Button();
+            this.sumMapel_lbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +55,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.sumMapel_lbl);
             this.panel1.Controls.Add(this.cancel_btn);
             this.panel1.Controls.Add(this.create_btn);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -88,6 +90,15 @@
             this.create_btn.UseVisualStyleBackColor = true;
             this.create_btn.Click += new System.EventHandler(this.create_btn_Click);
             // 
+            // sumMapel_lbl
+            // 
+            this.sumMapel_lbl.AutoSize = true;
+            this.sumMapel_lbl.Location = new System.Drawing.Point(484, 33);
+            this.sumMapel_lbl.Name = "sumMapel_lbl";
+            this.sumMapel_lbl.Size = new System.Drawing.Size(13, 13);
+            this.sumMapel_lbl.TabIndex = 2;
+            this.sumMapel_lbl.Text = "0";
+            // 
             // FormAddMapel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -102,6 +113,7 @@
             this.Load += new System.EventHandler(this.FormAddMapel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -112,5 +124,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button create_btn;
         private System.Windows.Forms.Button cancel_btn;
+        private System.Windows.Forms.Label sumMapel_lbl;
     }
 }

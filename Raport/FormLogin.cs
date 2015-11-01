@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace Raport
 {
@@ -142,6 +143,12 @@ namespace Raport
             {
                 Login();
             }
+        }
+
+        private void setting_btn_Click(object sender, EventArgs e)
+        {
+            FormSetDatabase fDbms = new FormSetDatabase();
+            fDbms.ShowDialog();
         }
     }
 }

@@ -40,6 +40,8 @@ namespace Raport
         private void FormKelas_Load(object sender, EventArgs e)
         {
             loadData();
+            viewMember_grid.DataSource = null;
+            viewKelas_combo.Enabled = false;
         }
 
         private void getCombo()
@@ -426,6 +428,7 @@ namespace Raport
             delete2_btn.Enabled = false;
             load_Schedule();
             edit_schedule();
+            schedule_grid.Columns[0].Visible = false;
         }
 
         private void edit_tool_Click(object sender, EventArgs e)
@@ -436,6 +439,7 @@ namespace Raport
             edit_tool.Enabled = false;
             create_tool.Enabled = false;
             delete2_btn.Enabled = true;
+            schedule_grid.Columns[0].Visible = true; 
         }
 
         private void load_tool_Click(object sender, EventArgs e)
@@ -492,6 +496,7 @@ namespace Raport
             delete2_btn.Enabled = false;
             load_Schedule();
             edit_schedule();
+            schedule_grid.Columns[0].Visible = false;
         }
 
         private void schedule_grid_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -533,6 +538,8 @@ namespace Raport
                         batal.Cancel = true;
                     }
                 }
+                cancel2_btn_Click(sender, e);
+                load_tool_Click(sender, e);
             }
         }
 
@@ -582,6 +589,7 @@ namespace Raport
 
                 schedule_grid.Columns[2].Visible = false;
                 schedule_grid.Columns[1].Visible = false;
+                schedule_grid.Columns[0].Visible = false;
                 for (int i = 2; i <= 5; i++)
                 {
                     schedule_grid.Columns[i].ReadOnly = true;
@@ -619,7 +627,32 @@ namespace Raport
         //TAB CLASS MEMBERS
         private void viewKelas_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (viewKelas_combo.Text == "")
+            {
+                viewMember_grid.DataSource = null;
+            }
+            else if (viewKelas_combo.Text != "")
+            {
+                this.id_kelas = this.viewKelas_combo.SelectedValue.ToString();
+                this.query = "SELECT count(nis_siswa) as 'Jumlah' FROM detailkelassiswa WHERE kode_kelas= '" + id_kelas + "'";
+                MySqlCommand myComm = new MySqlCommand(query, myConn);
+                myConn.Open();
+                myReader = myComm.ExecuteReader();
+                while (myReader.Read())
+                {
+                    countID_lbl.Text = myReader.GetString("Jumlah");
+                }
+                myConn.Close();
 
+                if (countID_lbl.Text == "0")
+                {
+                    viewMember_grid.DataSource = null;
+                }
+                else if (countID_lbl.Text != "0")
+                {
+                    viewMemberKelas();
+                }
+            }            
         }
 
         private void setTahun_combo_SelectedIndexChanged(object sender, EventArgs e)
@@ -627,6 +660,7 @@ namespace Raport
             if (setTahun_combo.Text == "")
             {
                 viewKelas_combo.Enabled = false;
+                viewKelas_combo.SelectedIndex = -1;
             }
             else if (setTahun_combo.Text != "")
             {
@@ -655,8 +689,18 @@ namespace Raport
                 MessageBox.Show(ex.Message);
             }
         }
-        
-        
+
+        private void viewMemberKelas()
+        {
+            this.id_kelas = this.viewKelas_combo.SelectedValue.ToString();
+            this.table = "detailkelassiswa INNER JOIN siswa USING(nis_siswa) INNER JOIN orangtua USING (nis_siswa)";
+            this.field = "detailkelassiswa.nis_siswa as 'NIS', nisn_siswa as 'NISN', nama_siswa as 'Nama Siswa', " +
+                         "tanggal_lahir as 'Tanggal Lahir', nama_ayah as 'Nama Ayah'";
+            this.cond = "detailkelassiswa.kode_kelas= '" + id_kelas + "'";
+            DataTable result = db.GetDataTable(field, table, cond);
+            viewMember_grid.DataSource = result;
+        }
+
         //END CLASS
     }
 }

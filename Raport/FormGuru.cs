@@ -45,35 +45,7 @@ namespace Raport
             loadHistori();
             cancelAction();
         }
-
-        private void deleteGuru()
-        {
-            try
-            {
-                DialogResult dialog = MessageBox.Show("Hapus data guru '" + this.nama_txt.Text + "'?",
-               "Hapus Data", MessageBoxButtons.YesNo);
-                if (dialog == DialogResult.Yes)
-                {
-                    this.table = "guru";
-                    this.field = "status_guru = 'Tidak Aktif'";
-                    this.cond = "id_guru ='" + this.id_txt.Text + "'";
-                    db.updateData(table, field, cond);
-                    MessageBox.Show("Data Guru '" + this.nama_txt.Text + "' Terhapus");
-                    loadData();
-                    guru_tab.SelectTab(0);
-                }
-                else if (dialog == DialogResult.No)
-                {
-                    CancelEventArgs batal = new CancelEventArgs();
-                    batal.Cancel = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
+        
         private void addGuru()
         {
             guru_tab.SelectTab(1);
@@ -105,8 +77,6 @@ namespace Raport
             update_btn.Enabled = true;
             delete_btn.Enabled = true;
             cancel_btn.Enabled = true;
-
-
             nama_txt.ReadOnly = false;
             nip_txt.ReadOnly = false;
             nuptk_txt.ReadOnly = false;
@@ -146,12 +116,10 @@ namespace Raport
             nuptk_txt.ResetText();
             nama_txt.ResetText();
             keterangan_txt.ResetText();
-
             save_btn.Enabled = false;
             cancel_btn.Enabled = false;
             update_btn.Enabled = false;
             delete_btn.Enabled = false;
-
             dataGuru_grid.Enabled = true;
             add_btn.Enabled = true;
             add_toolbtn.Enabled = true;
@@ -164,10 +132,8 @@ namespace Raport
         private void addAction()
         {
             cancelAction();
-
             save_btn.Enabled = true;
             cancel_btn.Enabled = true;
-
             dataGuru_grid.Enabled = false;
             add_btn.Enabled = false;
             add_toolbtn.Enabled = false;
@@ -189,7 +155,30 @@ namespace Raport
 
         private void delete_btn_Click(object sender, EventArgs e)
         {
-            deleteGuru();
+            try
+            {
+                DialogResult dialog = MessageBox.Show("Hapus data guru '" + this.nama_txt.Text + "'?",
+               "Hapus Data", MessageBoxButtons.YesNo);
+                if (dialog == DialogResult.Yes)
+                {
+                    this.table = "guru";
+                    this.field = "status_guru = 'Tidak Aktif'";
+                    this.cond = "id_guru ='" + this.id_txt.Text + "'";
+                    db.updateData(table, field, cond);
+                    MessageBox.Show("Data Guru '" + this.nama_txt.Text + "' Terhapus");
+                    loadData();
+                    guru_tab.SelectTab(0);
+                }
+                else if (dialog == DialogResult.No)
+                {
+                    CancelEventArgs batal = new CancelEventArgs();
+                    batal.Cancel = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void save_btn_Click(object sender, EventArgs e)

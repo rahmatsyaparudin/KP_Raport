@@ -74,7 +74,8 @@ namespace Raport
             this.pilihTahun_combo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.class_members = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.countID_lbl = new System.Windows.Forms.Label();
+            this.viewMember_grid = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.setTahun_combo = new System.Windows.Forms.ComboBox();
             this.viewKelas_combo = new System.Windows.Forms.ComboBox();
@@ -93,7 +94,7 @@ namespace Raport
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).BeginInit();
             this.class_members.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewMember_grid)).BeginInit();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -409,6 +410,7 @@ namespace Raport
             // delete2_btn
             // 
             this.delete2_btn.BackColor = System.Drawing.Color.DarkKhaki;
+            this.delete2_btn.Enabled = false;
             this.delete2_btn.FlatAppearance.BorderSize = 0;
             this.delete2_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.delete2_btn.Image = global::Raport.Properties.Resources.delete;
@@ -616,7 +618,8 @@ namespace Raport
             // class_members
             // 
             this.class_members.BackColor = System.Drawing.Color.Teal;
-            this.class_members.Controls.Add(this.dataGridView1);
+            this.class_members.Controls.Add(this.countID_lbl);
+            this.class_members.Controls.Add(this.viewMember_grid);
             this.class_members.Controls.Add(this.label9);
             this.class_members.Controls.Add(this.setTahun_combo);
             this.class_members.Controls.Add(this.viewKelas_combo);
@@ -629,14 +632,30 @@ namespace Raport
             this.class_members.TabIndex = 3;
             this.class_members.Text = "Class Members";
             // 
-            // dataGridView1
+            // countID_lbl
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 36);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(769, 308);
-            this.dataGridView1.TabIndex = 5;
+            this.countID_lbl.AutoSize = true;
+            this.countID_lbl.Location = new System.Drawing.Point(426, 9);
+            this.countID_lbl.Name = "countID_lbl";
+            this.countID_lbl.Size = new System.Drawing.Size(19, 21);
+            this.countID_lbl.TabIndex = 6;
+            this.countID_lbl.Text = "0";
+            this.countID_lbl.Visible = false;
+            // 
+            // viewMember_grid
+            // 
+            this.viewMember_grid.AllowUserToAddRows = false;
+            this.viewMember_grid.AllowUserToDeleteRows = false;
+            this.viewMember_grid.AllowUserToResizeColumns = false;
+            this.viewMember_grid.AllowUserToResizeRows = false;
+            this.viewMember_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.viewMember_grid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.viewMember_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.viewMember_grid.Dock = System.Windows.Forms.DockStyle.Top;
+            this.viewMember_grid.Location = new System.Drawing.Point(3, 36);
+            this.viewMember_grid.Name = "viewMember_grid";
+            this.viewMember_grid.Size = new System.Drawing.Size(769, 308);
+            this.viewMember_grid.TabIndex = 5;
             // 
             // label9
             // 
@@ -650,6 +669,7 @@ namespace Raport
             // 
             // setTahun_combo
             // 
+            this.setTahun_combo.BackColor = System.Drawing.SystemColors.Control;
             this.setTahun_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.setTahun_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setTahun_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -663,6 +683,7 @@ namespace Raport
             // 
             // viewKelas_combo
             // 
+            this.viewKelas_combo.BackColor = System.Drawing.SystemColors.Control;
             this.viewKelas_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.viewKelas_combo.Enabled = false;
             this.viewKelas_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -757,7 +778,7 @@ namespace Raport
             ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).EndInit();
             this.class_members.ResumeLayout(false);
             this.class_members.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewMember_grid)).EndInit();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -819,6 +840,7 @@ namespace Raport
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ComboBox setTahun_combo;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView viewMember_grid;
+        private System.Windows.Forms.Label countID_lbl;
     }
 }

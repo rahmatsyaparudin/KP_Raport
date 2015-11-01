@@ -5,13 +5,20 @@ using System.Text;
 using System.Data;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace Raport
 {
     class Function
     {
         string ConnString;
-        public static string connStr = "server=192.168.137.1;port=3306;username=test;password=;database=db_smanjak;UseCompression=True";
+        public static string host = ConfigurationManager.AppSettings["host"];
+        public static string user = ConfigurationManager.AppSettings["user"];
+        public static string pass = ConfigurationManager.AppSettings["pass"];
+        public static string dbms = ConfigurationManager.AppSettings["dbms"];
+        public static string port = ConfigurationManager.AppSettings["port"];
+        public static string connStr = "server='" + host + "';port='" + port + "';username='" + user + "';password='" + pass +
+                                        "';database='" + dbms + "';UseCompression=True";
 
         public Function()
         {

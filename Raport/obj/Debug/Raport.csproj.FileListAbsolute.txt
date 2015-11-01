@@ -60,3 +60,4 @@ E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.Properties.Resources.resou
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.SplashScreen.resources
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.csproj.GenerateResource.Cache
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.csprojResolveAssemblyReference.cache
+E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.FormSetDatabase.resources

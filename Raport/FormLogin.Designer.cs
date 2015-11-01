@@ -40,6 +40,7 @@
             this.info_lbl = new System.Windows.Forms.Label();
             this.info_img = new System.Windows.Forms.PictureBox();
             this.info_timer = new System.Windows.Forms.Timer(this.components);
+            this.setting_btn = new System.Windows.Forms.Button();
             this.exit_btn = new System.Windows.Forms.Button();
             this.reset_btn = new System.Windows.Forms.Button();
             this.login_btn = new System.Windows.Forms.Button();
@@ -53,7 +54,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(195, 52);
+            this.label1.Location = new System.Drawing.Point(177, 52);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(157, 31);
             this.label1.TabIndex = 0;
@@ -63,7 +64,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(124, 83);
+            this.label2.Location = new System.Drawing.Point(106, 83);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(289, 31);
             this.label2.TabIndex = 1;
@@ -73,7 +74,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(196, 132);
+            this.label3.Location = new System.Drawing.Point(178, 132);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 20);
             this.label3.TabIndex = 2;
@@ -83,7 +84,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(196, 191);
+            this.label4.Location = new System.Drawing.Point(178, 191);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 20);
             this.label4.TabIndex = 3;
@@ -92,7 +93,7 @@
             // user_txt
             // 
             this.user_txt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.user_txt.Location = new System.Drawing.Point(200, 155);
+            this.user_txt.Location = new System.Drawing.Point(182, 155);
             this.user_txt.MaxLength = 15;
             this.user_txt.Name = "user_txt";
             this.user_txt.Size = new System.Drawing.Size(223, 26);
@@ -102,7 +103,7 @@
             // pass_txt
             // 
             this.pass_txt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pass_txt.Location = new System.Drawing.Point(200, 214);
+            this.pass_txt.Location = new System.Drawing.Point(182, 214);
             this.pass_txt.MaxLength = 25;
             this.pass_txt.Name = "pass_txt";
             this.pass_txt.PasswordChar = '*';
@@ -148,6 +149,25 @@
             this.info_timer.Interval = 2000;
             this.info_timer.Tick += new System.EventHandler(this.info_timer_Tick);
             // 
+            // setting_btn
+            // 
+            this.setting_btn.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.setting_btn.FlatAppearance.BorderSize = 0;
+            this.setting_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.setting_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setting_btn.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.setting_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.setting_btn.Location = new System.Drawing.Point(402, 300);
+            this.setting_btn.Name = "setting_btn";
+            this.setting_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.setting_btn.Size = new System.Drawing.Size(105, 28);
+            this.setting_btn.TabIndex = 11;
+            this.setting_btn.Text = "Server Setting";
+            this.setting_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.setting_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.setting_btn.UseVisualStyleBackColor = false;
+            this.setting_btn.Click += new System.EventHandler(this.setting_btn_Click);
+            // 
             // exit_btn
             // 
             this.exit_btn.BackColor = System.Drawing.Color.LightSteelBlue;
@@ -157,7 +177,7 @@
             this.exit_btn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.exit_btn.Image = global::Raport.Properties.Resources.leave;
             this.exit_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.exit_btn.Location = new System.Drawing.Point(359, 258);
+            this.exit_btn.Location = new System.Drawing.Point(341, 258);
             this.exit_btn.Name = "exit_btn";
             this.exit_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.exit_btn.Size = new System.Drawing.Size(64, 28);
@@ -177,7 +197,7 @@
             this.reset_btn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.reset_btn.Image = global::Raport.Properties.Resources.cancel;
             this.reset_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.reset_btn.Location = new System.Drawing.Point(280, 258);
+            this.reset_btn.Location = new System.Drawing.Point(262, 258);
             this.reset_btn.Name = "reset_btn";
             this.reset_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.reset_btn.Size = new System.Drawing.Size(73, 28);
@@ -197,7 +217,7 @@
             this.login_btn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.login_btn.Image = global::Raport.Properties.Resources._lock;
             this.login_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.login_btn.Location = new System.Drawing.Point(200, 258);
+            this.login_btn.Location = new System.Drawing.Point(182, 258);
             this.login_btn.Name = "login_btn";
             this.login_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.login_btn.Size = new System.Drawing.Size(74, 28);
@@ -212,7 +232,7 @@
             // logo_picbox
             // 
             this.logo_picbox.Image = global::Raport.Properties.Resources._133x133;
-            this.logo_picbox.Location = new System.Drawing.Point(64, 141);
+            this.logo_picbox.Location = new System.Drawing.Point(46, 141);
             this.logo_picbox.Name = "logo_picbox";
             this.logo_picbox.Size = new System.Drawing.Size(126, 127);
             this.logo_picbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -224,8 +244,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.ClientSize = new System.Drawing.Size(512, 305);
+            this.ClientSize = new System.Drawing.Size(512, 333);
             this.ControlBox = false;
+            this.Controls.Add(this.setting_btn);
             this.Controls.Add(this.info_panel);
             this.Controls.Add(this.exit_btn);
             this.Controls.Add(this.reset_btn);
@@ -270,6 +291,7 @@
         private System.Windows.Forms.Label info_lbl;
         private System.Windows.Forms.Timer info_timer;
         private System.Windows.Forms.Button login_btn;
+        private System.Windows.Forms.Button setting_btn;
     }
 }
 
