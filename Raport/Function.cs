@@ -11,7 +11,7 @@ namespace Raport
     class Function
     {
         string ConnString;
-        public static string connStr = "datasource=localhost;port=3306;username=root;password=;database=db_smanjak;";
+        public static string connStr = "server=192.168.137.1;port=3306;username=test;password=;database=db_smanjak;UseCompression=True";
 
         public Function()
         {

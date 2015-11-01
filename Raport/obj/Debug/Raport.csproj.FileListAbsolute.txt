@@ -44,7 +44,6 @@ E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.pdb
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\bin\Debug\Raport.exe
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\bin\Debug\Raport.pdb
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\bin\Debug\MySql.Data.dll
-E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.csprojResolveAssemblyReference.cache
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.FormAddMapel.resources
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.FormAddSiswa.resources
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.FormDeskripsi.resources
@@ -60,3 +59,4 @@ E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.FormUtama.resources
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.Properties.Resources.resources
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.SplashScreen.resources
 E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.csproj.GenerateResource.Cache
+E:\MAMET\PROJECT\KP\KP_Raport\Raport\obj\Debug\Raport.csprojResolveAssemblyReference.cache
