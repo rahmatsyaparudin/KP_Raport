@@ -38,11 +38,10 @@
             this.pass_txt = new System.Windows.Forms.TextBox();
             this.info_panel = new System.Windows.Forms.Panel();
             this.info_lbl = new System.Windows.Forms.Label();
-            this.info_img = new System.Windows.Forms.PictureBox();
             this.info_timer = new System.Windows.Forms.Timer(this.components);
             this.setting_btn = new System.Windows.Forms.Button();
+            this.info_img = new System.Windows.Forms.PictureBox();
             this.exit_btn = new System.Windows.Forms.Button();
-            this.reset_btn = new System.Windows.Forms.Button();
             this.login_btn = new System.Windows.Forms.Button();
             this.logo_picbox = new System.Windows.Forms.PictureBox();
             this.info_panel.SuspendLayout();
@@ -134,16 +133,6 @@
             this.info_lbl.Text = "Info Login";
             this.info_lbl.Visible = false;
             // 
-            // info_img
-            // 
-            this.info_img.Image = global::Raport.Properties.Resources.lockKey;
-            this.info_img.Location = new System.Drawing.Point(12, 3);
-            this.info_img.Name = "info_img";
-            this.info_img.Size = new System.Drawing.Size(44, 44);
-            this.info_img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.info_img.TabIndex = 11;
-            this.info_img.TabStop = false;
-            // 
             // info_timer
             // 
             this.info_timer.Interval = 2000;
@@ -157,16 +146,26 @@
             this.setting_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.setting_btn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.setting_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.setting_btn.Location = new System.Drawing.Point(402, 300);
+            this.setting_btn.Location = new System.Drawing.Point(262, 258);
             this.setting_btn.Name = "setting_btn";
             this.setting_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.setting_btn.Size = new System.Drawing.Size(105, 28);
+            this.setting_btn.Size = new System.Drawing.Size(74, 28);
             this.setting_btn.TabIndex = 11;
-            this.setting_btn.Text = "Server Setting";
+            this.setting_btn.Text = "Setting";
             this.setting_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.setting_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.setting_btn.UseVisualStyleBackColor = false;
             this.setting_btn.Click += new System.EventHandler(this.setting_btn_Click);
+            // 
+            // info_img
+            // 
+            this.info_img.Image = global::Raport.Properties.Resources.lockKey;
+            this.info_img.Location = new System.Drawing.Point(12, 3);
+            this.info_img.Name = "info_img";
+            this.info_img.Size = new System.Drawing.Size(44, 44);
+            this.info_img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.info_img.TabIndex = 11;
+            this.info_img.TabStop = false;
             // 
             // exit_btn
             // 
@@ -177,36 +176,16 @@
             this.exit_btn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.exit_btn.Image = global::Raport.Properties.Resources.leave;
             this.exit_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.exit_btn.Location = new System.Drawing.Point(341, 258);
+            this.exit_btn.Location = new System.Drawing.Point(342, 258);
             this.exit_btn.Name = "exit_btn";
             this.exit_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.exit_btn.Size = new System.Drawing.Size(64, 28);
-            this.exit_btn.TabIndex = 9;
+            this.exit_btn.Size = new System.Drawing.Size(63, 28);
+            this.exit_btn.TabIndex = 8;
             this.exit_btn.Text = "Exit";
             this.exit_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.exit_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.exit_btn.UseVisualStyleBackColor = false;
             this.exit_btn.Click += new System.EventHandler(this.exit_btn_Click);
-            // 
-            // reset_btn
-            // 
-            this.reset_btn.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.reset_btn.FlatAppearance.BorderSize = 0;
-            this.reset_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reset_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reset_btn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.reset_btn.Image = global::Raport.Properties.Resources.cancel;
-            this.reset_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.reset_btn.Location = new System.Drawing.Point(262, 258);
-            this.reset_btn.Name = "reset_btn";
-            this.reset_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.reset_btn.Size = new System.Drawing.Size(73, 28);
-            this.reset_btn.TabIndex = 8;
-            this.reset_btn.Text = "Reset";
-            this.reset_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.reset_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.reset_btn.UseVisualStyleBackColor = false;
-            this.reset_btn.Click += new System.EventHandler(this.reset_btn_Click);
             // 
             // login_btn
             // 
@@ -249,7 +228,6 @@
             this.Controls.Add(this.setting_btn);
             this.Controls.Add(this.info_panel);
             this.Controls.Add(this.exit_btn);
-            this.Controls.Add(this.reset_btn);
             this.Controls.Add(this.login_btn);
             this.Controls.Add(this.pass_txt);
             this.Controls.Add(this.user_txt);
@@ -260,8 +238,9 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "FormLogin";
             this.Padding = new System.Windows.Forms.Padding(20, 30, 20, 20);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -285,7 +264,6 @@
         private System.Windows.Forms.TextBox user_txt;
         private System.Windows.Forms.TextBox pass_txt;
         private System.Windows.Forms.Button exit_btn;
-        private System.Windows.Forms.Button reset_btn;
         private System.Windows.Forms.Panel info_panel;
         private System.Windows.Forms.PictureBox info_img;
         private System.Windows.Forms.Label info_lbl;

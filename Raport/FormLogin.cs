@@ -117,18 +117,11 @@ namespace Raport
             }
         }
         //Event Tombol Reset 
-        private void reset_btn_Click(object sender, EventArgs e)
-        {
-            user_txt.ResetText();
-            pass_txt.ResetText();
-            info_lbl.ResetText();
-        }
-        // Event tombol exit
         private void exit_btn_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
+        
         private void user_txt_KeyPress(object sender, KeyPressEventArgs e)
         {
             if ((char)e.KeyChar == (char)Keys.Enter)
