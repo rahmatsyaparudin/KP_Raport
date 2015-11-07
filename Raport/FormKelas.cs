@@ -629,30 +629,101 @@ namespace Raport
         {
             if (viewKelas_combo.Text == "")
             {
+                edit3_toolBtn.Enabled = false;
+                select_toolBtn.Enabled = false;
+                naikKelas_toolBtn.Enabled = false;
+                Opsi_toolBtn.Enabled = false;
+                cancel3_toolBtn.Enabled = false;
+                refresh2_toolBtn.Enabled = false;
+                viewMember_grid.Columns.Clear();
                 viewMember_grid.DataSource = null;
             }
             else if (viewKelas_combo.Text != "")
             {
-                this.id_kelas = this.viewKelas_combo.SelectedValue.ToString();
-                this.query = "SELECT count(nis_siswa) as 'Jumlah' FROM detailkelassiswa WHERE kode_kelas= '" + id_kelas + "'";
-                MySqlCommand myComm = new MySqlCommand(query, myConn);
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
-                {
-                    countID_lbl.Text = myReader.GetString("Jumlah");
-                }
-                myConn.Close();
-
-                if (countID_lbl.Text == "0")
-                {
-                    viewMember_grid.DataSource = null;
-                }
-                else if (countID_lbl.Text != "0")
-                {
-                    viewMemberKelas();
-                }
+                edit3_toolBtn.Enabled = false;
+                select_toolBtn.Enabled = false;
+                naikKelas_toolBtn.Enabled = false;
+                Opsi_toolBtn.Enabled = false;
+                refresh2_toolBtn.Enabled = true;
+                cancel3_toolBtn.Enabled = false;
+                loaadMember();
             }            
+        }
+        
+        private void loaadMember()
+        {
+            this.id_kelas = this.viewKelas_combo.SelectedValue.ToString();
+            this.query = "SELECT count(nis_siswa) as 'Jumlah' FROM detailkelassiswa WHERE kode_kelas= '" + id_kelas + "'";
+            MySqlCommand myComm = new MySqlCommand(query, myConn);
+            myConn.Open();
+            myReader = myComm.ExecuteReader();
+            while (myReader.Read())
+            {
+                countID_lbl.Text = myReader.GetString("Jumlah");
+            }
+            myConn.Close();
+
+            if (countID_lbl.Text == "0")
+            {
+                viewMember_grid.DataSource = null;
+                viewMember_grid.Columns.Clear();
+                edit3_toolBtn.Enabled = false;
+            }
+            else if (countID_lbl.Text != "0")
+            {
+                viewMemberKelas();
+                edit3_toolBtn.Enabled = true;
+            }
+        }
+
+        private void edit3_toolBtn_Click(object sender, EventArgs e)
+        {
+            viewMember_grid.Columns[0].Visible = true;
+            select_toolBtn.Enabled = true;
+            naikKelas_toolBtn.Enabled = true;
+            Opsi_toolBtn.Enabled = true;
+            cancel3_toolBtn.Enabled = true;
+            refresh2_toolBtn.Enabled = true;
+        }
+
+        private void cancel3_toolBtn_Click(object sender, EventArgs e)
+        {
+            viewMember_grid.Columns[0].Visible = false;
+            select_toolBtn.Enabled = false;
+            naikKelas_toolBtn.Enabled = false;
+            Opsi_toolBtn.Enabled = false;
+            cancel3_toolBtn.Enabled = false;
+            refresh2_toolBtn.Enabled = false;
+            foreach (DataGridViewRow row in viewMember_grid.Rows)
+            {
+                row.Cells[0].Value = false;
+                select_toolBtn.Text = "Select All";
+            }
+        }
+
+        private void select_toolBtn_Click(object sender, EventArgs e)
+        {
+            if (select_toolBtn.Text == "Select All")
+            {
+                foreach (DataGridViewRow row in viewMember_grid.Rows)
+                {
+                    row.Cells[0].Value = true;
+                    select_toolBtn.Text = "Unselect All";
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in viewMember_grid.Rows)
+                {
+                    row.Cells[0].Value = false;
+                    select_toolBtn.Text = "Select All";
+                }
+            }
+        }
+
+        private void refresh2_toolBtn_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void setTahun_combo_SelectedIndexChanged(object sender, EventArgs e)
@@ -692,6 +763,13 @@ namespace Raport
 
         private void viewMemberKelas()
         {
+            viewMember_grid.DataSource = null;
+            viewMember_grid.Columns.Clear();
+            //Membuat Checkbox
+            chk.ReadOnly = false;
+            chk.HeaderText = "Pilih";
+            viewMember_grid.Columns.Add(chk);
+
             this.id_kelas = this.viewKelas_combo.SelectedValue.ToString();
             this.table = "detailkelassiswa INNER JOIN siswa USING(nis_siswa) INNER JOIN orangtua USING (nis_siswa)";
             this.field = "detailkelassiswa.nis_siswa as 'NIS', nisn_siswa as 'NISN', nama_siswa as 'Nama Siswa', " +
@@ -699,8 +777,12 @@ namespace Raport
             this.cond = "detailkelassiswa.kode_kelas= '" + id_kelas + "'";
             DataTable result = db.GetDataTable(field, table, cond);
             viewMember_grid.DataSource = result;
+            viewMember_grid.Columns[0].Visible = false;
+            for (int i = 1; i <= 5; i++)
+            {
+                viewMember_grid.Columns[i].ReadOnly = true;
+            }
         }
-
         //END CLASS
     }
 }

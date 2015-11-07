@@ -305,10 +305,24 @@ namespace Raport
                 MessageBox.Show(ex.Message);
             }
         }
-        
+
+        //TAB TEACHING LESSONS
         private void pilihGuru_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (pilihGuru_combo.Text == "")
+            {
+                jadwalGuru_grid.DataSource = null;
+                create_btnTool.Enabled = false;
+                edit_btnTool.Enabled = false;
+                refresh_btnTool.Enabled = false;
+            }
+            else if (pilihGuru_combo.Text != "")
+            {
+                jadwalGuru_grid.DataSource = null;
+                create_btnTool.Enabled = true;
+                edit_btnTool.Enabled = true;
+                refresh_btnTool.Enabled = true;
+            }
         }
 
         //END CLASS

@@ -95,7 +95,7 @@
             this.user_txt.Location = new System.Drawing.Point(182, 155);
             this.user_txt.MaxLength = 15;
             this.user_txt.Name = "user_txt";
-            this.user_txt.Size = new System.Drawing.Size(223, 26);
+            this.user_txt.Size = new System.Drawing.Size(230, 26);
             this.user_txt.TabIndex = 5;
             this.user_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.user_txt_KeyPress);
             // 
@@ -106,7 +106,7 @@
             this.pass_txt.MaxLength = 25;
             this.pass_txt.Name = "pass_txt";
             this.pass_txt.PasswordChar = '*';
-            this.pass_txt.Size = new System.Drawing.Size(223, 26);
+            this.pass_txt.Size = new System.Drawing.Size(230, 26);
             this.pass_txt.TabIndex = 6;
             this.pass_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.pass_txt_KeyPress);
             // 
@@ -145,15 +145,16 @@
             this.setting_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setting_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.setting_btn.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.setting_btn.Image = global::Raport.Properties.Resources.setting1;
             this.setting_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.setting_btn.Location = new System.Drawing.Point(262, 258);
             this.setting_btn.Name = "setting_btn";
             this.setting_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.setting_btn.Size = new System.Drawing.Size(74, 28);
+            this.setting_btn.Size = new System.Drawing.Size(82, 28);
             this.setting_btn.TabIndex = 11;
             this.setting_btn.Text = "Setting";
             this.setting_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.setting_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.setting_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.setting_btn.UseVisualStyleBackColor = false;
             this.setting_btn.Click += new System.EventHandler(this.setting_btn_Click);
             // 
@@ -176,10 +177,10 @@
             this.exit_btn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.exit_btn.Image = global::Raport.Properties.Resources.leave;
             this.exit_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.exit_btn.Location = new System.Drawing.Point(342, 258);
+            this.exit_btn.Location = new System.Drawing.Point(350, 258);
             this.exit_btn.Name = "exit_btn";
             this.exit_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.exit_btn.Size = new System.Drawing.Size(63, 28);
+            this.exit_btn.Size = new System.Drawing.Size(62, 28);
             this.exit_btn.TabIndex = 8;
             this.exit_btn.Text = "Exit";
             this.exit_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
