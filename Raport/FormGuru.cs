@@ -19,7 +19,7 @@ namespace Raport
         private string table;
         private string field;
         private string cond;
-        private string query, kodeIdGuru;
+        private string query, kodeIdGuru, kodeMapel, kodeDetail;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
 
         public FormGuru()
@@ -347,11 +347,8 @@ namespace Raport
         private void edit_btnTool_Click(object sender, EventArgs e)
         {
             jadwalGuru_grid.Enabled = true;
-            //save2_btn.Enabled = true;
-            //cancel2_btn.Enabled = true;
-            //edit_tool.Enabled = false;
-            //create_tool.Enabled = false;
-            //delete2_btn.Enabled = true;
+            edit_btnTool.Enabled = false;
+            delete_toolBtn.Enabled = true;
             jadwalGuru_grid.Columns[0].Visible = true;
         }
 
@@ -373,7 +370,8 @@ namespace Raport
                 jadwalGuru_grid.Columns.Clear();
                 jadwalGuru_grid.DataSource = null;
                 edit_btnTool.Enabled = false;
-                refresh_btnTool.Enabled = false;
+                refresh_btnTool.Enabled = true;
+                delete_toolBtn.Enabled = false;
             }
             else if (guru_lbl.Text != "0")
             {
@@ -383,9 +381,38 @@ namespace Raport
             }
         }
 
+        private void delete_toolBtn_Click_1(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in jadwalGuru_grid.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                {
+                    this.kodeMapel = row.Cells[2].Value.ToString();
+                    this.kodeDetail = row.Cells[1].Value.ToString();
+                    DialogResult dialog = MessageBox.Show("Hapus mapel '" + row.Cells[3].Value.ToString() + "'?",
+                        "Hapus Data", MessageBoxButtons.YesNo);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        this.kodeDetail = row.Cells[1].Value.ToString();
+                        this.table = "detailmapelguru";
+                        this.field = "status = 'Tidak Aktif'";
+                        this.cond = "id_detail = '" + kodeDetail + "'";
+                        db.updateData(table, field, cond);
+                        MessageBox.Show("Mapel '" + row.Cells[3].Value.ToString() + "' berhasil dihapus");
+                    }
+                    else if (dialog == DialogResult.No)
+                    {
+                        CancelEventArgs batal = new CancelEventArgs();
+                        batal.Cancel = true;
+                    }
+                }
+            }
+        }
+
         private void refresh_btnTool_Click(object sender, EventArgs e)
         {
             load_jadwalGuru();
+            delete_toolBtn.Enabled = false;
         }
 
         private void viewJadwal()
@@ -399,12 +426,14 @@ namespace Raport
 
             this.kodeIdGuru = this.pilihGuru_combo.SelectedValue.ToString();
             this.table = "detailmapelguru INNER JOIN mapel USING(kode_mapel)";
-            this.field = "mata_pelajaran as 'Mata Pelajaran', kategori_mapel as 'Kategori', jam_pelajaran as 'Jam Pelajaran'";
-            this.cond = "id_guru = '" + kodeIdGuru + "'";
+            this.field = "id_detail as 'ID Detail', kode_mapel as 'Kode mapel', mata_pelajaran as 'Mata Pelajaran', kategori_mapel as 'Kategori', jam_pelajaran as 'Jam Pelajaran'";
+            this.cond = "status = 'Aktif' AND id_guru = '" + kodeIdGuru + "'";
             DataTable result = db.GetDataTable(field, table, cond);
             jadwalGuru_grid.DataSource = result;
             jadwalGuru_grid.Columns[0].Visible = false;
-            for (int i = 1; i <= 3; i++)
+            jadwalGuru_grid.Columns[1].Visible = false;
+            jadwalGuru_grid.Columns[2].Visible = false;
+            for (int i = 3; i <= 5; i++)
             {
                 jadwalGuru_grid.Columns[i].ReadOnly = true;
             }

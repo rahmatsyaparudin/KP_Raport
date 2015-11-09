@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.keterangan_txt = new System.Windows.Forms.RichTextBox();
@@ -64,6 +64,7 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.historiGuru_grid = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.guru_lbl = new System.Windows.Forms.Label();
             this.mapel_grup = new System.Windows.Forms.GroupBox();
             this.jadwalGuru_grid = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -76,7 +77,8 @@
             this.pilihGuru_combo = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.guru_lbl = new System.Windows.Forms.Label();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.delete_toolBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGuru_grid)).BeginInit();
             this.guru_tab.SuspendLayout();
@@ -322,8 +324,8 @@
             this.dataGuru_grid.AllowUserToDeleteRows = false;
             this.dataGuru_grid.AllowUserToResizeColumns = false;
             this.dataGuru_grid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle31.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGuru_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGuru_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dataGuru_grid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGuru_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
@@ -335,16 +337,16 @@
             this.dataGuru_grid.Location = new System.Drawing.Point(19, 33);
             this.dataGuru_grid.Name = "dataGuru_grid";
             this.dataGuru_grid.ReadOnly = true;
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle32.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGuru_grid.RowHeadersDefaultCellStyle = dataGridViewCellStyle32;
-            dataGridViewCellStyle33.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGuru_grid.RowsDefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGuru_grid.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGuru_grid.RowsDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGuru_grid.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGuru_grid.Size = new System.Drawing.Size(738, 341);
             this.dataGuru_grid.TabIndex = 0;
@@ -523,8 +525,18 @@
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Teaching";
             // 
+            // guru_lbl
+            // 
+            this.guru_lbl.AutoSize = true;
+            this.guru_lbl.Location = new System.Drawing.Point(502, 18);
+            this.guru_lbl.Name = "guru_lbl";
+            this.guru_lbl.Size = new System.Drawing.Size(19, 21);
+            this.guru_lbl.TabIndex = 6;
+            this.guru_lbl.Text = "0";
+            // 
             // mapel_grup
             // 
+            this.mapel_grup.Controls.Add(this.delete_toolBtn);
             this.mapel_grup.Controls.Add(this.jadwalGuru_grid);
             this.mapel_grup.Controls.Add(this.toolStrip1);
             this.mapel_grup.Location = new System.Drawing.Point(22, 60);
@@ -557,7 +569,8 @@
             this.toolStripSeparator5,
             this.edit_btnTool,
             this.toolStripSeparator4,
-            this.refresh_btnTool});
+            this.refresh_btnTool,
+            this.toolStripSeparator6});
             this.toolStrip1.Location = new System.Drawing.Point(3, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(493, 28);
@@ -643,14 +656,29 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // guru_lbl
+            // toolStripSeparator6
             // 
-            this.guru_lbl.AutoSize = true;
-            this.guru_lbl.Location = new System.Drawing.Point(502, 18);
-            this.guru_lbl.Name = "guru_lbl";
-            this.guru_lbl.Size = new System.Drawing.Size(19, 21);
-            this.guru_lbl.TabIndex = 6;
-            this.guru_lbl.Text = "0";
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 28);
+            // 
+            // delete_toolBtn
+            // 
+            this.delete_toolBtn.BackColor = System.Drawing.Color.Sienna;
+            this.delete_toolBtn.Enabled = false;
+            this.delete_toolBtn.FlatAppearance.BorderSize = 0;
+            this.delete_toolBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.delete_toolBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.delete_toolBtn.Image = global::Raport.Properties.Resources.delete;
+            this.delete_toolBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.delete_toolBtn.Location = new System.Drawing.Point(247, 27);
+            this.delete_toolBtn.Name = "delete_toolBtn";
+            this.delete_toolBtn.Size = new System.Drawing.Size(69, 25);
+            this.delete_toolBtn.TabIndex = 2;
+            this.delete_toolBtn.Text = "Delete";
+            this.delete_toolBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.delete_toolBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.delete_toolBtn.UseVisualStyleBackColor = false;
+            this.delete_toolBtn.Click += new System.EventHandler(this.delete_toolBtn_Click_1);
             // 
             // FormGuru
             // 
@@ -741,5 +769,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton refresh_btnTool;
         private System.Windows.Forms.Label guru_lbl;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.Button delete_toolBtn;
     }
 }
