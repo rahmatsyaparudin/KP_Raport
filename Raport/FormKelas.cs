@@ -503,6 +503,23 @@ namespace Raport
 
         private void schedule_grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            {
+                DataGridViewRow row = this.schedule_grid.Rows[e.RowIndex];
+                var cmb = (DataGridViewComboBoxCell)schedule_grid.CurrentRow.Cells[6];
+                schedule_grid.CurrentRow.Cells[6].Value = null;
+                cmb.DataSource = null;
+                cmb.Items.Clear();
+                this.kodeMapel = row.Cells["Kode Mapel"].Value.ToString();
+                string idValue = "id_guru";
+                string dispValue = "nama_guru";
+                this.table = "detailmapelguru INNER JOIN guru USING (id_guru)";
+                this.cond = "status = 'Aktif' AND kode_mapel = '" + kodeMapel + "'";
+                string sortby = "nama_guru";
+                cmb.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
+                cmb.DisplayMember = "valueDisplay";
+                cmb.ValueMember = "valueID";
+            }
             foreach (DataGridViewRow row in schedule_grid.Rows)
             {
                 if (Convert.ToBoolean(row.Cells[0].Value) == false)

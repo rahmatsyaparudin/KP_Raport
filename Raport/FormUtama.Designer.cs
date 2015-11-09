@@ -529,22 +529,22 @@
             // user_lbl
             // 
             this.user_lbl.AutoSize = true;
-            this.user_lbl.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.user_lbl.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.user_lbl.Location = new System.Drawing.Point(433, 145);
+            this.user_lbl.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.user_lbl.ForeColor = System.Drawing.Color.MediumBlue;
+            this.user_lbl.Location = new System.Drawing.Point(426, 145);
             this.user_lbl.Name = "user_lbl";
-            this.user_lbl.Size = new System.Drawing.Size(51, 24);
+            this.user_lbl.Size = new System.Drawing.Size(48, 22);
             this.user_lbl.TabIndex = 6;
             this.user_lbl.Text = "User";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label4.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.MediumBlue;
             this.label4.Location = new System.Drawing.Point(341, 145);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(102, 24);
+            this.label4.Size = new System.Drawing.Size(95, 22);
             this.label4.TabIndex = 24;
             this.label4.Text = "Welcome, ";
             // 

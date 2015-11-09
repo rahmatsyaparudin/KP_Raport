@@ -224,7 +224,7 @@
             // level_lbl
             // 
             this.level_lbl.AutoSize = true;
-            this.level_lbl.Location = new System.Drawing.Point(427, 225);
+            this.level_lbl.Location = new System.Drawing.Point(180, 294);
             this.level_lbl.Name = "level_lbl";
             this.level_lbl.Size = new System.Drawing.Size(19, 13);
             this.level_lbl.TabIndex = 12;
@@ -234,11 +234,12 @@
             // user_lbl
             // 
             this.user_lbl.AutoSize = true;
-            this.user_lbl.Location = new System.Drawing.Point(278, 137);
+            this.user_lbl.Location = new System.Drawing.Point(180, 312);
             this.user_lbl.Name = "user_lbl";
             this.user_lbl.Size = new System.Drawing.Size(27, 13);
             this.user_lbl.TabIndex = 13;
             this.user_lbl.Text = "user";
+            this.user_lbl.Visible = false;
             // 
             // FormLogin
             // 

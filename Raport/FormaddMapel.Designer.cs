@@ -52,6 +52,7 @@
             this.schedule_grid.Size = new System.Drawing.Size(663, 269);
             this.schedule_grid.TabIndex = 0;
             this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
+            this.schedule_grid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellEndEdit);
             // 
             // panel1
             // 

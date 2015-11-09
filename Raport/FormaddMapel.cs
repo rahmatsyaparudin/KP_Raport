@@ -50,17 +50,41 @@ namespace Raport
 
         private void schedule_grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            {
+                DataGridViewRow row = this.schedule_grid.Rows[e.RowIndex];
+                var cmb = (DataGridViewComboBoxCell)schedule_grid.CurrentRow.Cells[5];
+                schedule_grid.CurrentRow.Cells[5].Value = null;
+                cmb.DataSource = null;
+                cmb.Items.Clear();
+                this.kodeMapel = row.Cells["Kode Mapel"].Value.ToString();
+                string idValue = "id_guru";
+                string dispValue = "nama_guru";
+                this.table = "detailmapelguru INNER JOIN guru USING (id_guru)";
+                this.cond = "status = 'Aktif' AND kode_mapel = '" + kodeMapel + "'";
+                string sortby = "nama_guru";
+                cmb.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
+                cmb.DisplayMember = "valueDisplay";
+                cmb.ValueMember = "valueID";
+            }
+            
             foreach (DataGridViewRow row in schedule_grid.Rows)
             {
                 if (Convert.ToBoolean(row.Cells[0].Value) == false)
                 {
                     row.Cells[5].ReadOnly = true;
                 }
-                else
+                else if (Convert.ToBoolean(row.Cells[0].Value) == true)
                 {
                     row.Cells[5].ReadOnly = false;
                 }
             }
+
+        }
+
+        private void schedule_grid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
@@ -103,14 +127,8 @@ namespace Raport
                 cmb.MaxDropDownItems = 5;
 
                 //Mengisi combobox guru dari database
-                string idValue = "id_guru";
-                string dispValue = "nama_guru";
-                this.table = "guru";
-                this.cond = "status_guru = 'Aktif'";
-                string sortby = "nama_guru";
-                cmb.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
-                cmb.DisplayMember = "valueDisplay";
-                cmb.ValueMember = "valueID";
+                
+                
                 schedule_grid.Columns.Add(cmb);
 
                 if (passIdGuru != null)
@@ -176,8 +194,8 @@ namespace Raport
                             string getMapel = myReader.GetString("Kode");
                             this.idGuru = row.Cells[5].Value.ToString();
                             this.table = "detailmapelkelas";
-                            this.field = "DEFAULT, '" + kodeKelas + "', '" + kodeMapel +
-                                         "', '" + idGuru + "', DEFAULT";
+                            this.field = "DEFAULT, '" + kodeKelas + "', '" + idGuru +
+                                         "', '" + kodeMapel + "', DEFAULT";
                             db.insertData(table, field);
                         }
                         myConn.Close();

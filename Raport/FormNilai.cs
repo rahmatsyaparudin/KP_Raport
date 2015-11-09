@@ -50,8 +50,7 @@ namespace Raport
         private void FormNilai_Load(object sender, EventArgs e)
         {
             //loadData();
-            fillKelas();
-            
+            fillKelas();   
         }
 
         public void fillKelas()
@@ -155,13 +154,15 @@ namespace Raport
 
         public void loadData()
         {
-            this.field = "id_nilai as 'ID Nilai', nis_siswa as 'NIS Siswa', nama_siswa as 'Nama Siswa',"+ 
-                         "p_angka as 'Pengetahuan-Angka', p_predikat as 'Pengetahuan-Predikat, p_desk as 'Pengetahuan-Deskripsi'" +
-                         "";
-            this.table = "nilai INNER JOIN sis";
-            this.cond = "status_guru = 'Akthif' ORDER BY nip, nama_guru ASC";
-            DataTable tabel = db.GetDataTable(field, table, cond);
-            this.dataNilai_grid.DataSource = tabel;
+            //this.field = "id_nilai as 'ID Nilai', nis_siswa as 'NIS Siswa', nama_siswa as 'Nama Siswa',"+ 
+            //             "p_angka as 'Pengetahuan-Angka', p_predikat as 'Pengetahuan-Predikat, p_desk as 'Pengetahuan-Deskripsi'" +
+            //             "";
+            //this.table = "nilai INNER JOIN sis";
+            //this.cond = "status_guru = 'Akthif' ORDER BY nip, nama_guru ASC";
+            //DataTable tabel = db.GetDataTable(field, table, cond);
+            //this.dataNilai_grid.DataSource = tabel;
+
+            //this.query = "SELECT count(id_nilai) from nilai where "
         }
 
         
