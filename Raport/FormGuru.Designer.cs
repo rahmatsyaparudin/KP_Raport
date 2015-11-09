@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.keterangan_txt = new System.Windows.Forms.RichTextBox();
@@ -65,17 +65,18 @@
             this.historiGuru_grid = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.mapel_grup = new System.Windows.Forms.GroupBox();
+            this.jadwalGuru_grid = new System.Windows.Forms.DataGridView();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.create_btnTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.edit_btnTool = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.refresh_btnTool = new System.Windows.Forms.ToolStripButton();
             this.label2 = new System.Windows.Forms.Label();
             this.pilihGuru_combo = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.jadwalGuru_grid = new System.Windows.Forms.DataGridView();
-            this.edit_btnTool = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.create_btnTool = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.refresh_btnTool = new System.Windows.Forms.ToolStripButton();
+            this.guru_lbl = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGuru_grid)).BeginInit();
             this.guru_tab.SuspendLayout();
@@ -87,9 +88,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.historiGuru_grid)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.mapel_grup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.jadwalGuru_grid)).BeginInit();
+            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -321,8 +322,8 @@
             this.dataGuru_grid.AllowUserToDeleteRows = false;
             this.dataGuru_grid.AllowUserToResizeColumns = false;
             this.dataGuru_grid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGuru_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle31.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGuru_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle31;
             this.dataGuru_grid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGuru_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
@@ -334,16 +335,16 @@
             this.dataGuru_grid.Location = new System.Drawing.Point(19, 33);
             this.dataGuru_grid.Name = "dataGuru_grid";
             this.dataGuru_grid.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGuru_grid.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataGuru_grid.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle32.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGuru_grid.RowHeadersDefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle33.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataGuru_grid.RowsDefaultCellStyle = dataGridViewCellStyle33;
             this.dataGuru_grid.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGuru_grid.Size = new System.Drawing.Size(738, 341);
             this.dataGuru_grid.TabIndex = 0;
@@ -511,6 +512,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Peru;
+            this.tabPage1.Controls.Add(this.guru_lbl);
             this.tabPage1.Controls.Add(this.mapel_grup);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.pilihGuru_combo);
@@ -527,10 +529,80 @@
             this.mapel_grup.Controls.Add(this.toolStrip1);
             this.mapel_grup.Location = new System.Drawing.Point(22, 60);
             this.mapel_grup.Name = "mapel_grup";
-            this.mapel_grup.Size = new System.Drawing.Size(622, 282);
+            this.mapel_grup.Size = new System.Drawing.Size(499, 282);
             this.mapel_grup.TabIndex = 5;
             this.mapel_grup.TabStop = false;
             this.mapel_grup.Text = "Pilih Mata Pelajaran";
+            // 
+            // jadwalGuru_grid
+            // 
+            this.jadwalGuru_grid.AllowUserToAddRows = false;
+            this.jadwalGuru_grid.AllowUserToDeleteRows = false;
+            this.jadwalGuru_grid.AllowUserToResizeColumns = false;
+            this.jadwalGuru_grid.AllowUserToResizeRows = false;
+            this.jadwalGuru_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.jadwalGuru_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.jadwalGuru_grid.Dock = System.Windows.Forms.DockStyle.Top;
+            this.jadwalGuru_grid.Location = new System.Drawing.Point(3, 53);
+            this.jadwalGuru_grid.Name = "jadwalGuru_grid";
+            this.jadwalGuru_grid.Size = new System.Drawing.Size(493, 223);
+            this.jadwalGuru_grid.TabIndex = 1;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.BackColor = System.Drawing.Color.Sienna;
+            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.create_btnTool,
+            this.toolStripSeparator5,
+            this.edit_btnTool,
+            this.toolStripSeparator4,
+            this.refresh_btnTool});
+            this.toolStrip1.Location = new System.Drawing.Point(3, 25);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(493, 28);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // create_btnTool
+            // 
+            this.create_btnTool.Enabled = false;
+            this.create_btnTool.Image = global::Raport.Properties.Resources.edit_add;
+            this.create_btnTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.create_btnTool.Name = "create_btnTool";
+            this.create_btnTool.Size = new System.Drawing.Size(75, 25);
+            this.create_btnTool.Text = "Create";
+            this.create_btnTool.Click += new System.EventHandler(this.create_btnTool_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 28);
+            // 
+            // edit_btnTool
+            // 
+            this.edit_btnTool.Enabled = false;
+            this.edit_btnTool.Image = global::Raport.Properties.Resources.edit;
+            this.edit_btnTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.edit_btnTool.Name = "edit_btnTool";
+            this.edit_btnTool.Size = new System.Drawing.Size(56, 25);
+            this.edit_btnTool.Text = "Edit";
+            this.edit_btnTool.Click += new System.EventHandler(this.edit_btnTool_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 28);
+            // 
+            // refresh_btnTool
+            // 
+            this.refresh_btnTool.Enabled = false;
+            this.refresh_btnTool.Image = global::Raport.Properties.Resources.refresh;
+            this.refresh_btnTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refresh_btnTool.Name = "refresh_btnTool";
+            this.refresh_btnTool.Size = new System.Drawing.Size(83, 25);
+            this.refresh_btnTool.Text = "Refresh";
+            this.refresh_btnTool.Click += new System.EventHandler(this.refresh_btnTool_Click);
             // 
             // label2
             // 
@@ -571,71 +643,14 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // toolStrip1
+            // guru_lbl
             // 
-            this.toolStrip1.BackColor = System.Drawing.Color.Sienna;
-            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.create_btnTool,
-            this.toolStripSeparator5,
-            this.edit_btnTool,
-            this.toolStripSeparator4,
-            this.refresh_btnTool});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 25);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(616, 28);
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // jadwalGuru_grid
-            // 
-            this.jadwalGuru_grid.AllowUserToAddRows = false;
-            this.jadwalGuru_grid.AllowUserToDeleteRows = false;
-            this.jadwalGuru_grid.AllowUserToResizeColumns = false;
-            this.jadwalGuru_grid.AllowUserToResizeRows = false;
-            this.jadwalGuru_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.jadwalGuru_grid.Dock = System.Windows.Forms.DockStyle.Top;
-            this.jadwalGuru_grid.Location = new System.Drawing.Point(3, 53);
-            this.jadwalGuru_grid.Name = "jadwalGuru_grid";
-            this.jadwalGuru_grid.Size = new System.Drawing.Size(616, 232);
-            this.jadwalGuru_grid.TabIndex = 1;
-            // 
-            // edit_btnTool
-            // 
-            this.edit_btnTool.Enabled = false;
-            this.edit_btnTool.Image = global::Raport.Properties.Resources.edit;
-            this.edit_btnTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.edit_btnTool.Name = "edit_btnTool";
-            this.edit_btnTool.Size = new System.Drawing.Size(56, 25);
-            this.edit_btnTool.Text = "Edit";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 28);
-            // 
-            // create_btnTool
-            // 
-            this.create_btnTool.Enabled = false;
-            this.create_btnTool.Image = global::Raport.Properties.Resources.edit_add;
-            this.create_btnTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.create_btnTool.Name = "create_btnTool";
-            this.create_btnTool.Size = new System.Drawing.Size(75, 25);
-            this.create_btnTool.Text = "Create";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 28);
-            // 
-            // refresh_btnTool
-            // 
-            this.refresh_btnTool.Enabled = false;
-            this.refresh_btnTool.Image = global::Raport.Properties.Resources.refresh;
-            this.refresh_btnTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.refresh_btnTool.Name = "refresh_btnTool";
-            this.refresh_btnTool.Size = new System.Drawing.Size(83, 25);
-            this.refresh_btnTool.Text = "Refresh";
+            this.guru_lbl.AutoSize = true;
+            this.guru_lbl.Location = new System.Drawing.Point(502, 18);
+            this.guru_lbl.Name = "guru_lbl";
+            this.guru_lbl.Size = new System.Drawing.Size(19, 21);
+            this.guru_lbl.TabIndex = 6;
+            this.guru_lbl.Text = "0";
             // 
             // FormGuru
             // 
@@ -670,10 +685,10 @@
             this.tabPage1.PerformLayout();
             this.mapel_grup.ResumeLayout(false);
             this.mapel_grup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jadwalGuru_grid)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.jadwalGuru_grid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -725,5 +740,6 @@
         private System.Windows.Forms.ToolStripButton create_btnTool;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton refresh_btnTool;
+        private System.Windows.Forms.Label guru_lbl;
     }
 }

@@ -6,12 +6,15 @@ using System.Data;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Security.Cryptography;
 
 namespace Raport
 {
     class Function
     {
         string ConnString;
+        public static string IV = "asercvyunm135790";
+        public static string Key = "1234567890qazwsxedcrfvtgbyhnujmi";
         public static string host = ConfigurationManager.AppSettings["host"];
         public static string user = ConfigurationManager.AppSettings["user"];
         public static string pass = ConfigurationManager.AppSettings["pass"];
@@ -32,23 +35,6 @@ namespace Raport
             return connection;
         }
 
-        // -- jenis Query
-        // Query Pemilihan Data -> Select <namafield> FROM <namatabel> [WHERE kondisi]
-        public DataTable GetDataTable(string field, string table, string cond)
-        {
-            DataTable result = new DataTable();
-            MySqlConnection MyConn = new MySqlConnection(ConnString);
-            MyConn.Open();
-            string query = "SELECT " + field + " FROM " + table + " WHERE " + cond;
-            MySqlCommand MyComm = new MySqlCommand(query, MyConn);
-            MySqlDataReader myReader = MyComm.ExecuteReader();
-            result.Load(myReader);
-            MyConn.Close();
-            return result;
-        }
-
-        // Query Manipulasi Data 
-        // -> hapus data  > DELETE FROM <namatabel> [where kondisi]
         public void ExecuteNonQuery(string Query)
         {
             MySqlConnection myConn = new MySqlConnection(ConnString);
@@ -100,7 +86,20 @@ namespace Raport
             myComm.ExecuteNonQuery();
             myConn.Close();
         }
-        
+
+        public DataTable GetDataTable(string field, string table, string cond)
+        {
+            DataTable result = new DataTable();
+            MySqlConnection MyConn = new MySqlConnection(ConnString);
+            MyConn.Open();
+            string query = "SELECT " + field + " FROM " + table + " WHERE " + cond;
+            MySqlCommand MyComm = new MySqlCommand(query, MyConn);
+            MySqlDataReader myReader = MyComm.ExecuteReader();
+            result.Load(myReader);
+            MyConn.Close();
+            return result;
+        }
+
         public DataTable setCombo(string idValue, string dispValue, string table, string cond, string sortby)
         {
             DataTable result = new DataTable();
@@ -114,7 +113,6 @@ namespace Raport
             result.Columns.Add(dc1);
             result.Columns.Add(dc2);
             result.Rows.Add("", "");
-
             while (myReader.Read())
             {
                 string sName = myReader.GetString(dispValue);
@@ -124,30 +122,7 @@ namespace Raport
             MyConn.Close();
             return result;
         }
-
-        public DataTable showMapel(string idValue, string dispValue, string table, string cond)
-        {
-            DataTable result = new DataTable();
-            MySqlConnection MyConn = new MySqlConnection(ConnString);
-            MyConn.Open();
-            string query = "SELECT " + idValue + ", " + dispValue + " FROM " + table + " WHERE " + cond;
-            MySqlCommand MyComm = new MySqlCommand(query, MyConn);
-            MySqlDataReader myReader = MyComm.ExecuteReader();
-            DataColumn dc1 = new DataColumn("valueID");
-            DataColumn dc2 = new DataColumn("valueDisplay");
-            result.Columns.Add(dc1);
-            result.Columns.Add(dc2);
-
-            while (myReader.Read())
-            {
-                string sName = myReader.GetString(dispValue);
-                string sId = myReader.GetString(idValue);
-                result.Rows.Add(sId, sName);
-            }
-            MyConn.Close();
-            return result;
-        }
-
+        
         public DataTable getTahuj()
         {
             DataTable result = new DataTable();
@@ -236,6 +211,55 @@ namespace Raport
         public String capitalizeWord(string str)
         {
             return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str);
+        }
+
+        public string SHA1(string data)
+        {
+            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
+            sha1.ComputeHash(ASCIIEncoding.ASCII.GetBytes(data));
+            byte[] sh = sha1.Hash;
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in sh)
+            {
+                sb.Append(b.ToString("x2"));
+            }
+            return sb.ToString();
+        }
+
+        public string Encrypt(string data)
+        {
+            byte[] textbytes = ASCIIEncoding.ASCII.GetBytes(data);
+            AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
+            aes.BlockSize = 128;
+            aes.KeySize = 256;
+            aes.Key = ASCIIEncoding.ASCII.GetBytes(Key);
+            aes.IV = ASCIIEncoding.ASCII.GetBytes(IV);
+            aes.Padding = PaddingMode.PKCS7;
+            aes.Mode = CipherMode.CBC;
+
+            ICryptoTransform icrypt = aes.CreateEncryptor(aes.Key, aes.IV);
+
+            byte[] enc = icrypt.TransformFinalBlock(textbytes, 0, textbytes.Length);
+            icrypt.Dispose();
+            return Convert.ToBase64String(enc);
+        }
+
+        public string Decrypt(string data)
+        {
+            byte[] encbytes = Convert.FromBase64String(data);
+            AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
+            aes.BlockSize = 128;
+            aes.KeySize = 256;
+            aes.Key = ASCIIEncoding.ASCII.GetBytes(Key);
+            aes.IV = ASCIIEncoding.ASCII.GetBytes(IV);
+            aes.Padding = PaddingMode.PKCS7;
+            aes.Mode = CipherMode.CBC;
+
+            ICryptoTransform icrypt = aes.CreateDecryptor(aes.Key, aes.IV);
+
+            byte[] dec = icrypt.TransformFinalBlock(encbytes, 0, encbytes.Length);
+            icrypt.Dispose();
+            return ASCIIEncoding.ASCII.GetString(dec);
         }
     }
 }

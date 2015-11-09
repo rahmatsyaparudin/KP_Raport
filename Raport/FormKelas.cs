@@ -26,6 +26,7 @@ namespace Raport
         char notif;
         private string id_kelas, idGuru, kodeMapel, id_detail;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
+        DataGridViewCheckBoxColumn chk2 = new DataGridViewCheckBoxColumn();
         DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
 
         public FormKelas()
@@ -42,6 +43,7 @@ namespace Raport
             loadData();
             viewMember_grid.DataSource = null;
             viewKelas_combo.Enabled = false;
+            refresh2_toolBtn.Enabled = false;
         }
 
         private void getCombo()
@@ -632,7 +634,6 @@ namespace Raport
                 edit3_toolBtn.Enabled = false;
                 select_toolBtn.Enabled = false;
                 naikKelas_toolBtn.Enabled = false;
-                Opsi_toolBtn.Enabled = false;
                 cancel3_toolBtn.Enabled = false;
                 refresh2_toolBtn.Enabled = false;
                 viewMember_grid.Columns.Clear();
@@ -643,14 +644,13 @@ namespace Raport
                 edit3_toolBtn.Enabled = false;
                 select_toolBtn.Enabled = false;
                 naikKelas_toolBtn.Enabled = false;
-                Opsi_toolBtn.Enabled = false;
                 refresh2_toolBtn.Enabled = true;
                 cancel3_toolBtn.Enabled = false;
-                loaadMember();
+                loadMember();
             }            
         }
         
-        private void loaadMember()
+        private void loadMember()
         {
             this.id_kelas = this.viewKelas_combo.SelectedValue.ToString();
             this.query = "SELECT count(nis_siswa) as 'Jumlah' FROM detailkelassiswa WHERE kode_kelas= '" + id_kelas + "'";
@@ -681,7 +681,6 @@ namespace Raport
             viewMember_grid.Columns[0].Visible = true;
             select_toolBtn.Enabled = true;
             naikKelas_toolBtn.Enabled = true;
-            Opsi_toolBtn.Enabled = true;
             cancel3_toolBtn.Enabled = true;
             refresh2_toolBtn.Enabled = true;
         }
@@ -691,13 +690,12 @@ namespace Raport
             viewMember_grid.Columns[0].Visible = false;
             select_toolBtn.Enabled = false;
             naikKelas_toolBtn.Enabled = false;
-            Opsi_toolBtn.Enabled = false;
             cancel3_toolBtn.Enabled = false;
-            refresh2_toolBtn.Enabled = false;
+            refresh2_toolBtn.Enabled = true;
+            select_toolBtn.Text = "Select All";
             foreach (DataGridViewRow row in viewMember_grid.Rows)
             {
                 row.Cells[0].Value = false;
-                select_toolBtn.Text = "Select All";
             }
         }
 
@@ -723,9 +721,10 @@ namespace Raport
 
         private void refresh2_toolBtn_Click(object sender, EventArgs e)
         {
-
+            loadMember();
+            cancel3_toolBtn_Click(sender, e);
         }
-
+        
         private void setTahun_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (setTahun_combo.Text == "")
@@ -766,9 +765,9 @@ namespace Raport
             viewMember_grid.DataSource = null;
             viewMember_grid.Columns.Clear();
             //Membuat Checkbox
-            chk.ReadOnly = false;
-            chk.HeaderText = "Pilih";
-            viewMember_grid.Columns.Add(chk);
+            chk2.ReadOnly = false;
+            chk2.HeaderText = "Pilih";
+            viewMember_grid.Columns.Add(chk2);
 
             this.id_kelas = this.viewKelas_combo.SelectedValue.ToString();
             this.table = "detailkelassiswa INNER JOIN siswa USING(nis_siswa) INNER JOIN orangtua USING (nis_siswa)";

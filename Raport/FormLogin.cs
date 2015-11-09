@@ -15,6 +15,7 @@ namespace Raport
     public partial class FormLogin : Form
     {
         MySqlConnection myConn = Function.getKoneksi();
+        Function db = new Function();
         MySqlDataReader myReader;
         MySqlCommand SelectCommand;
         public FormLogin()
@@ -31,14 +32,16 @@ namespace Raport
                 username = username.Replace("\"", "");
                 string password = pass_txt.Text.Replace("'", "");
                 password = password.Replace("\"", "");
-                SelectCommand = new MySqlCommand("SELECT * from user where username = '" + username +
-                                                "'and password='" + password + "'; ", myConn);
+                SelectCommand = new MySqlCommand("SELECT username, password, nama, level from user where username = '" + username +
+                                                "'and password='" + db.Encrypt(password) + "'; ", myConn);
                 myConn.Open();
                 myReader = SelectCommand.ExecuteReader();
                 int count = 0;
                 while (myReader.Read())
                 {
                     count = count + 1;
+                    level_lbl.Text = myReader.GetString("level");
+                    user_lbl.Text = myReader.GetString("nama");
                 }
                 if (count == 1)
                 {
@@ -99,6 +102,8 @@ namespace Raport
                 info_timer.Enabled = false;
                 this.Hide();
                 FormUtama fUtama = new FormUtama();
+                fUtama.passLevel = level_lbl.Text;
+                fUtama.passUser = user_lbl.Text;
                 fUtama.Show();
             }
         }

@@ -22,6 +22,7 @@ namespace Raport
         private string cond;
         private string field;
         private string query;
+        public string getLevel, getUser;
         
         public FormUtama()
         {
@@ -37,8 +38,45 @@ namespace Raport
             Application.Run(new SplashScreen());
         }
 
+        public string passLevel
+        {
+            get { return getLevel; }
+            set { getLevel = value; }
+        }
+
+        public string passUser
+        {
+            get { return getUser; }
+            set { getUser = value; }
+        }
+
         private void FormUtama_Load(object sender, EventArgs e)
         {
+            if (getLevel == "0")
+            {
+                profil_menu.Enabled = false;
+                guru_menu.Enabled = false;
+                kelas_menu.Enabled = false;
+                mapel_menu.Enabled = false;
+                siswa_menu.Enabled = false;
+                eskul_menu.Enabled = false;
+                user_menu.Enabled = false;
+                siswa_menu.Enabled = false;
+                user_lbl.Text = getUser;
+            }
+            else if (getLevel == "1")
+            {
+                profil_menu.Enabled = true;
+                guru_menu.Enabled = true;
+                kelas_menu.Enabled = true;
+                mapel_menu.Enabled = true;
+                siswa_menu.Enabled = true;
+                eskul_menu.Enabled = true;
+                user_menu.Enabled = true;
+                siswa_menu.Enabled = true;
+                user_lbl.Text = getUser;
+            }
+
             getCombo();
             jamku = DateTime.Now;
             query = "SELECT * FROM profil_sekolah";
@@ -119,6 +157,12 @@ namespace Raport
             fMapel.ShowDialog();
         }
 
+        private void user_menu_Click(object sender, EventArgs e)
+        {
+            FormUser fUser = new FormUser();
+            fUser.ShowDialog();
+        }
+
         private void exit_btn_Click(object sender, EventArgs e)
         {
             DialogResult dialog = MessageBox.Show("Apakah Anda yakin ingin menutup aplikasi?",
@@ -157,6 +201,9 @@ namespace Raport
         private void nilai_menu_Click(object sender, EventArgs e)
         {
             FormNilai fNilai = new FormNilai();
+            fNilai.passTahuj = tahuj_combo.Text.ToString();
+            fNilai.passUser = getUser;
+            fNilai.passLevel = getLevel;
             fNilai.ShowDialog();
         }
 
@@ -175,9 +222,19 @@ namespace Raport
 
             if (tahuj_combo.Text != "")
             {
-                siswa_menu.Enabled = true;
-                deskripsi_menu.Enabled = true;
-                nilai_menu.Enabled = true;
+                if (getLevel == "0")
+                {
+                    siswa_menu.Enabled = false;
+                    deskripsi_menu.Enabled = true;
+                    nilai_menu.Enabled = true;
+                }
+                else if (getLevel == "1")
+                {
+                    siswa_menu.Enabled = true;
+                    deskripsi_menu.Enabled = true;
+                    nilai_menu.Enabled = true;
+
+                }
             }
         }
 
@@ -311,7 +368,7 @@ namespace Raport
                 deskripsi_menu.BackColor = Color.Magenta;
             }
         }
-
+        
         //END CLASS
     }
 }

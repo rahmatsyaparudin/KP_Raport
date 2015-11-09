@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -38,15 +38,15 @@
             this.search_txt = new System.Windows.Forms.TextBox();
             this.sortby_combo = new System.Windows.Forms.ComboBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.add_toolStr = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.refresh_toolStr = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.siswa_grid = new System.Windows.Forms.DataGridView();
             this.siswa_tab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
-            this.add_toolStr = new System.Windows.Forms.ToolStripButton();
-            this.refresh_toolStr = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -137,10 +137,30 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // add_toolStr
+            // 
+            this.add_toolStr.Image = global::Raport.Properties.Resources.add;
+            this.add_toolStr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.add_toolStr.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.add_toolStr.Name = "add_toolStr";
+            this.add_toolStr.Size = new System.Drawing.Size(94, 25);
+            this.add_toolStr.Text = "Add New";
+            this.add_toolStr.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.add_toolStr.Click += new System.EventHandler(this.add_toolStr_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
+            // 
+            // refresh_toolStr
+            // 
+            this.refresh_toolStr.Image = global::Raport.Properties.Resources.refresh;
+            this.refresh_toolStr.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.refresh_toolStr.Name = "refresh_toolStr";
+            this.refresh_toolStr.Size = new System.Drawing.Size(119, 25);
+            this.refresh_toolStr.Text = "Refresh Data";
+            this.refresh_toolStr.Click += new System.EventHandler(this.refresh_toolStr_Click);
             // 
             // toolStripSeparator2
             // 
@@ -159,30 +179,30 @@
             this.siswa_grid.AllowUserToDeleteRows = false;
             this.siswa_grid.AllowUserToResizeColumns = false;
             this.siswa_grid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.NullValue = null;
-            this.siswa_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.NullValue = null;
+            this.siswa_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.siswa_grid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.siswa_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.siswa_grid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.siswa_grid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.siswa_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.NullValue = null;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.siswa_grid.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.NullValue = null;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.siswa_grid.DefaultCellStyle = dataGridViewCellStyle6;
             this.siswa_grid.Location = new System.Drawing.Point(0, 36);
             this.siswa_grid.Name = "siswa_grid";
             this.siswa_grid.ReadOnly = true;
@@ -229,26 +249,6 @@
             this.label2.Size = new System.Drawing.Size(158, 36);
             this.label2.TabIndex = 2;
             this.label2.Text = "Data Siswa";
-            // 
-            // add_toolStr
-            // 
-            this.add_toolStr.Image = global::Raport.Properties.Resources.add;
-            this.add_toolStr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.add_toolStr.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.add_toolStr.Name = "add_toolStr";
-            this.add_toolStr.Size = new System.Drawing.Size(94, 25);
-            this.add_toolStr.Text = "Add New";
-            this.add_toolStr.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.add_toolStr.Click += new System.EventHandler(this.add_toolStr_Click);
-            // 
-            // refresh_toolStr
-            // 
-            this.refresh_toolStr.Image = global::Raport.Properties.Resources.refresh;
-            this.refresh_toolStr.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.refresh_toolStr.Name = "refresh_toolStr";
-            this.refresh_toolStr.Size = new System.Drawing.Size(119, 25);
-            this.refresh_toolStr.Text = "Refresh Data";
-            this.refresh_toolStr.Click += new System.EventHandler(this.refresh_toolStr_Click);
             // 
             // pictureBox1
             // 

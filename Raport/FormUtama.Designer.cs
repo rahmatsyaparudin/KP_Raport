@@ -62,6 +62,9 @@
             this.set_btn = new System.Windows.Forms.Button();
             this.exit_btn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.user_menu = new System.Windows.Forms.Button();
+            this.user_lbl = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo_pic)).BeginInit();
@@ -340,7 +343,7 @@
             this.jam_lbl.BackColor = System.Drawing.Color.Aquamarine;
             this.jam_lbl.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.jam_lbl.ForeColor = System.Drawing.Color.DarkBlue;
-            this.jam_lbl.Location = new System.Drawing.Point(651, 257);
+            this.jam_lbl.Location = new System.Drawing.Point(651, 265);
             this.jam_lbl.Name = "jam_lbl";
             this.jam_lbl.Size = new System.Drawing.Size(88, 23);
             this.jam_lbl.TabIndex = 15;
@@ -357,7 +360,7 @@
             this.hari_lbl.BackColor = System.Drawing.Color.Aquamarine;
             this.hari_lbl.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.hari_lbl.ForeColor = System.Drawing.Color.DarkBlue;
-            this.hari_lbl.Location = new System.Drawing.Point(626, 169);
+            this.hari_lbl.Location = new System.Drawing.Point(626, 177);
             this.hari_lbl.Name = "hari_lbl";
             this.hari_lbl.Size = new System.Drawing.Size(47, 23);
             this.hari_lbl.TabIndex = 16;
@@ -369,7 +372,7 @@
             this.tanggal_lbl.BackColor = System.Drawing.Color.Aquamarine;
             this.tanggal_lbl.Font = new System.Drawing.Font("Times New Roman", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tanggal_lbl.ForeColor = System.Drawing.Color.DarkBlue;
-            this.tanggal_lbl.Location = new System.Drawing.Point(676, 193);
+            this.tanggal_lbl.Location = new System.Drawing.Point(676, 201);
             this.tanggal_lbl.Name = "tanggal_lbl";
             this.tanggal_lbl.Size = new System.Drawing.Size(35, 40);
             this.tanggal_lbl.TabIndex = 17;
@@ -381,7 +384,7 @@
             this.bulan_lbl.BackColor = System.Drawing.Color.Aquamarine;
             this.bulan_lbl.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bulan_lbl.ForeColor = System.Drawing.Color.DarkBlue;
-            this.bulan_lbl.Location = new System.Drawing.Point(624, 233);
+            this.bulan_lbl.Location = new System.Drawing.Point(624, 241);
             this.bulan_lbl.Name = "bulan_lbl";
             this.bulan_lbl.Size = new System.Drawing.Size(108, 21);
             this.bulan_lbl.TabIndex = 18;
@@ -393,7 +396,7 @@
             this.label2.BackColor = System.Drawing.Color.Aquamarine;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(623, 219);
+            this.label2.Location = new System.Drawing.Point(623, 227);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 39);
             this.label2.TabIndex = 19;
@@ -408,7 +411,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Aquamarine;
-            this.panel2.Location = new System.Drawing.Point(622, 165);
+            this.panel2.Location = new System.Drawing.Point(622, 173);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(139, 116);
             this.panel2.TabIndex = 20;
@@ -420,7 +423,7 @@
             this.panel3.Controls.Add(this.tahuj_combo);
             this.panel3.Controls.Add(this.change_btn);
             this.panel3.Controls.Add(this.set_btn);
-            this.panel3.Location = new System.Drawing.Point(485, 165);
+            this.panel3.Location = new System.Drawing.Point(485, 173);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(131, 115);
             this.panel3.TabIndex = 21;
@@ -502,12 +505,48 @@
             // groupBox2
             // 
             this.groupBox2.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(326, 286);
+            this.groupBox2.Location = new System.Drawing.Point(326, 294);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(434, 209);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Print Laporan";
+            // 
+            // user_menu
+            // 
+            this.user_menu.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.user_menu.FlatAppearance.BorderSize = 0;
+            this.user_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.user_menu.Font = new System.Drawing.Font("Kristen ITC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.user_menu.Location = new System.Drawing.Point(345, 173);
+            this.user_menu.Name = "user_menu";
+            this.user_menu.Size = new System.Drawing.Size(134, 32);
+            this.user_menu.TabIndex = 23;
+            this.user_menu.Text = "Tambah User";
+            this.user_menu.UseVisualStyleBackColor = false;
+            this.user_menu.Click += new System.EventHandler(this.user_menu_Click);
+            // 
+            // user_lbl
+            // 
+            this.user_lbl.AutoSize = true;
+            this.user_lbl.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.user_lbl.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.user_lbl.Location = new System.Drawing.Point(433, 145);
+            this.user_lbl.Name = "user_lbl";
+            this.user_lbl.Size = new System.Drawing.Size(51, 24);
+            this.user_lbl.TabIndex = 6;
+            this.user_lbl.Text = "User";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label4.Location = new System.Drawing.Point(341, 145);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(102, 24);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "Welcome, ";
             // 
             // FormUtama
             // 
@@ -519,6 +558,9 @@
             this.CancelButton = this.deskripsi_menu;
             this.ClientSize = new System.Drawing.Size(780, 557);
             this.ControlBox = false;
+            this.Controls.Add(this.user_lbl);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.user_menu);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.tanggal_lbl);
@@ -584,5 +626,8 @@
         private System.Windows.Forms.ComboBox tahuj_combo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button user_menu;
+        private System.Windows.Forms.Label user_lbl;
+        private System.Windows.Forms.Label label4;
     }
 }

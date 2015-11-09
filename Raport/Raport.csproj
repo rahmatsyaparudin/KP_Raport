@@ -117,6 +117,12 @@
     <Compile Include="FormNilai.Designer.cs">
       <DependentUpon>FormNilai.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormUser.Designer.cs">
+      <DependentUpon>FormUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormProfilSekolah.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormNilai.resx">
       <DependentUpon>FormNilai.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUser.resx">
+      <DependentUpon>FormUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormProfilSekolah.resx">
       <DependentUpon>FormProfilSekolah.cs</DependentUpon>

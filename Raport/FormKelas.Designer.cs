@@ -87,11 +87,6 @@ namespace Raport
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.naikKelas_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.Opsi_toolBtn = new System.Windows.Forms.ToolStripDropDownButton();
-            this.kelas_dropTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.sekolah_dropTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.dropout_dropTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.refresh2_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.cancel3_toolBtn = new System.Windows.Forms.ToolStripButton();
@@ -562,6 +557,7 @@ namespace Raport
             // id_lbl
             // 
             this.id_lbl.AutoSize = true;
+            this.id_lbl.Enabled = false;
             this.id_lbl.Location = new System.Drawing.Point(456, 15);
             this.id_lbl.Name = "id_lbl";
             this.id_lbl.Size = new System.Drawing.Size(19, 21);
@@ -726,8 +722,6 @@ namespace Raport
             this.toolStripSeparator7,
             this.naikKelas_toolBtn,
             this.toolStripSeparator8,
-            this.Opsi_toolBtn,
-            this.toolStripSeparator10,
             this.refresh2_toolBtn,
             this.toolStripSeparator9,
             this.cancel3_toolBtn});
@@ -779,42 +773,6 @@ namespace Raport
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 28);
-            // 
-            // Opsi_toolBtn
-            // 
-            this.Opsi_toolBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.kelas_dropTool,
-            this.sekolah_dropTool,
-            this.dropout_dropTool});
-            this.Opsi_toolBtn.Enabled = false;
-            this.Opsi_toolBtn.Image = global::Raport.Properties.Resources.setting1;
-            this.Opsi_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Opsi_toolBtn.Name = "Opsi_toolBtn";
-            this.Opsi_toolBtn.Size = new System.Drawing.Size(71, 25);
-            this.Opsi_toolBtn.Text = "Opsi";
-            // 
-            // kelas_dropTool
-            // 
-            this.kelas_dropTool.Name = "kelas_dropTool";
-            this.kelas_dropTool.Size = new System.Drawing.Size(187, 26);
-            this.kelas_dropTool.Text = "Pindah Kelas";
-            // 
-            // sekolah_dropTool
-            // 
-            this.sekolah_dropTool.Name = "sekolah_dropTool";
-            this.sekolah_dropTool.Size = new System.Drawing.Size(187, 26);
-            this.sekolah_dropTool.Text = "Pindah Sekolah";
-            // 
-            // dropout_dropTool
-            // 
-            this.dropout_dropTool.Name = "dropout_dropTool";
-            this.dropout_dropTool.Size = new System.Drawing.Size(187, 26);
-            this.dropout_dropTool.Text = "Drop Out";
-            // 
-            // toolStripSeparator10
-            // 
-            this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 28);
             // 
             // refresh2_toolBtn
             // 
@@ -977,16 +935,11 @@ namespace Raport
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton select_toolBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripDropDownButton Opsi_toolBtn;
-        private System.Windows.Forms.ToolStripMenuItem kelas_dropTool;
-        private System.Windows.Forms.ToolStripMenuItem sekolah_dropTool;
-        private System.Windows.Forms.ToolStripMenuItem dropout_dropTool;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripButton naikKelas_toolBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripButton cancel3_toolBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripButton refresh2_toolBtn;
     }
 }

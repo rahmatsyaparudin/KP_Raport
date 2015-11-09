@@ -38,12 +38,14 @@
             this.pass_txt = new System.Windows.Forms.TextBox();
             this.info_panel = new System.Windows.Forms.Panel();
             this.info_lbl = new System.Windows.Forms.Label();
+            this.info_img = new System.Windows.Forms.PictureBox();
             this.info_timer = new System.Windows.Forms.Timer(this.components);
             this.setting_btn = new System.Windows.Forms.Button();
-            this.info_img = new System.Windows.Forms.PictureBox();
             this.exit_btn = new System.Windows.Forms.Button();
             this.login_btn = new System.Windows.Forms.Button();
             this.logo_picbox = new System.Windows.Forms.PictureBox();
+            this.level_lbl = new System.Windows.Forms.Label();
+            this.user_lbl = new System.Windows.Forms.Label();
             this.info_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.info_img)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.logo_picbox)).BeginInit();
@@ -133,6 +135,16 @@
             this.info_lbl.Text = "Info Login";
             this.info_lbl.Visible = false;
             // 
+            // info_img
+            // 
+            this.info_img.Image = global::Raport.Properties.Resources.lockKey;
+            this.info_img.Location = new System.Drawing.Point(12, 3);
+            this.info_img.Name = "info_img";
+            this.info_img.Size = new System.Drawing.Size(44, 44);
+            this.info_img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.info_img.TabIndex = 11;
+            this.info_img.TabStop = false;
+            // 
             // info_timer
             // 
             this.info_timer.Interval = 2000;
@@ -157,16 +169,6 @@
             this.setting_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.setting_btn.UseVisualStyleBackColor = false;
             this.setting_btn.Click += new System.EventHandler(this.setting_btn_Click);
-            // 
-            // info_img
-            // 
-            this.info_img.Image = global::Raport.Properties.Resources.lockKey;
-            this.info_img.Location = new System.Drawing.Point(12, 3);
-            this.info_img.Name = "info_img";
-            this.info_img.Size = new System.Drawing.Size(44, 44);
-            this.info_img.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.info_img.TabIndex = 11;
-            this.info_img.TabStop = false;
             // 
             // exit_btn
             // 
@@ -219,6 +221,25 @@
             this.logo_picbox.TabIndex = 4;
             this.logo_picbox.TabStop = false;
             // 
+            // level_lbl
+            // 
+            this.level_lbl.AutoSize = true;
+            this.level_lbl.Location = new System.Drawing.Point(427, 225);
+            this.level_lbl.Name = "level_lbl";
+            this.level_lbl.Size = new System.Drawing.Size(19, 13);
+            this.level_lbl.TabIndex = 12;
+            this.level_lbl.Text = "10";
+            this.level_lbl.Visible = false;
+            // 
+            // user_lbl
+            // 
+            this.user_lbl.AutoSize = true;
+            this.user_lbl.Location = new System.Drawing.Point(278, 137);
+            this.user_lbl.Name = "user_lbl";
+            this.user_lbl.Size = new System.Drawing.Size(27, 13);
+            this.user_lbl.TabIndex = 13;
+            this.user_lbl.Text = "user";
+            // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -226,6 +247,8 @@
             this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.ClientSize = new System.Drawing.Size(512, 333);
             this.ControlBox = false;
+            this.Controls.Add(this.user_lbl);
+            this.Controls.Add(this.level_lbl);
             this.Controls.Add(this.setting_btn);
             this.Controls.Add(this.info_panel);
             this.Controls.Add(this.exit_btn);
@@ -271,6 +294,8 @@
         private System.Windows.Forms.Timer info_timer;
         private System.Windows.Forms.Button login_btn;
         private System.Windows.Forms.Button setting_btn;
+        private System.Windows.Forms.Label level_lbl;
+        private System.Windows.Forms.Label user_lbl;
     }
 }
 

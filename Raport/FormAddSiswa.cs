@@ -40,7 +40,7 @@ namespace Raport
             get { return tahuj; }
             set { tahuj = value; }
         }
-
+        
         public string valueKelas
         {
             get { return passKode; }
@@ -122,83 +122,83 @@ namespace Raport
         {            
             if (string.IsNullOrWhiteSpace(nis_txt.Text) && nis_txt.Text.Length >= 0)
             {
-                MessageBox.Show("NIS Siswa harus diisi");
                 nis_txt.Focus();
+                MessageBox.Show("NIS Siswa harus diisi");
             }
             else if (string.IsNullOrWhiteSpace(namaSiswa_txt.Text) && namaSiswa_txt.Text.Length >= 0)
             {
-                MessageBox.Show("Nama Siswa harus diisi");
                 namaSiswa_txt.Focus();
+                MessageBox.Show("Nama Siswa harus diisi");
             }
             else if (string.IsNullOrWhiteSpace(tempatLahir_txt.Text) && tempatLahir_txt.Text.Length >= 0)
             {
-                MessageBox.Show("Tempat Lahir harus diisi");
                 tempatLahir_txt.Focus();
+                MessageBox.Show("Tempat Lahir harus diisi");
             }
             else if (ttl_date.Checked == false)
             {
-                MessageBox.Show("Tanggal lahir belum dipilih");
                 ttl_date.Focus();
+                MessageBox.Show("Tanggal lahir belum dipilih");
             }
             else if (kelamin_combo.Text == "")
             {
-                MessageBox.Show("Jenis Kelamin belum dipilih");
                 kelamin_combo.Focus();
+                MessageBox.Show("Jenis Kelamin belum dipilih");
             }
             else if (agama_combo.Text == "")
             {
-                MessageBox.Show("Agama belum dipilih");
                 agama_combo.Focus();
+                MessageBox.Show("Agama belum dipilih");
             }
             else if (status_combo.Text == "")
             {
-                MessageBox.Show("Status anak belum dipilih");
                 status_combo.Focus();
+                MessageBox.Show("Status anak belum dipilih");
             }
             else if (anakke_combo.Text == "")
             {
-                MessageBox.Show("Anak ke- belum dipilih");
                 anakke_combo.Focus();
+                MessageBox.Show("Anak ke- belum dipilih");
             }
             else if (string.IsNullOrWhiteSpace(asalSekolah_txt.Text) && asalSekolah_txt.Text.Length >= 0)
             {
-                MessageBox.Show("Asal Sekolah harus diisi");
                 asalSekolah_txt.Focus();
+                MessageBox.Show("Asal Sekolah harus diisi");
             }
             else if (dikelas_combo.Text == "")
             {
-                MessageBox.Show("Kelas Belum dipilih");
                 dikelas_combo.Focus();
+                MessageBox.Show("Kelas Belum dipilih");
             }
             else if (string.IsNullOrWhiteSpace(alamatSiswa_txt.Text) && alamatSiswa_txt.Text.Length >= 0)
             {
-                MessageBox.Show("Alamat Siswa harus diisi");
                 alamatSiswa_txt.Focus();
+                MessageBox.Show("Alamat Siswa harus diisi");
             }
             else if (string.IsNullOrWhiteSpace(namaAyah_txt.Text) && namaAyah_txt.Text.Length >= 0)
             {
-                MessageBox.Show("Nama Ayah harus diisi");
                 namaAyah_txt.Focus();
+                MessageBox.Show("Nama Ayah harus diisi");
             }
             else if (string.IsNullOrWhiteSpace(namaIbu_txt.Text) && namaIbu_txt.Text.Length >= 0)
             {
-                MessageBox.Show("Nama Ibu harus diisi");
                 namaIbu_txt.Focus();
+                MessageBox.Show("Nama Ibu harus diisi");
             }
             else if (string.IsNullOrWhiteSpace(pekerjaanAyah_txt.Text) && pekerjaanAyah_txt.Text.Length >= 0)
             {
-                MessageBox.Show("Pekerjaan Ayah harus diisi");
                 pekerjaanAyah_txt.Focus();
+                MessageBox.Show("Pekerjaan Ayah harus diisi");
             }
             else if (string.IsNullOrWhiteSpace(pekerjaanIbu_txt.Text) && pekerjaanIbu_txt.Text.Length >= 0)
             {
-                MessageBox.Show("Pekerjaan Ibu harus diisi");
                 pekerjaanIbu_txt.Focus();
+                MessageBox.Show("Pekerjaan Ibu harus diisi");
             }
             else if (string.IsNullOrWhiteSpace(alamatOrtu_txt.Text) && alamatOrtu_txt.Text.Length >= 0)
             {
-                MessageBox.Show("Alamat Ortu harus diisi");
                 alamatOrtu_txt.Focus();
+                MessageBox.Show("Alamat Ortu harus diisi");
             }
             else if (loadValue == "Update")
             {
@@ -251,10 +251,9 @@ namespace Raport
                 string field3 = "DEFAULT, '" + dikelas +
                                 "', '" + this.nis_txt.Text + "', 'Data Siswa'";
                 db.insertData(table3, field3);
-
-                MessageBox.Show("Data Siswa '" + this.namaSiswa_txt.Text + "' disimpan");
                 FormSiswa fSiswa = new FormSiswa();
                 fSiswa.loadData();
+                MessageBox.Show("Data Siswa '" + this.namaSiswa_txt.Text + "' disimpan");
                 this.Close();
             }
             catch (Exception ex)
@@ -305,9 +304,9 @@ namespace Raport
                 string field3 = "kode_kelas = '" + dikelas + "'";
                 string cond3 = "id_detail = '"+ id_lbl.Text +"'";
                 db.updateData(table3, field3, cond3);
-                MessageBox.Show("Edit Data Siswa Berhasil \n Data Tersimpan");
                 FormSiswa fSiswa = new FormSiswa();
                 fSiswa.loadData();
+                MessageBox.Show("Edit Data Siswa Berhasil \n Data Tersimpan");
                 this.Close();
             }
             catch (Exception ex)

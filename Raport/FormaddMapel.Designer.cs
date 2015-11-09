@@ -30,9 +30,9 @@
         {
             this.schedule_grid = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.sumMapel_lbl = new System.Windows.Forms.Label();
             this.cancel_btn = new System.Windows.Forms.Button();
             this.create_btn = new System.Windows.Forms.Button();
-            this.sumMapel_lbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +49,7 @@
             this.schedule_grid.Dock = System.Windows.Forms.DockStyle.Top;
             this.schedule_grid.Location = new System.Drawing.Point(0, 0);
             this.schedule_grid.Name = "schedule_grid";
-            this.schedule_grid.Size = new System.Drawing.Size(707, 269);
+            this.schedule_grid.Size = new System.Drawing.Size(663, 269);
             this.schedule_grid.TabIndex = 0;
             this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
             // 
@@ -61,14 +61,24 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 269);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(707, 69);
+            this.panel1.Size = new System.Drawing.Size(663, 69);
             this.panel1.TabIndex = 1;
+            // 
+            // sumMapel_lbl
+            // 
+            this.sumMapel_lbl.AutoSize = true;
+            this.sumMapel_lbl.Location = new System.Drawing.Point(445, 33);
+            this.sumMapel_lbl.Name = "sumMapel_lbl";
+            this.sumMapel_lbl.Size = new System.Drawing.Size(13, 13);
+            this.sumMapel_lbl.TabIndex = 2;
+            this.sumMapel_lbl.Text = "0";
+            this.sumMapel_lbl.Visible = false;
             // 
             // cancel_btn
             // 
             this.cancel_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancel_btn.Image = global::Raport.Properties.Resources.cancel;
-            this.cancel_btn.Location = new System.Drawing.Point(353, 22);
+            this.cancel_btn.Location = new System.Drawing.Point(309, 22);
             this.cancel_btn.Name = "cancel_btn";
             this.cancel_btn.Size = new System.Drawing.Size(89, 33);
             this.cancel_btn.TabIndex = 1;
@@ -81,7 +91,7 @@
             // 
             this.create_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.create_btn.Image = global::Raport.Properties.Resources.edit_add;
-            this.create_btn.Location = new System.Drawing.Point(259, 22);
+            this.create_btn.Location = new System.Drawing.Point(215, 22);
             this.create_btn.Name = "create_btn";
             this.create_btn.Size = new System.Drawing.Size(88, 33);
             this.create_btn.TabIndex = 0;
@@ -90,21 +100,12 @@
             this.create_btn.UseVisualStyleBackColor = true;
             this.create_btn.Click += new System.EventHandler(this.create_btn_Click);
             // 
-            // sumMapel_lbl
-            // 
-            this.sumMapel_lbl.AutoSize = true;
-            this.sumMapel_lbl.Location = new System.Drawing.Point(484, 33);
-            this.sumMapel_lbl.Name = "sumMapel_lbl";
-            this.sumMapel_lbl.Size = new System.Drawing.Size(13, 13);
-            this.sumMapel_lbl.TabIndex = 2;
-            this.sumMapel_lbl.Text = "0";
-            // 
             // FormAddMapel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.ClientSize = new System.Drawing.Size(707, 336);
+            this.ClientSize = new System.Drawing.Size(663, 336);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.schedule_grid);
             this.Name = "FormAddMapel";

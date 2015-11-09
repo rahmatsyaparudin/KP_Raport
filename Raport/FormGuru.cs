@@ -15,14 +15,19 @@ namespace Raport
     {
         MySqlConnection myConn = Function.getKoneksi();
         Function db = new Function();
+        MySqlDataReader myReader;
         private string table;
         private string field;
         private string cond;
+        private string query, kodeIdGuru;
+        DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
 
         public FormGuru()
         {
             InitializeComponent();
         }
+
+        
 
         private void FormGuru_Load(object sender, EventArgs e)
         {
@@ -30,6 +35,9 @@ namespace Raport
             disableSorting();
             loadHistori();
             fillcomboGuru();
+            create_btnTool.Enabled = false;
+            refresh_btnTool.Enabled = false;
+            edit_btnTool.Enabled = false;
         }
 
         //TAB VIEW DATA
@@ -196,9 +204,9 @@ namespace Raport
                                 "', '" + this.nuptk_txt.Text + "', '" + this.nama_txt.Text +
                                 "', DEFAULT, '" + this.keterangan_txt.Text + "'";
                     db.insertData(table, field);
-                    MessageBox.Show("Tambah Data dengan id '" + this.id_txt.Text +
-                        "' Berhasil \n Data Tersimpan");
                     loadData();
+                    MessageBox.Show("Tambah Data guru '" + this.nama_txt.Text +
+                        "' Berhasil \n Data Tersimpan");
                 }
             }
             catch (Exception ex)
@@ -307,14 +315,17 @@ namespace Raport
         }
 
         //TAB TEACHING LESSONS
+
         private void pilihGuru_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (pilihGuru_combo.Text == "")
             {
-                jadwalGuru_grid.DataSource = null;
                 create_btnTool.Enabled = false;
                 edit_btnTool.Enabled = false;
                 refresh_btnTool.Enabled = false;
+                guru_lbl.Text = "0";
+                jadwalGuru_grid.DataSource = null;
+                jadwalGuru_grid.Columns.Clear();
             }
             else if (pilihGuru_combo.Text != "")
             {
@@ -322,6 +333,80 @@ namespace Raport
                 create_btnTool.Enabled = true;
                 edit_btnTool.Enabled = true;
                 refresh_btnTool.Enabled = true;
+                load_jadwalGuru();
+            }
+        }
+
+        private void create_btnTool_Click(object sender, EventArgs e)
+        {
+            FormAddMapel FAddMapel = new FormAddMapel();
+            FAddMapel.passIdGuru = pilihGuru_combo.SelectedValue.ToString();
+            FAddMapel.ShowDialog();
+        }
+
+        private void edit_btnTool_Click(object sender, EventArgs e)
+        {
+            jadwalGuru_grid.Enabled = true;
+            //save2_btn.Enabled = true;
+            //cancel2_btn.Enabled = true;
+            //edit_tool.Enabled = false;
+            //create_tool.Enabled = false;
+            //delete2_btn.Enabled = true;
+            jadwalGuru_grid.Columns[0].Visible = true;
+        }
+
+        public void load_jadwalGuru()
+        {
+            this.kodeIdGuru = this.pilihGuru_combo.SelectedValue.ToString();
+            this.query = "SELECT count(id_guru) as 'Jumlah' FROM detailmapelguru WHERE id_guru= '" + kodeIdGuru + "'";
+            MySqlCommand myComm = new MySqlCommand(query, myConn);
+            myConn.Open();
+            myReader = myComm.ExecuteReader();
+            while (myReader.Read())
+            {
+                guru_lbl.Text = myReader.GetString("Jumlah");
+            }
+            myConn.Close();
+
+            if (guru_lbl.Text == "0")
+            {
+                jadwalGuru_grid.Columns.Clear();
+                jadwalGuru_grid.DataSource = null;
+                edit_btnTool.Enabled = false;
+                refresh_btnTool.Enabled = false;
+            }
+            else if (guru_lbl.Text != "0")
+            {
+                viewJadwal();
+                edit_btnTool.Enabled = true;
+                refresh_btnTool.Enabled = true;
+            }
+        }
+
+        private void refresh_btnTool_Click(object sender, EventArgs e)
+        {
+            load_jadwalGuru();
+        }
+
+        private void viewJadwal()
+        {
+            jadwalGuru_grid.DataSource = null;
+            jadwalGuru_grid.Columns.Clear();
+            //Membuat Checkbox
+            chk.ReadOnly = false;
+            chk.HeaderText = "Pilih";
+            jadwalGuru_grid.Columns.Add(chk);
+
+            this.kodeIdGuru = this.pilihGuru_combo.SelectedValue.ToString();
+            this.table = "detailmapelguru INNER JOIN mapel USING(kode_mapel)";
+            this.field = "mata_pelajaran as 'Mata Pelajaran', kategori_mapel as 'Kategori', jam_pelajaran as 'Jam Pelajaran'";
+            this.cond = "id_guru = '" + kodeIdGuru + "'";
+            DataTable result = db.GetDataTable(field, table, cond);
+            jadwalGuru_grid.DataSource = result;
+            jadwalGuru_grid.Columns[0].Visible = false;
+            for (int i = 1; i <= 3; i++)
+            {
+                jadwalGuru_grid.Columns[i].ReadOnly = true;
             }
         }
 
