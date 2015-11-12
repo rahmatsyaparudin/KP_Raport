@@ -17,6 +17,7 @@ namespace Raport
         MySqlConnection myConn = Function.getKoneksi();
         MySqlDataReader myReader;
         Function db = new Function();
+        DataToFile dbToFile = new DataToFile();
         DateTime jamku = new DateTime();
         private string table;
         private string cond;
@@ -148,6 +149,7 @@ namespace Raport
         private void guru_menu_Click(object sender, EventArgs e)
         {
             FormGuru fGuru = new FormGuru();
+            fGuru.passTahun = tahuj_combo.Text.ToString();
             fGuru.ShowDialog();
         }
 
@@ -165,17 +167,34 @@ namespace Raport
 
         private void exit_btn_Click(object sender, EventArgs e)
         {
-            DialogResult dialog = MessageBox.Show("Apakah Anda yakin ingin menutup aplikasi?",
-                "Exit Aplikasi", MessageBoxButtons.YesNo);
-            if (dialog == DialogResult.Yes)
+            contextMenuStrip1.Items.Clear();
+            contextMenuStrip1.Items.Add("item1");
+            contextMenuStrip1.Items.Add("item2");
+            contextMenuStrip1.Show(exit_btn, new Point(0, exit_btn.Height-10));
+
+        }
+
+        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem.Text == "item1")
             {
-                Application.Exit();
+                MessageBox.Show(e.ClickedItem.Text);
             }
-            else if (dialog == DialogResult.No)
-            {
-                CancelEventArgs batal = new CancelEventArgs();
-                batal.Cancel = true;
-            }
+        
+            //this.Close();
+            //FormLogin fLogin = new FormLogin();
+            //fLogin.Show();
+            ////DialogResult dialog = MessageBox.Show("Apakah Anda yakin ingin menutup aplikasi?",
+            //    "Exit Aplikasi", MessageBoxButtons.YesNo);
+            //if (dialog == DialogResult.Yes)
+            //{
+            //    Application.Exit();
+            //}
+            //else if (dialog == DialogResult.No)
+            //{
+            //    CancelEventArgs batal = new CancelEventArgs();
+            //    batal.Cancel = true;
+            //}
         }
 
         private void kelas_menu_Click(object sender, EventArgs e)
@@ -227,13 +246,14 @@ namespace Raport
                     siswa_menu.Enabled = false;
                     deskripsi_menu.Enabled = true;
                     nilai_menu.Enabled = true;
+                    SimpanData_group.Enabled = true;
                 }
                 else if (getLevel == "1")
                 {
                     siswa_menu.Enabled = true;
                     deskripsi_menu.Enabled = true;
                     nilai_menu.Enabled = true;
-
+                    SimpanData_group.Enabled = true;
                 }
             }
         }
@@ -247,6 +267,7 @@ namespace Raport
             siswa_menu.Enabled = false;
             deskripsi_menu.Enabled = false;
             nilai_menu.Enabled = false;
+            SimpanData_group.Enabled = false;
         }
 
         private void clock_timer_Tick(object sender, EventArgs e)
@@ -276,6 +297,15 @@ namespace Raport
                             ":" + jamku.Second.ToString();
         }
 
+        private void printDataGuru_btn_Click(object sender, EventArgs e)
+        {
+            FormGuru fGuru = new FormGuru();
+            dbToFile.passTahun = tahuj_combo.Text.ToString();
+            string tanggal = dbToFile.formattedDate();
+            fGuru.loadData();
+            dbToFile.ExportToExcel(fGuru.dataGuru_grid, "Data Guru SMANJAK (" + tanggal + ")", sfDialog);
+        }
+        
         private void color_timer_Tick(object sender, EventArgs e)
         {
             if (profil_menu.BackColor == Color.DeepSkyBlue)

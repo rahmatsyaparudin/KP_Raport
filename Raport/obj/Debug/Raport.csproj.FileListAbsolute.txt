@@ -84,4 +84,4 @@ E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.Properties.Resources.resource
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.SplashScreen.resources
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csproj.GenerateResource.Cache
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.FormUser.resources
-E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csprojResolveAssemblyReference.cache
+E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csproj.ResolveComReference.cache

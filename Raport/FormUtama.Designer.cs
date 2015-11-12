@@ -62,14 +62,29 @@
             this.set_btn = new System.Windows.Forms.Button();
             this.exit_btn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.user_menu = new System.Windows.Forms.Button();
             this.user_lbl = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.SimpanData_group = new System.Windows.Forms.GroupBox();
+            this.printDataSiswa_btn = new System.Windows.Forms.Button();
+            this.printDataGuru_btn = new System.Windows.Forms.Button();
+            this.sfDialog = new System.Windows.Forms.SaveFileDialog();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo_pic)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.SimpanData_group.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -492,7 +507,7 @@
             this.exit_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exit_btn.Image = global::Raport.Properties.Resources.power;
             this.exit_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.exit_btn.Location = new System.Drawing.Point(647, 510);
+            this.exit_btn.Location = new System.Drawing.Point(651, 518);
             this.exit_btn.Name = "exit_btn";
             this.exit_btn.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.exit_btn.Size = new System.Drawing.Size(121, 35);
@@ -504,13 +519,23 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(326, 294);
+            this.groupBox2.Location = new System.Drawing.Point(326, 304);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(434, 209);
+            this.groupBox2.Size = new System.Drawing.Size(173, 209);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Print Laporan";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(17, 40);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(93, 39);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Data Guru";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // user_menu
             // 
@@ -548,6 +573,86 @@
             this.label4.TabIndex = 24;
             this.label4.Text = "Welcome, ";
             // 
+            // SimpanData_group
+            // 
+            this.SimpanData_group.Controls.Add(this.printDataSiswa_btn);
+            this.SimpanData_group.Controls.Add(this.printDataGuru_btn);
+            this.SimpanData_group.Enabled = false;
+            this.SimpanData_group.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SimpanData_group.Location = new System.Drawing.Point(505, 304);
+            this.SimpanData_group.Name = "SimpanData_group";
+            this.SimpanData_group.Size = new System.Drawing.Size(173, 209);
+            this.SimpanData_group.TabIndex = 23;
+            this.SimpanData_group.TabStop = false;
+            this.SimpanData_group.Text = "Simpan Data";
+            // 
+            // printDataSiswa_btn
+            // 
+            this.printDataSiswa_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printDataSiswa_btn.Location = new System.Drawing.Point(17, 85);
+            this.printDataSiswa_btn.Name = "printDataSiswa_btn";
+            this.printDataSiswa_btn.Size = new System.Drawing.Size(125, 39);
+            this.printDataSiswa_btn.TabIndex = 1;
+            this.printDataSiswa_btn.Text = "Data Siswa";
+            this.printDataSiswa_btn.UseVisualStyleBackColor = true;
+            // 
+            // printDataGuru_btn
+            // 
+            this.printDataGuru_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printDataGuru_btn.Location = new System.Drawing.Point(17, 40);
+            this.printDataGuru_btn.Name = "printDataGuru_btn";
+            this.printDataGuru_btn.Size = new System.Drawing.Size(125, 39);
+            this.printDataGuru_btn.TabIndex = 0;
+            this.printDataGuru_btn.Text = "Data Guru";
+            this.printDataGuru_btn.UseVisualStyleBackColor = true;
+            this.printDataGuru_btn.Click += new System.EventHandler(this.printDataGuru_btn_Click);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(23, 23);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 114);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Text = "toolStripMenuItem2";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Text = "toolStripMenuItem3";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem4.Text = "toolStripMenuItem4";
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem5.Text = "toolStripMenuItem5";
+            // 
             // FormUtama
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -558,6 +663,7 @@
             this.CancelButton = this.deskripsi_menu;
             this.ClientSize = new System.Drawing.Size(780, 557);
             this.ControlBox = false;
+            this.Controls.Add(this.SimpanData_group);
             this.Controls.Add(this.user_lbl);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.user_menu);
@@ -587,6 +693,9 @@
             this.groupBox1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.SimpanData_group.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -613,8 +722,6 @@
         private System.Windows.Forms.Label jam_lbl;
         private System.Windows.Forms.Timer clock_timer;
         private System.Windows.Forms.Label hari_lbl;
-        private System.Windows.Forms.Label tanggal_lbl;
-        private System.Windows.Forms.Label bulan_lbl;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button profil_menu;
         private System.Windows.Forms.Button guru_menu;
@@ -629,5 +736,19 @@
         private System.Windows.Forms.Button user_menu;
         private System.Windows.Forms.Label user_lbl;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox SimpanData_group;
+        private System.Windows.Forms.Button printDataGuru_btn;
+        public System.Windows.Forms.Label tanggal_lbl;
+        public System.Windows.Forms.Label bulan_lbl;
+        private System.Windows.Forms.SaveFileDialog sfDialog;
+        private System.Windows.Forms.Button printDataSiswa_btn;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
     }
 }

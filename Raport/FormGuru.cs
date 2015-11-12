@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Raport
 {
@@ -16,10 +17,12 @@ namespace Raport
         MySqlConnection myConn = Function.getKoneksi();
         Function db = new Function();
         MySqlDataReader myReader;
+        DataToFile dataToFile = new DataToFile();
         private string table;
         private string field;
         private string cond;
         private string query, kodeIdGuru, kodeMapel, kodeDetail;
+        public string getTahun;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
 
         public FormGuru()
@@ -27,7 +30,11 @@ namespace Raport
             InitializeComponent();
         }
 
-        
+        public string passTahun
+        {
+            get { return getTahun; }
+            set { getTahun = value; }
+        }
 
         private void FormGuru_Load(object sender, EventArgs e)
         {
@@ -41,7 +48,7 @@ namespace Raport
         }
 
         //TAB VIEW DATA
-        private void loadData()
+        public void loadData()
         {
             this.field = "id_guru as 'ID Guru', nama_guru as 'Nama Guru', nip as 'NIP', nuptk as 'NUPTK'," +
                     "keterangan as 'Keterangan'";
@@ -381,6 +388,13 @@ namespace Raport
             }
         }
 
+        private void export_toolBtn_Click(object sender, EventArgs e)
+        {
+            dataToFile.passTahun = getTahun;
+            string tanggal = dataToFile.formattedDate();
+            //dataToFile.ExportToExcel(dataGuru_grid, "Data Guru SMANJAK (" + tanggal + ")", saveToExcel);
+        }
+        
         private void delete_toolBtn_Click_1(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in jadwalGuru_grid.Rows)
