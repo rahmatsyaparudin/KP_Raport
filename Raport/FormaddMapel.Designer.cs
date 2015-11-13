@@ -49,7 +49,7 @@
             this.schedule_grid.Dock = System.Windows.Forms.DockStyle.Top;
             this.schedule_grid.Location = new System.Drawing.Point(0, 0);
             this.schedule_grid.Name = "schedule_grid";
-            this.schedule_grid.Size = new System.Drawing.Size(663, 269);
+            this.schedule_grid.Size = new System.Drawing.Size(585, 269);
             this.schedule_grid.TabIndex = 0;
             this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
             this.schedule_grid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellEndEdit);
@@ -62,7 +62,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 269);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(663, 69);
+            this.panel1.Size = new System.Drawing.Size(585, 69);
             this.panel1.TabIndex = 1;
             // 
             // sumMapel_lbl
@@ -106,9 +106,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.ClientSize = new System.Drawing.Size(663, 336);
+            this.ClientSize = new System.Drawing.Size(585, 336);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.schedule_grid);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MaximizeBox = false;
             this.Name = "FormAddMapel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pilih Mata Pelajaran";

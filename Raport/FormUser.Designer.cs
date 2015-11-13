@@ -377,12 +377,12 @@
             this.ClientSize = new System.Drawing.Size(839, 422);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.Name = "FormUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormOpsi";
+            this.Text = "Tambah User";
             this.Load += new System.EventHandler(this.FormUser_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

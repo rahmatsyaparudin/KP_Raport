@@ -165,38 +165,39 @@ namespace Raport
             fUser.ShowDialog();
         }
 
+        private void LogOut_btn_Click(object sender, EventArgs e)
+        {
+            DialogResult dialog = MessageBox.Show("Apakah Anda yakin ingin keluar aplikasi?",
+            "Exit Aplikasi", MessageBoxButtons.YesNo);
+            if (dialog == DialogResult.Yes)
+            {
+                this.Close();
+                FormLogin fLogin = new FormLogin();
+                fLogin.Show();
+            }
+            else if (dialog == DialogResult.No)
+            {
+                CancelEventArgs batal = new CancelEventArgs();
+                batal.Cancel = true;
+            }
+        }
+
         private void exit_btn_Click(object sender, EventArgs e)
         {
-            contextMenuStrip1.Items.Clear();
-            contextMenuStrip1.Items.Add("item1");
-            contextMenuStrip1.Items.Add("item2");
-            contextMenuStrip1.Show(exit_btn, new Point(0, exit_btn.Height-10));
-
-        }
-
-        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e.ClickedItem.Text == "item1")
+            DialogResult dialog = MessageBox.Show("Apakah Anda yakin ingin keluar aplikasi?",
+            "Exit Aplikasi", MessageBoxButtons.YesNo);
+            if (dialog == DialogResult.Yes)
             {
-                MessageBox.Show(e.ClickedItem.Text);
+                Application.ExitThread();
+                Application.Exit();
             }
-        
-            //this.Close();
-            //FormLogin fLogin = new FormLogin();
-            //fLogin.Show();
-            ////DialogResult dialog = MessageBox.Show("Apakah Anda yakin ingin menutup aplikasi?",
-            //    "Exit Aplikasi", MessageBoxButtons.YesNo);
-            //if (dialog == DialogResult.Yes)
-            //{
-            //    Application.Exit();
-            //}
-            //else if (dialog == DialogResult.No)
-            //{
-            //    CancelEventArgs batal = new CancelEventArgs();
-            //    batal.Cancel = true;
-            //}
+            else if (dialog == DialogResult.No)
+            {
+                CancelEventArgs batal = new CancelEventArgs();
+                batal.Cancel = true;
+            }
         }
-
+        
         private void kelas_menu_Click(object sender, EventArgs e)
         {
             jumlahSiswa();
@@ -238,7 +239,7 @@ namespace Raport
             tahuj_combo.Enabled = false;
             set_btn.Enabled = false;
             change_btn.Enabled = true;
-
+            SimpanData_group.Enabled = true; //nanti dihapus
             if (tahuj_combo.Text != "")
             {
                 if (getLevel == "0")
@@ -299,11 +300,18 @@ namespace Raport
 
         private void printDataGuru_btn_Click(object sender, EventArgs e)
         {
-            FormGuru fGuru = new FormGuru();
             dbToFile.passTahun = tahuj_combo.Text.ToString();
             string tanggal = dbToFile.formattedDate();
-            fGuru.loadData();
-            dbToFile.ExportToExcel(fGuru.dataGuru_grid, "Data Guru SMANJAK (" + tanggal + ")", sfDialog);
+            dbToFile.saveDataGuru(print_grid);
+            dbToFile.GuruToExcel(print_grid, "Data Guru SMANJAK (" + tanggal + ")", sfDialog);
+        }
+
+        private void printDataSiswa_btn_Click(object sender, EventArgs e)
+        {
+            dbToFile.passTahun = tahuj_combo.Text.ToString();
+            string tanggal = dbToFile.formattedDate();
+            dbToFile.saveDataSiswa(print_grid);
+            dbToFile.SiswaToExcel(print_grid, "Data Siswa SMANJAK (" + tanggal + ")", sfDialog);
         }
         
         private void color_timer_Tick(object sender, EventArgs e)
