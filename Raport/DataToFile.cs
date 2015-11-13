@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Raport
 {
@@ -33,6 +34,18 @@ namespace Raport
             return format = dt.ToString("dd-M-yyyy");
         }
 
+        public void closeExcelProcess()
+        {
+            foreach (Process clsProcess in Process.GetProcesses())
+            {
+                if (clsProcess.ProcessName.Equals("EXCEL"))
+                {
+                    clsProcess.Kill();
+                    break;
+                }
+            }
+        }
+        
         public void saveDataGuru(DataGridView datagrid)
         {
             this.field = "nama_guru as 'Nama Guru', nip as 'NIP', nuptk as 'NUPTK'," +
@@ -97,6 +110,11 @@ namespace Raport
                 MessageBox.Show(sfDialog.FileName + " berhasil tersimpan");
                 xlsApp.ActiveWorkbook.Saved = true;
                 xlsApp.Quit();
+                closeExcelProcess();
+            }
+            else
+            {
+                closeExcelProcess();
             }
         }
 
@@ -168,6 +186,11 @@ namespace Raport
                 MessageBox.Show(sfDialog.FileName + " berhasil tersimpan");
                 xlsApp.ActiveWorkbook.Saved = true;
                 xlsApp.Quit();
+                closeExcelProcess();
+            }
+            else
+            {
+                closeExcelProcess();
             }
         }
 

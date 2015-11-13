@@ -204,7 +204,7 @@
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.groupBox1.Location = new System.Drawing.Point(7, 138);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(303, 407);
+            this.groupBox1.Size = new System.Drawing.Size(303, 375);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pengolah Data";
@@ -505,19 +505,19 @@
             // 
             // exit_btn
             // 
-            this.exit_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.exit_btn.BackColor = System.Drawing.Color.DodgerBlue;
             this.exit_btn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.exit_btn.FlatAppearance.BorderSize = 0;
             this.exit_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exit_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.exit_btn.Image = global::Raport.Properties.Resources.leave;
             this.exit_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.exit_btn.Location = new System.Drawing.Point(710, 523);
+            this.exit_btn.Location = new System.Drawing.Point(655, 523);
             this.exit_btn.Name = "exit_btn";
             this.exit_btn.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.exit_btn.Size = new System.Drawing.Size(62, 30);
+            this.exit_btn.Size = new System.Drawing.Size(117, 30);
             this.exit_btn.TabIndex = 12;
-            this.exit_btn.Text = "Exit";
+            this.exit_btn.Text = "Exit Program";
             this.exit_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.exit_btn.UseVisualStyleBackColor = false;
             this.exit_btn.Click += new System.EventHandler(this.exit_btn_Click);
@@ -710,14 +710,14 @@
             // 
             // LogOut_btn
             // 
-            this.LogOut_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.LogOut_btn.BackColor = System.Drawing.Color.DodgerBlue;
             this.LogOut_btn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.LogOut_btn.FlatAppearance.BorderSize = 0;
             this.LogOut_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LogOut_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LogOut_btn.Image = global::Raport.Properties.Resources.power;
             this.LogOut_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.LogOut_btn.Location = new System.Drawing.Point(615, 523);
+            this.LogOut_btn.Location = new System.Drawing.Point(556, 523);
             this.LogOut_btn.Name = "LogOut_btn";
             this.LogOut_btn.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.LogOut_btn.Size = new System.Drawing.Size(89, 30);

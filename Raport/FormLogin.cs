@@ -124,6 +124,7 @@ namespace Raport
         //Event Tombol Reset 
         private void exit_btn_Click(object sender, EventArgs e)
         {
+            Application.ExitThread();
             Application.Exit();
         }
         

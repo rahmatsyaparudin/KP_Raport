@@ -167,7 +167,7 @@ namespace Raport
 
         private void LogOut_btn_Click(object sender, EventArgs e)
         {
-            DialogResult dialog = MessageBox.Show("Apakah Anda yakin ingin keluar aplikasi?",
+            DialogResult dialog = MessageBox.Show("Apakah Anda yakin ingin Log Out?",
             "Exit Aplikasi", MessageBoxButtons.YesNo);
             if (dialog == DialogResult.Yes)
             {
@@ -184,7 +184,7 @@ namespace Raport
 
         private void exit_btn_Click(object sender, EventArgs e)
         {
-            DialogResult dialog = MessageBox.Show("Apakah Anda yakin ingin keluar aplikasi?",
+            DialogResult dialog = MessageBox.Show("Apakah Anda yakin ingin Menutup aplikasi?",
             "Exit Aplikasi", MessageBoxButtons.YesNo);
             if (dialog == DialogResult.Yes)
             {
