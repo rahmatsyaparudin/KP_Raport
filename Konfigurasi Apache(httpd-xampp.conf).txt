@@ -1,0 +1,10 @@
+<LocationMatch "^/(?i:(?:xampp|security|licenses|phpmyadmin|webalizer|server-status|server-info))">
+        AllowOverride AuthConfig Limit
+  	Order allow,deny
+  	Allow from all
+	Allow from 127.0.0.1
+	Allow from 192.168.137.1
+  	Require all granted
+	ErrorDocument 403 /error/XAMPP_FORBIDDEN.html.var
+</LocationMatch>
+
