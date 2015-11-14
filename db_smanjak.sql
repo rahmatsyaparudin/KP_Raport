@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2015 at 06:42 PM
+-- Generation Time: Nov 14, 2015 at 01:13 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -57,7 +57,31 @@ CREATE TABLE IF NOT EXISTS `detailmapelguru` (
   `id_guru` int(11) NOT NULL,
   `kode_mapel` varchar(6) NOT NULL,
   `status` varchar(12) NOT NULL DEFAULT 'Aktif'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `detailmapelguru`
+--
+
+INSERT INTO `detailmapelguru` (`id_detail`, `id_guru`, `kode_mapel`, `status`) VALUES
+(1, 20562, 'BIND', 'Aktif'),
+(2, 20562, 'MTKA', 'Aktif'),
+(3, 20562, 'PRA', 'Aktif'),
+(4, 20562, 'MTKC', 'Aktif'),
+(5, 75681, 'BIND', 'Tidak Aktif'),
+(6, 75681, 'MTKA', 'Tidak Aktif'),
+(7, 75681, 'PRA', 'Aktif'),
+(8, 75681, 'MTKC', 'Aktif'),
+(9, 87240, 'BIND', 'Aktif'),
+(10, 87240, 'MTKA', 'Aktif'),
+(11, 87240, 'PRA', 'Aktif'),
+(12, 87240, 'MTKC', 'Aktif'),
+(15, 28072, 'BIND', 'Aktif'),
+(16, 28072, 'MTKA', 'Aktif'),
+(17, 28072, 'PRA', 'Aktif'),
+(18, 75316, 'BIND', 'Aktif'),
+(19, 75316, 'MTKA', 'Aktif'),
+(20, 988, 'MTKA', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -68,22 +92,41 @@ CREATE TABLE IF NOT EXISTS `detailmapelguru` (
 CREATE TABLE IF NOT EXISTS `detailmapelkelas` (
 `id_detail` int(11) NOT NULL,
   `kode_kelas` int(11) NOT NULL,
-  `kode_mapel` varchar(6) NOT NULL,
   `id_guru` int(11) DEFAULT NULL,
+  `kode_mapel` varchar(6) NOT NULL,
   `status` varchar(12) NOT NULL DEFAULT 'Aktif'
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `detailmapelkelas`
 --
 
-INSERT INTO `detailmapelkelas` (`id_detail`, `kode_kelas`, `kode_mapel`, `id_guru`, `status`) VALUES
-(24, 43, 'BIND', 75681, 'Aktif'),
-(25, 43, 'MTKA', 51025, 'Aktif'),
-(26, 43, 'PRA', 42484, 'Aktif'),
-(27, 43, 'MTKC', 87240, 'Aktif'),
-(28, 43, 'BIND', 51025, 'Aktif'),
-(29, 51, 'BIND', 75681, 'Aktif');
+INSERT INTO `detailmapelkelas` (`id_detail`, `kode_kelas`, `id_guru`, `kode_mapel`, `status`) VALUES
+(45, 43, 75316, 'BIND', 'Tidak Aktif'),
+(47, 49, 75316, 'MTKA', 'Aktif'),
+(48, 51, 75681, 'BIND', 'Aktif'),
+(49, 50, 87240, 'BIND', 'Aktif'),
+(50, 50, 87240, 'MTKA', 'Aktif'),
+(51, 50, 51025, 'PRA', 'Aktif'),
+(52, 43, 20562, 'PRA', 'Aktif'),
+(54, 41, 87240, 'BIND', 'Aktif'),
+(55, 41, 87240, 'MTKA', 'Aktif'),
+(65, 43, 51025, 'MTKA', 'Tidak Aktif'),
+(66, 43, 75681, 'MTKC', 'Aktif'),
+(67, 49, 77331, 'BIND', 'Aktif'),
+(68, 52, 51025, 'BIND', 'Aktif'),
+(69, 46, 20562, 'BIND', 'Aktif'),
+(70, 46, 75681, 'MTKA', 'Aktif'),
+(71, 46, 87240, 'PRA', 'Aktif'),
+(72, 46, 75681, 'MTKC', 'Aktif'),
+(73, 44, 28072, 'BIND', 'Aktif'),
+(74, 44, 28072, 'MTKA', 'Aktif'),
+(75, 44, 28072, 'PRA', 'Aktif'),
+(76, 44, 20562, 'MTKC', 'Aktif'),
+(77, 42, 28072, 'BIND', 'Aktif'),
+(78, 42, 28072, 'MTKA', 'Aktif'),
+(79, 42, 28072, 'PRA', 'Aktif'),
+(80, 42, 20562, 'MTKC', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -127,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `guru` (
 INSERT INTO `guru` (`id_guru`, `nip`, `nuptk`, `nama_guru`, `status_guru`, `keterangan`) VALUES
 (988, '196708081994121002', '9140745647200053', 'Drs. Suherlan', 'Aktif', 'Wali Kls 11 MIPA 1, Pembina  Ekskul English Club'),
 (20562, '196410141988032007', '8346742645300003', 'Beti Rohaeti, S.Pd.', 'Aktif', 'Staf. Wk.Urs. Kurikulum'),
-(22231, '19620205 198603 1 012', '0834 7406 4220 0082', 'Drs. Sahrudin', 'Tidak Aktif', ''),
+(22231, '196202051986031012', '0834 7406 4220 0082', 'Drs. Sahrudin', 'Tidak Aktif', ''),
 (22513, '196911051993011001', '7843747650200032', 'Iyep Budiman, S.Pd, M.Mpd.', 'Aktif', ''),
 (28072, '196407111987031014', '4262742643200013', 'Dudin Syehabudin, S.Pd.,Bio', 'Aktif', 'Wk. Urusan Sarana'),
 (42484, '196510241989031002', '2356743646200033', 'Mumuh Muslihat, S.Pd.', 'Aktif', 'Staf. Wk.Urs. Kesiswaan'),
@@ -136,7 +179,8 @@ INSERT INTO `guru` (`id_guru`, `nip`, `nuptk`, `nama_guru`, `status_guru`, `kete
 (75316, '196202051986031012', '0834740642200082', 'Drs. Sahrudin', 'Aktif', 'Koordinator Keagamaan'),
 (75681, '196111221980111001', '2454739639200003', 'Drs. Deden Zenal Muttaqin, M.Mpd.', 'Aktif', 'Wali Kls 10 IPS 1, Pembina  Ekskul Kerohanian'),
 (77331, '196409011988032005', '4441742645300002', 'Erni Nurilah, S.Pd., M.Mpd.', 'Aktif', 'Wk. Urusan Humas'),
-(87240, '195908011983031016', '3440737639200042', 'Edi Yama, S.Pd., M.M.Pd.', 'Aktif', 'Kepala Sekolah');
+(87240, '195908011983031016', '3440737639200042', 'Edi Yama, S.Pd., M.M.Pd.', 'Aktif', 'Kepala Sekolah'),
+(99151, '121221', '13223232', 'Waewwd', 'Tidak Aktif', 'wdewe');
 
 -- --------------------------------------------------------
 
@@ -178,21 +222,7 @@ INSERT INTO `kelas` (`kode_kelas`, `nama_kelas`, `tahun_ajaran`, `jumlah_siswa`,
 --
 
 CREATE TABLE IF NOT EXISTS `kompetensi` (
-  `id_kompetensi` int(11) NOT NULL,
-  `nis_siswa` varchar(13) NOT NULL,
-  `kode_kelas` int(11) NOT NULL,
-  `kode_mapel` varchar(6) NOT NULL,
-  `kode_semester` varchar(6) NOT NULL,
-  `id_guru` int(11) NOT NULL,
-  `p_ang` int(11) NOT NULL,
-  `p_pred` varchar(3) NOT NULL,
-  `p_desk` longtext NOT NULL,
-  `k_ang` int(11) NOT NULL,
-  `k_pred` varchar(3) NOT NULL,
-  `k_desk` longtext NOT NULL,
-  `s_ang` int(11) NOT NULL,
-  `s_pred` varchar(3) NOT NULL,
-  `s_desk` longtext NOT NULL
+  `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -227,17 +257,21 @@ INSERT INTO `mapel` (`kode_mapel`, `mata_pelajaran`, `kategori_mapel`, `jam_pela
 --
 
 CREATE TABLE IF NOT EXISTS `nilai` (
-  `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nilai_raport`
---
-
-CREATE TABLE IF NOT EXISTS `nilai_raport` (
-`kode` int(11) NOT NULL
+  `id_nilai` int(11) NOT NULL,
+  `nis_siswa` varchar(13) NOT NULL,
+  `kode_kelas` int(11) NOT NULL,
+  `id_guru` int(11) NOT NULL,
+  `kode_mapel` varchar(6) NOT NULL,
+  `kode_semester` varchar(6) NOT NULL,
+  `p_ang` int(11) NOT NULL,
+  `p_pred` varchar(3) NOT NULL,
+  `p_desk` longtext NOT NULL,
+  `k_ang` int(11) NOT NULL,
+  `k_pred` varchar(3) NOT NULL,
+  `k_desk` longtext NOT NULL,
+  `s_ang` int(11) NOT NULL,
+  `s_pred` varchar(3) NOT NULL,
+  `s_desk` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -329,12 +363,12 @@ CREATE TABLE IF NOT EXISTS `siswa` (
 --
 
 INSERT INTO `siswa` (`nis_siswa`, `nama_siswa`, `nisn_siswa`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `status_keluarga`, `anak_ke`, `alamat`, `no_telp`, `asal_sekolah`, `tanggal_masuk`, `status_siswa`) VALUES
-('000', '000', '000', '000', '08/02/1999', 'Laki-Laki', 'Islam', 'Anak Kandung', 1, '000', '000', '000', '28/09/2015', 'Aktif'),
-('100000', 'Saya Adalah ', '11', '1', '12/09/2015', 'Laki-Laki', 'Islam', 'Anak Kandung', 1, '1', '1', '1', '12/09/2015', 'Aktif'),
+('000', '000', '000', 'tangerang', '08/02/1999', 'Laki-Laki', 'Islam', 'Anak Kandung', 1, '000', '000', '000', '28/09/2015', 'Aktif'),
+('100000', 'Saya Adalah ', '11', '1', '12/09/1994', 'Laki-Laki', 'Islam', 'Anak Kandung', 1, '1', '1', '1', '12/09/2015', 'Aktif'),
 ('1001', 'Kamu Adalah', '99', '99', '30/01/2015', 'Laki-Laki', 'Islam', 'Anak Angkat', 2, '99', '99', 'ddd', '01/09/2015', 'Aktif'),
 ('1111', '1111', '111', '1111', '10/09/2015', 'Laki-Laki', 'Kristen', 'Anak Angkat', 9, '1111', '1111', '1111', '17/09/2015', 'Aktif'),
 ('2222', '2222', '2222', '2222', '01/09/2015', 'Laki-Laki', 'Islam', 'Anak Kandung', 1, '2222', '', '2222', '28/09/2016', 'Aktif'),
-('23000', '12', '121', '12', '09/01/2015', 'Laki-Laki', 'Islam', 'Anak Kandung', 3, '12', '12ccc', '12', '09/11/2015', 'Aktif'),
+('23000', '12', '121', '12', '09/01/2015', 'Laki-Laki', 'Islam', 'Anak Kandung', 3, '12', '12cccx', '12', '09/11/2015', 'Tidak Aktif'),
 ('9999', '9999', '9999', '9999', '27/09/2015', 'Laki-Laki', 'Islam', 'Anak Kandung', 1, '9999', '', '9999', '28/09/2015', 'Aktif');
 
 -- --------------------------------------------------------
@@ -345,9 +379,9 @@ INSERT INTO `siswa` (`nis_siswa`, `nama_siswa`, `nisn_siswa`, `tempat_lahir`, `t
 
 CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(15) NOT NULL,
-  `password` varchar(25) NOT NULL,
+  `password` text NOT NULL,
   `nama` varchar(50) NOT NULL,
-  `level` int(11) DEFAULT '2'
+  `level` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -355,7 +389,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`username`, `password`, `nama`, `level`) VALUES
-('admin', 'admin', 'administrator', 1);
+('admin', 'YLr7l9DCoeHtEG3I7U+TSw==', 'Drs. Sahrudin', 1),
+('kamu', 'ub+ioxsINXjlfOPGRHzMdw==', 'Drs. Deden Zenal Muttaqin, M.Mpd.', 0),
+('user', 'q85e8fdu6BBc3VezpLbDXw==', 'Drs. Sahrudin', 0);
 
 --
 -- Indexes for dumped tables
@@ -365,13 +401,13 @@ INSERT INTO `user` (`username`, `password`, `nama`, `level`) VALUES
 -- Indexes for table `detailkelassiswa`
 --
 ALTER TABLE `detailkelassiswa`
- ADD PRIMARY KEY (`id_detail`), ADD KEY `kode_kelas` (`kode_kelas`), ADD KEY `nis_siswa` (`nis_siswa`);
+ ADD PRIMARY KEY (`id_detail`), ADD KEY `kode_kelas` (`kode_kelas`), ADD KEY `nis_siswa` (`nis_siswa`), ADD KEY `kode_kelas_2` (`kode_kelas`), ADD KEY `nis_siswa_2` (`nis_siswa`);
 
 --
 -- Indexes for table `detailmapelguru`
 --
 ALTER TABLE `detailmapelguru`
- ADD PRIMARY KEY (`id_detail`);
+ ADD PRIMARY KEY (`id_detail`), ADD KEY `id_guru` (`id_guru`), ADD KEY `kode_mapel` (`kode_mapel`);
 
 --
 -- Indexes for table `detailmapelkelas`
@@ -404,10 +440,10 @@ ALTER TABLE `mapel`
  ADD PRIMARY KEY (`kode_mapel`);
 
 --
--- Indexes for table `nilai_raport`
+-- Indexes for table `nilai`
 --
-ALTER TABLE `nilai_raport`
- ADD PRIMARY KEY (`kode`);
+ALTER TABLE `nilai`
+ ADD UNIQUE KEY `kode_kelas` (`kode_kelas`), ADD UNIQUE KEY `kode_mapel` (`kode_mapel`), ADD UNIQUE KEY `id_guru` (`id_guru`), ADD KEY `nis_siswa` (`nis_siswa`);
 
 --
 -- Indexes for table `orangtua`
@@ -446,22 +482,17 @@ MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 -- AUTO_INCREMENT for table `detailmapelguru`
 --
 ALTER TABLE `detailmapelguru`
-MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `detailmapelkelas`
 --
 ALTER TABLE `detailmapelkelas`
-MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=81;
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
 MODIFY `kode_kelas` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
---
--- AUTO_INCREMENT for table `nilai_raport`
---
-ALTER TABLE `nilai_raport`
-MODIFY `kode` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `orangtua`
 --
@@ -479,6 +510,13 @@ ADD CONSTRAINT `detailkelassiswa_ibfk_1` FOREIGN KEY (`kode_kelas`) REFERENCES `
 ADD CONSTRAINT `detailkelassiswa_ibfk_2` FOREIGN KEY (`nis_siswa`) REFERENCES `siswa` (`nis_siswa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `detailmapelguru`
+--
+ALTER TABLE `detailmapelguru`
+ADD CONSTRAINT `detailmapelguru_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `detailmapelguru_ibfk_2` FOREIGN KEY (`kode_mapel`) REFERENCES `mapel` (`kode_mapel`);
+
+--
 -- Constraints for table `detailmapelkelas`
 --
 ALTER TABLE `detailmapelkelas`
@@ -491,6 +529,15 @@ ADD CONSTRAINT `detailmapelkelas_ibfk_3` FOREIGN KEY (`id_guru`) REFERENCES `gur
 --
 ALTER TABLE `kelas`
 ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `nilai`
+--
+ALTER TABLE `nilai`
+ADD CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`nis_siswa`) REFERENCES `siswa` (`nis_siswa`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `nilai_ibfk_2` FOREIGN KEY (`kode_kelas`) REFERENCES `kelas` (`kode_kelas`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `nilai_ibfk_3` FOREIGN KEY (`kode_mapel`) REFERENCES `mapel` (`kode_mapel`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `nilai_ibfk_4` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orangtua`
