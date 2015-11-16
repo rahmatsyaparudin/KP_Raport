@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2015 at 01:13 PM
+-- Generation Time: Nov 16, 2015 at 08:54 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -57,31 +57,21 @@ CREATE TABLE IF NOT EXISTS `detailmapelguru` (
   `id_guru` int(11) NOT NULL,
   `kode_mapel` varchar(6) NOT NULL,
   `status` varchar(12) NOT NULL DEFAULT 'Aktif'
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `detailmapelguru`
 --
 
 INSERT INTO `detailmapelguru` (`id_detail`, `id_guru`, `kode_mapel`, `status`) VALUES
-(1, 20562, 'BIND', 'Aktif'),
-(2, 20562, 'MTKA', 'Aktif'),
-(3, 20562, 'PRA', 'Aktif'),
-(4, 20562, 'MTKC', 'Aktif'),
-(5, 75681, 'BIND', 'Tidak Aktif'),
-(6, 75681, 'MTKA', 'Tidak Aktif'),
-(7, 75681, 'PRA', 'Aktif'),
-(8, 75681, 'MTKC', 'Aktif'),
-(9, 87240, 'BIND', 'Aktif'),
-(10, 87240, 'MTKA', 'Aktif'),
-(11, 87240, 'PRA', 'Aktif'),
-(12, 87240, 'MTKC', 'Aktif'),
-(15, 28072, 'BIND', 'Aktif'),
-(16, 28072, 'MTKA', 'Aktif'),
-(17, 28072, 'PRA', 'Aktif'),
-(18, 75316, 'BIND', 'Aktif'),
-(19, 75316, 'MTKA', 'Aktif'),
-(20, 988, 'MTKA', 'Aktif');
+(21, 75681, 'BIND', 'Aktif'),
+(22, 75681, 'MTKA', 'Aktif'),
+(23, 75681, 'PRA', 'Aktif'),
+(24, 75681, 'MTKC', 'Aktif'),
+(25, 75316, 'BIND', 'Aktif'),
+(26, 75316, 'MTKA', 'Aktif'),
+(27, 75316, 'PRA', 'Aktif'),
+(28, 75316, 'MTKC', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -95,38 +85,21 @@ CREATE TABLE IF NOT EXISTS `detailmapelkelas` (
   `id_guru` int(11) DEFAULT NULL,
   `kode_mapel` varchar(6) NOT NULL,
   `status` varchar(12) NOT NULL DEFAULT 'Aktif'
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `detailmapelkelas`
 --
 
 INSERT INTO `detailmapelkelas` (`id_detail`, `kode_kelas`, `id_guru`, `kode_mapel`, `status`) VALUES
-(45, 43, 75316, 'BIND', 'Tidak Aktif'),
-(47, 49, 75316, 'MTKA', 'Aktif'),
-(48, 51, 75681, 'BIND', 'Aktif'),
-(49, 50, 87240, 'BIND', 'Aktif'),
-(50, 50, 87240, 'MTKA', 'Aktif'),
-(51, 50, 51025, 'PRA', 'Aktif'),
-(52, 43, 20562, 'PRA', 'Aktif'),
-(54, 41, 87240, 'BIND', 'Aktif'),
-(55, 41, 87240, 'MTKA', 'Aktif'),
-(65, 43, 51025, 'MTKA', 'Tidak Aktif'),
-(66, 43, 75681, 'MTKC', 'Aktif'),
-(67, 49, 77331, 'BIND', 'Aktif'),
-(68, 52, 51025, 'BIND', 'Aktif'),
-(69, 46, 20562, 'BIND', 'Aktif'),
-(70, 46, 75681, 'MTKA', 'Aktif'),
-(71, 46, 87240, 'PRA', 'Aktif'),
-(72, 46, 75681, 'MTKC', 'Aktif'),
-(73, 44, 28072, 'BIND', 'Aktif'),
-(74, 44, 28072, 'MTKA', 'Aktif'),
-(75, 44, 28072, 'PRA', 'Aktif'),
-(76, 44, 20562, 'MTKC', 'Aktif'),
-(77, 42, 28072, 'BIND', 'Aktif'),
-(78, 42, 28072, 'MTKA', 'Aktif'),
-(79, 42, 28072, 'PRA', 'Aktif'),
-(80, 42, 20562, 'MTKC', 'Aktif');
+(85, 41, 75681, 'BIND', 'Aktif'),
+(86, 41, 75316, 'MTKA', 'Aktif'),
+(87, 41, 75681, 'PRA', 'Aktif'),
+(88, 41, 75316, 'MTKC', 'Aktif'),
+(89, 43, 75316, 'BIND', 'Aktif'),
+(90, 43, 75681, 'MTKA', 'Aktif'),
+(91, 42, 75316, 'BIND', 'Aktif'),
+(92, 48, 75681, 'BIND', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -257,22 +230,30 @@ INSERT INTO `mapel` (`kode_mapel`, `mata_pelajaran`, `kategori_mapel`, `jam_pela
 --
 
 CREATE TABLE IF NOT EXISTS `nilai` (
-  `id_nilai` int(11) NOT NULL,
+`id_nilai` int(11) NOT NULL,
   `nis_siswa` varchar(13) NOT NULL,
   `kode_kelas` int(11) NOT NULL,
-  `id_guru` int(11) NOT NULL,
   `kode_mapel` varchar(6) NOT NULL,
   `kode_semester` varchar(6) NOT NULL,
-  `p_ang` int(11) NOT NULL,
-  `p_pred` varchar(3) NOT NULL,
-  `p_desk` longtext NOT NULL,
-  `k_ang` int(11) NOT NULL,
-  `k_pred` varchar(3) NOT NULL,
-  `k_desk` longtext NOT NULL,
-  `s_ang` int(11) NOT NULL,
-  `s_pred` varchar(3) NOT NULL,
-  `s_desk` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `p_ang` int(11) NOT NULL DEFAULT '0',
+  `p_pred` varchar(3) DEFAULT NULL,
+  `p_desk` longtext,
+  `k_ang` int(11) NOT NULL DEFAULT '0',
+  `k_pred` varchar(3) DEFAULT NULL,
+  `k_desk` longtext,
+  `s_ang` int(11) NOT NULL DEFAULT '0',
+  `s_pred` varchar(3) DEFAULT NULL,
+  `s_desk` longtext
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `nilai`
+--
+
+INSERT INTO `nilai` (`id_nilai`, `nis_siswa`, `kode_kelas`, `kode_mapel`, `kode_semester`, `p_ang`, `p_pred`, `p_desk`, `k_ang`, `k_pred`, `k_desk`, `s_ang`, `s_pred`, `s_desk`) VALUES
+(38, '1001', 43, 'BIND', 'SMT1', 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
+(39, '100000', 43, 'BIND', 'SMT1', 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
+(40, '9999', 43, 'BIND', 'SMT1', 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -443,7 +424,7 @@ ALTER TABLE `mapel`
 -- Indexes for table `nilai`
 --
 ALTER TABLE `nilai`
- ADD UNIQUE KEY `kode_kelas` (`kode_kelas`), ADD UNIQUE KEY `kode_mapel` (`kode_mapel`), ADD UNIQUE KEY `id_guru` (`id_guru`), ADD KEY `nis_siswa` (`nis_siswa`);
+ ADD PRIMARY KEY (`id_nilai`), ADD KEY `nis_siswa` (`nis_siswa`), ADD KEY `nis_siswa_2` (`nis_siswa`), ADD KEY `kode_kelas_2` (`kode_kelas`), ADD KEY `kode_mapel_2` (`kode_mapel`), ADD KEY `kode_kelas` (`kode_kelas`), ADD KEY `kode_mapel` (`kode_mapel`);
 
 --
 -- Indexes for table `orangtua`
@@ -482,17 +463,22 @@ MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 -- AUTO_INCREMENT for table `detailmapelguru`
 --
 ALTER TABLE `detailmapelguru`
-MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `detailmapelkelas`
 --
 ALTER TABLE `detailmapelkelas`
-MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=81;
+MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=93;
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
 MODIFY `kode_kelas` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
+--
+-- AUTO_INCREMENT for table `nilai`
+--
+ALTER TABLE `nilai`
+MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT for table `orangtua`
 --
@@ -536,8 +522,7 @@ ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id_gur
 ALTER TABLE `nilai`
 ADD CONSTRAINT `nilai_ibfk_1` FOREIGN KEY (`nis_siswa`) REFERENCES `siswa` (`nis_siswa`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `nilai_ibfk_2` FOREIGN KEY (`kode_kelas`) REFERENCES `kelas` (`kode_kelas`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `nilai_ibfk_3` FOREIGN KEY (`kode_mapel`) REFERENCES `mapel` (`kode_mapel`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `nilai_ibfk_4` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id_guru`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `nilai_ibfk_3` FOREIGN KEY (`kode_mapel`) REFERENCES `mapel` (`kode_mapel`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orangtua`
