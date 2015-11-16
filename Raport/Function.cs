@@ -138,6 +138,38 @@ namespace Raport
             return result;
         }
 
+        public DataTable getPredikat()
+        {
+            DataTable result = new DataTable();
+            DataColumn dc1 = new DataColumn("valueDisplay");
+            result.Columns.Add(dc1);
+            result.Rows.Add("");
+            result.Rows.Add("A");
+            result.Rows.Add("A-");
+            result.Rows.Add("B+");
+            result.Rows.Add("B");
+            result.Rows.Add("B-");
+            result.Rows.Add("C+");
+            result.Rows.Add("C");
+            result.Rows.Add("C-");
+            result.Rows.Add("D+");
+            result.Rows.Add("D");
+            return result;
+        }
+
+        public DataTable getSmt()
+        {
+            DataTable result = new DataTable();
+            DataColumn dc1 = new DataColumn("valueID");
+            DataColumn dc2 = new DataColumn("valueDisplay");
+            result.Columns.Add(dc1);
+            result.Columns.Add(dc2);
+            result.Rows.Add("", "");
+            result.Rows.Add("SMT1", "Semester 1");
+            result.Rows.Add("SMT2", "Semester 2");
+            return result;
+        }
+
         public DataTable getAgama()
         {
             DataTable result = new DataTable();

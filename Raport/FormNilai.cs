@@ -15,14 +15,17 @@ namespace Raport
     {
         MySqlConnection myConn = Function.getKoneksi();
         Function db = new Function();
-        MySqlDataReader myReader;
+        MySqlDataReader myReader, myReader2;
+        MySqlCommand myComm, myComm2;
         private string query;
         private string table;
         private string field;
         private string cond;
         private string idValue, dispValue, sortby;
         public string getTahun, getUser, getLevel;
-        private string kodeKelas, kodeMapel;
+        private string kodeKelas, kodeMapel, kodeSmt;
+        DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
+        DataGridViewComboBoxColumn cmb1, cmb2, cmb3 = new DataGridViewComboBoxColumn();
 
         public string passTahuj
         {
@@ -49,8 +52,8 @@ namespace Raport
 
         private void FormNilai_Load(object sender, EventArgs e)
         {
-            //loadData();
-            fillKelas();   
+            fillKelas();
+            disableSorting();
         }
 
         public void fillKelas()
@@ -71,7 +74,9 @@ namespace Raport
                     this.dispValue = "nama_kelas";
                     this.table = "detailmapelkelas INNER JOIN kelas USING (kode_kelas)";
                     this.cond = "status_kelas = 'Aktif' AND kelas.tahun_ajaran = '" + getTahun +
-                                "' AND detailmapelkelas.id_guru IN (SELECT id_guru FROM guru WHERE nama_guru = '" + getUser + "') GROUP BY kode_kelas";
+                                "' AND (kelas.id_guru IN (SELECT id_guru FROM guru WHERE nama_guru = '" + getUser +
+                                "') OR detailmapelkelas.id_guru IN (SELECT id_guru FROM guru WHERE nama_guru = '" + getUser + 
+                                "')) GROUP BY kode_kelas";
                     this.sortby = "nama_kelas";
                 }
                 kelas_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
@@ -83,32 +88,93 @@ namespace Raport
                 MessageBox.Show(ex.Message);
             }
         }
-        
+
+        public void kelasSiswa()
+        {
+            siswa_grid.DataSource = null;
+            siswa_grid.Columns.Clear();
+            siswa_grid.Rows.Clear();
+
+            //Membuat Checkbox
+            chk.ReadOnly = false;
+            chk.HeaderText = "Pilih";
+            siswa_grid.Columns.Add(chk);
+
+            this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
+            this.field = "nis_siswa";
+            this.table = "detailkelassiswa INNER JOIN siswa USING (nis_siswa)";
+            this.cond = "kode_kelas = '" + kodeKelas + "' AND status_siswa = 'Aktif'";
+            DataTable tabel = db.GetDataTable(field, table, cond);
+            siswa_grid.DataSource = tabel;
+        }
+
         private void kelas_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (kelas_combo.Text == "")
             {
-                mapel_combo.SelectedIndex = -1;
-                mapel_combo.Enabled = false;
+                smt_combo.SelectedIndex = -1;
+                smt_combo.Enabled = false;
             }
             else if (kelas_combo.Text != "")
             {
-                mapel_combo.Enabled = true;
-                fillMapel();
+                smt_combo.Enabled = true;
+                smt_combo.DataSource = db.getSmt();
+                smt_combo.DisplayMember = "valueDisplay";
+                smt_combo.ValueMember = "valueID";
             }
         }
 
+        private void smt_combo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (smt_combo.Text == "")
+            {
+                mapel_combo.SelectedIndex = -1;
+                mapel_combo.Enabled = false;
+            }
+            else if (smt_combo.Text != "")
+            {
+                mapel_combo.Enabled = true;
+                kelasSiswa();
+                fillMapel();
+                this.jumlah_lbl.Text = "0";
+                string jumlah = "SELECT count(*) as 'jumlah' FROM detailkelassiswa INNER JOIN siswa USING (nis_siswa) WHERE kode_kelas = '" + 
+                                kodeKelas + "' AND status_siswa = 'Aktif'";
+                myConn.Open();
+                myComm = new MySqlCommand(jumlah, myConn);
+                myReader = myComm.ExecuteReader();
+                while (myReader.Read())
+                {
+                    jumlah_lbl.Text = myReader.GetString("jumlah");
+                }
+                myConn.Close();
+            }
+        }
+        
         public void fillMapel()
         {
             try
             {
-                this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
-                string idValue = "kode_mapel";
-                string dispValue = "kode_mapel";
-                this.table = "detailmapelkelas";
-                this.cond = "status = 'Aktif' AND kode_kelas = '" + kodeKelas + "'";
-                string sortby = "kode_mapel";
-
+                if (getLevel == "1")
+                {
+                    this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
+                    this.idValue = "kode_mapel";
+                    this.dispValue = "kode_mapel";
+                    this.table = "detailmapelkelas";
+                    this.cond = "status = 'Aktif' AND kode_kelas = '" + kodeKelas + "'";
+                    this.sortby = "kode_mapel";
+                }
+                else if (getLevel == "0")
+                {
+                    this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
+                    this.idValue = "kode_mapel";
+                    this.dispValue = "kode_mapel";
+                    this.table = "detailmapelkelas INNER JOIN kelas USING (kode_kelas)";
+                    this.cond = "status = 'Aktif' AND kode_kelas = '" + kodeKelas +
+                                "' AND (kelas.id_guru IN (SELECT id_guru FROM guru WHERE nama_guru = '" + getUser +
+                                "') OR detailmapelkelas.id_guru IN (SELECT id_guru FROM guru WHERE nama_guru = '" + getUser +
+                                "')) GROUP BY kode_mapel";
+                    this.sortby = "kode_mapel";
+                }
                 mapel_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
                 mapel_combo.DisplayMember = "valueDisplay";
                 mapel_combo.ValueMember = "valueID";
@@ -125,6 +191,9 @@ namespace Raport
             {
                 mapel_txt.ResetText();
                 wali_txt.ResetText();
+                dataNilai_grid.DataSource = null;
+                dataNilai_grid.Columns.Clear();
+                dataNilai_grid.Rows.Clear();
             }
             else if (mapel_combo.Text != "")
             {
@@ -149,22 +218,94 @@ namespace Raport
                 {
                     MessageBox.Show(ex.Message);
                 }
+                loadData();
+                generate_nilai();
             }
+        }
+
+        public void generate_nilai()
+        {
+            this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
+            this.kodeSmt = this.smt_combo.SelectedValue.ToString();
+            this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
+            string nis_siswa, getSiswa;
+
+            if (jumlah_lbl.Text != "0")
+            {
+                foreach (DataGridViewRow row in siswa_grid.Rows)
+                {
+                    row.Cells[0].Value = true;
+                    if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                    {
+                        nis_siswa = row.Cells[1].Value.ToString();
+                        this.nis_lbl.Text = "null";
+                        getSiswa = "SELECT count(*) as 'jumlah' FROM nilai WHERE nis_siswa = '" + nis_siswa + "' AND kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel + "' AND kode_semester = '" + kodeSmt + "'";
+                        myConn.Open();
+                        myComm = new MySqlCommand(getSiswa, myConn);
+                        myReader = myComm.ExecuteReader();
+                        while (myReader.Read())
+                        {
+                            nis_lbl.Text = myReader.GetString("jumlah");
+                        }
+                        if (nis_lbl.Text == "0")
+                        {
+                            this.field = "DEFAULT, '" + nis_siswa + "', '" + kodeKelas + "', '" + kodeMapel + "', '" + kodeSmt +
+                                    "', DEFAULT, NULL, NULL, DEFAULT, NULL, NULL, DEFAULT, NULL, NULL";
+                            this.table = "nilai";
+                            db.insertData(table, field);
+                            loadData();
+                        }
+                        myConn.Close();
+                    }
+                }
+                this.nis_lbl.Text = "null";
+            }
+            if (jumlah_lbl.Text == "0")
+            {
+                this.nis_lbl.Text = "null";
+                this.jumlah_lbl.Text = "0";
+            }
+        }
+
+        private void createNilai_toolBtn_Click(object sender, EventArgs e)
+        {
+            loadData();
         }
 
         public void loadData()
         {
-            //this.field = "id_nilai as 'ID Nilai', nis_siswa as 'NIS Siswa', nama_siswa as 'Nama Siswa',"+ 
-            //             "p_angka as 'Pengetahuan-Angka', p_predikat as 'Pengetahuan-Predikat, p_desk as 'Pengetahuan-Deskripsi'" +
-            //             "";
-            //this.table = "nilai INNER JOIN sis";
-            //this.cond = "status_guru = 'Akthif' ORDER BY nip, nama_guru ASC";
-            //DataTable tabel = db.GetDataTable(field, table, cond);
-            //this.dataNilai_grid.DataSource = tabel;
+            dataNilai_grid.DataSource = null;
+            dataNilai_grid.Columns.Clear();
+            dataNilai_grid.Rows.Clear();
+            
+            this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
+            this.kodeSmt = this.smt_combo.SelectedValue.ToString();
+            this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
 
-            //this.query = "SELECT count(id_nilai) from nilai where "
+            this.field = "id_nilai as 'ID', siswa.nis_siswa as 'NIS Siswa', nama_siswa as 'Nama Siswa', p_ang as 'Peng-Angka', p_pred as 'Peng-Predikat'" +
+                        ", p_desk as 'Peng-Deskripsi', k_ang as 'Ket-Angka', k_pred as 'Ket-Predikat', k_desk as 'Ket-Deskripsi'"+
+                        ", s_ang as 'SSS-Angka', s_pred as 'SSS-Predikat', s_desk as 'SSS-Deskripsi'";
+            this.table = "nilai INNER JOIN siswa USING (nis_siswa)";
+            this.cond = "kode_kelas = '" + kodeKelas + "' AND kode_mapel='" + kodeMapel + 
+                        "' AND kode_semester = '" + kodeSmt +
+                        "' AND siswa.status_siswa = 'Aktif' ORDER by nama_siswa ASC";
+            DataTable tabel = db.GetDataTable(field, table, cond);
+            this.dataNilai_grid.DataSource = tabel;
+            
+            dataNilai_grid.Columns[0].Visible = false;
+            dataNilai_grid.Columns[1].ReadOnly = true;
+            dataNilai_grid.Columns[2].ReadOnly = true;
+            disableSorting();
         }
 
-        
+        private void disableSorting()
+        {
+            for (int i = 0; i <= dataNilai_grid.ColumnCount - 1; i++)
+            {
+                dataNilai_grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+        }
+
+
     }
 }
