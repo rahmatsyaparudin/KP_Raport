@@ -71,10 +71,9 @@ namespace Raport
                 guru_menu.Enabled = true;
                 kelas_menu.Enabled = true;
                 mapel_menu.Enabled = true;
-                siswa_menu.Enabled = true;
+                siswa_menu.Enabled = false;
                 eskul_menu.Enabled = true;
                 user_menu.Enabled = true;
-                siswa_menu.Enabled = true;
                 user_lbl.Text = getUser;
             }
 
@@ -239,7 +238,7 @@ namespace Raport
             tahuj_combo.Enabled = false;
             set_btn.Enabled = false;
             change_btn.Enabled = true;
-            SimpanData_group.Enabled = true; //nanti dihapus
+            siswa_menu.Enabled = false;
             if (tahuj_combo.Text != "")
             {
                 if (getLevel == "0")
@@ -313,7 +312,7 @@ namespace Raport
             dbToFile.saveDataSiswa(print_grid);
             dbToFile.SiswaToExcel(print_grid, "Data Siswa SMANJAK (" + tanggal + ")", sfDialog);
         }
-        
+
         private void color_timer_Tick(object sender, EventArgs e)
         {
             if (profil_menu.BackColor == Color.DeepSkyBlue)

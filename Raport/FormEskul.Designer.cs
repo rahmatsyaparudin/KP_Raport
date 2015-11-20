@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -72,7 +72,7 @@
             this.label1.Location = new System.Drawing.Point(252, 107);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(295, 36);
-            this.label1.TabIndex = 2;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Ekstrakurikuler Siswa";
             // 
             // groupBox1
@@ -102,7 +102,7 @@
             this.kode_lbl.Location = new System.Drawing.Point(245, 80);
             this.kode_lbl.Name = "kode_lbl";
             this.kode_lbl.Size = new System.Drawing.Size(53, 21);
-            this.kode_lbl.TabIndex = 9;
+            this.kode_lbl.TabIndex = 6;
             this.kode_lbl.Text = "label4";
             this.kode_lbl.Visible = false;
             // 
@@ -117,7 +117,7 @@
             this.save_btn.Location = new System.Drawing.Point(70, 170);
             this.save_btn.Name = "save_btn";
             this.save_btn.Size = new System.Drawing.Size(88, 31);
-            this.save_btn.TabIndex = 8;
+            this.save_btn.TabIndex = 10;
             this.save_btn.Text = "Save";
             this.save_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.save_btn.UseVisualStyleBackColor = false;
@@ -134,7 +134,7 @@
             this.delete_btn.Location = new System.Drawing.Point(176, 207);
             this.delete_btn.Name = "delete_btn";
             this.delete_btn.Size = new System.Drawing.Size(88, 31);
-            this.delete_btn.TabIndex = 7;
+            this.delete_btn.TabIndex = 13;
             this.delete_btn.Text = "Delete";
             this.delete_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.delete_btn.UseVisualStyleBackColor = false;
@@ -151,7 +151,7 @@
             this.edit_btn.Location = new System.Drawing.Point(70, 207);
             this.edit_btn.Name = "edit_btn";
             this.edit_btn.Size = new System.Drawing.Size(88, 31);
-            this.edit_btn.TabIndex = 6;
+            this.edit_btn.TabIndex = 12;
             this.edit_btn.Text = "Update";
             this.edit_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.edit_btn.UseVisualStyleBackColor = false;
@@ -168,7 +168,7 @@
             this.cancel_btn.Location = new System.Drawing.Point(176, 170);
             this.cancel_btn.Name = "cancel_btn";
             this.cancel_btn.Size = new System.Drawing.Size(88, 31);
-            this.cancel_btn.TabIndex = 5;
+            this.cancel_btn.TabIndex = 11;
             this.cancel_btn.Text = "Cancel";
             this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.cancel_btn.UseVisualStyleBackColor = false;
@@ -184,7 +184,7 @@
             this.add_btn.Location = new System.Drawing.Point(232, 18);
             this.add_btn.Name = "add_btn";
             this.add_btn.Size = new System.Drawing.Size(110, 31);
-            this.add_btn.TabIndex = 4;
+            this.add_btn.TabIndex = 7;
             this.add_btn.Text = "Add Data";
             this.add_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.add_btn.UseVisualStyleBackColor = false;
@@ -196,7 +196,7 @@
             this.nama_txt.Location = new System.Drawing.Point(132, 114);
             this.nama_txt.Name = "nama_txt";
             this.nama_txt.Size = new System.Drawing.Size(201, 29);
-            this.nama_txt.TabIndex = 3;
+            this.nama_txt.TabIndex = 9;
             // 
             // kode_txt
             // 
@@ -204,7 +204,7 @@
             this.kode_txt.Location = new System.Drawing.Point(132, 77);
             this.kode_txt.Name = "kode_txt";
             this.kode_txt.Size = new System.Drawing.Size(107, 29);
-            this.kode_txt.TabIndex = 2;
+            this.kode_txt.TabIndex = 8;
             // 
             // label3
             // 
@@ -212,7 +212,7 @@
             this.label3.Location = new System.Drawing.Point(16, 117);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(99, 21);
-            this.label3.TabIndex = 1;
+            this.label3.TabIndex = 5;
             this.label3.Text = "Nama Eskul";
             // 
             // label2
@@ -221,7 +221,7 @@
             this.label2.Location = new System.Drawing.Point(16, 80);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 21);
-            this.label2.TabIndex = 0;
+            this.label2.TabIndex = 4;
             this.label2.Text = "Kode Eskul";
             // 
             // panel1
@@ -232,7 +232,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 146);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(790, 303);
-            this.panel1.TabIndex = 4;
+            this.panel1.TabIndex = 1;
             // 
             // dataEskul_grid
             // 
@@ -240,36 +240,36 @@
             this.dataEskul_grid.AllowUserToDeleteRows = false;
             this.dataEskul_grid.AllowUserToResizeColumns = false;
             this.dataEskul_grid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataEskul_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataEskul_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataEskul_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataEskul_grid.BackgroundColor = System.Drawing.Color.MistyRose;
             this.dataEskul_grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataEskul_grid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataEskul_grid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataEskul_grid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataEskul_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataEskul_grid.Location = new System.Drawing.Point(16, 13);
             this.dataEskul_grid.Name = "dataEskul_grid";
             this.dataEskul_grid.ReadOnly = true;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataEskul_grid.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataEskul_grid.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataEskul_grid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataEskul_grid.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataEskul_grid.Size = new System.Drawing.Size(374, 281);
-            this.dataEskul_grid.TabIndex = 4;
+            this.dataEskul_grid.TabIndex = 2;
             this.dataEskul_grid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataEskul_grid_CellDoubleClick);
             // 
             // FormEskul

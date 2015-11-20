@@ -78,7 +78,7 @@
             this.label1.Location = new System.Drawing.Point(377, 89);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(230, 36);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Data Nilai Siswa";
             // 
             // panel1
@@ -89,7 +89,6 @@
             this.panel1.BackColor = System.Drawing.Color.AliceBlue;
             this.panel1.Controls.Add(this.dataNilai_grid);
             this.panel1.Controls.Add(this.toolStrip1);
-            this.panel1.Controls.Add(this.siswa_grid);
             this.panel1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(21, 187);
             this.panel1.Name = "panel1";
@@ -113,7 +112,7 @@
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataNilai_grid.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataNilai_grid.Size = new System.Drawing.Size(937, 364);
-            this.dataNilai_grid.TabIndex = 1;
+            this.dataNilai_grid.TabIndex = 14;
             this.dataNilai_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellClick);
             this.dataNilai_grid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellEndEdit);
             this.dataNilai_grid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellValueChanged);
@@ -130,7 +129,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(937, 25);
-            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.TabIndex = 13;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // nis_lbl
@@ -152,18 +151,21 @@
             this.peng_lbl.Name = "peng_lbl";
             this.peng_lbl.Size = new System.Drawing.Size(34, 22);
             this.peng_lbl.Text = "Peng";
+            this.peng_lbl.Visible = false;
             // 
             // ket_lbl
             // 
             this.ket_lbl.Name = "ket_lbl";
             this.ket_lbl.Size = new System.Drawing.Size(24, 22);
             this.ket_lbl.Text = "Ket";
+            this.ket_lbl.Visible = false;
             // 
             // sikap_lbl
             // 
             this.sikap_lbl.Name = "sikap_lbl";
             this.sikap_lbl.Size = new System.Drawing.Size(35, 22);
             this.sikap_lbl.Text = "Sikap";
+            this.sikap_lbl.Visible = false;
             // 
             // siswa_grid
             // 
@@ -171,11 +173,12 @@
             this.siswa_grid.AllowUserToDeleteRows = false;
             this.siswa_grid.AllowUserToResizeColumns = false;
             this.siswa_grid.AllowUserToResizeRows = false;
+            this.siswa_grid.BackgroundColor = System.Drawing.Color.CornflowerBlue;
             this.siswa_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.siswa_grid.Location = new System.Drawing.Point(422, 74);
+            this.siswa_grid.Location = new System.Drawing.Point(673, 12);
             this.siswa_grid.Name = "siswa_grid";
-            this.siswa_grid.Size = new System.Drawing.Size(261, 150);
-            this.siswa_grid.TabIndex = 13;
+            this.siswa_grid.Size = new System.Drawing.Size(294, 172);
+            this.siswa_grid.TabIndex = 1;
             this.siswa_grid.Visible = false;
             // 
             // label2
@@ -184,7 +187,7 @@
             this.label2.Location = new System.Drawing.Point(205, 130);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 21);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 5;
             this.label2.Text = "Pilih Kelas";
             // 
             // kelas_combo
@@ -198,7 +201,7 @@
             this.kelas_combo.Location = new System.Drawing.Point(209, 153);
             this.kelas_combo.Name = "kelas_combo";
             this.kelas_combo.Size = new System.Drawing.Size(121, 27);
-            this.kelas_combo.TabIndex = 4;
+            this.kelas_combo.TabIndex = 6;
             this.kelas_combo.SelectedIndexChanged += new System.EventHandler(this.kelas_combo_SelectedIndexChanged);
             // 
             // label3
@@ -207,7 +210,7 @@
             this.label3.Location = new System.Drawing.Point(332, 129);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(102, 21);
-            this.label3.TabIndex = 5;
+            this.label3.TabIndex = 7;
             this.label3.Text = "Kode Mapel";
             // 
             // mapel_combo
@@ -221,7 +224,7 @@
             this.mapel_combo.Location = new System.Drawing.Point(336, 153);
             this.mapel_combo.Name = "mapel_combo";
             this.mapel_combo.Size = new System.Drawing.Size(121, 27);
-            this.mapel_combo.TabIndex = 6;
+            this.mapel_combo.TabIndex = 8;
             this.mapel_combo.SelectedIndexChanged += new System.EventHandler(this.mapel_combo_SelectedIndexChanged);
             // 
             // label4
@@ -230,7 +233,7 @@
             this.label4.Location = new System.Drawing.Point(674, 129);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(73, 21);
-            this.label4.TabIndex = 7;
+            this.label4.TabIndex = 11;
             this.label4.Text = "Pengajar";
             // 
             // mapel_txt
@@ -241,7 +244,7 @@
             this.mapel_txt.Name = "mapel_txt";
             this.mapel_txt.ReadOnly = true;
             this.mapel_txt.Size = new System.Drawing.Size(209, 26);
-            this.mapel_txt.TabIndex = 8;
+            this.mapel_txt.TabIndex = 10;
             this.mapel_txt.TabStop = false;
             // 
             // wali_txt
@@ -252,7 +255,7 @@
             this.wali_txt.Name = "wali_txt";
             this.wali_txt.ReadOnly = true;
             this.wali_txt.Size = new System.Drawing.Size(281, 26);
-            this.wali_txt.TabIndex = 9;
+            this.wali_txt.TabIndex = 12;
             this.wali_txt.TabStop = false;
             // 
             // label5
@@ -261,7 +264,7 @@
             this.label5.Location = new System.Drawing.Point(459, 130);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(118, 21);
-            this.label5.TabIndex = 10;
+            this.label5.TabIndex = 9;
             this.label5.Text = "Mata Pelajaran";
             // 
             // label6
@@ -270,7 +273,7 @@
             this.label6.Location = new System.Drawing.Point(17, 129);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(115, 21);
-            this.label6.TabIndex = 11;
+            this.label6.TabIndex = 2;
             this.label6.Text = "Pilih Semester";
             // 
             // smt_combo
@@ -283,7 +286,7 @@
             this.smt_combo.Location = new System.Drawing.Point(21, 153);
             this.smt_combo.Name = "smt_combo";
             this.smt_combo.Size = new System.Drawing.Size(121, 27);
-            this.smt_combo.TabIndex = 12;
+            this.smt_combo.TabIndex = 3;
             this.smt_combo.SelectedIndexChanged += new System.EventHandler(this.smt_combo_SelectedIndexChanged);
             // 
             // set_btn
@@ -291,7 +294,7 @@
             this.set_btn.Location = new System.Drawing.Point(148, 152);
             this.set_btn.Name = "set_btn";
             this.set_btn.Size = new System.Drawing.Size(55, 29);
-            this.set_btn.TabIndex = 13;
+            this.set_btn.TabIndex = 4;
             this.set_btn.Text = "Set";
             this.set_btn.UseVisualStyleBackColor = true;
             this.set_btn.Click += new System.EventHandler(this.set_btn_Click);
@@ -316,6 +319,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.siswa_grid);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "FormNilai";

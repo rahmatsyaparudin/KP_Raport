@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProfilSekolah));
             this.label1 = new System.Windows.Forms.Label();
             this.edit_box = new System.Windows.Forms.GroupBox();
+            this.npsn_lbl = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -71,7 +72,7 @@
             this.nama_txt = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.npsn_lbl = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             this.edit_box.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -89,6 +90,7 @@
             // edit_box
             // 
             this.edit_box.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.edit_box.Controls.Add(this.label25);
             this.edit_box.Controls.Add(this.npsn_lbl);
             this.edit_box.Controls.Add(this.label24);
             this.edit_box.Controls.Add(this.label23);
@@ -137,6 +139,16 @@
             this.edit_box.TabStop = false;
             this.edit_box.Text = "Profil Sekolah";
             // 
+            // npsn_lbl
+            // 
+            this.npsn_lbl.AutoSize = true;
+            this.npsn_lbl.Location = new System.Drawing.Point(11, 23);
+            this.npsn_lbl.Name = "npsn_lbl";
+            this.npsn_lbl.Size = new System.Drawing.Size(48, 23);
+            this.npsn_lbl.TabIndex = 39;
+            this.npsn_lbl.Text = "npsn";
+            this.npsn_lbl.Visible = false;
+            // 
             // label24
             // 
             this.label24.AutoSize = true;
@@ -144,7 +156,7 @@
             this.label24.Location = new System.Drawing.Point(369, 168);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(14, 21);
-            this.label24.TabIndex = 38;
+            this.label24.TabIndex = 24;
             this.label24.Text = ":";
             // 
             // label23
@@ -154,7 +166,7 @@
             this.label23.Location = new System.Drawing.Point(369, 138);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(14, 21);
-            this.label23.TabIndex = 37;
+            this.label23.TabIndex = 22;
             this.label23.Text = ":";
             // 
             // label22
@@ -164,7 +176,7 @@
             this.label22.Location = new System.Drawing.Point(369, 78);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(14, 21);
-            this.label22.TabIndex = 36;
+            this.label22.TabIndex = 20;
             this.label22.Text = ":";
             // 
             // label21
@@ -174,7 +186,7 @@
             this.label21.Location = new System.Drawing.Point(133, 258);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(14, 21);
-            this.label21.TabIndex = 35;
+            this.label21.TabIndex = 18;
             this.label21.Text = ":";
             // 
             // label20
@@ -184,7 +196,7 @@
             this.label20.Location = new System.Drawing.Point(133, 228);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(14, 21);
-            this.label20.TabIndex = 34;
+            this.label20.TabIndex = 17;
             this.label20.Text = ":";
             // 
             // label19
@@ -194,7 +206,7 @@
             this.label19.Location = new System.Drawing.Point(133, 198);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(14, 21);
-            this.label19.TabIndex = 33;
+            this.label19.TabIndex = 16;
             this.label19.Text = ":";
             // 
             // label18
@@ -204,7 +216,7 @@
             this.label18.Location = new System.Drawing.Point(133, 168);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(14, 21);
-            this.label18.TabIndex = 32;
+            this.label18.TabIndex = 15;
             this.label18.Text = ":";
             // 
             // label17
@@ -214,7 +226,7 @@
             this.label17.Location = new System.Drawing.Point(133, 138);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(14, 21);
-            this.label17.TabIndex = 31;
+            this.label17.TabIndex = 14;
             this.label17.Text = ":";
             // 
             // label16
@@ -224,7 +236,7 @@
             this.label16.Location = new System.Drawing.Point(133, 108);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(14, 21);
-            this.label16.TabIndex = 30;
+            this.label16.TabIndex = 13;
             this.label16.Text = ":";
             // 
             // label15
@@ -234,7 +246,7 @@
             this.label15.Location = new System.Drawing.Point(133, 78);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(14, 21);
-            this.label15.TabIndex = 29;
+            this.label15.TabIndex = 12;
             this.label15.Text = ":";
             // 
             // label14
@@ -244,7 +256,7 @@
             this.label14.Location = new System.Drawing.Point(133, 48);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(14, 21);
-            this.label14.TabIndex = 28;
+            this.label14.TabIndex = 11;
             this.label14.Text = ":";
             // 
             // close_btn
@@ -259,7 +271,7 @@
             this.close_btn.Name = "close_btn";
             this.close_btn.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.close_btn.Size = new System.Drawing.Size(84, 31);
-            this.close_btn.TabIndex = 27;
+            this.close_btn.TabIndex = 28;
             this.close_btn.Text = "Close";
             this.close_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.close_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -277,7 +289,7 @@
             this.edit_btn.Location = new System.Drawing.Point(461, 15);
             this.edit_btn.Name = "edit_btn";
             this.edit_btn.Size = new System.Drawing.Size(110, 31);
-            this.edit_btn.TabIndex = 0;
+            this.edit_btn.TabIndex = 27;
             this.edit_btn.Text = "Edit Profil";
             this.edit_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.edit_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -295,7 +307,7 @@
             this.cancel_btn.Location = new System.Drawing.Point(279, 296);
             this.cancel_btn.Name = "cancel_btn";
             this.cancel_btn.Size = new System.Drawing.Size(86, 31);
-            this.cancel_btn.TabIndex = 26;
+            this.cancel_btn.TabIndex = 42;
             this.cancel_btn.Text = "Cancel";
             this.cancel_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -314,7 +326,7 @@
             this.save_btn.Location = new System.Drawing.Point(186, 296);
             this.save_btn.Name = "save_btn";
             this.save_btn.Size = new System.Drawing.Size(87, 31);
-            this.save_btn.TabIndex = 25;
+            this.save_btn.TabIndex = 41;
             this.save_btn.Text = "Save";
             this.save_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.save_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -332,7 +344,7 @@
             this.email_txt.Name = "email_txt";
             this.email_txt.ReadOnly = true;
             this.email_txt.Size = new System.Drawing.Size(264, 22);
-            this.email_txt.TabIndex = 24;
+            this.email_txt.TabIndex = 40;
             // 
             // label13
             // 
@@ -341,7 +353,7 @@
             this.label13.Location = new System.Drawing.Point(6, 258);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(51, 21);
-            this.label13.TabIndex = 23;
+            this.label13.TabIndex = 10;
             this.label13.Text = "Email";
             // 
             // website_txt
@@ -354,7 +366,7 @@
             this.website_txt.Name = "website_txt";
             this.website_txt.ReadOnly = true;
             this.website_txt.Size = new System.Drawing.Size(264, 22);
-            this.website_txt.TabIndex = 22;
+            this.website_txt.TabIndex = 39;
             // 
             // label12
             // 
@@ -363,7 +375,7 @@
             this.label12.Location = new System.Drawing.Point(6, 228);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(69, 21);
-            this.label12.TabIndex = 21;
+            this.label12.TabIndex = 9;
             this.label12.Text = "Website";
             // 
             // provinsi_txt
@@ -376,7 +388,7 @@
             this.provinsi_txt.Name = "provinsi_txt";
             this.provinsi_txt.ReadOnly = true;
             this.provinsi_txt.Size = new System.Drawing.Size(139, 22);
-            this.provinsi_txt.TabIndex = 20;
+            this.provinsi_txt.TabIndex = 38;
             this.provinsi_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.provinsi_txt_KeyPress);
             // 
             // label11
@@ -386,7 +398,7 @@
             this.label11.Location = new System.Drawing.Point(300, 198);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(71, 21);
-            this.label11.TabIndex = 19;
+            this.label11.TabIndex = 25;
             this.label11.Text = "Provinsi";
             // 
             // kota_txt
@@ -399,7 +411,7 @@
             this.kota_txt.Name = "kota_txt";
             this.kota_txt.ReadOnly = true;
             this.kota_txt.Size = new System.Drawing.Size(109, 22);
-            this.kota_txt.TabIndex = 18;
+            this.kota_txt.TabIndex = 37;
             this.kota_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.kota_txt_KeyPress);
             // 
             // label10
@@ -422,7 +434,7 @@
             this.kecamatan_txt.Name = "kecamatan_txt";
             this.kecamatan_txt.ReadOnly = true;
             this.kecamatan_txt.Size = new System.Drawing.Size(139, 22);
-            this.kecamatan_txt.TabIndex = 16;
+            this.kecamatan_txt.TabIndex = 36;
             this.kecamatan_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.kecamatan_txt_KeyPress);
             // 
             // label9
@@ -432,7 +444,7 @@
             this.label9.Location = new System.Drawing.Point(278, 168);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(92, 21);
-            this.label9.TabIndex = 15;
+            this.label9.TabIndex = 23;
             this.label9.Text = "Kecamatan";
             // 
             // kelurahan_txt
@@ -445,7 +457,7 @@
             this.kelurahan_txt.Name = "kelurahan_txt";
             this.kelurahan_txt.ReadOnly = true;
             this.kelurahan_txt.Size = new System.Drawing.Size(109, 22);
-            this.kelurahan_txt.TabIndex = 14;
+            this.kelurahan_txt.TabIndex = 35;
             this.kelurahan_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.kelurahan_txt_KeyPress);
             // 
             // label8
@@ -468,7 +480,7 @@
             this.telp_txt.Name = "telp_txt";
             this.telp_txt.ReadOnly = true;
             this.telp_txt.Size = new System.Drawing.Size(139, 22);
-            this.telp_txt.TabIndex = 12;
+            this.telp_txt.TabIndex = 34;
             this.telp_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.telp_txt_KeyPress);
             // 
             // label7
@@ -478,7 +490,7 @@
             this.label7.Location = new System.Drawing.Point(267, 138);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(103, 21);
-            this.label7.TabIndex = 11;
+            this.label7.TabIndex = 21;
             this.label7.Text = "No. Telepon";
             // 
             // pos_txt
@@ -491,7 +503,7 @@
             this.pos_txt.Name = "pos_txt";
             this.pos_txt.ReadOnly = true;
             this.pos_txt.Size = new System.Drawing.Size(66, 22);
-            this.pos_txt.TabIndex = 10;
+            this.pos_txt.TabIndex = 33;
             this.pos_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.pos_txt_KeyPress);
             // 
             // label6
@@ -514,7 +526,7 @@
             this.alamat_txt.Name = "alamat_txt";
             this.alamat_txt.ReadOnly = true;
             this.alamat_txt.Size = new System.Drawing.Size(230, 22);
-            this.alamat_txt.TabIndex = 8;
+            this.alamat_txt.TabIndex = 32;
             // 
             // label5
             // 
@@ -536,7 +548,7 @@
             this.nss_txt.Name = "nss_txt";
             this.nss_txt.ReadOnly = true;
             this.nss_txt.Size = new System.Drawing.Size(139, 22);
-            this.nss_txt.TabIndex = 6;
+            this.nss_txt.TabIndex = 31;
             this.nss_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nss_txt_KeyPress);
             // 
             // label4
@@ -546,7 +558,7 @@
             this.label4.Location = new System.Drawing.Point(326, 78);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 21);
-            this.label4.TabIndex = 5;
+            this.label4.TabIndex = 19;
             this.label4.Text = "NSS";
             // 
             // npsn_txt
@@ -559,7 +571,7 @@
             this.npsn_txt.Name = "npsn_txt";
             this.npsn_txt.ReadOnly = true;
             this.npsn_txt.Size = new System.Drawing.Size(109, 22);
-            this.npsn_txt.TabIndex = 4;
+            this.npsn_txt.TabIndex = 30;
             this.npsn_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.npsn_txt_KeyPress);
             // 
             // label3
@@ -583,7 +595,7 @@
             this.nama_txt.Name = "nama_txt";
             this.nama_txt.ReadOnly = true;
             this.nama_txt.Size = new System.Drawing.Size(230, 22);
-            this.nama_txt.TabIndex = 2;
+            this.nama_txt.TabIndex = 29;
             // 
             // label2
             // 
@@ -605,15 +617,15 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // npsn_lbl
+            // label25
             // 
-            this.npsn_lbl.AutoSize = true;
-            this.npsn_lbl.Location = new System.Drawing.Point(11, 23);
-            this.npsn_lbl.Name = "npsn_lbl";
-            this.npsn_lbl.Size = new System.Drawing.Size(48, 23);
-            this.npsn_lbl.TabIndex = 39;
-            this.npsn_lbl.Text = "npsn";
-            this.npsn_lbl.Visible = false;
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(369, 198);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(14, 21);
+            this.label25.TabIndex = 26;
+            this.label25.Text = ":";
             // 
             // FormProfilSekolah
             // 
@@ -685,5 +697,6 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Button edit_btn;
         private System.Windows.Forms.Label npsn_lbl;
+        private System.Windows.Forms.Label label25;
     }
 }

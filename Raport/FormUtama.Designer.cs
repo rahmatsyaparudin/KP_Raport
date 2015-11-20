@@ -39,8 +39,8 @@
             this.alamat2_lbl = new System.Windows.Forms.Label();
             this.logo_pic = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.profil_menu = new System.Windows.Forms.Button();
             this.guru_menu = new System.Windows.Forms.Button();
+            this.profil_menu = new System.Windows.Forms.Button();
             this.siswa_menu = new System.Windows.Forms.Button();
             this.nilai_menu = new System.Windows.Forms.Button();
             this.mapel_menu = new System.Windows.Forms.Button();
@@ -67,6 +67,8 @@
             this.user_lbl = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SimpanData_group = new System.Windows.Forms.GroupBox();
+            this.printDataNilai_btn = new System.Windows.Forms.Button();
+            this.printDataKelas_btn = new System.Windows.Forms.Button();
             this.printDataSiswa_btn = new System.Windows.Forms.Button();
             this.printDataGuru_btn = new System.Windows.Forms.Button();
             this.sfDialog = new System.Windows.Forms.SaveFileDialog();
@@ -78,8 +80,6 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.print_grid = new System.Windows.Forms.DataGridView();
-            this.printDataKelas_btn = new System.Windows.Forms.Button();
-            this.printDataNilai_btn = new System.Windows.Forms.Button();
             this.LogOut_btn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -99,7 +99,7 @@
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(423, 36);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Aplikasi e-Raport Kurikulum 13";
             // 
             // nama_lbl
@@ -109,7 +109,7 @@
             this.nama_lbl.Location = new System.Drawing.Point(3, 36);
             this.nama_lbl.Name = "nama_lbl";
             this.nama_lbl.Size = new System.Drawing.Size(199, 36);
-            this.nama_lbl.TabIndex = 2;
+            this.nama_lbl.TabIndex = 1;
             this.nama_lbl.Text = "Nama Sekolah";
             this.nama_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -155,7 +155,7 @@
             this.alamat3_lbl.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.alamat3_lbl.Name = "alamat3_lbl";
             this.alamat3_lbl.Size = new System.Drawing.Size(105, 19);
-            this.alamat3_lbl.TabIndex = 5;
+            this.alamat3_lbl.TabIndex = 4;
             this.alamat3_lbl.Text = "Website - Email";
             // 
             // alamat_lbl
@@ -166,7 +166,7 @@
             this.alamat_lbl.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.alamat_lbl.Name = "alamat_lbl";
             this.alamat_lbl.Size = new System.Drawing.Size(252, 19);
-            this.alamat_lbl.TabIndex = 3;
+            this.alamat_lbl.TabIndex = 2;
             this.alamat_lbl.Text = "Alamat Sekolah, Kecamatan, Kelurahan";
             // 
             // alamat2_lbl
@@ -177,7 +177,7 @@
             this.alamat2_lbl.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.alamat2_lbl.Name = "alamat2_lbl";
             this.alamat2_lbl.Size = new System.Drawing.Size(238, 19);
-            this.alamat2_lbl.TabIndex = 4;
+            this.alamat2_lbl.TabIndex = 3;
             this.alamat2_lbl.Text = "Kabupaten, Provinsi - Kode Pos Telp";
             // 
             // logo_pic
@@ -192,8 +192,8 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.groupBox1.Controls.Add(this.profil_menu);
             this.groupBox1.Controls.Add(this.guru_menu);
+            this.groupBox1.Controls.Add(this.profil_menu);
             this.groupBox1.Controls.Add(this.siswa_menu);
             this.groupBox1.Controls.Add(this.nilai_menu);
             this.groupBox1.Controls.Add(this.mapel_menu);
@@ -205,9 +205,27 @@
             this.groupBox1.Location = new System.Drawing.Point(7, 138);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(303, 375);
-            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pengolah Data";
+            // 
+            // guru_menu
+            // 
+            this.guru_menu.BackColor = System.Drawing.Color.CadetBlue;
+            this.guru_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.guru_menu.FlatAppearance.BorderSize = 0;
+            this.guru_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.guru_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guru_menu.Image = global::Raport.Properties.Resources.guru;
+            this.guru_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.guru_menu.Location = new System.Drawing.Point(20, 132);
+            this.guru_menu.Name = "guru_menu";
+            this.guru_menu.Size = new System.Drawing.Size(130, 71);
+            this.guru_menu.TabIndex = 8;
+            this.guru_menu.Text = "Data Guru";
+            this.guru_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.guru_menu.UseVisualStyleBackColor = false;
+            this.guru_menu.Click += new System.EventHandler(this.guru_menu_Click);
             // 
             // profil_menu
             // 
@@ -222,35 +240,16 @@
             this.profil_menu.Location = new System.Drawing.Point(19, 55);
             this.profil_menu.Name = "profil_menu";
             this.profil_menu.Size = new System.Drawing.Size(130, 71);
-            this.profil_menu.TabIndex = 4;
+            this.profil_menu.TabIndex = 6;
             this.profil_menu.Text = "Profil Sekolah";
             this.profil_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.profil_menu.UseVisualStyleBackColor = false;
             this.profil_menu.Click += new System.EventHandler(this.profil_menu_Click);
             // 
-            // guru_menu
-            // 
-            this.guru_menu.BackColor = System.Drawing.Color.CadetBlue;
-            this.guru_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.guru_menu.FlatAppearance.BorderSize = 0;
-            this.guru_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.guru_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guru_menu.Image = global::Raport.Properties.Resources.guru;
-            this.guru_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.guru_menu.Location = new System.Drawing.Point(155, 55);
-            this.guru_menu.Name = "guru_menu";
-            this.guru_menu.Size = new System.Drawing.Size(130, 71);
-            this.guru_menu.TabIndex = 5;
-            this.guru_menu.Text = "Data Guru";
-            this.guru_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.guru_menu.UseVisualStyleBackColor = false;
-            this.guru_menu.Click += new System.EventHandler(this.guru_menu_Click);
-            // 
             // siswa_menu
             // 
             this.siswa_menu.BackColor = System.Drawing.Color.Yellow;
             this.siswa_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.siswa_menu.Enabled = false;
             this.siswa_menu.FlatAppearance.BorderSize = 0;
             this.siswa_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.siswa_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -259,7 +258,7 @@
             this.siswa_menu.Location = new System.Drawing.Point(20, 209);
             this.siswa_menu.Name = "siswa_menu";
             this.siswa_menu.Size = new System.Drawing.Size(130, 71);
-            this.siswa_menu.TabIndex = 8;
+            this.siswa_menu.TabIndex = 10;
             this.siswa_menu.Text = "Data Siswa";
             this.siswa_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.siswa_menu.UseVisualStyleBackColor = false;
@@ -275,10 +274,10 @@
             this.nilai_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nilai_menu.Image = global::Raport.Properties.Resources.nilai;
             this.nilai_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.nilai_menu.Location = new System.Drawing.Point(20, 286);
+            this.nilai_menu.Location = new System.Drawing.Point(155, 286);
             this.nilai_menu.Name = "nilai_menu";
             this.nilai_menu.Size = new System.Drawing.Size(129, 71);
-            this.nilai_menu.TabIndex = 10;
+            this.nilai_menu.TabIndex = 13;
             this.nilai_menu.Text = "Data Nilai";
             this.nilai_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.nilai_menu.UseVisualStyleBackColor = false;
@@ -293,10 +292,10 @@
             this.mapel_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mapel_menu.Image = global::Raport.Properties.Resources.appbar_book;
             this.mapel_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.mapel_menu.Location = new System.Drawing.Point(155, 132);
+            this.mapel_menu.Location = new System.Drawing.Point(155, 55);
             this.mapel_menu.Name = "mapel_menu";
             this.mapel_menu.Size = new System.Drawing.Size(130, 71);
-            this.mapel_menu.TabIndex = 6;
+            this.mapel_menu.TabIndex = 7;
             this.mapel_menu.Text = "Mata Pelajaran";
             this.mapel_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.mapel_menu.UseVisualStyleBackColor = false;
@@ -312,10 +311,10 @@
             this.deskripsi_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deskripsi_menu.Image = global::Raport.Properties.Resources.deskripsi;
             this.deskripsi_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.deskripsi_menu.Location = new System.Drawing.Point(155, 286);
+            this.deskripsi_menu.Location = new System.Drawing.Point(21, 286);
             this.deskripsi_menu.Name = "deskripsi_menu";
             this.deskripsi_menu.Size = new System.Drawing.Size(129, 71);
-            this.deskripsi_menu.TabIndex = 11;
+            this.deskripsi_menu.TabIndex = 12;
             this.deskripsi_menu.Text = "Deskripsi";
             this.deskripsi_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.deskripsi_menu.UseVisualStyleBackColor = false;
@@ -330,10 +329,10 @@
             this.kelas_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kelas_menu.Image = global::Raport.Properties.Resources.kelas;
             this.kelas_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.kelas_menu.Location = new System.Drawing.Point(20, 132);
+            this.kelas_menu.Location = new System.Drawing.Point(155, 132);
             this.kelas_menu.Name = "kelas_menu";
             this.kelas_menu.Size = new System.Drawing.Size(129, 71);
-            this.kelas_menu.TabIndex = 7;
+            this.kelas_menu.TabIndex = 9;
             this.kelas_menu.Text = "Data Kelas";
             this.kelas_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.kelas_menu.UseVisualStyleBackColor = false;
@@ -351,7 +350,7 @@
             this.eskul_menu.Location = new System.Drawing.Point(155, 209);
             this.eskul_menu.Name = "eskul_menu";
             this.eskul_menu.Size = new System.Drawing.Size(129, 71);
-            this.eskul_menu.TabIndex = 9;
+            this.eskul_menu.TabIndex = 11;
             this.eskul_menu.Text = "Data Eskul";
             this.eskul_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.eskul_menu.UseVisualStyleBackColor = false;
@@ -366,7 +365,7 @@
             this.jam_lbl.Location = new System.Drawing.Point(651, 265);
             this.jam_lbl.Name = "jam_lbl";
             this.jam_lbl.Size = new System.Drawing.Size(88, 23);
-            this.jam_lbl.TabIndex = 15;
+            this.jam_lbl.TabIndex = 28;
             this.jam_lbl.Text = "00:00:00";
             // 
             // clock_timer
@@ -383,7 +382,7 @@
             this.hari_lbl.Location = new System.Drawing.Point(626, 177);
             this.hari_lbl.Name = "hari_lbl";
             this.hari_lbl.Size = new System.Drawing.Size(47, 23);
-            this.hari_lbl.TabIndex = 16;
+            this.hari_lbl.TabIndex = 24;
             this.hari_lbl.Text = "Hari";
             // 
             // tanggal_lbl
@@ -395,7 +394,7 @@
             this.tanggal_lbl.Location = new System.Drawing.Point(676, 201);
             this.tanggal_lbl.Name = "tanggal_lbl";
             this.tanggal_lbl.Size = new System.Drawing.Size(35, 40);
-            this.tanggal_lbl.TabIndex = 17;
+            this.tanggal_lbl.TabIndex = 25;
             this.tanggal_lbl.Text = "0";
             // 
             // bulan_lbl
@@ -407,7 +406,7 @@
             this.bulan_lbl.Location = new System.Drawing.Point(624, 241);
             this.bulan_lbl.Name = "bulan_lbl";
             this.bulan_lbl.Size = new System.Drawing.Size(108, 21);
-            this.bulan_lbl.TabIndex = 18;
+            this.bulan_lbl.TabIndex = 26;
             this.bulan_lbl.Text = "Bulan, Tahun";
             // 
             // label2
@@ -419,7 +418,7 @@
             this.label2.Location = new System.Drawing.Point(623, 227);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 39);
-            this.label2.TabIndex = 19;
+            this.label2.TabIndex = 27;
             this.label2.Text = "______";
             // 
             // color_timer
@@ -434,7 +433,7 @@
             this.panel2.Location = new System.Drawing.Point(622, 173);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(139, 116);
-            this.panel2.TabIndex = 20;
+            this.panel2.TabIndex = 23;
             // 
             // panel3
             // 
@@ -446,7 +445,7 @@
             this.panel3.Location = new System.Drawing.Point(485, 173);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(131, 115);
-            this.panel3.TabIndex = 21;
+            this.panel3.TabIndex = 18;
             // 
             // label3
             // 
@@ -456,7 +455,7 @@
             this.label3.Location = new System.Drawing.Point(5, 6);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 23);
-            this.label3.TabIndex = 3;
+            this.label3.TabIndex = 19;
             this.label3.Text = "Tahun Ajaran";
             // 
             // tahuj_combo
@@ -472,7 +471,7 @@
             this.tahuj_combo.MaxDropDownItems = 4;
             this.tahuj_combo.Name = "tahuj_combo";
             this.tahuj_combo.Size = new System.Drawing.Size(121, 27);
-            this.tahuj_combo.TabIndex = 2;
+            this.tahuj_combo.TabIndex = 20;
             // 
             // change_btn
             // 
@@ -484,7 +483,7 @@
             this.change_btn.Location = new System.Drawing.Point(64, 73);
             this.change_btn.Name = "change_btn";
             this.change_btn.Size = new System.Drawing.Size(64, 29);
-            this.change_btn.TabIndex = 1;
+            this.change_btn.TabIndex = 22;
             this.change_btn.Text = "Edit";
             this.change_btn.UseVisualStyleBackColor = false;
             this.change_btn.Click += new System.EventHandler(this.change_btn_Click);
@@ -498,7 +497,7 @@
             this.set_btn.Location = new System.Drawing.Point(6, 73);
             this.set_btn.Name = "set_btn";
             this.set_btn.Size = new System.Drawing.Size(55, 29);
-            this.set_btn.TabIndex = 0;
+            this.set_btn.TabIndex = 21;
             this.set_btn.Text = "Set";
             this.set_btn.UseVisualStyleBackColor = false;
             this.set_btn.Click += new System.EventHandler(this.set_btn_Click);
@@ -516,7 +515,7 @@
             this.exit_btn.Name = "exit_btn";
             this.exit_btn.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.exit_btn.Size = new System.Drawing.Size(117, 30);
-            this.exit_btn.TabIndex = 12;
+            this.exit_btn.TabIndex = 37;
             this.exit_btn.Text = "Exit Program";
             this.exit_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.exit_btn.UseVisualStyleBackColor = false;
@@ -529,7 +528,7 @@
             this.groupBox2.Location = new System.Drawing.Point(477, 304);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(148, 209);
-            this.groupBox2.TabIndex = 22;
+            this.groupBox2.TabIndex = 34;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Print Laporan";
             // 
@@ -538,7 +537,7 @@
             this.button1.Location = new System.Drawing.Point(17, 40);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(93, 39);
-            this.button1.TabIndex = 0;
+            this.button1.TabIndex = 35;
             this.button1.Text = "Data Guru";
             this.button1.UseVisualStyleBackColor = true;
             // 
@@ -551,7 +550,7 @@
             this.user_menu.Location = new System.Drawing.Point(345, 173);
             this.user_menu.Name = "user_menu";
             this.user_menu.Size = new System.Drawing.Size(134, 32);
-            this.user_menu.TabIndex = 23;
+            this.user_menu.TabIndex = 17;
             this.user_menu.Text = "Tambah User";
             this.user_menu.UseVisualStyleBackColor = false;
             this.user_menu.Click += new System.EventHandler(this.user_menu_Click);
@@ -564,7 +563,7 @@
             this.user_lbl.Location = new System.Drawing.Point(426, 145);
             this.user_lbl.Name = "user_lbl";
             this.user_lbl.Size = new System.Drawing.Size(48, 22);
-            this.user_lbl.TabIndex = 6;
+            this.user_lbl.TabIndex = 16;
             this.user_lbl.Text = "User";
             // 
             // label4
@@ -575,7 +574,7 @@
             this.label4.Location = new System.Drawing.Point(341, 145);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 22);
-            this.label4.TabIndex = 24;
+            this.label4.TabIndex = 15;
             this.label4.Text = "Welcome, ";
             // 
             // SimpanData_group
@@ -590,9 +589,35 @@
             this.SimpanData_group.Location = new System.Drawing.Point(326, 304);
             this.SimpanData_group.Name = "SimpanData_group";
             this.SimpanData_group.Size = new System.Drawing.Size(145, 209);
-            this.SimpanData_group.TabIndex = 23;
+            this.SimpanData_group.TabIndex = 29;
             this.SimpanData_group.TabStop = false;
             this.SimpanData_group.Text = "Simpan Data";
+            // 
+            // printDataNilai_btn
+            // 
+            this.printDataNilai_btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.printDataNilai_btn.FlatAppearance.BorderSize = 0;
+            this.printDataNilai_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.printDataNilai_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printDataNilai_btn.Location = new System.Drawing.Point(17, 145);
+            this.printDataNilai_btn.Name = "printDataNilai_btn";
+            this.printDataNilai_btn.Size = new System.Drawing.Size(110, 32);
+            this.printDataNilai_btn.TabIndex = 33;
+            this.printDataNilai_btn.Text = "Data Nilai";
+            this.printDataNilai_btn.UseVisualStyleBackColor = false;
+            // 
+            // printDataKelas_btn
+            // 
+            this.printDataKelas_btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.printDataKelas_btn.FlatAppearance.BorderSize = 0;
+            this.printDataKelas_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.printDataKelas_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printDataKelas_btn.Location = new System.Drawing.Point(17, 108);
+            this.printDataKelas_btn.Name = "printDataKelas_btn";
+            this.printDataKelas_btn.Size = new System.Drawing.Size(110, 31);
+            this.printDataKelas_btn.TabIndex = 32;
+            this.printDataKelas_btn.Text = "Data Kelas";
+            this.printDataKelas_btn.UseVisualStyleBackColor = false;
             // 
             // printDataSiswa_btn
             // 
@@ -603,7 +628,7 @@
             this.printDataSiswa_btn.Location = new System.Drawing.Point(17, 71);
             this.printDataSiswa_btn.Name = "printDataSiswa_btn";
             this.printDataSiswa_btn.Size = new System.Drawing.Size(110, 31);
-            this.printDataSiswa_btn.TabIndex = 1;
+            this.printDataSiswa_btn.TabIndex = 31;
             this.printDataSiswa_btn.Text = "Data Siswa";
             this.printDataSiswa_btn.UseVisualStyleBackColor = false;
             this.printDataSiswa_btn.Click += new System.EventHandler(this.printDataSiswa_btn_Click);
@@ -617,7 +642,7 @@
             this.printDataGuru_btn.Location = new System.Drawing.Point(17, 34);
             this.printDataGuru_btn.Name = "printDataGuru_btn";
             this.printDataGuru_btn.Size = new System.Drawing.Size(110, 31);
-            this.printDataGuru_btn.TabIndex = 0;
+            this.printDataGuru_btn.TabIndex = 30;
             this.printDataGuru_btn.Text = "Data Guru";
             this.printDataGuru_btn.UseVisualStyleBackColor = false;
             this.printDataGuru_btn.Click += new System.EventHandler(this.printDataGuru_btn_Click);
@@ -679,34 +704,8 @@
             this.print_grid.Location = new System.Drawing.Point(326, 143);
             this.print_grid.Name = "print_grid";
             this.print_grid.Size = new System.Drawing.Size(442, 153);
-            this.print_grid.TabIndex = 2;
+            this.print_grid.TabIndex = 14;
             this.print_grid.Visible = false;
-            // 
-            // printDataKelas_btn
-            // 
-            this.printDataKelas_btn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.printDataKelas_btn.FlatAppearance.BorderSize = 0;
-            this.printDataKelas_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.printDataKelas_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.printDataKelas_btn.Location = new System.Drawing.Point(17, 108);
-            this.printDataKelas_btn.Name = "printDataKelas_btn";
-            this.printDataKelas_btn.Size = new System.Drawing.Size(110, 31);
-            this.printDataKelas_btn.TabIndex = 2;
-            this.printDataKelas_btn.Text = "Data Kelas";
-            this.printDataKelas_btn.UseVisualStyleBackColor = false;
-            // 
-            // printDataNilai_btn
-            // 
-            this.printDataNilai_btn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.printDataNilai_btn.FlatAppearance.BorderSize = 0;
-            this.printDataNilai_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.printDataNilai_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.printDataNilai_btn.Location = new System.Drawing.Point(17, 145);
-            this.printDataNilai_btn.Name = "printDataNilai_btn";
-            this.printDataNilai_btn.Size = new System.Drawing.Size(110, 32);
-            this.printDataNilai_btn.TabIndex = 3;
-            this.printDataNilai_btn.Text = "Data Nilai";
-            this.printDataNilai_btn.UseVisualStyleBackColor = false;
             // 
             // LogOut_btn
             // 
@@ -721,7 +720,7 @@
             this.LogOut_btn.Name = "LogOut_btn";
             this.LogOut_btn.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.LogOut_btn.Size = new System.Drawing.Size(89, 30);
-            this.LogOut_btn.TabIndex = 25;
+            this.LogOut_btn.TabIndex = 36;
             this.LogOut_btn.Text = "Log Out";
             this.LogOut_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LogOut_btn.UseVisualStyleBackColor = false;

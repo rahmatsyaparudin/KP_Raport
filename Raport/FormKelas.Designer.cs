@@ -160,7 +160,7 @@ namespace Raport
             this.dataKelas_grid.Name = "dataKelas_grid";
             this.dataKelas_grid.ReadOnly = true;
             this.dataKelas_grid.Size = new System.Drawing.Size(739, 370);
-            this.dataKelas_grid.TabIndex = 2;
+            this.dataKelas_grid.TabIndex = 5;
             this.dataKelas_grid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataKelas_grid_CellDoubleClick);
             // 
             // sortBy_combo
@@ -177,7 +177,7 @@ namespace Raport
             this.sortBy_combo.Name = "sortBy_combo";
             this.sortBy_combo.Padding = new System.Windows.Forms.Padding(0);
             this.sortBy_combo.Size = new System.Drawing.Size(769, 28);
-            this.sortBy_combo.TabIndex = 1;
+            this.sortBy_combo.TabIndex = 2;
             this.sortBy_combo.Text = "toolStrip1";
             // 
             // create_toolBtn
@@ -242,7 +242,7 @@ namespace Raport
             this.kelas_txt.MaxLength = 10;
             this.kelas_txt.Name = "kelas_txt";
             this.kelas_txt.Size = new System.Drawing.Size(184, 29);
-            this.kelas_txt.TabIndex = 3;
+            this.kelas_txt.TabIndex = 7;
             this.kelas_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.kelas_txt_KeyPress);
             // 
             // id_txt
@@ -251,7 +251,7 @@ namespace Raport
             this.id_txt.Location = new System.Drawing.Point(345, 46);
             this.id_txt.Name = "id_txt";
             this.id_txt.Size = new System.Drawing.Size(24, 29);
-            this.id_txt.TabIndex = 12;
+            this.id_txt.TabIndex = 6;
             this.id_txt.Visible = false;
             // 
             // tahun_combo
@@ -265,7 +265,7 @@ namespace Raport
             this.tahun_combo.Location = new System.Drawing.Point(155, 83);
             this.tahun_combo.Name = "tahun_combo";
             this.tahun_combo.Size = new System.Drawing.Size(184, 27);
-            this.tahun_combo.TabIndex = 4;
+            this.tahun_combo.TabIndex = 8;
             // 
             // wali_combo
             // 
@@ -281,7 +281,7 @@ namespace Raport
             this.wali_combo.Name = "wali_combo";
             this.wali_combo.Size = new System.Drawing.Size(259, 27);
             this.wali_combo.Sorted = true;
-            this.wali_combo.TabIndex = 5;
+            this.wali_combo.TabIndex = 9;
             // 
             // label3
             // 
@@ -290,7 +290,7 @@ namespace Raport
             this.label3.Location = new System.Drawing.Point(22, 118);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 21);
-            this.label3.TabIndex = 2;
+            this.label3.TabIndex = 5;
             this.label3.Text = "Wali Kelas";
             // 
             // label2
@@ -300,7 +300,7 @@ namespace Raport
             this.label2.Location = new System.Drawing.Point(22, 86);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 21);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 4;
             this.label2.Text = "Tahun Ajaran";
             // 
             // label1
@@ -310,7 +310,7 @@ namespace Raport
             this.label1.Location = new System.Drawing.Point(22, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 21);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 3;
             this.label1.Text = "Nama Kelas";
             // 
             // delete_btn
@@ -324,7 +324,7 @@ namespace Raport
             this.delete_btn.Location = new System.Drawing.Point(179, 210);
             this.delete_btn.Name = "delete_btn";
             this.delete_btn.Size = new System.Drawing.Size(93, 29);
-            this.delete_btn.TabIndex = 9;
+            this.delete_btn.TabIndex = 13;
             this.delete_btn.Text = "Delete";
             this.delete_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.delete_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -342,7 +342,7 @@ namespace Raport
             this.update_btn.Location = new System.Drawing.Point(64, 210);
             this.update_btn.Name = "update_btn";
             this.update_btn.Size = new System.Drawing.Size(97, 29);
-            this.update_btn.TabIndex = 8;
+            this.update_btn.TabIndex = 12;
             this.update_btn.Text = "Update";
             this.update_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.update_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -359,7 +359,7 @@ namespace Raport
             this.cancel_btn.Location = new System.Drawing.Point(179, 175);
             this.cancel_btn.Name = "cancel_btn";
             this.cancel_btn.Size = new System.Drawing.Size(93, 29);
-            this.cancel_btn.TabIndex = 7;
+            this.cancel_btn.TabIndex = 11;
             this.cancel_btn.Text = "Cancel";
             this.cancel_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -376,7 +376,7 @@ namespace Raport
             this.save_btn.Location = new System.Drawing.Point(64, 175);
             this.save_btn.Name = "save_btn";
             this.save_btn.Size = new System.Drawing.Size(97, 29);
-            this.save_btn.TabIndex = 6;
+            this.save_btn.TabIndex = 10;
             this.save_btn.Text = "Save";
             this.save_btn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.save_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -394,7 +394,7 @@ namespace Raport
             this.kelas_tab.Name = "kelas_tab";
             this.kelas_tab.SelectedIndex = 0;
             this.kelas_tab.Size = new System.Drawing.Size(783, 460);
-            this.kelas_tab.TabIndex = 0;
+            this.kelas_tab.TabIndex = 1;
             // 
             // class_schedule
             // 
@@ -428,7 +428,7 @@ namespace Raport
             this.delete2_btn.Location = new System.Drawing.Point(335, 386);
             this.delete2_btn.Name = "delete2_btn";
             this.delete2_btn.Size = new System.Drawing.Size(75, 32);
-            this.delete2_btn.TabIndex = 26;
+            this.delete2_btn.TabIndex = 12;
             this.delete2_btn.Text = "Delete";
             this.delete2_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.delete2_btn.UseVisualStyleBackColor = false;
@@ -456,7 +456,7 @@ namespace Raport
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(745, 28);
-            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.TabIndex = 9;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // create_tool
@@ -517,7 +517,7 @@ namespace Raport
             this.schedule_grid.Name = "schedule_grid";
             this.schedule_grid.RowHeadersWidth = 30;
             this.schedule_grid.Size = new System.Drawing.Size(745, 271);
-            this.schedule_grid.TabIndex = 17;
+            this.schedule_grid.TabIndex = 10;
             this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
             // 
             // cancel2_btn
@@ -531,7 +531,7 @@ namespace Raport
             this.cancel2_btn.Location = new System.Drawing.Point(416, 386);
             this.cancel2_btn.Name = "cancel2_btn";
             this.cancel2_btn.Size = new System.Drawing.Size(87, 32);
-            this.cancel2_btn.TabIndex = 21;
+            this.cancel2_btn.TabIndex = 13;
             this.cancel2_btn.Text = "Cancel";
             this.cancel2_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.cancel2_btn.UseVisualStyleBackColor = false;
@@ -548,7 +548,7 @@ namespace Raport
             this.save2_btn.Location = new System.Drawing.Point(254, 386);
             this.save2_btn.Name = "save2_btn";
             this.save2_btn.Size = new System.Drawing.Size(75, 32);
-            this.save2_btn.TabIndex = 20;
+            this.save2_btn.TabIndex = 11;
             this.save2_btn.Text = "Save";
             this.save2_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.save2_btn.UseVisualStyleBackColor = false;
@@ -561,7 +561,7 @@ namespace Raport
             this.id_lbl.Location = new System.Drawing.Point(456, 15);
             this.id_lbl.Name = "id_lbl";
             this.id_lbl.Size = new System.Drawing.Size(19, 21);
-            this.id_lbl.TabIndex = 18;
+            this.id_lbl.TabIndex = 6;
             this.id_lbl.Text = "0";
             // 
             // wali_txt
@@ -571,7 +571,7 @@ namespace Raport
             this.wali_txt.Name = "wali_txt";
             this.wali_txt.ReadOnly = true;
             this.wali_txt.Size = new System.Drawing.Size(317, 29);
-            this.wali_txt.TabIndex = 6;
+            this.wali_txt.TabIndex = 8;
             this.wali_txt.TabStop = false;
             // 
             // label6
@@ -580,20 +580,21 @@ namespace Raport
             this.label6.Location = new System.Drawing.Point(19, 51);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 21);
-            this.label6.TabIndex = 5;
+            this.label6.TabIndex = 7;
             this.label6.Text = "Wali Kelas";
             // 
             // pilihKelas_combo
             // 
             this.pilihKelas_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.pilihKelas_combo.Enabled = false;
+            this.pilihKelas_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.pilihKelas_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pilihKelas_combo.FormattingEnabled = true;
             this.pilihKelas_combo.IntegralHeight = false;
             this.pilihKelas_combo.Location = new System.Drawing.Point(325, 13);
             this.pilihKelas_combo.Name = "pilihKelas_combo";
             this.pilihKelas_combo.Size = new System.Drawing.Size(125, 27);
-            this.pilihKelas_combo.TabIndex = 3;
+            this.pilihKelas_combo.TabIndex = 5;
             this.pilihKelas_combo.SelectedIndexChanged += new System.EventHandler(this.pilihKelas_combo_SelectedIndexChanged);
             // 
             // label5
@@ -602,19 +603,20 @@ namespace Raport
             this.label5.Location = new System.Drawing.Point(268, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 21);
-            this.label5.TabIndex = 2;
+            this.label5.TabIndex = 4;
             this.label5.Text = "Kelas";
             // 
             // pilihTahun_combo
             // 
             this.pilihTahun_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.pilihTahun_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.pilihTahun_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pilihTahun_combo.FormattingEnabled = true;
             this.pilihTahun_combo.IntegralHeight = false;
             this.pilihTahun_combo.Location = new System.Drawing.Point(133, 13);
             this.pilihTahun_combo.Name = "pilihTahun_combo";
             this.pilihTahun_combo.Size = new System.Drawing.Size(127, 27);
-            this.pilihTahun_combo.TabIndex = 1;
+            this.pilihTahun_combo.TabIndex = 3;
             this.pilihTahun_combo.SelectedIndexChanged += new System.EventHandler(this.pilihTahun_combo_SelectedIndexChanged);
             // 
             // label4
@@ -623,7 +625,7 @@ namespace Raport
             this.label4.Location = new System.Drawing.Point(19, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(108, 21);
-            this.label4.TabIndex = 0;
+            this.label4.TabIndex = 2;
             this.label4.Text = "Tahun Ajaran";
             // 
             // class_members
@@ -659,7 +661,7 @@ namespace Raport
             this.label8.Location = new System.Drawing.Point(172, 6);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(108, 21);
-            this.label8.TabIndex = 1;
+            this.label8.TabIndex = 3;
             this.label8.Text = "Tahun Ajaran";
             // 
             // setTahun_combo
@@ -673,7 +675,7 @@ namespace Raport
             this.setTahun_combo.Location = new System.Drawing.Point(286, 4);
             this.setTahun_combo.Name = "setTahun_combo";
             this.setTahun_combo.Size = new System.Drawing.Size(107, 27);
-            this.setTahun_combo.TabIndex = 3;
+            this.setTahun_combo.TabIndex = 4;
             this.setTahun_combo.SelectedIndexChanged += new System.EventHandler(this.setTahun_combo_SelectedIndexChanged);
             // 
             // countID_lbl
@@ -682,7 +684,7 @@ namespace Raport
             this.countID_lbl.Location = new System.Drawing.Point(592, 4);
             this.countID_lbl.Name = "countID_lbl";
             this.countID_lbl.Size = new System.Drawing.Size(19, 21);
-            this.countID_lbl.TabIndex = 6;
+            this.countID_lbl.TabIndex = 7;
             this.countID_lbl.Text = "0";
             this.countID_lbl.Visible = false;
             // 
@@ -693,7 +695,7 @@ namespace Raport
             this.label9.Location = new System.Drawing.Point(408, 6);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 21);
-            this.label9.TabIndex = 4;
+            this.label9.TabIndex = 5;
             this.label9.Text = "Kelas";
             // 
             // viewKelas_combo
@@ -708,7 +710,7 @@ namespace Raport
             this.viewKelas_combo.Location = new System.Drawing.Point(465, 4);
             this.viewKelas_combo.Name = "viewKelas_combo";
             this.viewKelas_combo.Size = new System.Drawing.Size(121, 27);
-            this.viewKelas_combo.TabIndex = 2;
+            this.viewKelas_combo.TabIndex = 6;
             this.viewKelas_combo.SelectedIndexChanged += new System.EventHandler(this.viewKelas_combo_SelectedIndexChanged);
             // 
             // toolStrip3
@@ -728,7 +730,7 @@ namespace Raport
             this.toolStrip3.Location = new System.Drawing.Point(3, 3);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.Size = new System.Drawing.Size(769, 28);
-            this.toolStrip3.TabIndex = 7;
+            this.toolStrip3.TabIndex = 2;
             this.toolStrip3.Text = "toolStrip3";
             // 
             // edit3_toolBtn
@@ -812,7 +814,7 @@ namespace Raport
             this.viewMember_grid.Location = new System.Drawing.Point(3, 68);
             this.viewMember_grid.Name = "viewMember_grid";
             this.viewMember_grid.Size = new System.Drawing.Size(769, 355);
-            this.viewMember_grid.TabIndex = 5;
+            this.viewMember_grid.TabIndex = 8;
             // 
             // label7
             // 
@@ -821,7 +823,7 @@ namespace Raport
             this.label7.Location = new System.Drawing.Point(322, 112);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(153, 36);
-            this.label7.TabIndex = 2;
+            this.label7.TabIndex = 0;
             this.label7.Text = "Data Kelas";
             // 
             // pictureBox1

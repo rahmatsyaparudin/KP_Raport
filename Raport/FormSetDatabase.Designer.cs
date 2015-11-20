@@ -88,7 +88,7 @@
             this.host_txt.Location = new System.Drawing.Point(181, 6);
             this.host_txt.Name = "host_txt";
             this.host_txt.Size = new System.Drawing.Size(173, 26);
-            this.host_txt.TabIndex = 4;
+            this.host_txt.TabIndex = 5;
             this.host_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.host_txt_KeyPress);
             // 
             // user_txt
@@ -96,14 +96,14 @@
             this.user_txt.Location = new System.Drawing.Point(181, 38);
             this.user_txt.Name = "user_txt";
             this.user_txt.Size = new System.Drawing.Size(173, 26);
-            this.user_txt.TabIndex = 5;
+            this.user_txt.TabIndex = 6;
             // 
             // pass_txt
             // 
             this.pass_txt.Location = new System.Drawing.Point(181, 70);
             this.pass_txt.Name = "pass_txt";
             this.pass_txt.Size = new System.Drawing.Size(173, 26);
-            this.pass_txt.TabIndex = 6;
+            this.pass_txt.TabIndex = 7;
             this.pass_txt.UseSystemPasswordChar = true;
             // 
             // dbms_txt
@@ -111,7 +111,7 @@
             this.dbms_txt.Location = new System.Drawing.Point(181, 102);
             this.dbms_txt.Name = "dbms_txt";
             this.dbms_txt.Size = new System.Drawing.Size(173, 26);
-            this.dbms_txt.TabIndex = 7;
+            this.dbms_txt.TabIndex = 8;
             // 
             // save_btn
             // 
@@ -158,7 +158,7 @@
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(79, 19);
-            this.label5.TabIndex = 8;
+            this.label5.TabIndex = 4;
             this.label5.Text = "Port Server";
             // 
             // FormSetDatabase

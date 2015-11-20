@@ -50,7 +50,7 @@
             this.schedule_grid.Location = new System.Drawing.Point(0, 0);
             this.schedule_grid.Name = "schedule_grid";
             this.schedule_grid.Size = new System.Drawing.Size(585, 269);
-            this.schedule_grid.TabIndex = 0;
+            this.schedule_grid.TabIndex = 1;
             this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
             this.schedule_grid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellEndEdit);
             // 
@@ -82,7 +82,7 @@
             this.cancel_btn.Location = new System.Drawing.Point(309, 22);
             this.cancel_btn.Name = "cancel_btn";
             this.cancel_btn.Size = new System.Drawing.Size(89, 33);
-            this.cancel_btn.TabIndex = 1;
+            this.cancel_btn.TabIndex = 3;
             this.cancel_btn.Text = "Cancel";
             this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.cancel_btn.UseVisualStyleBackColor = true;
@@ -95,7 +95,7 @@
             this.create_btn.Location = new System.Drawing.Point(215, 22);
             this.create_btn.Name = "create_btn";
             this.create_btn.Size = new System.Drawing.Size(88, 33);
-            this.create_btn.TabIndex = 0;
+            this.create_btn.TabIndex = 2;
             this.create_btn.Text = "Create";
             this.create_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.create_btn.UseVisualStyleBackColor = true;

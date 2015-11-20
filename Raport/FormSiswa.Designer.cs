@@ -31,9 +31,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.search_txt = new System.Windows.Forms.TextBox();
             this.sortby_combo = new System.Windows.Forms.ComboBox();
@@ -45,42 +42,14 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.siswa_grid = new System.Windows.Forms.DataGridView();
             this.siswa_tab = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.siswa_grid)).BeginInit();
             this.siswa_tab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.textBox2);
-            this.tabPage3.Controls.Add(this.textBox1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 30);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(872, 433);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(236, 51);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 29);
-            this.textBox2.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(81, 51);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 29);
-            this.textBox1.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -105,7 +74,7 @@
             this.search_txt.Location = new System.Drawing.Point(675, 4);
             this.search_txt.Name = "search_txt";
             this.search_txt.Size = new System.Drawing.Size(179, 25);
-            this.search_txt.TabIndex = 3;
+            this.search_txt.TabIndex = 4;
             this.search_txt.TextChanged += new System.EventHandler(this.search_txt_TextChanged);
             // 
             // sortby_combo
@@ -119,7 +88,7 @@
             this.sortby_combo.Location = new System.Drawing.Point(300, 5);
             this.sortby_combo.Name = "sortby_combo";
             this.sortby_combo.Size = new System.Drawing.Size(112, 25);
-            this.sortby_combo.TabIndex = 2;
+            this.sortby_combo.TabIndex = 3;
             // 
             // toolStrip1
             // 
@@ -134,7 +103,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(3, 3);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(866, 28);
-            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // add_toolStr
@@ -207,7 +176,7 @@
             this.siswa_grid.Name = "siswa_grid";
             this.siswa_grid.ReadOnly = true;
             this.siswa_grid.Size = new System.Drawing.Size(872, 397);
-            this.siswa_grid.TabIndex = 0;
+            this.siswa_grid.TabIndex = 5;
             this.siswa_grid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.siswa_grid_CellDoubleClick);
             // 
             // siswa_tab
@@ -216,28 +185,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.siswa_tab.Controls.Add(this.tabPage2);
-            this.siswa_tab.Controls.Add(this.tabPage1);
-            this.siswa_tab.Controls.Add(this.tabPage3);
             this.siswa_tab.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.siswa_tab.Location = new System.Drawing.Point(0, 151);
             this.siswa_tab.Name = "siswa_tab";
             this.siswa_tab.SelectedIndex = 0;
             this.siswa_tab.Size = new System.Drawing.Size(880, 467);
             this.siswa_tab.TabIndex = 1;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.AutoScroll = true;
-            this.tabPage1.AutoScrollMargin = new System.Drawing.Size(20, 20);
-            this.tabPage1.AutoScrollMinSize = new System.Drawing.Size(200, 200);
-            this.tabPage1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage1.Location = new System.Drawing.Point(4, 30);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(872, 433);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Add Student";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -247,7 +200,7 @@
             this.label2.Location = new System.Drawing.Point(369, 106);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(158, 36);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Data Siswa";
             // 
             // pictureBox1
@@ -275,8 +228,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Data Siswa SMANJAK 1";
             this.Load += new System.EventHandler(this.FormSiswa_Load);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -292,12 +243,8 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabControl siswa_tab;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton add_toolStr;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

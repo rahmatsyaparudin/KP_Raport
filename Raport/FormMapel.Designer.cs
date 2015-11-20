@@ -70,7 +70,7 @@
             this.label1.Location = new System.Drawing.Point(242, 111);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(206, 36);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Mata Pelajaran";
             // 
             // mapel_tab
@@ -82,7 +82,7 @@
             this.mapel_tab.Name = "mapel_tab";
             this.mapel_tab.SelectedIndex = 0;
             this.mapel_tab.Size = new System.Drawing.Size(685, 413);
-            this.mapel_tab.TabIndex = 2;
+            this.mapel_tab.TabIndex = 1;
             // 
             // dataMapel_tab
             // 
@@ -119,7 +119,7 @@
             this.search_txt.Location = new System.Drawing.Point(515, 3);
             this.search_txt.Name = "search_txt";
             this.search_txt.Size = new System.Drawing.Size(147, 26);
-            this.search_txt.TabIndex = 2;
+            this.search_txt.TabIndex = 4;
             this.search_txt.TextChanged += new System.EventHandler(this.search_txt_TextChanged);
             // 
             // mapel_toolStrip
@@ -135,7 +135,7 @@
             this.mapel_toolStrip.Location = new System.Drawing.Point(3, 3);
             this.mapel_toolStrip.Name = "mapel_toolStrip";
             this.mapel_toolStrip.Size = new System.Drawing.Size(671, 28);
-            this.mapel_toolStrip.TabIndex = 1;
+            this.mapel_toolStrip.TabIndex = 2;
             this.mapel_toolStrip.Text = "toolStrip1";
             // 
             // add_toolBtn
@@ -183,7 +183,7 @@
             this.dataMapel_grid.AllowUserToResizeRows = false;
             this.dataMapel_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataMapel_grid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataMapel_grid.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dataMapel_grid.BackgroundColor = System.Drawing.SystemColors.ActiveBorder;
             this.dataMapel_grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataMapel_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataMapel_grid.GridColor = System.Drawing.SystemColors.AppWorkspace;
@@ -191,7 +191,7 @@
             this.dataMapel_grid.Name = "dataMapel_grid";
             this.dataMapel_grid.ReadOnly = true;
             this.dataMapel_grid.Size = new System.Drawing.Size(652, 332);
-            this.dataMapel_grid.TabIndex = 0;
+            this.dataMapel_grid.TabIndex = 5;
             this.dataMapel_grid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataMapel_grid_CellDoubleClick);
             // 
             // addMapel_tab
@@ -222,7 +222,7 @@
             this.getId_txt.Location = new System.Drawing.Point(276, 42);
             this.getId_txt.Name = "getId_txt";
             this.getId_txt.Size = new System.Drawing.Size(47, 26);
-            this.getId_txt.TabIndex = 13;
+            this.getId_txt.TabIndex = 8;
             this.getId_txt.Visible = false;
             // 
             // delete_btn
@@ -236,7 +236,7 @@
             this.delete_btn.Location = new System.Drawing.Point(152, 198);
             this.delete_btn.Name = "delete_btn";
             this.delete_btn.Size = new System.Drawing.Size(86, 29);
-            this.delete_btn.TabIndex = 12;
+            this.delete_btn.TabIndex = 14;
             this.delete_btn.Text = "Delete";
             this.delete_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.delete_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -254,7 +254,7 @@
             this.update_btn.Location = new System.Drawing.Point(58, 198);
             this.update_btn.Name = "update_btn";
             this.update_btn.Size = new System.Drawing.Size(88, 29);
-            this.update_btn.TabIndex = 11;
+            this.update_btn.TabIndex = 13;
             this.update_btn.Text = "Update";
             this.update_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.update_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -272,7 +272,7 @@
             this.cancel_btn.Location = new System.Drawing.Point(152, 163);
             this.cancel_btn.Name = "cancel_btn";
             this.cancel_btn.Size = new System.Drawing.Size(86, 29);
-            this.cancel_btn.TabIndex = 10;
+            this.cancel_btn.TabIndex = 12;
             this.cancel_btn.Text = "Cancel";
             this.cancel_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -291,7 +291,7 @@
             this.save_btn.Location = new System.Drawing.Point(58, 163);
             this.save_btn.Name = "save_btn";
             this.save_btn.Size = new System.Drawing.Size(88, 29);
-            this.save_btn.TabIndex = 9;
+            this.save_btn.TabIndex = 11;
             this.save_btn.Text = "Save";
             this.save_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.save_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -308,7 +308,7 @@
             this.jam_combo.Location = new System.Drawing.Point(152, 75);
             this.jam_combo.Name = "jam_combo";
             this.jam_combo.Size = new System.Drawing.Size(118, 28);
-            this.jam_combo.TabIndex = 8;
+            this.jam_combo.TabIndex = 9;
             // 
             // kategori_combo
             // 
@@ -320,7 +320,7 @@
             this.kategori_combo.Location = new System.Drawing.Point(152, 110);
             this.kategori_combo.Name = "kategori_combo";
             this.kategori_combo.Size = new System.Drawing.Size(118, 28);
-            this.kategori_combo.TabIndex = 7;
+            this.kategori_combo.TabIndex = 10;
             // 
             // label5
             // 
@@ -328,7 +328,7 @@
             this.label5.Location = new System.Drawing.Point(20, 113);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(68, 20);
-            this.label5.TabIndex = 6;
+            this.label5.TabIndex = 5;
             this.label5.Text = "Kategori";
             // 
             // mapel_txt
@@ -337,7 +337,7 @@
             this.mapel_txt.Location = new System.Drawing.Point(152, 11);
             this.mapel_txt.Name = "mapel_txt";
             this.mapel_txt.Size = new System.Drawing.Size(227, 26);
-            this.mapel_txt.TabIndex = 4;
+            this.mapel_txt.TabIndex = 6;
             // 
             // kode_txt
             // 
@@ -347,7 +347,7 @@
             this.kode_txt.MaxLength = 5;
             this.kode_txt.Name = "kode_txt";
             this.kode_txt.Size = new System.Drawing.Size(118, 26);
-            this.kode_txt.TabIndex = 3;
+            this.kode_txt.TabIndex = 7;
             this.kode_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.kode_txt_KeyPress);
             // 
             // label4
@@ -356,7 +356,7 @@
             this.label4.Location = new System.Drawing.Point(20, 78);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(109, 20);
-            this.label4.TabIndex = 2;
+            this.label4.TabIndex = 4;
             this.label4.Text = "Jam Pelajaran";
             // 
             // label3
@@ -365,7 +365,7 @@
             this.label3.Location = new System.Drawing.Point(20, 45);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 20);
-            this.label3.TabIndex = 1;
+            this.label3.TabIndex = 3;
             this.label3.Text = "Kode Mapel";
             // 
             // label2
@@ -374,7 +374,7 @@
             this.label2.Location = new System.Drawing.Point(20, 14);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(115, 20);
-            this.label2.TabIndex = 0;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Mata Pelajaran";
             // 
             // pictureBox1

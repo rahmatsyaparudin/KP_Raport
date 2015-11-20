@@ -116,6 +116,7 @@ namespace Raport
                 cancel_btn.Enabled = true;
                 edit_btn.Enabled = true;
                 delete_btn.Enabled = true;
+                add_btn.Enabled = false;
             }
         }
 

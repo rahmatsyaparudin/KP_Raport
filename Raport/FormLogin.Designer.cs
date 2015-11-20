@@ -58,7 +58,7 @@
             this.label1.Location = new System.Drawing.Point(177, 52);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(157, 31);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 2;
             this.label1.Text = "Login Admin";
             // 
             // label2
@@ -68,7 +68,7 @@
             this.label2.Location = new System.Drawing.Point(106, 83);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(289, 31);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 3;
             this.label2.Text = "SMAN 1 Jampang Kulon";
             // 
             // label3
@@ -78,7 +78,7 @@
             this.label3.Location = new System.Drawing.Point(178, 132);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 20);
-            this.label3.TabIndex = 2;
+            this.label3.TabIndex = 4;
             this.label3.Text = "Username";
             // 
             // label4
@@ -88,7 +88,7 @@
             this.label4.Location = new System.Drawing.Point(178, 191);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(78, 20);
-            this.label4.TabIndex = 3;
+            this.label4.TabIndex = 6;
             this.label4.Text = "Password";
             // 
             // user_txt
@@ -109,7 +109,7 @@
             this.pass_txt.Name = "pass_txt";
             this.pass_txt.PasswordChar = '*';
             this.pass_txt.Size = new System.Drawing.Size(230, 26);
-            this.pass_txt.TabIndex = 6;
+            this.pass_txt.TabIndex = 7;
             this.pass_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.pass_txt_KeyPress);
             // 
             // info_panel
@@ -122,7 +122,7 @@
             this.info_panel.Location = new System.Drawing.Point(0, 0);
             this.info_panel.Name = "info_panel";
             this.info_panel.Size = new System.Drawing.Size(512, 49);
-            this.info_panel.TabIndex = 10;
+            this.info_panel.TabIndex = 0;
             // 
             // info_lbl
             // 
@@ -131,7 +131,7 @@
             this.info_lbl.Location = new System.Drawing.Point(59, 19);
             this.info_lbl.Name = "info_lbl";
             this.info_lbl.Size = new System.Drawing.Size(93, 28);
-            this.info_lbl.TabIndex = 12;
+            this.info_lbl.TabIndex = 1;
             this.info_lbl.Text = "Info Login";
             this.info_lbl.Visible = false;
             // 
@@ -152,7 +152,7 @@
             // 
             // setting_btn
             // 
-            this.setting_btn.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.setting_btn.BackColor = System.Drawing.Color.SteelBlue;
             this.setting_btn.FlatAppearance.BorderSize = 0;
             this.setting_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setting_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -163,7 +163,7 @@
             this.setting_btn.Name = "setting_btn";
             this.setting_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.setting_btn.Size = new System.Drawing.Size(82, 28);
-            this.setting_btn.TabIndex = 11;
+            this.setting_btn.TabIndex = 9;
             this.setting_btn.Text = "Setting";
             this.setting_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.setting_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -172,7 +172,7 @@
             // 
             // exit_btn
             // 
-            this.exit_btn.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.exit_btn.BackColor = System.Drawing.Color.SteelBlue;
             this.exit_btn.FlatAppearance.BorderSize = 0;
             this.exit_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exit_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -183,7 +183,7 @@
             this.exit_btn.Name = "exit_btn";
             this.exit_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.exit_btn.Size = new System.Drawing.Size(62, 28);
-            this.exit_btn.TabIndex = 8;
+            this.exit_btn.TabIndex = 10;
             this.exit_btn.Text = "Exit";
             this.exit_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.exit_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -192,7 +192,7 @@
             // 
             // login_btn
             // 
-            this.login_btn.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.login_btn.BackColor = System.Drawing.Color.SteelBlue;
             this.login_btn.FlatAppearance.BorderSize = 0;
             this.login_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.login_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -203,7 +203,7 @@
             this.login_btn.Name = "login_btn";
             this.login_btn.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.login_btn.Size = new System.Drawing.Size(74, 28);
-            this.login_btn.TabIndex = 7;
+            this.login_btn.TabIndex = 8;
             this.login_btn.Text = "Login";
             this.login_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.login_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -227,7 +227,7 @@
             this.level_lbl.Location = new System.Drawing.Point(180, 294);
             this.level_lbl.Name = "level_lbl";
             this.level_lbl.Size = new System.Drawing.Size(19, 13);
-            this.level_lbl.TabIndex = 12;
+            this.level_lbl.TabIndex = 11;
             this.level_lbl.Text = "10";
             this.level_lbl.Visible = false;
             // 
@@ -237,7 +237,7 @@
             this.user_lbl.Location = new System.Drawing.Point(180, 312);
             this.user_lbl.Name = "user_lbl";
             this.user_lbl.Size = new System.Drawing.Size(27, 13);
-            this.user_lbl.TabIndex = 13;
+            this.user_lbl.TabIndex = 12;
             this.user_lbl.Text = "user";
             this.user_lbl.Visible = false;
             // 

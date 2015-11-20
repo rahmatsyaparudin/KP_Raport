@@ -85,7 +85,7 @@
             this.groupBox2.Location = new System.Drawing.Point(386, 126);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(441, 284);
-            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Data User";
             // 
@@ -103,7 +103,7 @@
             this.dataUser_grid.Name = "dataUser_grid";
             this.dataUser_grid.ReadOnly = true;
             this.dataUser_grid.Size = new System.Drawing.Size(435, 228);
-            this.dataUser_grid.TabIndex = 1;
+            this.dataUser_grid.TabIndex = 22;
             this.dataUser_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataUser_grid_CellClick);
             this.dataUser_grid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataUser_grid_CellDoubleClick);
             // 
@@ -116,7 +116,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(3, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(435, 25);
-            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.TabIndex = 21;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // refresh_toolBtn
@@ -166,7 +166,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 126);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(368, 284);
-            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Create New User";
             // 
@@ -176,7 +176,7 @@
             this.user_lbl.Location = new System.Drawing.Point(267, 250);
             this.user_lbl.Name = "user_lbl";
             this.user_lbl.Size = new System.Drawing.Size(36, 21);
-            this.user_lbl.TabIndex = 18;
+            this.user_lbl.TabIndex = 9;
             this.user_lbl.Text = "null";
             this.user_lbl.Visible = false;
             // 
@@ -186,7 +186,7 @@
             this.aksi_lbl.Location = new System.Drawing.Point(267, 212);
             this.aksi_lbl.Name = "aksi_lbl";
             this.aksi_lbl.Size = new System.Drawing.Size(43, 21);
-            this.aksi_lbl.TabIndex = 17;
+            this.aksi_lbl.TabIndex = 8;
             this.aksi_lbl.Text = "save";
             this.aksi_lbl.Visible = false;
             // 
@@ -196,7 +196,7 @@
             this.level_lbl.Location = new System.Drawing.Point(328, 25);
             this.level_lbl.Name = "level_lbl";
             this.level_lbl.Size = new System.Drawing.Size(28, 21);
-            this.level_lbl.TabIndex = 16;
+            this.level_lbl.TabIndex = 3;
             this.level_lbl.Text = "10";
             this.level_lbl.Visible = false;
             // 
@@ -210,7 +210,7 @@
             this.delete_btn.Location = new System.Drawing.Point(176, 244);
             this.delete_btn.Name = "delete_btn";
             this.delete_btn.Size = new System.Drawing.Size(85, 32);
-            this.delete_btn.TabIndex = 15;
+            this.delete_btn.TabIndex = 19;
             this.delete_btn.Text = "Delete";
             this.delete_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.delete_btn.UseVisualStyleBackColor = false;
@@ -226,7 +226,7 @@
             this.edit_btn.Location = new System.Drawing.Point(95, 244);
             this.edit_btn.Name = "edit_btn";
             this.edit_btn.Size = new System.Drawing.Size(75, 32);
-            this.edit_btn.TabIndex = 14;
+            this.edit_btn.TabIndex = 18;
             this.edit_btn.Text = "Edit";
             this.edit_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.edit_btn.UseVisualStyleBackColor = false;
@@ -241,7 +241,7 @@
             this.cancel_btn.Location = new System.Drawing.Point(176, 206);
             this.cancel_btn.Name = "cancel_btn";
             this.cancel_btn.Size = new System.Drawing.Size(85, 32);
-            this.cancel_btn.TabIndex = 13;
+            this.cancel_btn.TabIndex = 17;
             this.cancel_btn.Text = "Cancel";
             this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.cancel_btn.UseVisualStyleBackColor = false;
@@ -256,7 +256,7 @@
             this.save_btn.Location = new System.Drawing.Point(95, 206);
             this.save_btn.Name = "save_btn";
             this.save_btn.Size = new System.Drawing.Size(75, 32);
-            this.save_btn.TabIndex = 6;
+            this.save_btn.TabIndex = 16;
             this.save_btn.Text = "Save";
             this.save_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.save_btn.UseVisualStyleBackColor = false;
@@ -268,7 +268,7 @@
             this.retypePass_txt.Name = "retypePass_txt";
             this.retypePass_txt.PasswordChar = '*';
             this.retypePass_txt.Size = new System.Drawing.Size(201, 29);
-            this.retypePass_txt.TabIndex = 12;
+            this.retypePass_txt.TabIndex = 15;
             // 
             // label6
             // 
@@ -276,7 +276,7 @@
             this.label6.Location = new System.Drawing.Point(7, 164);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(142, 21);
-            this.label6.TabIndex = 11;
+            this.label6.TabIndex = 7;
             this.label6.Text = "Retype Password";
             // 
             // pass_txt
@@ -285,14 +285,14 @@
             this.pass_txt.Name = "pass_txt";
             this.pass_txt.PasswordChar = '*';
             this.pass_txt.Size = new System.Drawing.Size(201, 29);
-            this.pass_txt.TabIndex = 10;
+            this.pass_txt.TabIndex = 14;
             // 
             // user_txt
             // 
             this.user_txt.Location = new System.Drawing.Point(155, 89);
             this.user_txt.Name = "user_txt";
             this.user_txt.Size = new System.Drawing.Size(201, 29);
-            this.user_txt.TabIndex = 9;
+            this.user_txt.TabIndex = 13;
             // 
             // label3
             // 
@@ -300,7 +300,7 @@
             this.label3.Location = new System.Drawing.Point(6, 127);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 21);
-            this.label3.TabIndex = 3;
+            this.label3.TabIndex = 6;
             this.label3.Text = "Password";
             // 
             // guru_combo
@@ -312,7 +312,7 @@
             this.guru_combo.Location = new System.Drawing.Point(99, 54);
             this.guru_combo.Name = "guru_combo";
             this.guru_combo.Size = new System.Drawing.Size(257, 29);
-            this.guru_combo.TabIndex = 8;
+            this.guru_combo.TabIndex = 12;
             // 
             // label2
             // 
@@ -320,7 +320,7 @@
             this.label2.Location = new System.Drawing.Point(6, 92);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 21);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 5;
             this.label2.Text = "Username";
             // 
             // admin_radio
@@ -329,7 +329,7 @@
             this.admin_radio.Location = new System.Drawing.Point(168, 23);
             this.admin_radio.Name = "admin_radio";
             this.admin_radio.Size = new System.Drawing.Size(130, 25);
-            this.admin_radio.TabIndex = 7;
+            this.admin_radio.TabIndex = 11;
             this.admin_radio.TabStop = true;
             this.admin_radio.Text = "Administrator";
             this.admin_radio.UseVisualStyleBackColor = true;
@@ -340,7 +340,7 @@
             this.user_radio.Location = new System.Drawing.Point(99, 23);
             this.user_radio.Name = "user_radio";
             this.user_radio.Size = new System.Drawing.Size(63, 25);
-            this.user_radio.TabIndex = 6;
+            this.user_radio.TabIndex = 10;
             this.user_radio.TabStop = true;
             this.user_radio.Text = "User";
             this.user_radio.UseVisualStyleBackColor = true;
@@ -351,7 +351,7 @@
             this.label5.Location = new System.Drawing.Point(6, 25);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(87, 21);
-            this.label5.TabIndex = 5;
+            this.label5.TabIndex = 2;
             this.label5.Text = "Pilih Level";
             // 
             // label4
@@ -370,7 +370,7 @@
             this.label1.Location = new System.Drawing.Point(325, 91);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(215, 31);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Tambah Data User";
             // 
             // pictureBox1

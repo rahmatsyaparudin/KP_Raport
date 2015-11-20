@@ -32,7 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGuru));
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.keterangan_txt = new System.Windows.Forms.RichTextBox();
@@ -59,7 +58,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.refresh_toolbtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.export_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.edit_tab = new System.Windows.Forms.TabPage();
             this.history_tab = new System.Windows.Forms.TabPage();
             this.histori_toolStrip = new System.Windows.Forms.ToolStrip();
@@ -106,7 +104,7 @@
             this.label1.Location = new System.Drawing.Point(326, 111);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(147, 36);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Data Guru";
             // 
             // groupBox1
@@ -141,7 +139,7 @@
             this.keterangan_txt.Location = new System.Drawing.Point(147, 156);
             this.keterangan_txt.Name = "keterangan_txt";
             this.keterangan_txt.Size = new System.Drawing.Size(203, 90);
-            this.keterangan_txt.TabIndex = 14;
+            this.keterangan_txt.TabIndex = 12;
             this.keterangan_txt.Text = "";
             // 
             // cancel_btn
@@ -156,7 +154,7 @@
             this.cancel_btn.Location = new System.Drawing.Point(221, 265);
             this.cancel_btn.Name = "cancel_btn";
             this.cancel_btn.Size = new System.Drawing.Size(90, 30);
-            this.cancel_btn.TabIndex = 16;
+            this.cancel_btn.TabIndex = 14;
             this.cancel_btn.Text = "Cancel";
             this.cancel_btn.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -174,7 +172,7 @@
             this.add_btn.Location = new System.Drawing.Point(240, 18);
             this.add_btn.Name = "add_btn";
             this.add_btn.Size = new System.Drawing.Size(110, 28);
-            this.add_btn.TabIndex = 4;
+            this.add_btn.TabIndex = 8;
             this.add_btn.Text = "Add Data";
             this.add_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.add_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -193,7 +191,7 @@
             this.delete_btn.Location = new System.Drawing.Point(221, 307);
             this.delete_btn.Name = "delete_btn";
             this.delete_btn.Size = new System.Drawing.Size(90, 30);
-            this.delete_btn.TabIndex = 18;
+            this.delete_btn.TabIndex = 16;
             this.delete_btn.Text = "Delete";
             this.delete_btn.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.delete_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -213,7 +211,7 @@
             this.update_btn.Margin = new System.Windows.Forms.Padding(0);
             this.update_btn.Name = "update_btn";
             this.update_btn.Size = new System.Drawing.Size(90, 30);
-            this.update_btn.TabIndex = 17;
+            this.update_btn.TabIndex = 15;
             this.update_btn.Text = "Update";
             this.update_btn.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.update_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -232,7 +230,7 @@
             this.save_btn.Location = new System.Drawing.Point(113, 265);
             this.save_btn.Name = "save_btn";
             this.save_btn.Size = new System.Drawing.Size(90, 30);
-            this.save_btn.TabIndex = 15;
+            this.save_btn.TabIndex = 13;
             this.save_btn.Text = "Save";
             this.save_btn.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.save_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -246,7 +244,7 @@
             this.label6.Location = new System.Drawing.Point(20, 159);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(93, 21);
-            this.label6.TabIndex = 12;
+            this.label6.TabIndex = 6;
             this.label6.Text = "Keterangan";
             // 
             // nama_txt
@@ -256,7 +254,7 @@
             this.nama_txt.MaxLength = 49;
             this.nama_txt.Name = "nama_txt";
             this.nama_txt.Size = new System.Drawing.Size(203, 29);
-            this.nama_txt.TabIndex = 12;
+            this.nama_txt.TabIndex = 11;
             this.nama_txt.TextChanged += new System.EventHandler(this.nama_txt_TextChanged);
             this.nama_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nama_txt_KeyPress);
             // 
@@ -267,7 +265,7 @@
             this.label5.Location = new System.Drawing.Point(20, 124);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(96, 21);
-            this.label5.TabIndex = 11;
+            this.label5.TabIndex = 5;
             this.label5.Text = "Nama Guru";
             // 
             // nuptk_txt
@@ -287,7 +285,7 @@
             this.label4.Location = new System.Drawing.Point(20, 89);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 21);
-            this.label4.TabIndex = 9;
+            this.label4.TabIndex = 4;
             this.label4.Text = "NUPTK";
             // 
             // nip_txt
@@ -297,7 +295,7 @@
             this.nip_txt.MaxLength = 24;
             this.nip_txt.Name = "nip_txt";
             this.nip_txt.Size = new System.Drawing.Size(203, 29);
-            this.nip_txt.TabIndex = 8;
+            this.nip_txt.TabIndex = 9;
             this.nip_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nip_txt_KeyPress);
             // 
             // label3
@@ -307,7 +305,7 @@
             this.label3.Location = new System.Drawing.Point(20, 54);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 21);
-            this.label3.TabIndex = 7;
+            this.label3.TabIndex = 3;
             this.label3.Text = "NIP";
             // 
             // id_txt
@@ -318,7 +316,7 @@
             this.id_txt.MaxLength = 5;
             this.id_txt.Name = "id_txt";
             this.id_txt.Size = new System.Drawing.Size(56, 29);
-            this.id_txt.TabIndex = 6;
+            this.id_txt.TabIndex = 7;
             this.id_txt.Visible = false;
             // 
             // dataGuru_grid
@@ -352,7 +350,7 @@
             this.dataGuru_grid.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGuru_grid.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGuru_grid.Size = new System.Drawing.Size(738, 341);
-            this.dataGuru_grid.TabIndex = 0;
+            this.dataGuru_grid.TabIndex = 4;
             this.dataGuru_grid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGuru_grid_CellDoubleClick);
             // 
             // guru_tab
@@ -369,7 +367,7 @@
             this.guru_tab.Name = "guru_tab";
             this.guru_tab.SelectedIndex = 0;
             this.guru_tab.Size = new System.Drawing.Size(783, 430);
-            this.guru_tab.TabIndex = 2;
+            this.guru_tab.TabIndex = 1;
             // 
             // view_tab
             // 
@@ -392,7 +390,7 @@
             this.search_txt.Location = new System.Drawing.Point(589, 3);
             this.search_txt.Name = "search_txt";
             this.search_txt.Size = new System.Drawing.Size(168, 26);
-            this.search_txt.TabIndex = 21;
+            this.search_txt.TabIndex = 3;
             this.search_txt.TextChanged += new System.EventHandler(this.search_txt_TextChanged);
             // 
             // guru_toolStrip
@@ -405,13 +403,12 @@
             this.add_toolbtn,
             this.toolStripSeparator1,
             this.refresh_toolbtn,
-            this.toolStripSeparator3,
-            this.export_toolBtn});
+            this.toolStripSeparator3});
             this.guru_toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.guru_toolStrip.Location = new System.Drawing.Point(3, 3);
             this.guru_toolStrip.Name = "guru_toolStrip";
             this.guru_toolStrip.Size = new System.Drawing.Size(769, 28);
-            this.guru_toolStrip.TabIndex = 20;
+            this.guru_toolStrip.TabIndex = 2;
             this.guru_toolStrip.Text = "Menu Guru";
             // 
             // toolStripSeparator2
@@ -452,15 +449,6 @@
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 28);
-            // 
-            // export_toolBtn
-            // 
-            this.export_toolBtn.Image = ((System.Drawing.Image)(resources.GetObject("export_toolBtn.Image")));
-            this.export_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.export_toolBtn.Name = "export_toolBtn";
-            this.export_toolBtn.Size = new System.Drawing.Size(133, 25);
-            this.export_toolBtn.Text = "Save as Excel";
-            this.export_toolBtn.Click += new System.EventHandler(this.export_toolBtn_Click);
             // 
             // edit_tab
             // 
@@ -522,7 +510,7 @@
             this.historiGuru_grid.Name = "historiGuru_grid";
             this.historiGuru_grid.ReadOnly = true;
             this.historiGuru_grid.Size = new System.Drawing.Size(735, 340);
-            this.historiGuru_grid.TabIndex = 1;
+            this.historiGuru_grid.TabIndex = 3;
             // 
             // tabPage1
             // 
@@ -590,7 +578,7 @@
             this.jadwalGuru_grid.Location = new System.Drawing.Point(3, 53);
             this.jadwalGuru_grid.Name = "jadwalGuru_grid";
             this.jadwalGuru_grid.Size = new System.Drawing.Size(493, 223);
-            this.jadwalGuru_grid.TabIndex = 1;
+            this.jadwalGuru_grid.TabIndex = 7;
             // 
             // toolStrip1
             // 
@@ -606,7 +594,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(3, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(493, 28);
-            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // create_btnTool
@@ -660,7 +648,7 @@
             this.label2.Location = new System.Drawing.Point(18, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 21);
-            this.label2.TabIndex = 4;
+            this.label2.TabIndex = 3;
             this.label2.Text = "Pilih Guru";
             // 
             // pilihGuru_combo
@@ -674,7 +662,7 @@
             this.pilihGuru_combo.Location = new System.Drawing.Point(109, 15);
             this.pilihGuru_combo.Name = "pilihGuru_combo";
             this.pilihGuru_combo.Size = new System.Drawing.Size(377, 29);
-            this.pilihGuru_combo.TabIndex = 3;
+            this.pilihGuru_combo.TabIndex = 4;
             this.pilihGuru_combo.SelectedIndexChanged += new System.EventHandler(this.pilihGuru_combo_SelectedIndexChanged);
             // 
             // contextMenuStrip1
@@ -783,7 +771,6 @@
         private System.Windows.Forms.Label guru_lbl;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.Button delete_toolBtn;
-        private System.Windows.Forms.ToolStripButton export_toolBtn;
         private System.Windows.Forms.SaveFileDialog saveToExcel;
         public System.Windows.Forms.DataGridView dataGuru_grid;
     }
