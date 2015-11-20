@@ -116,11 +116,8 @@
             this.dataNilai_grid.TabIndex = 1;
             this.dataNilai_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellClick);
             this.dataNilai_grid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellEndEdit);
-            this.dataNilai_grid.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellLeave);
             this.dataNilai_grid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellValueChanged);
             this.dataNilai_grid.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataNilai_grid_DataError);
-            this.dataNilai_grid.RowLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_RowLeave);
-            this.dataNilai_grid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataNilai_grid_KeyPress);
             // 
             // toolStrip1
             // 

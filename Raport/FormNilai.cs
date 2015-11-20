@@ -15,18 +15,15 @@ namespace Raport
     {
         MySqlConnection myConn = Function.getKoneksi();
         Function db = new Function();
-        MySqlDataReader myReader, myReader2;
-        MySqlCommand myComm, myComm2;
+        MySqlDataReader myReader;
+        MySqlCommand myComm;
         private string query;
-        private string table;
-        private string field;
-        private string cond;
+        private string table, field, cond;
         private string idValue, dispValue, sortby;
         public string getTahun, getUser, getLevel;
         private string kodeKelas, kodeMapel, kodeSmt;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
-        DataGridViewComboBoxColumn cmb1, cmb2, cmb3 = new DataGridViewComboBoxColumn();
-
+        
         public string passTahuj
         {
             get { return getTahun; }
@@ -325,26 +322,7 @@ namespace Raport
                 
             }
         }
-
-        private void dataNilai_grid_CellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
-            {
-                try
-                {
-                    DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
-                    this.field = "s_skala = " + row.Cells[4].Value.ToString();
-                    this.table = "nilai";
-                    this.cond = "id_nilai = '" + row.Cells[4].Value.ToString() + "'";
-                    db.updateData(field, table, cond);
-                }
-                catch (Exception ex)
-                {
-
-                }
-            }
-        }
-
+        
         private void dataNilai_grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if ((e.RowIndex >= 0) && (e.RowIndex != -1))
@@ -361,25 +339,27 @@ namespace Raport
             }
         }
 
-        private void dataNilai_grid_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((char.IsDigit(e.KeyChar) == false
-                && (int)e.KeyChar != (int)Keys.Back))
-            {
-                e.Handled = true;
-            }
-        }
-
         private void dataNilai_grid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
+            DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
 
+            if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(3) && e.RowIndex != -1)
+            {
+                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (P)  \n Tekan ESC menolak perubahan data");
+                row.Cells[3].Value = Int16.Parse(peng_lbl.ToString());
+            }
+            if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(7) && e.RowIndex != -1)
+            {
+                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (K)  \n Tekan ESC menolak perubahan data");
+                row.Cells[7].Value = Int16.Parse(ket_lbl.ToString());
+            }
+            if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(11) && e.RowIndex != -1)
+            {
+                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (S) \n Tekan ESC menolak perubahan data");
+                row.Cells[11].Value = Int16.Parse(sikap_lbl.ToString());
+            }
         }
-
-        private void dataNilai_grid_RowLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
+        
         public void kelasSiswa()
         {
             siswa_grid.DataSource = null;

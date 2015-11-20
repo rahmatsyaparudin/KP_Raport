@@ -178,6 +178,7 @@
             this.user_lbl.Size = new System.Drawing.Size(36, 21);
             this.user_lbl.TabIndex = 18;
             this.user_lbl.Text = "null";
+            this.user_lbl.Visible = false;
             // 
             // aksi_lbl
             // 
@@ -187,6 +188,7 @@
             this.aksi_lbl.Size = new System.Drawing.Size(43, 21);
             this.aksi_lbl.TabIndex = 17;
             this.aksi_lbl.Text = "save";
+            this.aksi_lbl.Visible = false;
             // 
             // level_lbl
             // 
@@ -196,10 +198,14 @@
             this.level_lbl.Size = new System.Drawing.Size(28, 21);
             this.level_lbl.TabIndex = 16;
             this.level_lbl.Text = "10";
+            this.level_lbl.Visible = false;
             // 
             // delete_btn
             // 
+            this.delete_btn.BackColor = System.Drawing.Color.DarkBlue;
             this.delete_btn.Enabled = false;
+            this.delete_btn.FlatAppearance.BorderSize = 0;
+            this.delete_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.delete_btn.Image = global::Raport.Properties.Resources.delete;
             this.delete_btn.Location = new System.Drawing.Point(176, 244);
             this.delete_btn.Name = "delete_btn";
@@ -207,12 +213,15 @@
             this.delete_btn.TabIndex = 15;
             this.delete_btn.Text = "Delete";
             this.delete_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.delete_btn.UseVisualStyleBackColor = true;
+            this.delete_btn.UseVisualStyleBackColor = false;
             this.delete_btn.Click += new System.EventHandler(this.delete_btn_Click);
             // 
             // edit_btn
             // 
+            this.edit_btn.BackColor = System.Drawing.Color.DarkBlue;
             this.edit_btn.Enabled = false;
+            this.edit_btn.FlatAppearance.BorderSize = 0;
+            this.edit_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.edit_btn.Image = global::Raport.Properties.Resources.edit_add;
             this.edit_btn.Location = new System.Drawing.Point(95, 244);
             this.edit_btn.Name = "edit_btn";
@@ -220,11 +229,14 @@
             this.edit_btn.TabIndex = 14;
             this.edit_btn.Text = "Edit";
             this.edit_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.edit_btn.UseVisualStyleBackColor = true;
+            this.edit_btn.UseVisualStyleBackColor = false;
             this.edit_btn.Click += new System.EventHandler(this.edit_btn_Click);
             // 
             // cancel_btn
             // 
+            this.cancel_btn.BackColor = System.Drawing.Color.DarkBlue;
+            this.cancel_btn.FlatAppearance.BorderSize = 0;
+            this.cancel_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancel_btn.Image = global::Raport.Properties.Resources.cancel;
             this.cancel_btn.Location = new System.Drawing.Point(176, 206);
             this.cancel_btn.Name = "cancel_btn";
@@ -232,11 +244,14 @@
             this.cancel_btn.TabIndex = 13;
             this.cancel_btn.Text = "Cancel";
             this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cancel_btn.UseVisualStyleBackColor = true;
+            this.cancel_btn.UseVisualStyleBackColor = false;
             this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
             // 
             // save_btn
             // 
+            this.save_btn.BackColor = System.Drawing.Color.DarkBlue;
+            this.save_btn.FlatAppearance.BorderSize = 0;
+            this.save_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.save_btn.Image = global::Raport.Properties.Resources.save;
             this.save_btn.Location = new System.Drawing.Point(95, 206);
             this.save_btn.Name = "save_btn";
@@ -244,7 +259,7 @@
             this.save_btn.TabIndex = 6;
             this.save_btn.Text = "Save";
             this.save_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.save_btn.UseVisualStyleBackColor = true;
+            this.save_btn.UseVisualStyleBackColor = false;
             this.save_btn.Click += new System.EventHandler(this.save_btn_Click);
             // 
             // retypePass_txt
