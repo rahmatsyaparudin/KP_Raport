@@ -59,9 +59,9 @@ namespace Raport
                 }
                 myConn.Close();
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ada kesalahan Data");
             }
         }
 
@@ -89,9 +89,9 @@ namespace Raport
                 editClick();
                 getData();
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ada kesalahan Data");
             }
         }
 

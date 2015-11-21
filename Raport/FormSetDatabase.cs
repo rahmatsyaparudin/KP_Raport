@@ -94,7 +94,7 @@ namespace Raport
                 MessageBox.Show("Server Terhubung");
                 myConn.Close();
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Tidak Dapat Terhubung ke Server");
             }

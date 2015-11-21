@@ -18,9 +18,7 @@ namespace Raport
         Function db = new Function();
         MySqlDataReader myReader;
         MySqlCommand myComm;
-        private string table;
-        private string cond;
-        private string field;
+        private string table, cond, field;
         private string idGuru, kodeMapel, kodeKelas;
         public string getKodeKelas, kodeIdGuru;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();

@@ -256,7 +256,7 @@ namespace Raport
                 MessageBox.Show("Data Siswa '" + this.namaSiswa_txt.Text + "' disimpan");
                 this.Close();
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Kesalahan Dalam Input Data");
             }

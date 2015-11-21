@@ -97,11 +97,9 @@ namespace Raport
                 {
                     string inputString1, inputString2, inputString3;
                     int numVal1, numVal2, numVal3;
-                    float result1, result2, result3;
-                    Int16 number;
-                    string value;
+                    float result1, result2;
                     DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
-
+                    
                     if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(3) && e.RowIndex != -1)
                     {
                         //Nilai skala untuk Pengetahuan (0-100)
@@ -113,6 +111,7 @@ namespace Raport
                             result1 = (float)numVal1 / 25;
                             row.Cells[4].Value = result1;
                             row.Cells[3].Value = numVal1;
+                            row.Cells[3].Style.BackColor = Color.LightSkyBlue;
                         }
                         //Jika nilai skala pengetahuan tidak antara 0-100
                         else if (Convert.ToInt16(row.Cells[3].Value) < 0 ||
@@ -120,6 +119,7 @@ namespace Raport
                         {
                             MessageBox.Show("Nilai skala antara 0 dan 100");
                             row.Cells[3].Value = Int16.Parse(peng_lbl.ToString());
+                            row.Cells[3].Style.BackColor = Color.Yellow;
                         }
 
                         //Predikat untuk Pengetahuan
@@ -186,6 +186,7 @@ namespace Raport
                             result2 = (float)numVal2 / 25;
                             row.Cells[8].Value = result2;
                             row.Cells[7].Value = numVal2;
+                            row.Cells[7].Style.BackColor = Color.LightSkyBlue;
                         }
                         //Jika nilai skala keterampilan tidak antara 0-100
                         else if (Convert.ToInt16(row.Cells[7].Value) < 0 ||
@@ -193,6 +194,7 @@ namespace Raport
                         {
                             MessageBox.Show("Nilai skala antara 0 dan 100");
                             row.Cells[7].Value = Int16.Parse(ket_lbl.ToString());
+                            row.Cells[7].Style.BackColor = Color.Yellow;
                         }
 
                         //Predikat untuk Keterampilan
@@ -250,6 +252,7 @@ namespace Raport
 
                     if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(11) && e.RowIndex != -1)
                     {
+                        
                         //Nilai skala untuk Sikap dan Spiritual (0-100)
                         if (Convert.ToInt16(row.Cells[11].Value) >= 0 &&
                         Convert.ToInt16(row.Cells[11].Value) <= 100)
@@ -257,6 +260,7 @@ namespace Raport
                             inputString3 = row.Cells[11].Value.ToString();
                             numVal3 = Int16.Parse(inputString3);
                             row.Cells[11].Value = numVal3;
+                            row.Cells[11].Style.BackColor = Color.LightSkyBlue;
                         }
                         //Jika nilai skala Sikap dan Spiritual tidak antara 0-100
                         else if (Convert.ToInt16(row.Cells[11].Value) < 0 ||
@@ -264,6 +268,7 @@ namespace Raport
                         {
                             MessageBox.Show("Nilai skala antara 0 dan 100");
                             row.Cells[11].Value = Int16.Parse(sikap_lbl.ToString());
+                            row.Cells[11].Style.BackColor = Color.Yellow;
                         }
 
                         //Predikat untuk Sikap dan Spiritual
@@ -289,9 +294,9 @@ namespace Raport
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (InvalidCastException cast)
                 {
-                    MessageBox.Show(ex.Message);
+                    //MessageBox.Show("Data Tidak boleh kosong (0-100)");
                 }
             }
         }
@@ -315,9 +320,8 @@ namespace Raport
                 this.table = "nilai";
                 this.cond = "id_nilai = '" + row.Cells[0].Value.ToString() + "'";
                 db.updateData(table, field, cond);
-                MessageBox.Show("saved");
             }
-            catch (Exception ex)
+            catch
             {
                 
             }
@@ -345,18 +349,23 @@ namespace Raport
 
             if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(3) && e.RowIndex != -1)
             {
-                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (P)  \n Tekan ESC menolak perubahan data");
+                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (P) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
                 row.Cells[3].Value = Int16.Parse(peng_lbl.ToString());
+                row.Cells[3].Style.BackColor = Color.Yellow;
             }
+
             if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(7) && e.RowIndex != -1)
             {
-                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (K)  \n Tekan ESC menolak perubahan data");
+                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (P) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
                 row.Cells[7].Value = Int16.Parse(ket_lbl.ToString());
+                row.Cells[7].Style.BackColor = Color.Yellow;
             }
+
             if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(11) && e.RowIndex != -1)
             {
-                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (S) \n Tekan ESC menolak perubahan data");
+                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (P) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
                 row.Cells[11].Value = Int16.Parse(sikap_lbl.ToString());
+                row.Cells[11].Style.BackColor = Color.Yellow;
             }
         }
         
@@ -405,6 +414,21 @@ namespace Raport
             }
         }
 
+        private void load_toolBtn_Click(object sender, EventArgs e)
+        {
+            loadData();
+        }
+
+        private void dataNilai_grid_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewTextBoxColumn cPeng = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[3];
+            cPeng.MaxInputLength = 3;
+            DataGridViewTextBoxColumn cKet = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[7];
+            cKet.MaxInputLength = 3;
+            DataGridViewTextBoxColumn cSik = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[11];
+            cSik.MaxInputLength = 3;
+        }
+
         private void set_btn_Click(object sender, EventArgs e)
         {
             if (smt_combo.Text != "")
@@ -430,32 +454,6 @@ namespace Raport
             }
         }
 
-        private void smt_combo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //if (smt_combo.Text == "")
-            //{
-            //    mapel_combo.SelectedIndex = -1;
-            //    mapel_combo.Enabled = false;
-            //}
-            //else if (smt_combo.Text != "")
-            //{
-            //    mapel_combo.Enabled = true;
-            //    kelasSiswa();
-            //    fillMapel();
-            //    this.jumlah_lbl.Text = "0";
-            //    string jumlah = "SELECT count(*) as 'jumlah' FROM detailkelassiswa INNER JOIN siswa USING (nis_siswa) WHERE kode_kelas = '" + 
-            //                    kodeKelas + "' AND status_siswa = 'Aktif'";
-            //    myConn.Open();
-            //    myComm = new MySqlCommand(jumlah, myConn);
-            //    myReader = myComm.ExecuteReader();
-            //    while (myReader.Read())
-            //    {
-            //        jumlah_lbl.Text = myReader.GetString("jumlah");
-            //    }
-            //    myConn.Close();
-            //}
-        }
-        
         public void fillMapel()
         {
             try
@@ -495,6 +493,7 @@ namespace Raport
         {
             if ((mapel_combo.Text == "") || (mapel_combo.SelectedIndex == -1))
             {
+                load_toolBtn.Enabled = false;
                 mapel_txt.ResetText();
                 wali_txt.ResetText();
                 dataNilai_grid.DataSource = null;
@@ -526,8 +525,7 @@ namespace Raport
                 }
                 loadData();
                 generate_nilai();
-                
-
+                load_toolBtn.Enabled = true;
             }
         }
 
@@ -599,7 +597,11 @@ namespace Raport
                         "' AND siswa.status_siswa = 'Aktif' ORDER by nama_siswa ASC";
             DataTable tabel = db.GetDataTable(field, table, cond);
             this.dataNilai_grid.DataSource = tabel;
-            
+
+
+            dataNilai_grid.Columns[3].DefaultCellStyle.BackColor = Color.LimeGreen;
+            dataNilai_grid.Columns[7].DefaultCellStyle.BackColor = Color.LimeGreen;
+            dataNilai_grid.Columns[11].DefaultCellStyle.BackColor = Color.LimeGreen;
             dataNilai_grid.Columns[0].Visible = false;
             dataNilai_grid.Columns[1].ReadOnly = true;
             dataNilai_grid.Columns[2].ReadOnly = true;
@@ -619,7 +621,5 @@ namespace Raport
                 dataNilai_grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         }
-
-
     }
 }

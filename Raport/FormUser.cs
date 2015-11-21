@@ -250,7 +250,7 @@ namespace Raport
                 MessageBox.Show("User '" + user_txt.Text + "' telah ditambah");
                 cancelAction();
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Username sudah Terpakai atau terjadi kesalahan input");
             }
@@ -273,7 +273,7 @@ namespace Raport
                 MessageBox.Show("Edit Data User '" + user_txt.Text + "' berhasil");
                 cancelAction();
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Username sudah Terpakai atau terjadi kesalahan input");
             }

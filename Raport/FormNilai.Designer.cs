@@ -40,6 +40,7 @@
             this.peng_lbl = new System.Windows.Forms.ToolStripLabel();
             this.ket_lbl = new System.Windows.Forms.ToolStripLabel();
             this.sikap_lbl = new System.Windows.Forms.ToolStripLabel();
+            this.load_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.siswa_grid = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.kelas_combo = new System.Windows.Forms.ComboBox();
@@ -115,17 +116,20 @@
             this.dataNilai_grid.TabIndex = 14;
             this.dataNilai_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellClick);
             this.dataNilai_grid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellEndEdit);
+            this.dataNilai_grid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellEnter);
             this.dataNilai_grid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellValueChanged);
             this.dataNilai_grid.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataNilai_grid_DataError);
             // 
             // toolStrip1
             // 
+            this.toolStrip1.BackColor = System.Drawing.Color.SteelBlue;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nis_lbl,
             this.jumlah_lbl,
             this.peng_lbl,
             this.ket_lbl,
-            this.sikap_lbl});
+            this.sikap_lbl,
+            this.load_toolBtn});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(937, 25);
@@ -166,6 +170,16 @@
             this.sikap_lbl.Size = new System.Drawing.Size(35, 22);
             this.sikap_lbl.Text = "Sikap";
             this.sikap_lbl.Visible = false;
+            // 
+            // load_toolBtn
+            // 
+            this.load_toolBtn.Enabled = false;
+            this.load_toolBtn.Image = global::Raport.Properties.Resources.refresh;
+            this.load_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.load_toolBtn.Name = "load_toolBtn";
+            this.load_toolBtn.Size = new System.Drawing.Size(66, 22);
+            this.load_toolBtn.Text = "Refresh";
+            this.load_toolBtn.Click += new System.EventHandler(this.load_toolBtn_Click);
             // 
             // siswa_grid
             // 
@@ -287,7 +301,6 @@
             this.smt_combo.Name = "smt_combo";
             this.smt_combo.Size = new System.Drawing.Size(121, 27);
             this.smt_combo.TabIndex = 3;
-            this.smt_combo.SelectedIndexChanged += new System.EventHandler(this.smt_combo_SelectedIndexChanged);
             // 
             // set_btn
             // 
@@ -362,5 +375,6 @@
         private System.Windows.Forms.ToolStripLabel peng_lbl;
         private System.Windows.Forms.ToolStripLabel ket_lbl;
         private System.Windows.Forms.ToolStripLabel sikap_lbl;
+        private System.Windows.Forms.ToolStripButton load_toolBtn;
     }
 }

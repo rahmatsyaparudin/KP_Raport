@@ -59,7 +59,6 @@ namespace Raport
         public void GuruToExcel(DataGridView datagrid, string filename, SaveFileDialog sfDialog)
         {
             Excel.Application xlsApp = new Excel.Application();
-            Excel.Workbook xlsWorkBook;
             Excel.Worksheet xlsWorkSheet;
             sfDialog.InitialDirectory = "D:";
             sfDialog.Title = "Save as Excel File";
@@ -135,7 +134,6 @@ namespace Raport
         public void SiswaToExcel(DataGridView dg, string filename, SaveFileDialog sfDialog)
         {
             Excel.Application xlsApp = new Excel.Application();
-            Excel.Workbook xlsWorkBook;
             Excel.Worksheet xlsWorkSheet;
             sfDialog.InitialDirectory = "D:";
             sfDialog.Title = "Save as Excel File";

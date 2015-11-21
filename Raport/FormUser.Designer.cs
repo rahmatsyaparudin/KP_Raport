@@ -202,7 +202,7 @@
             // 
             // delete_btn
             // 
-            this.delete_btn.BackColor = System.Drawing.Color.DarkBlue;
+            this.delete_btn.BackColor = System.Drawing.Color.RoyalBlue;
             this.delete_btn.Enabled = false;
             this.delete_btn.FlatAppearance.BorderSize = 0;
             this.delete_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -218,7 +218,7 @@
             // 
             // edit_btn
             // 
-            this.edit_btn.BackColor = System.Drawing.Color.DarkBlue;
+            this.edit_btn.BackColor = System.Drawing.Color.RoyalBlue;
             this.edit_btn.Enabled = false;
             this.edit_btn.FlatAppearance.BorderSize = 0;
             this.edit_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -234,7 +234,7 @@
             // 
             // cancel_btn
             // 
-            this.cancel_btn.BackColor = System.Drawing.Color.DarkBlue;
+            this.cancel_btn.BackColor = System.Drawing.Color.RoyalBlue;
             this.cancel_btn.FlatAppearance.BorderSize = 0;
             this.cancel_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancel_btn.Image = global::Raport.Properties.Resources.cancel;
@@ -249,7 +249,7 @@
             // 
             // save_btn
             // 
-            this.save_btn.BackColor = System.Drawing.Color.DarkBlue;
+            this.save_btn.BackColor = System.Drawing.Color.RoyalBlue;
             this.save_btn.FlatAppearance.BorderSize = 0;
             this.save_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.save_btn.Image = global::Raport.Properties.Resources.save;

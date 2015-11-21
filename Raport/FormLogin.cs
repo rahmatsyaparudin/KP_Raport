@@ -67,7 +67,7 @@ namespace Raport
                 }
                 myConn.Close();
             }
-            catch (Exception ex)
+            catch
             {
                 info_panel.BackColor = System.Drawing.Color.Yellow;
                 info_img.Image = Properties.Resources.warning;
