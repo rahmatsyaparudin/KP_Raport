@@ -22,6 +22,7 @@ namespace Raport
         private string idValue, dispValue, sortby;
         public string getTahun, getUser, getLevel;
         private string kodeKelas, kodeMapel, kodeSmt;
+        private string fieldVal;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
         
         public string passTahuj
@@ -418,7 +419,7 @@ namespace Raport
         {
             loadData();
         }
-
+        
         private void dataNilai_grid_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewTextBoxColumn cPeng = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[3];
@@ -453,6 +454,8 @@ namespace Raport
                 kelas_combo.Enabled = false;
             }
         }
+
+        
 
         public void fillMapel()
         {
@@ -496,6 +499,14 @@ namespace Raport
                 load_toolBtn.Enabled = false;
                 mapel_txt.ResetText();
                 wali_txt.ResetText();
+                all_rad.Checked = false;
+                peng_rad.Checked = false;
+                ket_rad.Checked = false;
+                sss_rad.Checked = false;
+                all_rad.Enabled = false;
+                peng_rad.Enabled = false;
+                ket_rad.Enabled = false;
+                sss_rad.Enabled = false;
                 dataNilai_grid.DataSource = null;
                 dataNilai_grid.Columns.Clear();
                 dataNilai_grid.Rows.Clear();
@@ -526,6 +537,11 @@ namespace Raport
                 loadData();
                 generate_nilai();
                 load_toolBtn.Enabled = true;
+                all_rad.Enabled = true;
+                peng_rad.Enabled = true;
+                ket_rad.Enabled = true;
+                sss_rad.Enabled = true;
+                all_rad.Checked = true;
             }
         }
 
@@ -578,6 +594,51 @@ namespace Raport
             loadData();
         }
 
+        private void all_rad_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 3; i <= dataNilai_grid.ColumnCount - 1; i++)
+            {
+                dataNilai_grid.Columns[i].Visible = true;
+            }
+        }
+
+        private void peng_rad_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 3; i <= dataNilai_grid.ColumnCount - 1; i++)
+            {
+                dataNilai_grid.Columns[i].Visible = false;
+            }
+            dataNilai_grid.Columns[3].Visible = true;
+            dataNilai_grid.Columns[4].Visible = true;
+            dataNilai_grid.Columns[5].Visible = true;
+            dataNilai_grid.Columns[6].Visible = true;
+        }
+        
+        private void ket_rad_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 3; i <= dataNilai_grid.ColumnCount - 1; i++)
+            {
+                dataNilai_grid.Columns[i].Visible = false;
+            }
+            dataNilai_grid.Columns[7].Visible = true;
+            dataNilai_grid.Columns[8].Visible = true;
+            dataNilai_grid.Columns[9].Visible = true;
+            dataNilai_grid.Columns[10].Visible = true;
+        }
+
+        private void sss_rad_CheckedChanged(object sender, EventArgs e)
+        {
+            for (int i = 3; i <= dataNilai_grid.ColumnCount - 1; i++)
+            {
+                dataNilai_grid.Columns[i].Visible = false;
+            }
+            dataNilai_grid.Columns[11].Visible = true;
+            dataNilai_grid.Columns[12].Visible = true;
+            dataNilai_grid.Columns[13].Visible = true;
+        }
+
+
+
         public void loadData()
         {
             dataNilai_grid.DataSource = null;
@@ -589,7 +650,7 @@ namespace Raport
             this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
 
             this.field = "id_nilai as 'ID Nilai', siswa.nis_siswa as 'NIS Siswa', nama_siswa as 'Nama Siswa', p_skala as 'Skala (P)', p_ang as 'Angka (P)', p_pred as 'Predikat (P)'" +
-                        ", p_desk as 'Deskripsi (P)', k_skala as 'Skala (K)', k_ang as 'Angka (K)', k_pred as 'Predikat (K)', k_desk as 'Deskripsi (K)'"+
+                        ", p_desk as 'Deskripsi (P)', k_skala as 'Skala (K)', k_ang as 'Angka (K)', k_pred as 'Predikat (K)', k_desk as 'Deskripsi (K)'" +
                         ", s_skala as 'Skala (S)', s_sikap as 'SB/B/C/K', s_desk as 'Deskripsi (S)'";
             this.table = "nilai INNER JOIN siswa USING (nis_siswa)";
             this.cond = "kode_kelas = '" + kodeKelas + "' AND kode_mapel='" + kodeMapel + 
