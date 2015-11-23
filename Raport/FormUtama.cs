@@ -229,6 +229,9 @@ namespace Raport
         private void deskripsi_menu_Click(object sender, EventArgs e)
         {
             FormDeskripsi fDesk = new FormDeskripsi();
+            fDesk.passTahuj = tahuj_combo.Text.ToString();
+            fDesk.passUser = getUser;
+            fDesk.passLevel = getLevel;
             fDesk.ShowDialog();
         }
 

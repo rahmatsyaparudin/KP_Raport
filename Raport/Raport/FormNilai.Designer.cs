@@ -33,10 +33,10 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.all_rad = new System.Windows.Forms.RadioButton();
             this.sss_rad = new System.Windows.Forms.RadioButton();
             this.ket_rad = new System.Windows.Forms.RadioButton();
             this.peng_rad = new System.Windows.Forms.RadioButton();
-            this.all_rad = new System.Windows.Forms.RadioButton();
             this.dataNilai_grid = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.nis_lbl = new System.Windows.Forms.ToolStripLabel();
@@ -46,7 +46,6 @@
             this.sikap_lbl = new System.Windows.Forms.ToolStripLabel();
             this.load_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.siswa_grid = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.kelas_combo = new System.Windows.Forms.ComboBox();
@@ -59,6 +58,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.smt_combo = new System.Windows.Forms.ComboBox();
             this.set_btn = new System.Windows.Forms.Button();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataNilai_grid)).BeginInit();
@@ -106,16 +106,29 @@
             this.panel1.Size = new System.Drawing.Size(937, 389);
             this.panel1.TabIndex = 2;
             // 
+            // all_rad
+            // 
+            this.all_rad.AutoSize = true;
+            this.all_rad.BackColor = System.Drawing.Color.SteelBlue;
+            this.all_rad.Location = new System.Drawing.Point(141, 2);
+            this.all_rad.Name = "all_rad";
+            this.all_rad.Size = new System.Drawing.Size(66, 21);
+            this.all_rad.TabIndex = 18;
+            this.all_rad.TabStop = true;
+            this.all_rad.Text = "Semua";
+            this.all_rad.UseVisualStyleBackColor = false;
+            this.all_rad.CheckedChanged += new System.EventHandler(this.all_rad_CheckedChanged);
+            // 
             // sss_rad
             // 
             this.sss_rad.AutoSize = true;
             this.sss_rad.BackColor = System.Drawing.Color.SteelBlue;
             this.sss_rad.Location = new System.Drawing.Point(411, 2);
             this.sss_rad.Name = "sss_rad";
-            this.sss_rad.Size = new System.Drawing.Size(172, 21);
+            this.sss_rad.Size = new System.Drawing.Size(175, 21);
             this.sss_rad.TabIndex = 17;
             this.sss_rad.TabStop = true;
-            this.sss_rad.Text = "Sikap Sosial dan Spiritual";
+            this.sss_rad.Text = "Sikap, Spiritual dan Sosial";
             this.sss_rad.UseVisualStyleBackColor = false;
             this.sss_rad.CheckedChanged += new System.EventHandler(this.sss_rad_CheckedChanged);
             // 
@@ -144,19 +157,6 @@
             this.peng_rad.Text = "Pengetahuan";
             this.peng_rad.UseVisualStyleBackColor = false;
             this.peng_rad.CheckedChanged += new System.EventHandler(this.peng_rad_CheckedChanged);
-            // 
-            // all_rad
-            // 
-            this.all_rad.AutoSize = true;
-            this.all_rad.BackColor = System.Drawing.Color.SteelBlue;
-            this.all_rad.Location = new System.Drawing.Point(141, 2);
-            this.all_rad.Name = "all_rad";
-            this.all_rad.Size = new System.Drawing.Size(66, 21);
-            this.all_rad.TabIndex = 18;
-            this.all_rad.TabStop = true;
-            this.all_rad.Text = "Semua";
-            this.all_rad.UseVisualStyleBackColor = false;
-            this.all_rad.CheckedChanged += new System.EventHandler(this.all_rad_CheckedChanged);
             // 
             // dataNilai_grid
             // 
@@ -250,12 +250,6 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(65, 22);
-            this.toolStripLabel1.Text = "Input Nilai ";
             // 
             // siswa_grid
             // 
@@ -387,6 +381,12 @@
             this.set_btn.Text = "Set";
             this.set_btn.UseVisualStyleBackColor = true;
             this.set_btn.Click += new System.EventHandler(this.set_btn_Click);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(65, 22);
+            this.toolStripLabel1.Text = "Input Nilai ";
             // 
             // FormNilai
             // 

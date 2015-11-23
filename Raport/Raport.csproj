@@ -82,11 +82,11 @@
     <Compile Include="FormAddSiswa.Designer.cs">
       <DependentUpon>FormAddSiswa.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDeskripsi.cs">
+    <Compile Include="FormDeskripsis.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDeskripsi.Designer.cs">
-      <DependentUpon>FormDeskripsi.cs</DependentUpon>
+    <Compile Include="FormDeskripsis.Designer.cs">
+      <DependentUpon>FormDeskripsis.cs</DependentUpon>
     </Compile>
     <Compile Include="FormEskul.cs">
       <SubType>Form</SubType>
@@ -111,6 +111,12 @@
     </Compile>
     <Compile Include="FormGuru.Designer.cs">
       <DependentUpon>FormGuru.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDeskripsi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDeskripsi.designer.cs">
+      <DependentUpon>FormDeskripsi.cs</DependentUpon>
     </Compile>
     <Compile Include="FormNilai.cs">
       <SubType>Form</SubType>
@@ -174,8 +180,8 @@
     <EmbeddedResource Include="FormAddSiswa.resx">
       <DependentUpon>FormAddSiswa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDeskripsi.resx">
-      <DependentUpon>FormDeskripsi.cs</DependentUpon>
+    <EmbeddedResource Include="FormDeskripsis.resx">
+      <DependentUpon>FormDeskripsis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormEskul.resx">
       <DependentUpon>FormEskul.cs</DependentUpon>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormGuru.resx">
       <DependentUpon>FormGuru.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDeskripsi.resx">
+      <DependentUpon>FormDeskripsi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormNilai.resx">
       <DependentUpon>FormNilai.cs</DependentUpon>

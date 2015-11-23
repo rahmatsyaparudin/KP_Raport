@@ -237,6 +237,32 @@ namespace Raport
             }
         }
 
+        private void delete_toolBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult dialog = MessageBox.Show("Hapus Data User '" + user + "' ?",
+                "Hapus Data", MessageBoxButtons.YesNo);
+                if (dialog == DialogResult.Yes)
+                {
+                    this.table = "user";
+                    this.cond = "username = '" + user + "'";
+                    db.deleteData(table, cond);
+                    MessageBox.Show("Data User '" + user + "' Terhapus");
+                    load_user();
+                }
+                else if (dialog == DialogResult.No)
+                {
+                    CancelEventArgs batal = new CancelEventArgs();
+                    batal.Cancel = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         public void saveData()
         {
             try

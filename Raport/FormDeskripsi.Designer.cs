@@ -28,19 +28,408 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.kelas_combo = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.mapel_combo = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.mapel_txt = new System.Windows.Forms.TextBox();
+            this.wali_txt = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.smt_combo = new System.Windows.Forms.ComboBox();
+            this.set_btn = new System.Windows.Forms.Button();
+            this.atas_txt = new System.Windows.Forms.RichTextBox();
+            this.tengah_txt = new System.Windows.Forms.RichTextBox();
+            this.bawah_txt = new System.Windows.Forms.RichTextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.add_tab = new System.Windows.Forms.TabPage();
+            this.sss_rad = new System.Windows.Forms.RadioButton();
+            this.ket_rad = new System.Windows.Forms.RadioButton();
+            this.peng_rad = new System.Windows.Forms.RadioButton();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.view_tab = new System.Windows.Forms.TabPage();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.add_tab.SuspendLayout();
+            this.view_tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBox1.Image = global::Raport.Properties.Resources.deskripsi;
+            this.pictureBox1.Location = new System.Drawing.Point(432, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(102, 74);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(377, 89);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(207, 36);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Deskripsi Nilai";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(205, 130);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(88, 21);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Pilih Kelas";
+            // 
+            // kelas_combo
+            // 
+            this.kelas_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.kelas_combo.Enabled = false;
+            this.kelas_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.kelas_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kelas_combo.FormattingEnabled = true;
+            this.kelas_combo.IntegralHeight = false;
+            this.kelas_combo.Location = new System.Drawing.Point(209, 153);
+            this.kelas_combo.Name = "kelas_combo";
+            this.kelas_combo.Size = new System.Drawing.Size(121, 27);
+            this.kelas_combo.TabIndex = 6;
+            this.kelas_combo.SelectedIndexChanged += new System.EventHandler(this.kelas_combo_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(332, 129);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 21);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Kode Mapel";
+            // 
+            // mapel_combo
+            // 
+            this.mapel_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.mapel_combo.Enabled = false;
+            this.mapel_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mapel_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mapel_combo.FormattingEnabled = true;
+            this.mapel_combo.IntegralHeight = false;
+            this.mapel_combo.Location = new System.Drawing.Point(336, 153);
+            this.mapel_combo.Name = "mapel_combo";
+            this.mapel_combo.Size = new System.Drawing.Size(121, 27);
+            this.mapel_combo.TabIndex = 8;
+            this.mapel_combo.SelectedIndexChanged += new System.EventHandler(this.mapel_combo_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(674, 129);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 21);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Pengajar";
+            // 
+            // mapel_txt
+            // 
+            this.mapel_txt.Enabled = false;
+            this.mapel_txt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mapel_txt.Location = new System.Drawing.Point(463, 154);
+            this.mapel_txt.Name = "mapel_txt";
+            this.mapel_txt.ReadOnly = true;
+            this.mapel_txt.Size = new System.Drawing.Size(209, 26);
+            this.mapel_txt.TabIndex = 10;
+            this.mapel_txt.TabStop = false;
+            // 
+            // wali_txt
+            // 
+            this.wali_txt.Enabled = false;
+            this.wali_txt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wali_txt.Location = new System.Drawing.Point(678, 153);
+            this.wali_txt.Name = "wali_txt";
+            this.wali_txt.ReadOnly = true;
+            this.wali_txt.Size = new System.Drawing.Size(281, 26);
+            this.wali_txt.TabIndex = 12;
+            this.wali_txt.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(459, 130);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(118, 21);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Mata Pelajaran";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(17, 129);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(115, 21);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Pilih Semester";
+            // 
+            // smt_combo
+            // 
+            this.smt_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.smt_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.smt_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.smt_combo.FormattingEnabled = true;
+            this.smt_combo.IntegralHeight = false;
+            this.smt_combo.Location = new System.Drawing.Point(21, 153);
+            this.smt_combo.Name = "smt_combo";
+            this.smt_combo.Size = new System.Drawing.Size(121, 27);
+            this.smt_combo.TabIndex = 3;
+            // 
+            // set_btn
+            // 
+            this.set_btn.Location = new System.Drawing.Point(148, 152);
+            this.set_btn.Name = "set_btn";
+            this.set_btn.Size = new System.Drawing.Size(55, 29);
+            this.set_btn.TabIndex = 4;
+            this.set_btn.Text = "Set";
+            this.set_btn.UseVisualStyleBackColor = true;
+            this.set_btn.Click += new System.EventHandler(this.set_btn_Click);
+            // 
+            // atas_txt
+            // 
+            this.atas_txt.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.atas_txt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.atas_txt.Location = new System.Drawing.Point(14, 64);
+            this.atas_txt.Name = "atas_txt";
+            this.atas_txt.Size = new System.Drawing.Size(286, 260);
+            this.atas_txt.TabIndex = 14;
+            this.atas_txt.Text = "";
+            // 
+            // tengah_txt
+            // 
+            this.tengah_txt.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tengah_txt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tengah_txt.Location = new System.Drawing.Point(320, 64);
+            this.tengah_txt.Name = "tengah_txt";
+            this.tengah_txt.Size = new System.Drawing.Size(286, 260);
+            this.tengah_txt.TabIndex = 15;
+            this.tengah_txt.Text = "";
+            // 
+            // bawah_txt
+            // 
+            this.bawah_txt.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.bawah_txt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bawah_txt.Location = new System.Drawing.Point(629, 64);
+            this.bawah_txt.Name = "bawah_txt";
+            this.bawah_txt.Size = new System.Drawing.Size(286, 260);
+            this.bawah_txt.TabIndex = 16;
+            this.bawah_txt.Text = "";
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.add_tab);
+            this.tabControl1.Controls.Add(this.view_tab);
+            this.tabControl1.Location = new System.Drawing.Point(19, 195);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(938, 368);
+            this.tabControl1.TabIndex = 17;
+            // 
+            // add_tab
+            // 
+            this.add_tab.BackColor = System.Drawing.Color.SteelBlue;
+            this.add_tab.Controls.Add(this.sss_rad);
+            this.add_tab.Controls.Add(this.ket_rad);
+            this.add_tab.Controls.Add(this.peng_rad);
+            this.add_tab.Controls.Add(this.label10);
+            this.add_tab.Controls.Add(this.label9);
+            this.add_tab.Controls.Add(this.label8);
+            this.add_tab.Controls.Add(this.label7);
+            this.add_tab.Controls.Add(this.atas_txt);
+            this.add_tab.Controls.Add(this.bawah_txt);
+            this.add_tab.Controls.Add(this.tengah_txt);
+            this.add_tab.Location = new System.Drawing.Point(4, 30);
+            this.add_tab.Name = "add_tab";
+            this.add_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.add_tab.Size = new System.Drawing.Size(930, 334);
+            this.add_tab.TabIndex = 0;
+            this.add_tab.Text = "Add Desc";
+            // 
+            // sss_rad
+            // 
+            this.sss_rad.AutoSize = true;
+            this.sss_rad.Location = new System.Drawing.Point(413, 6);
+            this.sss_rad.Name = "sss_rad";
+            this.sss_rad.Size = new System.Drawing.Size(218, 25);
+            this.sss_rad.TabIndex = 24;
+            this.sss_rad.TabStop = true;
+            this.sss_rad.Text = "Sikap Sosial dan Spiritual";
+            this.sss_rad.UseVisualStyleBackColor = true;
+            this.sss_rad.CheckedChanged += new System.EventHandler(this.sss_rad_CheckedChanged);
+            // 
+            // ket_rad
+            // 
+            this.ket_rad.AutoSize = true;
+            this.ket_rad.Location = new System.Drawing.Point(282, 6);
+            this.ket_rad.Name = "ket_rad";
+            this.ket_rad.Size = new System.Drawing.Size(125, 25);
+            this.ket_rad.TabIndex = 23;
+            this.ket_rad.TabStop = true;
+            this.ket_rad.Text = "Keterampilan";
+            this.ket_rad.UseVisualStyleBackColor = true;
+            this.ket_rad.CheckedChanged += new System.EventHandler(this.ket_rad_CheckedChanged);
+            // 
+            // peng_rad
+            // 
+            this.peng_rad.AutoSize = true;
+            this.peng_rad.Location = new System.Drawing.Point(155, 6);
+            this.peng_rad.Name = "peng_rad";
+            this.peng_rad.Size = new System.Drawing.Size(121, 25);
+            this.peng_rad.TabIndex = 22;
+            this.peng_rad.TabStop = true;
+            this.peng_rad.Text = "Pengetahuan";
+            this.peng_rad.UseVisualStyleBackColor = true;
+            this.peng_rad.CheckedChanged += new System.EventHandler(this.peng_rad_CheckedChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(318, 38);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(176, 21);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Kelompok Tengah (T)";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(625, 38);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(172, 21);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "Kelompok Bawah (B)";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 38);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(156, 21);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Kelompok Atas (A)";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 8);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(130, 21);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Deskripsi Untuk";
+            // 
+            // view_tab
+            // 
+            this.view_tab.Controls.Add(this.dataGridView1);
+            this.view_tab.Controls.Add(this.toolStrip1);
+            this.view_tab.Location = new System.Drawing.Point(4, 30);
+            this.view_tab.Name = "view_tab";
+            this.view_tab.Padding = new System.Windows.Forms.Padding(3);
+            this.view_tab.Size = new System.Drawing.Size(930, 334);
+            this.view_tab.TabIndex = 1;
+            this.view_tab.Text = "View Desc";
+            this.view_tab.UseVisualStyleBackColor = true;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(924, 25);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 28);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(924, 261);
+            this.dataGridView1.TabIndex = 1;
             // 
             // FormDeskripsi
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(592, 518);
+            this.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.ClientSize = new System.Drawing.Size(971, 608);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.set_btn);
+            this.Controls.Add(this.smt_combo);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.wali_txt);
+            this.Controls.Add(this.mapel_txt);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.mapel_combo);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.kelas_combo);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureBox1);
+            this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "FormDeskripsi";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Deskripsi Nilai";
+            this.Load += new System.EventHandler(this.FormDeskripsi_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.add_tab.ResumeLayout(false);
+            this.add_tab.PerformLayout();
+            this.view_tab.ResumeLayout(false);
+            this.view_tab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox kelas_combo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox mapel_combo;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox mapel_txt;
+        private System.Windows.Forms.TextBox wali_txt;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox smt_combo;
+        private System.Windows.Forms.Button set_btn;
+        private System.Windows.Forms.RichTextBox atas_txt;
+        private System.Windows.Forms.RichTextBox tengah_txt;
+        private System.Windows.Forms.RichTextBox bawah_txt;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage add_tab;
+        private System.Windows.Forms.TabPage view_tab;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.RadioButton peng_rad;
+        private System.Windows.Forms.RadioButton ket_rad;
+        private System.Windows.Forms.RadioButton sss_rad;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
     }
 }

@@ -419,7 +419,6 @@ namespace Raport
         private void load_toolBtn_Click(object sender, EventArgs e)
         {
             loadData();
-            all_rad.Checked = true;
         }
         
         private void dataNilai_grid_CellEnter(object sender, DataGridViewCellEventArgs e)

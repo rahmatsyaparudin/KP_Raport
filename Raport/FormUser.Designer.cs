@@ -57,6 +57,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.delete_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataUser_grid)).BeginInit();
@@ -112,6 +113,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refresh_toolBtn,
             this.toolStripSeparator1,
+            this.delete_toolBtn,
             this.view_toolBtn});
             this.toolStrip1.Location = new System.Drawing.Point(3, 25);
             this.toolStrip1.Name = "toolStrip1";
@@ -384,6 +386,15 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // delete_toolBtn
+            // 
+            this.delete_toolBtn.Image = global::Raport.Properties.Resources.delete;
+            this.delete_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.delete_toolBtn.Name = "delete_toolBtn";
+            this.delete_toolBtn.Size = new System.Drawing.Size(60, 22);
+            this.delete_toolBtn.Text = "Delete";
+            this.delete_toolBtn.Click += new System.EventHandler(this.delete_toolBtn_Click);
+            // 
             // FormUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -443,5 +454,6 @@
         private System.Windows.Forms.ToolStripButton view_toolBtn;
         private System.Windows.Forms.Label aksi_lbl;
         private System.Windows.Forms.Label user_lbl;
+        private System.Windows.Forms.ToolStripButton delete_toolBtn;
     }
 }
