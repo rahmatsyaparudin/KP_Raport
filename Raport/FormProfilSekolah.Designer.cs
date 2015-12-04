@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormProfilSekolah));
             this.label1 = new System.Windows.Forms.Label();
             this.edit_box = new System.Windows.Forms.GroupBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.npsn_lbl = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -43,10 +44,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.close_btn = new System.Windows.Forms.Button();
-            this.edit_btn = new System.Windows.Forms.Button();
-            this.cancel_btn = new System.Windows.Forms.Button();
-            this.save_btn = new System.Windows.Forms.Button();
             this.email_txt = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.website_txt = new System.Windows.Forms.TextBox();
@@ -71,8 +68,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.nama_txt = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.close_btn = new System.Windows.Forms.Button();
+            this.edit_btn = new System.Windows.Forms.Button();
+            this.cancel_btn = new System.Windows.Forms.Button();
+            this.save_btn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label25 = new System.Windows.Forms.Label();
             this.edit_box.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -138,6 +138,16 @@
             this.edit_box.TabIndex = 2;
             this.edit_box.TabStop = false;
             this.edit_box.Text = "Profil Sekolah";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(369, 198);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(14, 21);
+            this.label25.TabIndex = 26;
+            this.label25.Text = ":";
             // 
             // npsn_lbl
             // 
@@ -258,81 +268,6 @@
             this.label14.Size = new System.Drawing.Size(14, 21);
             this.label14.TabIndex = 11;
             this.label14.Text = ":";
-            // 
-            // close_btn
-            // 
-            this.close_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.close_btn.FlatAppearance.BorderSize = 0;
-            this.close_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.close_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.close_btn.Image = global::Raport.Properties.Resources.cancel;
-            this.close_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.close_btn.Location = new System.Drawing.Point(487, 296);
-            this.close_btn.Name = "close_btn";
-            this.close_btn.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.close_btn.Size = new System.Drawing.Size(84, 31);
-            this.close_btn.TabIndex = 28;
-            this.close_btn.Text = "Close";
-            this.close_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.close_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.close_btn.UseVisualStyleBackColor = false;
-            this.close_btn.Click += new System.EventHandler(this.close_btn_Click);
-            // 
-            // edit_btn
-            // 
-            this.edit_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.edit_btn.FlatAppearance.BorderSize = 0;
-            this.edit_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.edit_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.edit_btn.Image = global::Raport.Properties.Resources.edit;
-            this.edit_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.edit_btn.Location = new System.Drawing.Point(461, 15);
-            this.edit_btn.Name = "edit_btn";
-            this.edit_btn.Size = new System.Drawing.Size(110, 31);
-            this.edit_btn.TabIndex = 27;
-            this.edit_btn.Text = "Edit Profil";
-            this.edit_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.edit_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.edit_btn.UseVisualStyleBackColor = false;
-            this.edit_btn.Click += new System.EventHandler(this.edit_btn_Click);
-            // 
-            // cancel_btn
-            // 
-            this.cancel_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.cancel_btn.FlatAppearance.BorderSize = 0;
-            this.cancel_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancel_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancel_btn.Image = global::Raport.Properties.Resources.cancel;
-            this.cancel_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cancel_btn.Location = new System.Drawing.Point(279, 296);
-            this.cancel_btn.Name = "cancel_btn";
-            this.cancel_btn.Size = new System.Drawing.Size(86, 31);
-            this.cancel_btn.TabIndex = 42;
-            this.cancel_btn.Text = "Cancel";
-            this.cancel_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cancel_btn.UseVisualStyleBackColor = false;
-            this.cancel_btn.Visible = false;
-            this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
-            // 
-            // save_btn
-            // 
-            this.save_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.save_btn.FlatAppearance.BorderSize = 0;
-            this.save_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.save_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.save_btn.Image = global::Raport.Properties.Resources.save;
-            this.save_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.save_btn.Location = new System.Drawing.Point(186, 296);
-            this.save_btn.Name = "save_btn";
-            this.save_btn.Size = new System.Drawing.Size(87, 31);
-            this.save_btn.TabIndex = 41;
-            this.save_btn.Text = "Save";
-            this.save_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.save_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.save_btn.UseVisualStyleBackColor = false;
-            this.save_btn.Visible = false;
-            this.save_btn.Click += new System.EventHandler(this.save_btn_Click);
             // 
             // email_txt
             // 
@@ -607,6 +542,81 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Nama Sekolah";
             // 
+            // close_btn
+            // 
+            this.close_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.close_btn.FlatAppearance.BorderSize = 0;
+            this.close_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.close_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.close_btn.Image = global::Raport.Properties.Resources.cancel;
+            this.close_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.close_btn.Location = new System.Drawing.Point(487, 296);
+            this.close_btn.Name = "close_btn";
+            this.close_btn.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.close_btn.Size = new System.Drawing.Size(84, 31);
+            this.close_btn.TabIndex = 28;
+            this.close_btn.Text = "Close";
+            this.close_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.close_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.close_btn.UseVisualStyleBackColor = false;
+            this.close_btn.Click += new System.EventHandler(this.close_btn_Click);
+            // 
+            // edit_btn
+            // 
+            this.edit_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.edit_btn.FlatAppearance.BorderSize = 0;
+            this.edit_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.edit_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.edit_btn.Image = global::Raport.Properties.Resources.edit;
+            this.edit_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.edit_btn.Location = new System.Drawing.Point(461, 15);
+            this.edit_btn.Name = "edit_btn";
+            this.edit_btn.Size = new System.Drawing.Size(110, 31);
+            this.edit_btn.TabIndex = 27;
+            this.edit_btn.Text = "Edit Profil";
+            this.edit_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.edit_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.edit_btn.UseVisualStyleBackColor = false;
+            this.edit_btn.Click += new System.EventHandler(this.edit_btn_Click);
+            // 
+            // cancel_btn
+            // 
+            this.cancel_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.cancel_btn.FlatAppearance.BorderSize = 0;
+            this.cancel_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancel_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cancel_btn.Image = global::Raport.Properties.Resources.cancel;
+            this.cancel_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cancel_btn.Location = new System.Drawing.Point(279, 296);
+            this.cancel_btn.Name = "cancel_btn";
+            this.cancel_btn.Size = new System.Drawing.Size(86, 31);
+            this.cancel_btn.TabIndex = 42;
+            this.cancel_btn.Text = "Cancel";
+            this.cancel_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cancel_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cancel_btn.UseVisualStyleBackColor = false;
+            this.cancel_btn.Visible = false;
+            this.cancel_btn.Click += new System.EventHandler(this.cancel_btn_Click);
+            // 
+            // save_btn
+            // 
+            this.save_btn.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.save_btn.FlatAppearance.BorderSize = 0;
+            this.save_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.save_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.save_btn.Image = global::Raport.Properties.Resources.save;
+            this.save_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.save_btn.Location = new System.Drawing.Point(186, 296);
+            this.save_btn.Name = "save_btn";
+            this.save_btn.Size = new System.Drawing.Size(87, 31);
+            this.save_btn.TabIndex = 41;
+            this.save_btn.Text = "Save";
+            this.save_btn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.save_btn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.save_btn.UseVisualStyleBackColor = false;
+            this.save_btn.Visible = false;
+            this.save_btn.Click += new System.EventHandler(this.save_btn_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::Raport.Properties.Resources._133x133;
@@ -616,16 +626,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(369, 198);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(14, 21);
-            this.label25.TabIndex = 26;
-            this.label25.Text = ":";
             // 
             // FormProfilSekolah
             // 

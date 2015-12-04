@@ -170,6 +170,20 @@ namespace Raport
             return result;
         }
 
+        public DataTable getDesk()
+        {
+            DataTable result = new DataTable();
+            DataColumn dc1 = new DataColumn("valueID");
+            DataColumn dc2 = new DataColumn("valueDisplay");
+            result.Columns.Add(dc1);
+            result.Columns.Add(dc2);
+            result.Rows.Add("", "");
+            result.Rows.Add("A", "A");
+            result.Rows.Add("T", "T");
+            result.Rows.Add("B", "B");
+            return result;
+        }
+
         public DataTable getAgama()
         {
             DataTable result = new DataTable();

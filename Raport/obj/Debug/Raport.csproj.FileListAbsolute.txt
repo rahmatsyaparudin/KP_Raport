@@ -85,4 +85,8 @@ E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csproj.GenerateResource.Cache
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.FormUser.resources
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csproj.ResolveComReference.cache
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csprojResolveAssemblyReference.cache
-E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.FormDeskripsis.resources
+E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.FormPindahKelas.resources
+E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\itextsharp.dll
+E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\itextsharp.pdfa.dll
+E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\itextsharp.xtra.dll
+E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\itextsharp.xml

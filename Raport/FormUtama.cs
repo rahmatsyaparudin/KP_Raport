@@ -27,11 +27,11 @@ namespace Raport
         
         public FormUtama()
         {
-            Thread t = new Thread(new ThreadStart(SplashStart));
-            t.Start();
-            Thread.Sleep(3000);
+            //Thread t = new Thread(new ThreadStart(SplashStart));
+            //t.Start();
+            //Thread.Sleep(3000);
             InitializeComponent();
-            t.Abort();
+            //t.Abort();
         }
 
         public void SplashStart()
@@ -314,6 +314,11 @@ namespace Raport
             string tanggal = dbToFile.formattedDate();
             dbToFile.saveDataSiswa(print_grid);
             dbToFile.SiswaToExcel(print_grid, "Data Siswa SMANJAK (" + tanggal + ")", sfDialog);
+        }
+
+        private void raport_printBtn_Click(object sender, EventArgs e)
+        {
+            dbToFile.RaportToPDF(print_grid, "Data Siswa SMANJAK ", sfDialog);
         }
 
         private void color_timer_Tick(object sender, EventArgs e)

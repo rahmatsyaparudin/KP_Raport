@@ -770,6 +770,7 @@ namespace Raport
             this.naikKelas_toolBtn.Name = "naikKelas_toolBtn";
             this.naikKelas_toolBtn.Size = new System.Drawing.Size(102, 25);
             this.naikKelas_toolBtn.Text = "Naik Kelas";
+            this.naikKelas_toolBtn.Click += new System.EventHandler(this.naikKelas_toolBtn_Click);
             // 
             // toolStripSeparator8
             // 
@@ -815,6 +816,7 @@ namespace Raport
             this.viewMember_grid.Name = "viewMember_grid";
             this.viewMember_grid.Size = new System.Drawing.Size(769, 355);
             this.viewMember_grid.TabIndex = 8;
+            this.viewMember_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.viewMember_grid_CellClick);
             // 
             // label7
             // 
@@ -930,7 +932,6 @@ namespace Raport
         private System.Windows.Forms.ComboBox viewKelas_combo;
         private System.Windows.Forms.ComboBox setTahun_combo;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DataGridView viewMember_grid;
         private System.Windows.Forms.Label countID_lbl;
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton edit3_toolBtn;
@@ -943,5 +944,6 @@ namespace Raport
         private System.Windows.Forms.ToolStripButton cancel3_toolBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripButton refresh2_toolBtn;
+        private System.Windows.Forms.DataGridView viewMember_grid;
     }
 }

@@ -22,7 +22,7 @@ namespace Raport
         private string idValue, dispValue, sortby;
         public string getTahun, getUser, getLevel;
         private string kodeKelas, kodeMapel, kodeSmt;
-        private string fieldVal;
+        private string fieldVal = null;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
 
         public FormDeskripsi()
@@ -56,7 +56,7 @@ namespace Raport
             fillKelas();
         }
         
-        public void fillKelas()
+        private void fillKelas()
         {
             try
             {
@@ -123,7 +123,7 @@ namespace Raport
                 MessageBox.Show(ex.Message);
             }
         }
-
+        
         private void set_btn_Click(object sender, EventArgs e)
         {
             if (smt_combo.Text != "")
@@ -148,7 +148,7 @@ namespace Raport
                 kelas_combo.Enabled = false;
             }
         }
-
+        
         private void kelas_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (kelas_combo.Text == "")
@@ -156,7 +156,7 @@ namespace Raport
                 mapel_combo.SelectedIndex = -1;
                 mapel_combo.Enabled = false;
             }
-            else if (kelas_combo.Text != "")
+            else if ((kelas_combo.Text != "") && (kelas_combo.SelectedIndex != -1))
             {
                 mapel_combo.Enabled = true;
                 fillMapel();
@@ -165,13 +165,23 @@ namespace Raport
         
         private void mapel_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((mapel_combo.Text == "") || (mapel_combo.SelectedIndex == -1))
+            if ((mapel_combo.Text == "") && (mapel_combo.SelectedIndex == -1))
             {
                 mapel_txt.ResetText();
                 wali_txt.ResetText();
+                desk_tab.Enabled = false;
+                peng_rad.Checked = false;
+                ket_rad.Checked = false;
+                sss_rad.Checked = false;
+                atas_txt.ResetText();
+                tengah_txt.ResetText();
+                bawah_txt.ResetText();
+                jumlah_lbl.Text = "null";
             }
-            else if (mapel_combo.Text != "")
+            else if ((mapel_combo.Text != "") && (mapel_combo.SelectedIndex != -1))
             {
+                desk_tab.Enabled = true;
+                pindahKelompok();
                 this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
                 this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
                 query = "SELECT mata_pelajaran, nama_guru from detailmapelkelas INNER JOIN guru USING (id_guru)" +
@@ -188,6 +198,7 @@ namespace Raport
                         wali_txt.Text = myReader.GetString("nama_guru");
                     }
                     myConn.Close();
+                    generate_desk();
                 }
                 catch (Exception ex)
                 {
@@ -195,22 +206,161 @@ namespace Raport
                 }
             }
         }
-
+        
         private void peng_rad_CheckedChanged(object sender, EventArgs e)
         {
-            this.fieldVal = "Pengetahuan";
+            this.fieldVal = "PENG";
+            pindahKelompok();
+            this.query = "SELECT p_atas, p_tengah, p_bawah FROM deskripsi" +
+                         " WHERE kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel + 
+                         "' AND kode_semester = '" + kodeSmt + "'";
+            myConn.Open();
+            myComm = new MySqlCommand(query, myConn);
+            myReader = myComm.ExecuteReader();
+            while (myReader.Read())
+            {
+                atas_txt.Text = myReader.GetString("p_atas");
+                tengah_txt.Text = myReader.GetString("p_tengah");
+                bawah_txt.Text = myReader.GetString("p_bawah");
+            }
+            myConn.Close();
         }
 
         private void ket_rad_CheckedChanged(object sender, EventArgs e)
         {
-            this.fieldVal = "Keterampilan";
+            this.fieldVal = "KET";
+            pindahKelompok();
+            this.query = "SELECT k_atas, k_tengah, k_bawah FROM deskripsi" +
+                         " WHERE kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel +
+                         "' AND kode_semester = '" + kodeSmt + "'";
+            myConn.Open();
+            myComm = new MySqlCommand(query, myConn);
+            myReader = myComm.ExecuteReader();
+            while (myReader.Read())
+            {
+                atas_txt.Text = myReader.GetString("k_atas");
+                tengah_txt.Text = myReader.GetString("k_tengah");
+                bawah_txt.Text = myReader.GetString("k_bawah");
+            }
+            myConn.Close();
         }
 
         private void sss_rad_CheckedChanged(object sender, EventArgs e)
         {
-            this.fieldVal = "Sikap Sosial Spiritual";
+            this.fieldVal = "SSS";
+            pindahKelompok();
+            this.query = "SELECT s_atas, s_tengah, s_bawah FROM deskripsi" +
+                         " WHERE kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel +
+                         "' AND kode_semester = '" + kodeSmt + "'";
+            myConn.Open();
+            myComm = new MySqlCommand(query, myConn);
+            myReader = myComm.ExecuteReader();
+            while (myReader.Read())
+            {
+                atas_txt.Text = myReader.GetString("s_atas");
+                tengah_txt.Text = myReader.GetString("s_tengah");
+                bawah_txt.Text = myReader.GetString("s_bawah");
+            }
+            myConn.Close();
         }
 
+        private void generate_desk()
+        {
+            this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
+            this.kodeSmt = this.smt_combo.SelectedValue.ToString();
+            this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
+            
+            jumlah_lbl.Text = "null";
+            string query2 = "SELECT count(*) as 'total' FROM deskripsi WHERE kode_kelas = '" + kodeKelas + 
+                         "' AND kode_mapel = '" + kodeMapel + "' AND kode_semester = '" + kodeSmt + "'";
+            myConn.Open();
+            myComm = new MySqlCommand(query2, myConn);
+            myReader = myComm.ExecuteReader();
+            while (myReader.Read())
+            {
+                jumlah_lbl.Text = myReader.GetString("total");
+            }
+            myConn.Close();
+
+            if ((jumlah_lbl.Text == "0") && (kodeMapel != "System.Data.DataRowView"))
+            {
+                this.field = "DEFAULT, '" + kodeKelas + "', '" + kodeMapel + "', '" + kodeSmt +
+                        "', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT";
+                this.table = "deskripsi";
+                db.insertData(table, field);
+            }
+            else if (jumlah_lbl.Text != "0")
+            {
+
+            }
+        }
+
+        private void save_btn_Click(object sender, EventArgs e)
+        {
+            if (fieldVal == "PENG")
+            {
+                this.field = "p_atas = '" + atas_txt.Text + "', p_tengah = '" + tengah_txt.Text + "', p_bawah = '" + bawah_txt.Text + "'";
+            }
+
+            if (fieldVal == "KET")
+            {
+                this.field = "k_atas = '" + atas_txt.Text + "', k_tengah = '" + tengah_txt.Text + "', k_bawah = '" + bawah_txt.Text + "'";
+            }
+
+            if (fieldVal == "SSS")
+            {
+                this.field = "s_atas = '" + atas_txt.Text + "', s_tengah = '" + tengah_txt.Text + "', s_bawah = '" + bawah_txt.Text + "'";
+            }
+
+            this.table = "deskripsi";
+            this.cond = "kode_kelas = '" + kelas_combo.SelectedValue.ToString() + "' AND kode_mapel = '" + mapel_combo.SelectedValue.ToString() +
+                        "' AND kode_semester = '" + smt_combo.SelectedValue.ToString() + "'";
+
+            db.updateData(table, field, cond);
+            save_btn.Enabled = false;
+            reset_btn.Enabled = false;
+            atas_txt.Enabled = false;
+            bawah_txt.Enabled = false;
+            tengah_txt.Enabled = false;
+            edit_btn.Text = "Edit";
+        }
+
+        private void reset_btn_Click(object sender, EventArgs e)
+        {
+            atas_txt.Undo();
+            tengah_txt.Undo();
+            bawah_txt.Undo();
+        }
+
+        private void edit_btn_Click(object sender, EventArgs e)
+        {
+            if (edit_btn.Text == "Edit")
+            {
+                save_btn.Enabled = true;
+                reset_btn.Enabled = true;
+                atas_txt.Enabled = true;
+                bawah_txt.Enabled = true;
+                tengah_txt.Enabled = true;
+                edit_btn.Text = "Cancel";
+            }
+            else if (edit_btn.Text == "Cancel")
+            {
+                pindahKelompok();
+            }
+        }
+
+        public void pindahKelompok()
+        {
+            save_btn.Enabled = false;
+            reset_btn.Enabled = false;
+            atas_txt.Enabled = false;
+            bawah_txt.Enabled = false;
+            tengah_txt.Enabled = false;
+            edit_btn.Text = "Edit";
+            atas_txt.ResetText();
+            tengah_txt.ResetText();
+            bawah_txt.ResetText();
+        }
         //END CLASS 
     }
 }

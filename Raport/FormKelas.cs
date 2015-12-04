@@ -18,13 +18,13 @@ namespace Raport
         Function db = new Function();
         MySqlDataReader myReader;
         MySqlCommand myComm;
-        private string table;
-        private string cond;
-        private string field;
+        private string table, cond, field;
         private string get_idGuru;
         private string query;
+        public bool valType;
         char notif;
-        private string id_kelas, idGuru, kodeMapel, id_detail;
+        private string id_kelas, idGuru, kodeMapel, id_detail, check_kelas;
+        public string getVal, getKodeKelas;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
         DataGridViewCheckBoxColumn chk2 = new DataGridViewCheckBoxColumn();
         DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
@@ -36,6 +36,18 @@ namespace Raport
             getCombo();
             pilihTahun_combo.SelectedIndex = -1;
             pilihKelas_combo.SelectedIndex = -1;
+        }
+
+        public string passVal
+        {
+            get { return getVal; }
+            set { getVal = value; }
+        }
+        
+        public string passKodeKelas
+        {
+            get { return getKodeKelas; }
+            set { getKodeKelas = value; }
         }
 
         private void FormKelas_Load(object sender, EventArgs e)
@@ -685,11 +697,13 @@ namespace Raport
                 viewMember_grid.DataSource = null;
                 viewMember_grid.Columns.Clear();
                 edit3_toolBtn.Enabled = false;
+                refresh2_toolBtn.Enabled = false;
             }
             else if (countID_lbl.Text != "0")
             {
                 viewMemberKelas();
                 edit3_toolBtn.Enabled = true;
+                refresh2_toolBtn.Enabled = true;
             }
         }
 
@@ -716,13 +730,34 @@ namespace Raport
             }
         }
 
+        private void viewMember_grid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            {
+                DataGridViewRow row = this.viewMember_grid.Rows[e.RowIndex];
+                if (Convert.ToBoolean(row.Cells[0].Value) == false)
+                {
+                    row.Cells[0].Value = true;
+                }
+                else if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                {
+                    row.Cells[0].Value = false;
+                }
+            }
+        }
+
         private void select_toolBtn_Click(object sender, EventArgs e)
         {
             if (select_toolBtn.Text == "Select All")
             {
                 foreach (DataGridViewRow row in viewMember_grid.Rows)
                 {
-                    row.Cells[0].Value = true;
+                    row.Cells[0].Value = false;
+                    if (Convert.ToBoolean(row.Cells[0].Value) == false || 
+                        Convert.ToBoolean(row.Cells[0].Value) == true)
+                    {
+                        row.Cells[0].Value = true;
+                    }
                     select_toolBtn.Text = "Unselect All";
                 }
             }
@@ -730,9 +765,79 @@ namespace Raport
             {
                 foreach (DataGridViewRow row in viewMember_grid.Rows)
                 {
-                    row.Cells[0].Value = false;
+                    row.Cells[0].Value = true;
+                    if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                    {
+                        row.Cells[0].Value = false;
+                    }
                     select_toolBtn.Text = "Select All";
                 }
+            }
+        }
+
+        private void naikKelas_toolBtn_Click(object sender, EventArgs e)
+        {
+            string str = viewKelas_combo.Text.ToString();
+            int i = str.IndexOf(' ');
+            i = str.IndexOf(' ', i);
+
+            if (str.Substring(0, i) == "X")
+            {
+                string pindah = "XI";
+                FormPindahKelas fPindah = new FormPindahKelas();
+                fPindah.passTahuj = Convert.ToInt16(setTahun_combo.SelectedIndex + 1).ToString();
+                fPindah.passKelas = pindah + str.Substring(i);
+                fPindah.ShowDialog();
+                string status_pindah = fPindah.passText;
+                string kodeKelas = fPindah.passKelas;
+                MessageBox.Show(status_pindah);
+                if (status_pindah == "Create")
+                {
+                    createNewClass(kodeKelas);
+                }
+            }
+            else if (str.Substring(0, i) == "XI")
+            {
+                MessageBox.Show("Pindah kelas XII");
+            }
+            else if (str.Substring(0, i) == "XII")
+            {
+                MessageBox.Show("Lulus");
+            }
+        }
+
+        private void createNewClass(string dataKelas)
+        {
+            try
+            {
+                foreach (DataGridViewRow row in viewMember_grid.Rows)
+                {
+                    if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                    {
+                        this.query = "SELECT COUNT(*) as jumlah FROM detailkelassiswa WHERE kode_kelas = '" + dataKelas +
+                                    "' AND nis_siswa = '" + row.Cells[1].Value.ToString() + "'";
+                        MySqlCommand myComm = new MySqlCommand(query, myConn);
+                        myConn.Open();
+                        myReader = myComm.ExecuteReader();
+                        while (myReader.Read())
+                        {
+                            check_kelas = myReader.GetString("jumlah");
+                        }
+                        myConn.Close();
+
+                        if (check_kelas == "0")
+                        {
+                            this.field = "DEFAULT, '" + dataKelas + "', '" + row.Cells[1].Value.ToString() + "', 'Data Kelas'";
+                            this.table = "detailkelassiswa";
+                            db.insertData(table, field);
+                            MessageBox.Show(row.Cells[1].Value.ToString());
+                        }
+                    }
+                }
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Terjadi Kesalahan Data, atau data Kosong");
             }
         }
 
@@ -790,10 +895,11 @@ namespace Raport
             this.table = "detailkelassiswa INNER JOIN siswa USING(nis_siswa) INNER JOIN orangtua USING (nis_siswa)";
             this.field = "detailkelassiswa.nis_siswa as 'NIS', nisn_siswa as 'NISN', nama_siswa as 'Nama Siswa', " +
                          "tanggal_lahir as 'Tanggal Lahir', nama_ayah as 'Nama Ayah'";
-            this.cond = "detailkelassiswa.kode_kelas= '" + id_kelas + "'";
+            this.cond = "detailkelassiswa.kode_kelas= '" + id_kelas + "' AND (keterangan = 'Data Siswa' OR keterangan = 'Data Kelas')";
             DataTable result = db.GetDataTable(field, table, cond);
             viewMember_grid.DataSource = result;
             viewMember_grid.Columns[0].Visible = false;
+            viewMember_grid.Columns[0].ReadOnly = true;
             for (int i = 1; i <= 5; i++)
             {
                 viewMember_grid.Columns[i].ReadOnly = true;
