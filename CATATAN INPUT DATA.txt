@@ -1,0 +1,12 @@
+Kalo ada nama mengandung ' maka harus ditulis ''
+format tanggal harus 00/00/0000 (HH/BB/TTTT) cara untuk mengatasinya
+1. ganti semua bulan dengan format nama bulan bahasa inggris, sehingga menampilkan 01-jan-1994
+2. format cell ke date dalam format format indonesia (DD/MM/YYYY)
+3. copy tanggal yang sudah dibuat dan paste ke word "Paste as Text"
+4. Block (CTRL+A) semua tanggal
+5. insert->table->convert to table->yes
+6. copy semua tanggal yang sudah menjadi tabel
+7. Block semua cell untuk tanggalnya di excel lalu format cell sebagai text
+8. paste tanggal lahirnya
+9. cek kembali apakah formatnya sudah 00/00/0000 (HH/BB/TTTT) 
+ 
