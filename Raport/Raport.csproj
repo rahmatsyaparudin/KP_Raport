@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExcelLibrary">
+      <HintPath>..\DLL\ExcelLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\itextsharp.dll</HintPath>
     </Reference>
@@ -96,6 +99,12 @@
     </Compile>
     <Compile Include="FormEskul.Designer.cs">
       <DependentUpon>FormEskul.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormExport.Designer.cs">
+      <DependentUpon>FormExport.cs</DependentUpon>
     </Compile>
     <Compile Include="FormKelas.cs">
       <SubType>Form</SubType>
@@ -191,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormEskul.resx">
       <DependentUpon>FormEskul.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormExport.resx">
+      <DependentUpon>FormExport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormKelas.resx">
       <DependentUpon>FormKelas.cs</DependentUpon>
@@ -376,7 +388,7 @@
     <None Include="Resources\3x4.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\foto3x4.png" />
+    <None Include="Resources\3x41.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

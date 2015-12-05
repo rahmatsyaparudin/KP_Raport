@@ -83,6 +83,16 @@ namespace Raport.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _3x41 {
+            get {
+                object obj = ResourceManager.GetObject("3x41", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _lock {
             get {
                 object obj = ResourceManager.GetObject("lock", resourceCulture);
@@ -186,16 +196,6 @@ namespace Raport.Properties {
         internal static System.Drawing.Bitmap eskul {
             get {
                 object obj = ResourceManager.GetObject("eskul", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap foto3x4 {
-            get {
-                object obj = ResourceManager.GetObject("foto3x4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

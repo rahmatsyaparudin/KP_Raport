@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.view_tab = new System.Windows.Forms.TabPage();
             this.search_txt = new System.Windows.Forms.TextBox();
             this.sortby_combo = new System.Windows.Forms.ComboBox();
@@ -43,19 +43,19 @@
             this.siswa_grid = new System.Windows.Forms.DataGridView();
             this.siswa_tab = new System.Windows.Forms.TabControl();
             this.kelas_tab = new System.Windows.Forms.TabPage();
+            this.dataKelas_grid = new System.Windows.Forms.DataGridView();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.history_tab = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.dataKelas_grid = new System.Windows.Forms.DataGridView();
             this.datagrid_datakelas = new System.Windows.Forms.DataGridView();
             this.view_tab.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.siswa_grid)).BeginInit();
             this.siswa_tab.SuspendLayout();
             this.kelas_tab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataKelas_grid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_datakelas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -156,30 +156,30 @@
             this.siswa_grid.AllowUserToDeleteRows = false;
             this.siswa_grid.AllowUserToResizeColumns = false;
             this.siswa_grid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle28.NullValue = null;
-            this.siswa_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle1.NullValue = null;
+            this.siswa_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.siswa_grid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.siswa_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle29.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.siswa_grid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.siswa_grid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.siswa_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle30.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle30.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle30.NullValue = null;
-            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.siswa_grid.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.NullValue = null;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.siswa_grid.DefaultCellStyle = dataGridViewCellStyle3;
             this.siswa_grid.Location = new System.Drawing.Point(0, 36);
             this.siswa_grid.Name = "siswa_grid";
             this.siswa_grid.ReadOnly = true;
@@ -214,6 +214,27 @@
             this.kelas_tab.Text = "Data Kelas";
             this.kelas_tab.UseVisualStyleBackColor = true;
             // 
+            // dataKelas_grid
+            // 
+            this.dataKelas_grid.AllowUserToAddRows = false;
+            this.dataKelas_grid.AllowUserToDeleteRows = false;
+            this.dataKelas_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataKelas_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataKelas_grid.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dataKelas_grid.Location = new System.Drawing.Point(3, 28);
+            this.dataKelas_grid.Name = "dataKelas_grid";
+            this.dataKelas_grid.ReadOnly = true;
+            this.dataKelas_grid.Size = new System.Drawing.Size(866, 405);
+            this.dataKelas_grid.TabIndex = 2;
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.Location = new System.Drawing.Point(3, 3);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(866, 25);
+            this.toolStrip2.TabIndex = 1;
+            this.toolStrip2.Text = "toolStrip2";
+            // 
             // history_tab
             // 
             this.history_tab.Location = new System.Drawing.Point(4, 30);
@@ -246,27 +267,6 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // toolStrip2
-            // 
-            this.toolStrip2.Location = new System.Drawing.Point(3, 3);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(866, 25);
-            this.toolStrip2.TabIndex = 1;
-            this.toolStrip2.Text = "toolStrip2";
-            // 
-            // dataKelas_grid
-            // 
-            this.dataKelas_grid.AllowUserToAddRows = false;
-            this.dataKelas_grid.AllowUserToDeleteRows = false;
-            this.dataKelas_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dataKelas_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataKelas_grid.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dataKelas_grid.Location = new System.Drawing.Point(3, 28);
-            this.dataKelas_grid.Name = "dataKelas_grid";
-            this.dataKelas_grid.ReadOnly = true;
-            this.dataKelas_grid.Size = new System.Drawing.Size(866, 405);
-            this.dataKelas_grid.TabIndex = 2;
-            // 
             // datagrid_datakelas
             // 
             this.datagrid_datakelas.AllowUserToAddRows = false;
@@ -277,6 +277,7 @@
             this.datagrid_datakelas.ReadOnly = true;
             this.datagrid_datakelas.Size = new System.Drawing.Size(318, 151);
             this.datagrid_datakelas.TabIndex = 3;
+            this.datagrid_datakelas.Visible = false;
             // 
             // FormSiswa
             // 
@@ -301,8 +302,8 @@
             this.siswa_tab.ResumeLayout(false);
             this.kelas_tab.ResumeLayout(false);
             this.kelas_tab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataKelas_grid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.datagrid_datakelas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

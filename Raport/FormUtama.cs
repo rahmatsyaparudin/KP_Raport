@@ -27,11 +27,11 @@ namespace Raport
         
         public FormUtama()
         {
-            //Thread t = new Thread(new ThreadStart(SplashStart));
-            //t.Start();
-            //Thread.Sleep(3000);
+            Thread t = new Thread(new ThreadStart(SplashStart));
+            t.Start();
+            Thread.Sleep(3000);
             InitializeComponent();
-            //t.Abort();
+            t.Abort();
         }
 
         public void SplashStart()
@@ -319,6 +319,12 @@ namespace Raport
         private void raport_printBtn_Click(object sender, EventArgs e)
         {
             dbToFile.RaportToPDF(print_grid, "Data Siswa SMANJAK ", sfDialog);
+        }
+
+        private void export_btn_Click(object sender, EventArgs e)
+        {
+            FormExport fDesk = new FormExport();
+            fDesk.ShowDialog();
         }
 
         private void color_timer_Tick(object sender, EventArgs e)

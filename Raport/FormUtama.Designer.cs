@@ -52,6 +52,7 @@
             this.change_btn = new System.Windows.Forms.Button();
             this.set_btn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.raport_printBtn = new System.Windows.Forms.Button();
             this.user_menu = new System.Windows.Forms.Button();
             this.user_lbl = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -69,7 +70,8 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.print_grid = new System.Windows.Forms.DataGridView();
-            this.raport_printBtn = new System.Windows.Forms.Button();
+            this.print_formatBtn = new System.Windows.Forms.Button();
+            this.export_btn = new System.Windows.Forms.Button();
             this.deskripsi_menu = new System.Windows.Forms.Button();
             this.LogOut_btn = new System.Windows.Forms.Button();
             this.guru_menu = new System.Windows.Forms.Button();
@@ -349,6 +351,7 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.SteelBlue;
+            this.groupBox2.Controls.Add(this.print_formatBtn);
             this.groupBox2.Controls.Add(this.raport_printBtn);
             this.groupBox2.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(477, 304);
@@ -357,6 +360,20 @@
             this.groupBox2.TabIndex = 34;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Print Laporan";
+            // 
+            // raport_printBtn
+            // 
+            this.raport_printBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.raport_printBtn.FlatAppearance.BorderSize = 0;
+            this.raport_printBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.raport_printBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.raport_printBtn.Location = new System.Drawing.Point(9, 34);
+            this.raport_printBtn.Name = "raport_printBtn";
+            this.raport_printBtn.Size = new System.Drawing.Size(124, 31);
+            this.raport_printBtn.TabIndex = 34;
+            this.raport_printBtn.Text = "Print Raport";
+            this.raport_printBtn.UseVisualStyleBackColor = false;
+            this.raport_printBtn.Click += new System.EventHandler(this.raport_printBtn_Click);
             // 
             // user_menu
             // 
@@ -524,19 +541,32 @@
             this.print_grid.TabIndex = 14;
             this.print_grid.Visible = false;
             // 
-            // raport_printBtn
+            // print_formatBtn
             // 
-            this.raport_printBtn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.raport_printBtn.FlatAppearance.BorderSize = 0;
-            this.raport_printBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raport_printBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.raport_printBtn.Location = new System.Drawing.Point(9, 35);
-            this.raport_printBtn.Name = "raport_printBtn";
-            this.raport_printBtn.Size = new System.Drawing.Size(124, 31);
-            this.raport_printBtn.TabIndex = 34;
-            this.raport_printBtn.Text = "Print Raport";
-            this.raport_printBtn.UseVisualStyleBackColor = false;
-            this.raport_printBtn.Click += new System.EventHandler(this.raport_printBtn_Click);
+            this.print_formatBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.print_formatBtn.FlatAppearance.BorderSize = 0;
+            this.print_formatBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.print_formatBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.print_formatBtn.Location = new System.Drawing.Point(9, 71);
+            this.print_formatBtn.Name = "print_formatBtn";
+            this.print_formatBtn.Size = new System.Drawing.Size(124, 31);
+            this.print_formatBtn.TabIndex = 35;
+            this.print_formatBtn.Text = "Print Format";
+            this.print_formatBtn.UseVisualStyleBackColor = false;
+            // 
+            // export_btn
+            // 
+            this.export_btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.export_btn.FlatAppearance.BorderSize = 0;
+            this.export_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.export_btn.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.export_btn.Location = new System.Drawing.Point(345, 211);
+            this.export_btn.Name = "export_btn";
+            this.export_btn.Size = new System.Drawing.Size(134, 32);
+            this.export_btn.TabIndex = 38;
+            this.export_btn.Text = "Export Siswa";
+            this.export_btn.UseVisualStyleBackColor = false;
+            this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
             // 
             // deskripsi_menu
             // 
@@ -742,6 +772,7 @@
             this.CancelButton = this.deskripsi_menu;
             this.ClientSize = new System.Drawing.Size(780, 557);
             this.ControlBox = false;
+            this.Controls.Add(this.export_btn);
             this.Controls.Add(this.LogOut_btn);
             this.Controls.Add(this.SimpanData_group);
             this.Controls.Add(this.user_lbl);
@@ -836,5 +867,7 @@
         private System.Windows.Forms.Button printDataNilai_btn;
         private System.Windows.Forms.Button LogOut_btn;
         private System.Windows.Forms.Button raport_printBtn;
+        private System.Windows.Forms.Button print_formatBtn;
+        private System.Windows.Forms.Button export_btn;
     }
 }
