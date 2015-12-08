@@ -204,9 +204,10 @@ namespace Raport
                 closeExcelProcess();
             }
         }
-        
+        string nama_siswa, nisn_siswa;
         public void RaportToPDF(DataGridView dg, string filename, SaveFileDialog sfDialog)
         {
+            
             BaseFont TimesNW = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
 
             Document doc = new Document(iTextSharp.text.PageSize.A4, 20, 20, 40, 40);
@@ -219,18 +220,37 @@ namespace Raport
             pic.ScalePercent(13.0f);
             pic.Alignment = Element.ALIGN_CENTER;
 
+            string profil = "SELECT nama_siswa, nisn_siswa from siswa where nis_siswa = '1314.10.006'";
+            MySqlCommand getProfil = new MySqlCommand(profil, myConn);
+            try
+            {
+                myConn.Open();
+                myReader = getProfil.ExecuteReader();
+                while (myReader.Read())
+                {
+                    nama_siswa = myReader.GetString("nama_siswa");
+                    nisn_siswa = myReader.GetString("nisn_siswa");
+                }
+                myConn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
             var paragraf = new Paragraph("\n\n");
             var paragraf0 = new Paragraph("\n\n\n");
             var paragraf1 = new Paragraph(new Chunk("LAPORAN \nCAPAIAN KOMPETENSI PESERTA DIDIK" +
                                                 "\nSEKOLAH MENENGAH ATAS \n(SMA)", TB14)); paragraf1.Alignment = Element.ALIGN_CENTER;
             var paragraf2 = new Paragraph(new Chunk("Nama Peserta Didik", TB12)); paragraf2.Alignment = Element.ALIGN_CENTER;
-            var paragraf3 = new Paragraph(new Chunk("Nama Siswa Lengkap", TN12)); paragraf3.Alignment = Element.ALIGN_CENTER;
+            var paragraf3 = new Paragraph(new Chunk(nama_siswa, TN12)); paragraf3.Alignment = Element.ALIGN_CENTER;
             var paragraf4 = new Paragraph(new Chunk("NISN:", TB12)); paragraf4.Alignment = Element.ALIGN_CENTER;
-            var paragraf5 = new Paragraph(new Chunk("0123456789", TN12)); paragraf5.Alignment = Element.ALIGN_CENTER;
+            var paragraf5 = new Paragraph(new Chunk(nisn_siswa, TN12)); paragraf5.Alignment = Element.ALIGN_CENTER;
             var paragraf6 = new Paragraph(new Chunk("KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN \nREPUBLIK INDONESIA", TB14));
                                 paragraf6.Alignment = Element.ALIGN_CENTER;
             var paragraf7 = new Paragraph(new Chunk("KETERANGAN TENTANG DIRI PESERTA DIDIK", TB14)); paragraf7.Alignment = Element.ALIGN_CENTER;
-            
+            var paragraf8 = new Paragraph("\n");
+
             //Jilid
             doc.Add(paragraf0); doc.Add(pic);
             doc.Add(paragraf0); doc.Add(paragraf1);
@@ -245,7 +265,7 @@ namespace Raport
             DataProfilSekolah(doc);
             //Data Diri siswa
             doc.NewPage();
-            doc.Add(paragraf7); doc.Add(paragraf);
+            doc.Add(paragraf7); doc.Add(paragraf8);
             DataDiriSiswa(doc);
             //LCK
             doc.NewPage();
@@ -306,7 +326,7 @@ namespace Raport
             float[] widths1 = new float[] { 50f, 350f, 30f, 600f };
             siswa_tbl.SetWidths(widths1);
             
-            string siswa = "SELECT *, orangtua.no_telp as 'Telp Ortu' from siswa INNER JOIN orangtua USING (nis_siswa) WHERE siswa.nis_siswa = '100000'";
+            string siswa = "SELECT *, orangtua.no_telp as 'Telp Ortu' from siswa INNER JOIN orangtua USING (nis_siswa) WHERE siswa.nis_siswa = '1314.10.006'";
             MySqlCommand getSiswa = new MySqlCommand(siswa, myConn);
             try
             {
@@ -428,7 +448,7 @@ namespace Raport
             float[] widths0 = new float[] { 120f, 5f, 210f, 80f, 5f, 90f };
             sekolah_tbl.SetWidths(widths0);
 
-            string profil = "SELECT nama_sekolah, alamat_sekolah, nama_siswa, nis_siswa from profil_sekolah, siswa where siswa.nis_siswa = '100000'";
+            string profil = "SELECT nama_sekolah, alamat_sekolah, nama_siswa, nis_siswa from profil_sekolah, siswa where siswa.nis_siswa = '1314.10.006'";
             MySqlCommand getProfil = new MySqlCommand(profil, myConn);
             try
             {
@@ -474,7 +494,7 @@ namespace Raport
                     var phrase14 = new Paragraph();
                     phrase14.Add(new Chunk(myReader.GetString("nis_siswa"), TN12));
                     sekolah_tbl.AddCell(phrase13); sekolah_tbl.AddCell(":"); sekolah_tbl.AddCell(phrase14);
-                    sekolah_tbl.AddCell(""); sekolah_tbl.AddCell(":"); sekolah_tbl.AddCell("");
+                    sekolah_tbl.AddCell(""); sekolah_tbl.AddCell(""); sekolah_tbl.AddCell("");
 
                     var phrase15 = new PdfPCell(new Phrase(new Chunk("CAPAIAN KOMPETENSI", TB12)));
                     phrase15.Colspan = 6; phrase15.HorizontalAlignment = Element.ALIGN_LEFT;

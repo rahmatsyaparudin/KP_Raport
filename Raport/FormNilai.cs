@@ -22,7 +22,6 @@ namespace Raport
         private string idValue, dispValue, sortby;
         public string getTahun, getUser, getLevel;
         private string kodeKelas, kodeMapel, kodeSmt;
-        private string fieldVal;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
         
         public string passTahuj
@@ -176,7 +175,7 @@ namespace Raport
                             dataNilai_grid.CurrentRow.Cells[5].Value = "D";
                         }
                     }
-
+                    
                     if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(7) && e.RowIndex != -1)
                     {
                         //Nilai skala untuk Keterampilan (0-100)
@@ -295,6 +294,92 @@ namespace Raport
                             dataNilai_grid.CurrentRow.Cells[12].Value = "SB";
                         }
                     }
+
+                    //Input Masukkan untuk Deskripsi Pengetahuan
+                    if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(6) && e.RowIndex != -1)
+                    {
+                        if ((Convert.ToString(row.Cells[6].Value) == "A") ||
+                            (Convert.ToString(row.Cells[6].Value) == "a") ||
+                            (Convert.ToString(row.Cells[6].Value) == "T") ||
+                            (Convert.ToString(row.Cells[6].Value) == "t") ||
+                            (Convert.ToString(row.Cells[6].Value) == "B") ||
+                            (Convert.ToString(row.Cells[6].Value) == "b") ||
+                            (Convert.ToString(row.Cells[6].Value) == ""))
+                        {
+                            string desk = row.Cells[6].Value.ToString();
+                            row.Cells[6].Value = Convert.ToString(desk).ToUpper();
+                            row.Cells[6].Style.BackColor = Color.LightSkyBlue;
+                        }
+                        else if ((Convert.ToString(row.Cells[6].Value) == "A") ||
+                            (Convert.ToString(row.Cells[6].Value) != "a") ||
+                            (Convert.ToString(row.Cells[6].Value) != "T") ||
+                            (Convert.ToString(row.Cells[6].Value) != "t") ||
+                            (Convert.ToString(row.Cells[6].Value) != "B") ||
+                            (Convert.ToString(row.Cells[6].Value) != "b"))
+                        {
+                            MessageBox.Show("Deskripsi (P) hanya boleh berisi A/T/B");
+                            row.Cells[6].Value = dPeng_lbl.Text.ToString();
+                            row.Cells[6].Style.BackColor = Color.Yellow;
+                        }
+                    }
+
+                    //Input Masukkan untuk Deskripsi Keterampilan
+                    if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(10) && e.RowIndex != -1)
+                    {
+                        if ((Convert.ToString(row.Cells[10].Value) == "A") ||
+                            (Convert.ToString(row.Cells[10].Value) == "a") ||
+                            (Convert.ToString(row.Cells[10].Value) == "T") ||
+                            (Convert.ToString(row.Cells[10].Value) == "t") ||
+                            (Convert.ToString(row.Cells[10].Value) == "B") ||
+                            (Convert.ToString(row.Cells[10].Value) == "b") ||
+                            (Convert.ToString(row.Cells[10].Value) == ""))
+                        {
+                            string desk = row.Cells[10].Value.ToString();
+                            row.Cells[10].Value = Convert.ToString(desk).ToUpper();
+                            row.Cells[10].Style.BackColor = Color.LightSkyBlue;
+                        }
+                        else if ((Convert.ToString(row.Cells[10].Value) == "A") ||
+                            (Convert.ToString(row.Cells[10].Value) != "a") ||
+                            (Convert.ToString(row.Cells[10].Value) != "T") ||
+                            (Convert.ToString(row.Cells[10].Value) != "t") ||
+                            (Convert.ToString(row.Cells[10].Value) != "B") ||
+                            (Convert.ToString(row.Cells[10].Value) != "b") ||
+                            (Convert.ToString(row.Cells[10].Value) != "b"))
+                        {
+                            MessageBox.Show("Deskripsi (K) hanya boleh berisi A/T/B");
+                            row.Cells[10].Value = dKet_lbl.Text.ToString();
+                            row.Cells[10].Style.BackColor = Color.Yellow;
+                        }
+                    }
+
+                    //Input Masukkan untuk Deskripsi Sikap Sosial dan Spiritual
+                    if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(13) && e.RowIndex != -1)
+                    {
+                        if ((Convert.ToString(row.Cells[13].Value) == "A") ||
+                            (Convert.ToString(row.Cells[13].Value) == "a") ||
+                            (Convert.ToString(row.Cells[13].Value) == "T") ||
+                            (Convert.ToString(row.Cells[13].Value) == "t") ||
+                            (Convert.ToString(row.Cells[13].Value) == "B") ||
+                            (Convert.ToString(row.Cells[13].Value) == "b") ||
+                            (Convert.ToString(row.Cells[13].Value) == ""))
+                        {
+                            string desk = row.Cells[13].Value.ToString();
+                            row.Cells[13].Value = Convert.ToString(desk).ToUpper();
+                            row.Cells[13].Style.BackColor = Color.LightSkyBlue;
+                        }
+                        else if ((Convert.ToString(row.Cells[13].Value) != "A") ||
+                            (Convert.ToString(row.Cells[13].Value) != "a") ||
+                            (Convert.ToString(row.Cells[13].Value) != "T") ||
+                            (Convert.ToString(row.Cells[13].Value) != "t") ||
+                            (Convert.ToString(row.Cells[13].Value) != "B") ||
+                            (Convert.ToString(row.Cells[13].Value) != "b") ||
+                            (Convert.ToString(row.Cells[13].Value) != ""))
+                        {
+                            MessageBox.Show("Deskripsi (S) hanya boleh berisi A/T/B");
+                            row.Cells[13].Value = dSik_lbl.Text.ToString();
+                            row.Cells[13].Style.BackColor = Color.Yellow;
+                        }
+                    }
                 }
                 catch (InvalidCastException cast)
                 {
@@ -308,6 +393,17 @@ namespace Raport
             try
             {
                 DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
+
+                if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(6) && e.RowIndex != -1)
+                {
+                    if ((row.Cells[6].Value == "A") || (row.Cells[6].Value == "a"))
+                        row.Cells[6].Value = "A";
+                    if ((row.Cells[6].Value == "T") || (row.Cells[6].Value == "t"))
+                        row.Cells[6].Value = "T";
+                    if ((row.Cells[6].Value == "B") || (row.Cells[6].Value == "b"))
+                        row.Cells[6].Value = "B";
+                }
+                
                 this.field = "p_skala = '" + row.Cells[3].Value.ToString() +
                              "', p_ang = '" + row.Cells[4].Value.ToString() +
                              "', p_pred = '" + row.Cells[5].Value.ToString() +
@@ -323,9 +419,9 @@ namespace Raport
                 this.cond = "id_nilai = '" + row.Cells[0].Value.ToString() + "'";
                 db.updateData(table, field, cond);
             }
-            catch
+            catch (Exception ex)
             {
-                
+                MessageBox.Show(ex.Message);
             }
         }
         
@@ -335,13 +431,11 @@ namespace Raport
             {
                 DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
                 peng_lbl.Text = row.Cells[3].Value.ToString();
+                dPeng_lbl.Text = row.Cells[6].Value.ToString();
                 ket_lbl.Text = row.Cells[7].Value.ToString();
+                dKet_lbl.Text = row.Cells[10].Value.ToString();
                 sikap_lbl.Text = row.Cells[11].Value.ToString();
-            }
-
-            if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(6) && e.RowIndex != -1)
-            {
-                MessageBox.Show(dataNilai_grid.CurrentCell.Value.ToString());
+                dSik_lbl.Text = row.Cells[13].Value.ToString();
             }
         }
 
@@ -358,17 +452,46 @@ namespace Raport
 
             if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(7) && e.RowIndex != -1)
             {
-                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (P) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
+                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (K) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
                 row.Cells[7].Value = Int16.Parse(ket_lbl.ToString());
                 row.Cells[7].Style.BackColor = Color.Yellow;
             }
 
             if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(11) && e.RowIndex != -1)
             {
-                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (P) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
+                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (S) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
                 row.Cells[11].Value = Int16.Parse(sikap_lbl.ToString());
                 row.Cells[11].Style.BackColor = Color.Yellow;
             }
+        }
+
+        private void dataNilai_grid_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            {
+                DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
+                peng_lbl.Text = row.Cells[3].Value.ToString();
+                dPeng_lbl.Text = row.Cells[6].Value.ToString();
+                ket_lbl.Text = row.Cells[7].Value.ToString();
+                dKet_lbl.Text = row.Cells[10].Value.ToString();
+                sikap_lbl.Text = row.Cells[11].Value.ToString();
+                dSik_lbl.Text = row.Cells[13].Value.ToString();
+            }
+
+            DataGridViewTextBoxColumn cPeng = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[3];
+            cPeng.MaxInputLength = 3;
+            DataGridViewTextBoxColumn dPeng = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[6];
+            dPeng.MaxInputLength = 1;
+            DataGridViewTextBoxColumn cKet = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[7];
+            cKet.MaxInputLength = 3;
+            DataGridViewTextBoxColumn dKet = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[10];
+            dKet.MaxInputLength = 1;
+            DataGridViewTextBoxColumn cSik = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[11];
+            cSik.MaxInputLength = 3;
+            DataGridViewTextBoxColumn dSik = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[13];
+            dSik.MaxInputLength = 1;
+
+
         }
         
         public void kelasSiswa()
@@ -422,16 +545,6 @@ namespace Raport
             all_rad.Checked = true;
         }
         
-        private void dataNilai_grid_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridViewTextBoxColumn cPeng = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[3];
-            cPeng.MaxInputLength = 3;
-            DataGridViewTextBoxColumn cKet = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[7];
-            cKet.MaxInputLength = 3;
-            DataGridViewTextBoxColumn cSik = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[11];
-            cSik.MaxInputLength = 3;
-        }
-
         private void set_btn_Click(object sender, EventArgs e)
         {
             if (smt_combo.Text != "")
@@ -590,7 +703,7 @@ namespace Raport
                 this.jumlah_lbl.Text = "0";
             }
         }
-
+        
         private void createNilai_toolBtn_Click(object sender, EventArgs e)
         {
             loadData();
@@ -639,8 +752,6 @@ namespace Raport
             dataNilai_grid.Columns[13].Visible = true;
         }
 
-
-
         public void loadData()
         {
             dataNilai_grid.DataSource = null;
@@ -661,10 +772,43 @@ namespace Raport
             DataTable tabel = db.GetDataTable(field, table, cond);
             this.dataNilai_grid.DataSource = tabel;
 
+            //Cell Formatting untuk Pengetahuan
+            foreach (DataGridViewRow row in dataNilai_grid.Rows)
+            {
+                if (Convert.ToInt16(row.Cells[3].Value) == 0)
+                    row.Cells[3].Style.BackColor = Color.LimeGreen;
+                else
+                    row.Cells[3].Style.BackColor = Color.LightSkyBlue;
 
-            dataNilai_grid.Columns[3].DefaultCellStyle.BackColor = Color.LimeGreen;
-            dataNilai_grid.Columns[7].DefaultCellStyle.BackColor = Color.LimeGreen;
-            dataNilai_grid.Columns[11].DefaultCellStyle.BackColor = Color.LimeGreen;
+                if (row.Cells[6].Value == "")
+                    row.Cells[6].Style.BackColor = Color.LimeGreen;
+                else
+                    row.Cells[6].Style.BackColor = Color.LightSkyBlue;
+
+                //Cell Formatting untuk Keterangan
+                if (Convert.ToInt16(row.Cells[7].Value) == 0)
+                    row.Cells[7].Style.BackColor = Color.LimeGreen;
+                else
+                    row.Cells[7].Style.BackColor = Color.LightSkyBlue;
+
+                if (row.Cells[10].Value == "")
+                    row.Cells[10].Style.BackColor = Color.LimeGreen;
+                else
+                    row.Cells[10].Style.BackColor = Color.LightSkyBlue;
+
+                //Cell Formatting untuk Sikap Sosial dan Spiritual
+                if (Convert.ToInt16(row.Cells[11].Value) == 0)
+                    row.Cells[11].Style.BackColor = Color.LimeGreen;
+                else
+                    row.Cells[11].Style.BackColor = Color.LightSkyBlue;
+
+                if (row.Cells[13].Value == "")
+                    row.Cells[13].Style.BackColor = Color.LimeGreen;
+                else
+                    row.Cells[13].Style.BackColor = Color.LightSkyBlue;
+            }
+            
+
             dataNilai_grid.Columns[0].Visible = false;
             dataNilai_grid.Columns[1].ReadOnly = true;
             dataNilai_grid.Columns[2].ReadOnly = true;
@@ -673,14 +817,29 @@ namespace Raport
             dataNilai_grid.Columns[8].ReadOnly = true;
             dataNilai_grid.Columns[9].ReadOnly = true;
             dataNilai_grid.Columns[12].ReadOnly = true;
-            dataNilai_grid.Columns[13].ReadOnly = true;
             
             for (int i = 0; i <= dataNilai_grid.ColumnCount - 1; i++)
             {
                 dataNilai_grid.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             }
-            dataNilai_grid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataNilai_grid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataNilai_grid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             disableSorting();
+        }
+
+        private void FormNilai_SizeChanged(object sender, EventArgs e)
+        {
+            if ((this.Size.Width == 991) &&
+                    (this.Size.Height == 651))
+            {
+                dataNilai_grid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataNilai_grid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
+            else
+            {
+                dataNilai_grid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataNilai_grid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
         }
 
         private void disableSorting()

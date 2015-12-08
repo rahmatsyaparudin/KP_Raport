@@ -45,6 +45,9 @@
             this.ket_lbl = new System.Windows.Forms.ToolStripLabel();
             this.sikap_lbl = new System.Windows.Forms.ToolStripLabel();
             this.load_toolBtn = new System.Windows.Forms.ToolStripButton();
+            this.dPeng_lbl = new System.Windows.Forms.ToolStripLabel();
+            this.dKet_lbl = new System.Windows.Forms.ToolStripLabel();
+            this.dSik_lbl = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.siswa_grid = new System.Windows.Forms.DataGridView();
@@ -103,14 +106,14 @@
             this.panel1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(21, 187);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(937, 389);
+            this.panel1.Size = new System.Drawing.Size(938, 389);
             this.panel1.TabIndex = 2;
             // 
             // sss_rad
             // 
             this.sss_rad.AutoSize = true;
             this.sss_rad.BackColor = System.Drawing.Color.SteelBlue;
-            this.sss_rad.Location = new System.Drawing.Point(411, 2);
+            this.sss_rad.Location = new System.Drawing.Point(518, -1);
             this.sss_rad.Name = "sss_rad";
             this.sss_rad.Size = new System.Drawing.Size(172, 21);
             this.sss_rad.TabIndex = 17;
@@ -123,7 +126,7 @@
             // 
             this.ket_rad.AutoSize = true;
             this.ket_rad.BackColor = System.Drawing.Color.SteelBlue;
-            this.ket_rad.Location = new System.Drawing.Point(308, 2);
+            this.ket_rad.Location = new System.Drawing.Point(415, -1);
             this.ket_rad.Name = "ket_rad";
             this.ket_rad.Size = new System.Drawing.Size(105, 21);
             this.ket_rad.TabIndex = 16;
@@ -136,7 +139,7 @@
             // 
             this.peng_rad.AutoSize = true;
             this.peng_rad.BackColor = System.Drawing.Color.SteelBlue;
-            this.peng_rad.Location = new System.Drawing.Point(207, 2);
+            this.peng_rad.Location = new System.Drawing.Point(314, -1);
             this.peng_rad.Name = "peng_rad";
             this.peng_rad.Size = new System.Drawing.Size(102, 21);
             this.peng_rad.TabIndex = 15;
@@ -149,7 +152,7 @@
             // 
             this.all_rad.AutoSize = true;
             this.all_rad.BackColor = System.Drawing.Color.SteelBlue;
-            this.all_rad.Location = new System.Drawing.Point(141, 2);
+            this.all_rad.Location = new System.Drawing.Point(248, -1);
             this.all_rad.Name = "all_rad";
             this.all_rad.Size = new System.Drawing.Size(66, 21);
             this.all_rad.TabIndex = 18;
@@ -175,7 +178,7 @@
             this.dataNilai_grid.Name = "dataNilai_grid";
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataNilai_grid.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataNilai_grid.Size = new System.Drawing.Size(937, 364);
+            this.dataNilai_grid.Size = new System.Drawing.Size(938, 364);
             this.dataNilai_grid.TabIndex = 14;
             this.dataNilai_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellClick);
             this.dataNilai_grid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellEndEdit);
@@ -193,11 +196,14 @@
             this.ket_lbl,
             this.sikap_lbl,
             this.load_toolBtn,
+            this.dPeng_lbl,
+            this.dKet_lbl,
+            this.dSik_lbl,
             this.toolStripSeparator1,
             this.toolStripLabel1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(937, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(938, 25);
             this.toolStrip1.TabIndex = 13;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -245,6 +251,24 @@
             this.load_toolBtn.Size = new System.Drawing.Size(66, 22);
             this.load_toolBtn.Text = "Refresh";
             this.load_toolBtn.Click += new System.EventHandler(this.load_toolBtn_Click);
+            // 
+            // dPeng_lbl
+            // 
+            this.dPeng_lbl.Name = "dPeng_lbl";
+            this.dPeng_lbl.Size = new System.Drawing.Size(41, 22);
+            this.dPeng_lbl.Text = "dPeng";
+            // 
+            // dKet_lbl
+            // 
+            this.dKet_lbl.Name = "dKet_lbl";
+            this.dKet_lbl.Size = new System.Drawing.Size(31, 22);
+            this.dKet_lbl.Text = "dKet";
+            // 
+            // dSik_lbl
+            // 
+            this.dSik_lbl.Name = "dSik_lbl";
+            this.dSik_lbl.Size = new System.Drawing.Size(29, 22);
+            this.dSik_lbl.Text = "dSik";
             // 
             // toolStripSeparator1
             // 
@@ -410,11 +434,13 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.siswa_grid);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "FormNilai";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pengolah Data Nilai";
             this.Load += new System.EventHandler(this.FormNilai_Load);
+            this.SizeChanged += new System.EventHandler(this.FormNilai_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -458,5 +484,8 @@
         private System.Windows.Forms.RadioButton ket_rad;
         private System.Windows.Forms.RadioButton all_rad;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel dPeng_lbl;
+        private System.Windows.Forms.ToolStripLabel dKet_lbl;
+        private System.Windows.Forms.ToolStripLabel dSik_lbl;
     }
 }

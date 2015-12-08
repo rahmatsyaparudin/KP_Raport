@@ -39,7 +39,6 @@ namespace Raport
         private void FormGuru_Load(object sender, EventArgs e)
         {
             loadData();
-            disableSorting();
             loadHistori();
             fillcomboGuru();
             create_btnTool.Enabled = false;
@@ -53,7 +52,7 @@ namespace Raport
             this.field = "id_guru as 'ID Guru', nama_guru as 'Nama Guru', nip as 'NIP', nuptk as 'NUPTK'," +
                     "keterangan as 'Keterangan'";
             this.table = "guru";
-            this.cond = "status_guru = 'Aktif' ORDER BY nip, nama_guru ASC";
+            this.cond = "status_guru = 'Aktif' ORDER BY nip, nama_guru DESC";
             DataTable tabel = db.GetDataTable(field, table, cond);
             this.dataGuru_grid.DataSource = tabel;
             dataGuru_grid.Columns[0].Visible = false;
@@ -66,14 +65,6 @@ namespace Raport
             guru_tab.SelectTab(1);
             addAction();
             this.id_txt.Text = db.randomIdGuru();
-        }
-
-        private void disableSorting()
-        {
-            for (int i = 0; i <= dataGuru_grid.ColumnCount - 1; i++)
-            {
-                dataGuru_grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-            }
         }
 
         private void dataGuru_grid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

@@ -323,13 +323,12 @@
             // 
             this.dataGuru_grid.AllowUserToAddRows = false;
             this.dataGuru_grid.AllowUserToDeleteRows = false;
-            this.dataGuru_grid.AllowUserToResizeColumns = false;
-            this.dataGuru_grid.AllowUserToResizeRows = false;
+            this.dataGuru_grid.AllowUserToOrderColumns = true;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGuru_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGuru_grid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGuru_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGuru_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGuru_grid.BackgroundColor = System.Drawing.Color.Silver;
             this.dataGuru_grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGuru_grid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
