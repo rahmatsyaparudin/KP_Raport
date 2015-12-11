@@ -17,7 +17,7 @@ namespace Raport
         MySqlConnection myConn = Function.getKoneksi();
         Function db = new Function();
         MySqlDataReader myReader;
-        DataToFile dataToFile = new DataToFile();
+        DataToExcel dataToFile = new DataToExcel();
         private string table;
         private string field;
         private string cond;

@@ -81,7 +81,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataToFile.cs" />
+    <Compile Include="DataToExcel.cs" />
+    <Compile Include="DataToPDF.cs" />
     <Compile Include="FormAddMapel.cs">
       <SubType>Form</SubType>
     </Compile>

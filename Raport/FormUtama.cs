@@ -17,7 +17,8 @@ namespace Raport
         MySqlConnection myConn = Function.getKoneksi();
         MySqlDataReader myReader;
         Function db = new Function();
-        DataToFile dbToFile = new DataToFile();
+        DataToExcel dbToExcel = new DataToExcel();
+        DataToPDF dbToPDF = new DataToPDF();
         DateTime jamku = new DateTime();
         private string table;
         private string cond;
@@ -302,23 +303,24 @@ namespace Raport
 
         private void printDataGuru_btn_Click(object sender, EventArgs e)
         {
-            dbToFile.passTahun = tahuj_combo.Text.ToString();
-            string tanggal = dbToFile.formattedDate();
-            dbToFile.saveDataGuru(print_grid);
-            dbToFile.GuruToExcel(print_grid, "Data Guru SMANJAK (" + tanggal + ")", sfDialog);
+            dbToExcel.passTahun = tahuj_combo.Text.ToString();
+            string tanggal = dbToExcel.formattedDate();
+            dbToExcel.saveDataGuru(print_grid);
+            dbToExcel.GuruToExcel(print_grid, "Data Guru SMANJAK (" + tanggal + ")", sfDialog);
         }
 
         private void printDataSiswa_btn_Click(object sender, EventArgs e)
         {
-            dbToFile.passTahun = tahuj_combo.Text.ToString();
-            string tanggal = dbToFile.formattedDate();
-            dbToFile.saveDataSiswa(print_grid);
-            dbToFile.SiswaToExcel(print_grid, "Data Siswa SMANJAK (" + tanggal + ")", sfDialog);
+            dbToExcel.passTahun = tahuj_combo.Text.ToString();
+            string tanggal = dbToExcel.formattedDate();
+            dbToExcel.saveDataSiswa(print_grid);
+            dbToExcel.SiswaToExcel(print_grid, "Data Siswa SMANJAK (" + tanggal + ")", sfDialog);
         }
 
         private void raport_printBtn_Click(object sender, EventArgs e)
         {
-            dbToFile.RaportToPDF(print_grid, "Data Siswa SMANJAK ", sfDialog);
+            dbToPDF.passTahun = tahuj_combo.Text.ToString();
+            dbToPDF.RaportToPDF(print_grid, "Data Siswa SMANJAK ", sfDialog);
         }
 
         private void export_btn_Click(object sender, EventArgs e)
