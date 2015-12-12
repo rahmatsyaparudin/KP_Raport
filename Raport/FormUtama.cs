@@ -307,6 +307,7 @@ namespace Raport
             string tanggal = dbToExcel.formattedDate();
             dbToExcel.saveDataGuru(print_grid);
             dbToExcel.GuruToExcel(print_grid, "Data Guru SMANJAK (" + tanggal + ")", sfDialog);
+            
         }
 
         private void printDataSiswa_btn_Click(object sender, EventArgs e)
@@ -320,7 +321,7 @@ namespace Raport
         private void raport_printBtn_Click(object sender, EventArgs e)
         {
             dbToPDF.passTahun = tahuj_combo.Text.ToString();
-            dbToPDF.RaportToPDF(print_grid, "Data Siswa SMANJAK ", sfDialog);
+            dbToPDF.RaportToPDF("Data Nilai SMANJAK" + db.randomIdGuru(), sfDialog);
         }
 
         private void export_btn_Click(object sender, EventArgs e)
