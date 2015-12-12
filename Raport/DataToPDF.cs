@@ -115,10 +115,95 @@ namespace Raport
             }
         }
 
-        public static void ReplaceFile(string FileToMoveAndDelete, string FileToReplace, string BackupOfFileToReplace)
+        public void RaportToPDF2()
         {
-            File.Replace(FileToMoveAndDelete, FileToReplace, BackupOfFileToReplace, false);
+            killPDFProcess();
+            string path = "Nilai Siswa (PDF)";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
+            try
+            {
+                using (FileStream fs = new FileStream(appRootDir + "\\Nilai Siswa (PDF)\\" + "Chapter1_Example8"+db.randomIdGuru()+".pdf", FileMode.Create, FileAccess.Write, FileShare.None))
+                using (Document docs = new Document())
+                using (PdfWriter writer = PdfWriter.GetInstance(docs, fs))
+                {
+                    writer.SetEncryption(PdfWriter.STRENGTH40BITS, null, null, PdfWriter.ALLOW_COPY);
+                    System.Drawing.Image image = Properties.Resources.LogoPendidikan;
+                    iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png);
+                    pic.ScalePercent(13.0f);
+                    pic.Alignment = Element.ALIGN_CENTER;
 
+                    myComm = new MySqlCommand(profil_siswa, myConn);
+                    try
+                    {
+                        myConn.Open();
+                        myReader = myComm.ExecuteReader();
+                        while (myReader.Read())
+                        {
+                            nama_siswa = myReader.GetString("nama_siswa");
+                            nisn_siswa = myReader.GetString("nisn_siswa");
+                        }
+                        myConn.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
+                    var paragraf = new Paragraph("\n\n");
+                    var paragraf0 = new Paragraph("\n\n\n");
+                    var paragraf1 = new Paragraph(new Chunk("LAPORAN \nCAPAIAN KOMPETENSI PESERTA DIDIK" +
+                                                        "\nSEKOLAH MENENGAH ATAS \n(SMA)", TB14)); paragraf1.Alignment = Element.ALIGN_CENTER;
+                    var paragraf2 = new Paragraph(new Chunk("Nama Peserta Didik", TB12)); paragraf2.Alignment = Element.ALIGN_CENTER;
+                    var paragraf3 = new Paragraph(new Chunk(nama_siswa, TN12)); paragraf3.Alignment = Element.ALIGN_CENTER;
+                    var paragraf4 = new Paragraph(new Chunk("NISN:", TB12)); paragraf4.Alignment = Element.ALIGN_CENTER;
+                    var paragraf5 = new Paragraph(new Chunk(nisn_siswa, TN12)); paragraf5.Alignment = Element.ALIGN_CENTER;
+                    var paragraf6 = new Paragraph(new Chunk("KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN \nREPUBLIK INDONESIA", TB14));
+                    paragraf6.Alignment = Element.ALIGN_CENTER;
+                    var paragraf7 = new Paragraph(new Chunk("KETERANGAN TENTANG DIRI PESERTA DIDIK", TB14)); paragraf7.Alignment = Element.ALIGN_CENTER;
+                    var paragraf8 = new Paragraph("\n");
+
+                    //Jilid
+                    docs.Open();
+                    docs.NewPage();
+                    docs.Add(paragraf0); docs.Add(pic);
+                    docs.Add(paragraf0); docs.Add(paragraf1);
+                    docs.Add(paragraf0); docs.Add(paragraf0);
+                    docs.Add(paragraf); docs.Add(paragraf2);
+                    docs.Add(paragraf3); docs.Add(paragraf);
+                    docs.Add(paragraf4); docs.Add(paragraf5);
+                    docs.Add(paragraf0); docs.Add(paragraf6);
+                    //Profil Sekolah
+                    docs.NewPage();
+                    docs.Add(paragraf1); docs.Add(paragraf0);
+                    ProfilSekolah(docs);
+                    //Data Diri siswa
+                    docs.NewPage();
+                    docs.Add(paragraf7); docs.Add(paragraf8);
+                    DataSiswa(docs);
+                    KepalaSekolah(docs);
+                    //LCK
+                    docs.NewPage();
+                    detailLCKSiswa(docs); kriteriaLCK(docs);
+                    nilaiLCK_A(docs); nilaiLCK_B(docs); nilaiLCK_C(docs);
+                    ekskul_siswa(docs); absensi_siswa(docs);
+                    walikelas_ortu(docs);
+                    docs.Close();
+                    writer.Close();
+                    fs.Close();
+                }
+            }
+			catch (DocumentException de)
+			{
+				throw de;
+			}
+			catch (IOException ioe)
+			{
+				throw ioe;
+			}
         }
 
         public void RaportToPDF(string filename, SaveFileDialog sfDialog)
@@ -129,10 +214,16 @@ namespace Raport
             sfDialog.Filter = "PDF Files|*.pdf";
             if (sfDialog.ShowDialog() != DialogResult.Cancel)
             {
-                try
+                
+                //foreach (FileInfo fi in sourceinfo.GetFiles())
+                string dir = sfDialog.FileName.ToString();
+                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
+                foreach (Process proc in Process.GetProcessesByName(filename + ".pdf"))
                 {
-                    FileStream fs = new FileStream(sfDialog.FileName, FileMode.Create);
-                    PdfWriter writer = PdfWriter.GetInstance(doc, fs);
+                    proc.Kill();
+                }
+                    FileStream fs = new FileStream(sfDialog.FileName, FileMode.OpenOrCreate);
+                    PdfWriter wri  = PdfWriter.GetInstance(doc, fs);
                     System.Drawing.Image image = Properties.Resources.LogoPendidikan;
                     iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png);
                     pic.ScalePercent(13.0f);
@@ -194,19 +285,8 @@ namespace Raport
                     ekskul_siswa(doc); absensi_siswa(doc);
                     walikelas_ortu(doc);
                     doc.Close();
+                    fs.Dispose();
                     fs.Close();
-                }
-                catch (IOException e) 
-                {
-                    if (e is UnauthorizedAccessException) throw;
-                    if (e is DirectoryNotFoundException) throw;
-                    if (e is PathTooLongException) throw;
-                }
-                catch (ObjectDisposedException e)
-                {
-                    
-                }
-
             }
         }
 

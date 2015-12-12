@@ -37,7 +37,16 @@
             this.alamat3_lbl = new System.Windows.Forms.Label();
             this.alamat_lbl = new System.Windows.Forms.Label();
             this.alamat2_lbl = new System.Windows.Forms.Label();
+            this.logo_pic = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.guru_menu = new System.Windows.Forms.Button();
+            this.profil_menu = new System.Windows.Forms.Button();
+            this.siswa_menu = new System.Windows.Forms.Button();
+            this.nilai_menu = new System.Windows.Forms.Button();
+            this.mapel_menu = new System.Windows.Forms.Button();
+            this.deskripsi_menu = new System.Windows.Forms.Button();
+            this.kelas_menu = new System.Windows.Forms.Button();
+            this.eskul_menu = new System.Windows.Forms.Button();
             this.jam_lbl = new System.Windows.Forms.Label();
             this.clock_timer = new System.Windows.Forms.Timer(this.components);
             this.hari_lbl = new System.Windows.Forms.Label();
@@ -52,6 +61,7 @@
             this.change_btn = new System.Windows.Forms.Button();
             this.set_btn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.print_formatBtn = new System.Windows.Forms.Button();
             this.raport_printBtn = new System.Windows.Forms.Button();
             this.user_menu = new System.Windows.Forms.Button();
             this.user_lbl = new System.Windows.Forms.Label();
@@ -70,28 +80,19 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.print_grid = new System.Windows.Forms.DataGridView();
-            this.print_formatBtn = new System.Windows.Forms.Button();
             this.export_btn = new System.Windows.Forms.Button();
-            this.deskripsi_menu = new System.Windows.Forms.Button();
             this.LogOut_btn = new System.Windows.Forms.Button();
-            this.guru_menu = new System.Windows.Forms.Button();
-            this.profil_menu = new System.Windows.Forms.Button();
-            this.siswa_menu = new System.Windows.Forms.Button();
-            this.nilai_menu = new System.Windows.Forms.Button();
-            this.mapel_menu = new System.Windows.Forms.Button();
-            this.kelas_menu = new System.Windows.Forms.Button();
-            this.eskul_menu = new System.Windows.Forms.Button();
             this.exit_btn = new System.Windows.Forms.Button();
-            this.logo_pic = new System.Windows.Forms.PictureBox();
+            this.fbDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logo_pic)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SimpanData_group.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.print_grid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.logo_pic)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -182,6 +183,15 @@
             this.alamat2_lbl.TabIndex = 3;
             this.alamat2_lbl.Text = "Kabupaten, Provinsi - Kode Pos Telp";
             // 
+            // logo_pic
+            // 
+            this.logo_pic.Image = global::Raport.Properties.Resources._133x133;
+            this.logo_pic.Location = new System.Drawing.Point(18, 5);
+            this.logo_pic.Name = "logo_pic";
+            this.logo_pic.Size = new System.Drawing.Size(133, 133);
+            this.logo_pic.TabIndex = 0;
+            this.logo_pic.TabStop = false;
+            // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -201,6 +211,153 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pengolah Data";
+            // 
+            // guru_menu
+            // 
+            this.guru_menu.BackColor = System.Drawing.Color.CadetBlue;
+            this.guru_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.guru_menu.FlatAppearance.BorderSize = 0;
+            this.guru_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.guru_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guru_menu.Image = global::Raport.Properties.Resources.guru;
+            this.guru_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.guru_menu.Location = new System.Drawing.Point(20, 132);
+            this.guru_menu.Name = "guru_menu";
+            this.guru_menu.Size = new System.Drawing.Size(130, 71);
+            this.guru_menu.TabIndex = 8;
+            this.guru_menu.Text = "Data Guru";
+            this.guru_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.guru_menu.UseVisualStyleBackColor = false;
+            this.guru_menu.Click += new System.EventHandler(this.guru_menu_Click);
+            // 
+            // profil_menu
+            // 
+            this.profil_menu.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.profil_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.profil_menu.FlatAppearance.BorderSize = 0;
+            this.profil_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.profil_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.profil_menu.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.profil_menu.Image = global::Raport.Properties.Resources.home;
+            this.profil_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.profil_menu.Location = new System.Drawing.Point(19, 55);
+            this.profil_menu.Name = "profil_menu";
+            this.profil_menu.Size = new System.Drawing.Size(130, 71);
+            this.profil_menu.TabIndex = 6;
+            this.profil_menu.Text = "Profil Sekolah";
+            this.profil_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.profil_menu.UseVisualStyleBackColor = false;
+            this.profil_menu.Click += new System.EventHandler(this.profil_menu_Click);
+            // 
+            // siswa_menu
+            // 
+            this.siswa_menu.BackColor = System.Drawing.Color.Yellow;
+            this.siswa_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.siswa_menu.FlatAppearance.BorderSize = 0;
+            this.siswa_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.siswa_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.siswa_menu.Image = global::Raport.Properties.Resources.siswa;
+            this.siswa_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.siswa_menu.Location = new System.Drawing.Point(20, 209);
+            this.siswa_menu.Name = "siswa_menu";
+            this.siswa_menu.Size = new System.Drawing.Size(130, 71);
+            this.siswa_menu.TabIndex = 10;
+            this.siswa_menu.Text = "Data Siswa";
+            this.siswa_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.siswa_menu.UseVisualStyleBackColor = false;
+            this.siswa_menu.Click += new System.EventHandler(this.siswa_menu_Click);
+            // 
+            // nilai_menu
+            // 
+            this.nilai_menu.BackColor = System.Drawing.Color.BurlyWood;
+            this.nilai_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.nilai_menu.Enabled = false;
+            this.nilai_menu.FlatAppearance.BorderSize = 0;
+            this.nilai_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nilai_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nilai_menu.Image = global::Raport.Properties.Resources.nilai;
+            this.nilai_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.nilai_menu.Location = new System.Drawing.Point(155, 286);
+            this.nilai_menu.Name = "nilai_menu";
+            this.nilai_menu.Size = new System.Drawing.Size(129, 71);
+            this.nilai_menu.TabIndex = 13;
+            this.nilai_menu.Text = "Data Nilai";
+            this.nilai_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.nilai_menu.UseVisualStyleBackColor = false;
+            this.nilai_menu.Click += new System.EventHandler(this.nilai_menu_Click);
+            // 
+            // mapel_menu
+            // 
+            this.mapel_menu.BackColor = System.Drawing.Color.Lavender;
+            this.mapel_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.mapel_menu.FlatAppearance.BorderSize = 0;
+            this.mapel_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mapel_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mapel_menu.Image = global::Raport.Properties.Resources.appbar_book;
+            this.mapel_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.mapel_menu.Location = new System.Drawing.Point(155, 55);
+            this.mapel_menu.Name = "mapel_menu";
+            this.mapel_menu.Size = new System.Drawing.Size(130, 71);
+            this.mapel_menu.TabIndex = 7;
+            this.mapel_menu.Text = "Mata Pelajaran";
+            this.mapel_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.mapel_menu.UseVisualStyleBackColor = false;
+            this.mapel_menu.Click += new System.EventHandler(this.mapel_menu_Click);
+            // 
+            // deskripsi_menu
+            // 
+            this.deskripsi_menu.BackColor = System.Drawing.Color.Magenta;
+            this.deskripsi_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.deskripsi_menu.Enabled = false;
+            this.deskripsi_menu.FlatAppearance.BorderSize = 0;
+            this.deskripsi_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.deskripsi_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deskripsi_menu.Image = global::Raport.Properties.Resources.deskripsi;
+            this.deskripsi_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.deskripsi_menu.Location = new System.Drawing.Point(21, 286);
+            this.deskripsi_menu.Name = "deskripsi_menu";
+            this.deskripsi_menu.Size = new System.Drawing.Size(129, 71);
+            this.deskripsi_menu.TabIndex = 12;
+            this.deskripsi_menu.Text = "Deskripsi";
+            this.deskripsi_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.deskripsi_menu.UseVisualStyleBackColor = false;
+            this.deskripsi_menu.Click += new System.EventHandler(this.deskripsi_menu_Click);
+            // 
+            // kelas_menu
+            // 
+            this.kelas_menu.BackColor = System.Drawing.Color.LimeGreen;
+            this.kelas_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.kelas_menu.FlatAppearance.BorderSize = 0;
+            this.kelas_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.kelas_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kelas_menu.Image = global::Raport.Properties.Resources.kelas;
+            this.kelas_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.kelas_menu.Location = new System.Drawing.Point(155, 132);
+            this.kelas_menu.Name = "kelas_menu";
+            this.kelas_menu.Size = new System.Drawing.Size(129, 71);
+            this.kelas_menu.TabIndex = 9;
+            this.kelas_menu.Text = "Data Kelas";
+            this.kelas_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.kelas_menu.UseVisualStyleBackColor = false;
+            this.kelas_menu.Click += new System.EventHandler(this.kelas_menu_Click);
+            // 
+            // eskul_menu
+            // 
+            this.eskul_menu.BackColor = System.Drawing.Color.Red;
+            this.eskul_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.eskul_menu.FlatAppearance.BorderSize = 0;
+            this.eskul_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.eskul_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.eskul_menu.Image = global::Raport.Properties.Resources.eskul;
+            this.eskul_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.eskul_menu.Location = new System.Drawing.Point(155, 209);
+            this.eskul_menu.Name = "eskul_menu";
+            this.eskul_menu.Size = new System.Drawing.Size(129, 71);
+            this.eskul_menu.TabIndex = 11;
+            this.eskul_menu.Text = "Data Eskul";
+            this.eskul_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.eskul_menu.UseVisualStyleBackColor = false;
+            this.eskul_menu.Click += new System.EventHandler(this.eskul_menu_Click);
             // 
             // jam_lbl
             // 
@@ -360,6 +517,19 @@
             this.groupBox2.TabIndex = 34;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Print Laporan";
+            // 
+            // print_formatBtn
+            // 
+            this.print_formatBtn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.print_formatBtn.FlatAppearance.BorderSize = 0;
+            this.print_formatBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.print_formatBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.print_formatBtn.Location = new System.Drawing.Point(9, 71);
+            this.print_formatBtn.Name = "print_formatBtn";
+            this.print_formatBtn.Size = new System.Drawing.Size(124, 31);
+            this.print_formatBtn.TabIndex = 35;
+            this.print_formatBtn.Text = "Print Format";
+            this.print_formatBtn.UseVisualStyleBackColor = false;
             // 
             // raport_printBtn
             // 
@@ -541,19 +711,6 @@
             this.print_grid.TabIndex = 14;
             this.print_grid.Visible = false;
             // 
-            // print_formatBtn
-            // 
-            this.print_formatBtn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.print_formatBtn.FlatAppearance.BorderSize = 0;
-            this.print_formatBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.print_formatBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.print_formatBtn.Location = new System.Drawing.Point(9, 71);
-            this.print_formatBtn.Name = "print_formatBtn";
-            this.print_formatBtn.Size = new System.Drawing.Size(124, 31);
-            this.print_formatBtn.TabIndex = 35;
-            this.print_formatBtn.Text = "Print Format";
-            this.print_formatBtn.UseVisualStyleBackColor = false;
-            // 
             // export_btn
             // 
             this.export_btn.BackColor = System.Drawing.Color.DodgerBlue;
@@ -567,25 +724,6 @@
             this.export_btn.Text = "Export Siswa";
             this.export_btn.UseVisualStyleBackColor = false;
             this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
-            // 
-            // deskripsi_menu
-            // 
-            this.deskripsi_menu.BackColor = System.Drawing.Color.Magenta;
-            this.deskripsi_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.deskripsi_menu.Enabled = false;
-            this.deskripsi_menu.FlatAppearance.BorderSize = 0;
-            this.deskripsi_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deskripsi_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deskripsi_menu.Image = global::Raport.Properties.Resources.deskripsi;
-            this.deskripsi_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.deskripsi_menu.Location = new System.Drawing.Point(21, 286);
-            this.deskripsi_menu.Name = "deskripsi_menu";
-            this.deskripsi_menu.Size = new System.Drawing.Size(129, 71);
-            this.deskripsi_menu.TabIndex = 12;
-            this.deskripsi_menu.Text = "Deskripsi";
-            this.deskripsi_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.deskripsi_menu.UseVisualStyleBackColor = false;
-            this.deskripsi_menu.Click += new System.EventHandler(this.deskripsi_menu_Click);
             // 
             // LogOut_btn
             // 
@@ -606,134 +744,6 @@
             this.LogOut_btn.UseVisualStyleBackColor = false;
             this.LogOut_btn.Click += new System.EventHandler(this.LogOut_btn_Click);
             // 
-            // guru_menu
-            // 
-            this.guru_menu.BackColor = System.Drawing.Color.CadetBlue;
-            this.guru_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.guru_menu.FlatAppearance.BorderSize = 0;
-            this.guru_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.guru_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guru_menu.Image = global::Raport.Properties.Resources.guru;
-            this.guru_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.guru_menu.Location = new System.Drawing.Point(20, 132);
-            this.guru_menu.Name = "guru_menu";
-            this.guru_menu.Size = new System.Drawing.Size(130, 71);
-            this.guru_menu.TabIndex = 8;
-            this.guru_menu.Text = "Data Guru";
-            this.guru_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.guru_menu.UseVisualStyleBackColor = false;
-            this.guru_menu.Click += new System.EventHandler(this.guru_menu_Click);
-            // 
-            // profil_menu
-            // 
-            this.profil_menu.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.profil_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.profil_menu.FlatAppearance.BorderSize = 0;
-            this.profil_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.profil_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.profil_menu.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.profil_menu.Image = global::Raport.Properties.Resources.home;
-            this.profil_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.profil_menu.Location = new System.Drawing.Point(19, 55);
-            this.profil_menu.Name = "profil_menu";
-            this.profil_menu.Size = new System.Drawing.Size(130, 71);
-            this.profil_menu.TabIndex = 6;
-            this.profil_menu.Text = "Profil Sekolah";
-            this.profil_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.profil_menu.UseVisualStyleBackColor = false;
-            this.profil_menu.Click += new System.EventHandler(this.profil_menu_Click);
-            // 
-            // siswa_menu
-            // 
-            this.siswa_menu.BackColor = System.Drawing.Color.Yellow;
-            this.siswa_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.siswa_menu.FlatAppearance.BorderSize = 0;
-            this.siswa_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.siswa_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.siswa_menu.Image = global::Raport.Properties.Resources.siswa;
-            this.siswa_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.siswa_menu.Location = new System.Drawing.Point(20, 209);
-            this.siswa_menu.Name = "siswa_menu";
-            this.siswa_menu.Size = new System.Drawing.Size(130, 71);
-            this.siswa_menu.TabIndex = 10;
-            this.siswa_menu.Text = "Data Siswa";
-            this.siswa_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.siswa_menu.UseVisualStyleBackColor = false;
-            this.siswa_menu.Click += new System.EventHandler(this.siswa_menu_Click);
-            // 
-            // nilai_menu
-            // 
-            this.nilai_menu.BackColor = System.Drawing.Color.BurlyWood;
-            this.nilai_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.nilai_menu.Enabled = false;
-            this.nilai_menu.FlatAppearance.BorderSize = 0;
-            this.nilai_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.nilai_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nilai_menu.Image = global::Raport.Properties.Resources.nilai;
-            this.nilai_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.nilai_menu.Location = new System.Drawing.Point(155, 286);
-            this.nilai_menu.Name = "nilai_menu";
-            this.nilai_menu.Size = new System.Drawing.Size(129, 71);
-            this.nilai_menu.TabIndex = 13;
-            this.nilai_menu.Text = "Data Nilai";
-            this.nilai_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.nilai_menu.UseVisualStyleBackColor = false;
-            this.nilai_menu.Click += new System.EventHandler(this.nilai_menu_Click);
-            // 
-            // mapel_menu
-            // 
-            this.mapel_menu.BackColor = System.Drawing.Color.Lavender;
-            this.mapel_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.mapel_menu.FlatAppearance.BorderSize = 0;
-            this.mapel_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mapel_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mapel_menu.Image = global::Raport.Properties.Resources.appbar_book;
-            this.mapel_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.mapel_menu.Location = new System.Drawing.Point(155, 55);
-            this.mapel_menu.Name = "mapel_menu";
-            this.mapel_menu.Size = new System.Drawing.Size(130, 71);
-            this.mapel_menu.TabIndex = 7;
-            this.mapel_menu.Text = "Mata Pelajaran";
-            this.mapel_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.mapel_menu.UseVisualStyleBackColor = false;
-            this.mapel_menu.Click += new System.EventHandler(this.mapel_menu_Click);
-            // 
-            // kelas_menu
-            // 
-            this.kelas_menu.BackColor = System.Drawing.Color.LimeGreen;
-            this.kelas_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.kelas_menu.FlatAppearance.BorderSize = 0;
-            this.kelas_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.kelas_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kelas_menu.Image = global::Raport.Properties.Resources.kelas;
-            this.kelas_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.kelas_menu.Location = new System.Drawing.Point(155, 132);
-            this.kelas_menu.Name = "kelas_menu";
-            this.kelas_menu.Size = new System.Drawing.Size(129, 71);
-            this.kelas_menu.TabIndex = 9;
-            this.kelas_menu.Text = "Data Kelas";
-            this.kelas_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.kelas_menu.UseVisualStyleBackColor = false;
-            this.kelas_menu.Click += new System.EventHandler(this.kelas_menu_Click);
-            // 
-            // eskul_menu
-            // 
-            this.eskul_menu.BackColor = System.Drawing.Color.Red;
-            this.eskul_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.eskul_menu.FlatAppearance.BorderSize = 0;
-            this.eskul_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.eskul_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eskul_menu.Image = global::Raport.Properties.Resources.eskul;
-            this.eskul_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.eskul_menu.Location = new System.Drawing.Point(155, 209);
-            this.eskul_menu.Name = "eskul_menu";
-            this.eskul_menu.Size = new System.Drawing.Size(129, 71);
-            this.eskul_menu.TabIndex = 11;
-            this.eskul_menu.Text = "Data Eskul";
-            this.eskul_menu.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.eskul_menu.UseVisualStyleBackColor = false;
-            this.eskul_menu.Click += new System.EventHandler(this.eskul_menu_Click);
-            // 
             // exit_btn
             // 
             this.exit_btn.BackColor = System.Drawing.Color.DodgerBlue;
@@ -752,15 +762,6 @@
             this.exit_btn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.exit_btn.UseVisualStyleBackColor = false;
             this.exit_btn.Click += new System.EventHandler(this.exit_btn_Click);
-            // 
-            // logo_pic
-            // 
-            this.logo_pic.Image = global::Raport.Properties.Resources._133x133;
-            this.logo_pic.Location = new System.Drawing.Point(18, 5);
-            this.logo_pic.Name = "logo_pic";
-            this.logo_pic.Size = new System.Drawing.Size(133, 133);
-            this.logo_pic.TabIndex = 0;
-            this.logo_pic.TabStop = false;
             // 
             // FormUtama
             // 
@@ -801,6 +802,7 @@
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logo_pic)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -808,7 +810,6 @@
             this.SimpanData_group.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.print_grid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.logo_pic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -869,5 +870,6 @@
         private System.Windows.Forms.Button raport_printBtn;
         private System.Windows.Forms.Button print_formatBtn;
         private System.Windows.Forms.Button export_btn;
+        private System.Windows.Forms.FolderBrowserDialog fbDialog;
     }
 }

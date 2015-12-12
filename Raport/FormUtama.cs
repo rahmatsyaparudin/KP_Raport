@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.IO;
+using System.Diagnostics;
 
 namespace Raport
 {
@@ -321,7 +323,49 @@ namespace Raport
         private void raport_printBtn_Click(object sender, EventArgs e)
         {
             dbToPDF.passTahun = tahuj_combo.Text.ToString();
-            dbToPDF.RaportToPDF("Data Nilai SMANJAK" + db.randomIdGuru(), sfDialog);
+            dbToPDF.RaportToPDF2();
+            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName.ToString();
+            string path = "Nilai Siswa (PDF)";
+            string dir = appRootDir + "\\" + path;
+
+            if (fbDialog.ShowDialog() == DialogResult.OK)
+            {
+                string destFileName = fbDialog.SelectedPath + Path.GetFileName(path);
+                
+                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
+                DirectoryInfo target = new DirectoryInfo(destFileName);
+
+                foreach (FileInfo fi in sourceinfo.GetFiles())
+                {
+                    string namafile = fi.Name.ToString();
+                    foreach (Process proc in Process.GetProcessesByName(namafile))
+                    {
+                        proc.Kill();
+                    }
+                }
+                if (!Directory.Exists(destFileName))
+                {
+                    Directory.Move(dir, destFileName);
+                }
+                else
+                {
+                    foreach (FileInfo fi in sourceinfo.GetFiles())
+                    {
+                        string namafile2 = fi.Name.ToString();
+                        string subdir = dir + "\\" + namafile2;
+                        string subdest = destFileName + "\\" + namafile2;
+                        if (File.Exists(subdir))
+                        {
+                            File.Delete(subdest);
+                            File.Move(subdir, subdest);
+                        }
+                        else
+                        {
+                            File.Move(subdir, subdest);
+                        }
+                    }
+                }
+            }
         }
 
         private void export_btn_Click(object sender, EventArgs e)
