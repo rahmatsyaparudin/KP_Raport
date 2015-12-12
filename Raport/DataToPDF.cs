@@ -9,12 +9,12 @@ using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using System.Security.Permissions;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
 namespace Raport
 {
+    
     class DataToPDF
     {
         MySqlConnection myConn = Function.getKoneksi();
@@ -31,46 +31,26 @@ namespace Raport
         Font AB12 = FontFactory.GetFont("Arial Black", 12, Font.BOLD, BaseColor.BLACK);
         Font AN12 = FontFactory.GetFont("Arial Black", 12, Font.NORMAL, BaseColor.BLACK);
         BaseFont TimesNW = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
-        Document doc = new Document(iTextSharp.text.PageSize.A4, 20, 20, 10, 40);
+        Document doc; 
         PdfWriter writer;
         PdfPTable raport_tbl;
         PdfPCell cell = new PdfPCell();
-        FileStream fs = null;
-
-        public string nama_siswa, nisn_siswa;
+        
+        public string nama_siswa, nisn_siswa, kelas_siswa;
         public string nama_guru, nip_guru;
         public string nama_bulan;
         public string getTahun;
-        string fullPath;
+        public string valueA, valueB, valueC;
+        public string field, table, cond;
         float[] widths;
 
         string[] month = { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
                            "Oktober", "November", "Desember" };
         string tanggal = DateTime.Today.Day.ToString();
         
-        //Queries
-        public string profil_siswa = "SELECT nama_siswa, nisn_siswa FROM siswa WHERE nis_siswa = '1314.10.006'";
-        public string profil_sekolah = "SELECT * FROM profil_sekolah";
-        public string siswa_ortu = "SELECT *, orangtua.no_telp as 'Telp Ortu' FROM siswa INNER JOIN orangtua " +
-                                   "USING (nis_siswa) WHERE siswa.nis_siswa = '1314.10.006'";
-        public string kepala_sekolah = "SELECT nama_guru, nip FROM guru WHERE keterangan LIKE 'Kepala Sekolah%'";
-        public string wali_kelas = "SELECT nama_guru, nip FROM kelas INNER JOIN guru USING (id_guru) " +
-                                   "WHERE kode_kelas = '3'";
-        public string profil_LCK = "SELECT nama_sekolah, alamat_sekolah, nama_siswa, nis_siswa, nama_kelas " +
-                               "FROM profil_sekolah, siswa, kelas WHERE siswa.nis_siswa = '1314.10.006' AND kelas.kode_kelas = '3'";
-        public string kategoriA = "SELECT mata_pelajaran, nama_guru, p_ang, p_pred, k_ang, k_pred, s_sikap " +
-                           "FROM nilai INNER JOIN mapel USING (kode_mapel) INNER JOIN detailmapelkelas USING (kode_mapel) " +
-                           "INNER JOIN guru USING (id_guru) WHERE nis_siswa = '1314.10.006' AND kode_semester= 'SMT1' " +
-                           "AND nilai.kode_kelas = '3' AND detailmapelkelas.kode_kelas = '3' AND kategori_mapel = 'Kelompok A'";
-        public string kategoriB = "SELECT mata_pelajaran, nama_guru, p_ang, p_pred, k_ang, k_pred, s_sikap " +
-                           "FROM nilai INNER JOIN mapel USING (kode_mapel) INNER JOIN detailmapelkelas USING (kode_mapel) " +
-                           "INNER JOIN guru USING (id_guru) WHERE nis_siswa = '1314.10.006' AND kode_semester= 'SMT1' " +
-                           "AND nilai.kode_kelas = '3' AND detailmapelkelas.kode_kelas = '3' AND kategori_mapel = 'Kelompok B'";
-        public string kategoriC = "SELECT mata_pelajaran, nama_guru, p_ang, p_pred, k_ang, k_pred, s_sikap " +
-                           "FROM nilai INNER JOIN mapel USING (kode_mapel) INNER JOIN detailmapelkelas USING (kode_mapel) " +
-                           "INNER JOIN guru USING (id_guru) WHERE nis_siswa = '1314.10.006' AND kode_semester= 'SMT1' " +
-                           "AND nilai.kode_kelas = '3' AND detailmapelkelas.kode_kelas = '3' AND kategori_mapel = 'Kelompok C'";
-
+        public string getNisSiswa = "1314.10.006";
+        public string getKodeKelas = "3";
+        public string getSemeter = "SMT1";
 
         public string passTahun
         {
@@ -95,14 +75,6 @@ namespace Raport
             return nama_bulan;
         }
 
-        public async Task SaveFileContentsAsync(string filePath, Stream stream)
-        {
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await stream.CopyToAsync(fileStream);
-            }
-        }
-
         public void killPDFProcess()
         {
             foreach (Process clsProcess in Process.GetProcesses())
@@ -115,20 +87,97 @@ namespace Raport
             }
         }
 
-        public void RaportToPDF2()
+        public void BrowserDialog(FolderBrowserDialog fbDialog, string dirPath)
         {
-            killPDFProcess();
-            string path = "Nilai Siswa (PDF)";
-            if (!Directory.Exists(path))
+            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName.ToString();
+            string path = dirPath;
+            string dir = appRootDir + "\\Temp\\" + path;
+
+            if (fbDialog.ShowDialog() == DialogResult.OK)
             {
-                Directory.CreateDirectory(path);
+                string destFileName = fbDialog.SelectedPath + "\\" + Path.GetFileName(path);
+                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
+                DirectoryInfo target = new DirectoryInfo(destFileName);
+
+                foreach (FileInfo fi in sourceinfo.GetFiles())
+                {
+                    string namafile = fi.Name.ToString();
+                    foreach (Process proc in Process.GetProcessesByName(namafile))
+                    {
+                        proc.Kill();
+                    }
+                }
+                if (!Directory.Exists(destFileName))
+                {
+                    Directory.Move(dir, destFileName);
+                }
+                else
+                {
+                    foreach (FileInfo fi in sourceinfo.GetFiles())
+                    {
+                        string namafile2 = fi.Name.ToString();
+                        string subdir = dir + "\\" + namafile2;
+                        string subdest = destFileName + "\\" + namafile2;
+                        if (File.Exists(subdir))
+                        {
+                            File.Delete(subdest);
+                            File.Move(subdir, subdest);
+                        }
+                    }
+                }
             }
-            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
+            else
+            {
+                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
+                foreach (FileInfo fi in sourceinfo.GetFiles())
+                {
+                    string namafile = fi.Name.ToString();
+                    foreach (Process proc in Process.GetProcessesByName(namafile))
+                    {
+                        proc.Kill();
+                    }
+                }
+
+                foreach (FileInfo fi in sourceinfo.GetFiles())
+                {
+                    string namafile2 = fi.Name.ToString();
+                    string subdir = dir + "\\" + namafile2;
+                    if (File.Exists(subdir))
+                    {
+                        File.Delete(subdir);
+                    }
+                }
+            }
+        }
+
+        public void RaportToPDF2(DataGridView datagrid, string nis_siswa)
+        {
+            datagrid.DataSource = null;
+            killPDFProcess();
             try
             {
-                using (FileStream fs = new FileStream(appRootDir + "\\Nilai Siswa (PDF)\\" + "Chapter1_Example8"+db.randomIdGuru()+".pdf", FileMode.Create, FileAccess.Write, FileShare.None))
-                using (Document docs = new Document())
-                using (PdfWriter writer = PdfWriter.GetInstance(docs, fs))
+                string setNamaSiswa = "SELECT nama_siswa, nama_kelas FROM siswa, kelas WHERE nis_siswa = '" 
+                                      + nis_siswa + "' AND kode_kelas = '"+ getKodeKelas + "'";
+                myComm = new MySqlCommand(setNamaSiswa, myConn);
+                myConn.Open();
+                myReader = myComm.ExecuteReader();
+                while (myReader.Read())
+                {
+                    nama_siswa = myReader.GetString("nama_siswa");
+                    kelas_siswa = myReader.GetString("nama_kelas");
+                }
+                myConn.Close();
+
+                string path = "Temp\\Data Nilai";
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                string filename = nama_siswa + "-" + nis_siswa + " (" + kelas_siswa + "-" + getSemeter + ").pdf";
+                string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
+                using (FileStream fstream = new FileStream(appRootDir + "\\" + path +"\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (Document doc = new Document(iTextSharp.text.PageSize.A4, 20, 20, 10, 20))
+                using (PdfWriter writer = PdfWriter.GetInstance(doc, fstream))
                 {
                     writer.SetEncryption(PdfWriter.STRENGTH40BITS, null, null, PdfWriter.ALLOW_COPY);
                     System.Drawing.Image image = Properties.Resources.LogoPendidikan;
@@ -136,115 +185,16 @@ namespace Raport
                     pic.ScalePercent(13.0f);
                     pic.Alignment = Element.ALIGN_CENTER;
 
+                    string profil_siswa = "SELECT nama_siswa, nisn_siswa FROM siswa WHERE nis_siswa = '" + nis_siswa + "'";
                     myComm = new MySqlCommand(profil_siswa, myConn);
-                    try
+                    myConn.Open();
+                    myReader = myComm.ExecuteReader();
+                    while (myReader.Read())
                     {
-                        myConn.Open();
-                        myReader = myComm.ExecuteReader();
-                        while (myReader.Read())
-                        {
-                            nama_siswa = myReader.GetString("nama_siswa");
-                            nisn_siswa = myReader.GetString("nisn_siswa");
-                        }
-                        myConn.Close();
+                        nama_siswa = myReader.GetString("nama_siswa");
+                        nisn_siswa = myReader.GetString("nisn_siswa");
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-
-                    var paragraf = new Paragraph("\n\n");
-                    var paragraf0 = new Paragraph("\n\n\n");
-                    var paragraf1 = new Paragraph(new Chunk("LAPORAN \nCAPAIAN KOMPETENSI PESERTA DIDIK" +
-                                                        "\nSEKOLAH MENENGAH ATAS \n(SMA)", TB14)); paragraf1.Alignment = Element.ALIGN_CENTER;
-                    var paragraf2 = new Paragraph(new Chunk("Nama Peserta Didik", TB12)); paragraf2.Alignment = Element.ALIGN_CENTER;
-                    var paragraf3 = new Paragraph(new Chunk(nama_siswa, TN12)); paragraf3.Alignment = Element.ALIGN_CENTER;
-                    var paragraf4 = new Paragraph(new Chunk("NISN:", TB12)); paragraf4.Alignment = Element.ALIGN_CENTER;
-                    var paragraf5 = new Paragraph(new Chunk(nisn_siswa, TN12)); paragraf5.Alignment = Element.ALIGN_CENTER;
-                    var paragraf6 = new Paragraph(new Chunk("KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN \nREPUBLIK INDONESIA", TB14));
-                    paragraf6.Alignment = Element.ALIGN_CENTER;
-                    var paragraf7 = new Paragraph(new Chunk("KETERANGAN TENTANG DIRI PESERTA DIDIK", TB14)); paragraf7.Alignment = Element.ALIGN_CENTER;
-                    var paragraf8 = new Paragraph("\n");
-
-                    //Jilid
-                    docs.Open();
-                    docs.NewPage();
-                    docs.Add(paragraf0); docs.Add(pic);
-                    docs.Add(paragraf0); docs.Add(paragraf1);
-                    docs.Add(paragraf0); docs.Add(paragraf0);
-                    docs.Add(paragraf); docs.Add(paragraf2);
-                    docs.Add(paragraf3); docs.Add(paragraf);
-                    docs.Add(paragraf4); docs.Add(paragraf5);
-                    docs.Add(paragraf0); docs.Add(paragraf6);
-                    //Profil Sekolah
-                    docs.NewPage();
-                    docs.Add(paragraf1); docs.Add(paragraf0);
-                    ProfilSekolah(docs);
-                    //Data Diri siswa
-                    docs.NewPage();
-                    docs.Add(paragraf7); docs.Add(paragraf8);
-                    DataSiswa(docs);
-                    KepalaSekolah(docs);
-                    //LCK
-                    docs.NewPage();
-                    detailLCKSiswa(docs); kriteriaLCK(docs);
-                    nilaiLCK_A(docs); nilaiLCK_B(docs); nilaiLCK_C(docs);
-                    ekskul_siswa(docs); absensi_siswa(docs);
-                    walikelas_ortu(docs);
-                    docs.Close();
-                    writer.Close();
-                    fs.Close();
-                }
-            }
-			catch (DocumentException de)
-			{
-				throw de;
-			}
-			catch (IOException ioe)
-			{
-				throw ioe;
-			}
-        }
-
-        public void RaportToPDF(string filename, SaveFileDialog sfDialog)
-        {
-            sfDialog.InitialDirectory = "D:";
-            sfDialog.Title = "Save as PDF File";
-            sfDialog.FileName = filename;
-            sfDialog.Filter = "PDF Files|*.pdf";
-            if (sfDialog.ShowDialog() != DialogResult.Cancel)
-            {
-                
-                //foreach (FileInfo fi in sourceinfo.GetFiles())
-                string dir = sfDialog.FileName.ToString();
-                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
-                foreach (Process proc in Process.GetProcessesByName(filename + ".pdf"))
-                {
-                    proc.Kill();
-                }
-                    FileStream fs = new FileStream(sfDialog.FileName, FileMode.OpenOrCreate);
-                    PdfWriter wri  = PdfWriter.GetInstance(doc, fs);
-                    System.Drawing.Image image = Properties.Resources.LogoPendidikan;
-                    iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png);
-                    pic.ScalePercent(13.0f);
-                    pic.Alignment = Element.ALIGN_CENTER;
-
-                    myComm = new MySqlCommand(profil_siswa, myConn);
-                    try
-                    {
-                        myConn.Open();
-                        myReader = myComm.ExecuteReader();
-                        while (myReader.Read())
-                        {
-                            nama_siswa = myReader.GetString("nama_siswa");
-                            nisn_siswa = myReader.GetString("nisn_siswa");
-                        }
-                        myConn.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    myConn.Close();
 
                     var paragraf = new Paragraph("\n\n");
                     var paragraf0 = new Paragraph("\n\n\n");
@@ -276,18 +226,36 @@ namespace Raport
                     //Data Diri siswa
                     doc.NewPage();
                     doc.Add(paragraf7); doc.Add(paragraf8);
-                    DataSiswa(doc);
+                    DataSiswa(doc, getNisSiswa);
                     KepalaSekolah(doc);
                     //LCK
                     doc.NewPage();
-                    detailLCKSiswa(doc); kriteriaLCK(doc);
-                    nilaiLCK_A(doc); nilaiLCK_B(doc); nilaiLCK_C(doc);
-                    ekskul_siswa(doc); absensi_siswa(doc);
-                    walikelas_ortu(doc);
+                    detailLCKSiswa(doc, getNisSiswa, getKodeKelas); kriteriaLCK(doc);
+                    nilaiLCK(doc, "Kelompok A (Wajib)", getKodeKelas, getNisSiswa, getSemeter, "Kelompok A");
+                    nilaiLCK(doc, "Kelompok B (Wajib)", getKodeKelas, getNisSiswa, getSemeter, "Kelompok B");
+                    nilaiLCK(doc, "Kelompok C (Pilihan)", getKodeKelas, getNisSiswa, getSemeter, "Kelompok C");
+                    nilai_LCKAdd(doc); ekskul_siswa(doc); absensi_siswa(doc);
+                    walikelas_ortu(doc, getKodeKelas);
+                    //Deskripsi
+                    doc.NewPage();
+                    detailLCKSiswa(doc, getNisSiswa, getKodeKelas); kriteria_desk(doc);
+                    deskripsiLCK(doc, datagrid, "Kelompok A", getSemeter, getKodeKelas);
+                    deskripsiLCK(doc, datagrid, "Kelompok B", getSemeter, getKodeKelas);
+                    deskripsiLCK(doc, datagrid, "Kelompok C", getSemeter, getKodeKelas);
                     doc.Close();
-                    fs.Dispose();
-                    fs.Close();
+                    writer.Close();
+                    fstream.Close();
+                }
+                datagrid.DataSource = null;
             }
+			catch (DocumentException de)
+			{
+				throw de;
+			}
+			catch (IOException ioe)
+			{
+				throw ioe;
+			}
         }
 
         public void ProfilSekolah(Document doc)
@@ -298,6 +266,7 @@ namespace Raport
             widths = new float[] { 200f, 30f, 770f };
             raport_tbl.SetWidths(widths);
 
+            string profil_sekolah = "SELECT * FROM profil_sekolah";
             myComm = new MySqlCommand(profil_sekolah, myConn);
             try
             {
@@ -335,7 +304,7 @@ namespace Raport
             }
         }
 
-        public void DataSiswa(Document doc)
+        public void DataSiswa(Document doc, string nis_siswa)
         {
             raport_tbl = new PdfPTable(4);
             raport_tbl.TotalWidth = 500f; raport_tbl.LockedWidth = true;
@@ -343,6 +312,8 @@ namespace Raport
             widths = new float[] { 50f, 350f, 30f, 600f };
             raport_tbl.SetWidths(widths);
 
+            string siswa_ortu = "SELECT *, orangtua.no_telp as 'Telp Ortu' FROM siswa INNER JOIN orangtua " +
+                                   "USING (nis_siswa) WHERE siswa.nis_siswa = '" + nis_siswa + "'";
             myComm = new MySqlCommand(siswa_ortu, myConn);
             try
             {
@@ -401,7 +372,8 @@ namespace Raport
             raport_tbl.DefaultCell.Border = Rectangle.NO_BORDER;
             widths = new float[] { 150f, 100f, 250f };
             raport_tbl.SetWidths(widths);
-            
+
+            string kepala_sekolah = "SELECT nama_guru, nip FROM guru WHERE keterangan LIKE 'Kepala Sekolah%'";
             myComm = new MySqlCommand(kepala_sekolah, myConn);
             try
             {
@@ -433,14 +405,17 @@ namespace Raport
             }
         }
         
-        public void detailLCKSiswa(Document doc)
+        public void detailLCKSiswa(Document doc, string nis_siswa, string kelas)
         {
             PdfPTable raport_tbl = new PdfPTable(6);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
             raport_tbl.DefaultCell.Border = Rectangle.NO_BORDER;
             float[] widths0 = new float[] { 120f, 10f, 205f, 80f, 10f, 85f };
             raport_tbl.SetWidths(widths0);
-            
+
+            string profil_LCK = "SELECT nama_sekolah, alamat_sekolah, nama_siswa, nis_siswa, nama_kelas " +
+                               "FROM profil_sekolah, siswa, kelas WHERE siswa.nis_siswa = '" + nis_siswa + 
+                               "' AND kelas.kode_kelas = '" + kelas + "'";
             myComm = new MySqlCommand(profil_LCK, myConn);
             try
             {
@@ -474,11 +449,6 @@ namespace Raport
                     var phrase14 = new Paragraph(new Chunk(myReader.GetString("nis_siswa"), TN11));
                     raport_tbl.AddCell(phrase13); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase14);
                     raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-
-                    var phrase15 = new PdfPCell(new Phrase(new Chunk("CAPAIAN KOMPETENSI", TB11)));
-                    phrase15.Colspan = 6; phrase15.HorizontalAlignment = Element.ALIGN_LEFT;
-                    phrase15.BorderWidth = 0f;
-                    raport_tbl.AddCell(phrase15);
                 }
                 myConn.Close();
                 doc.Add(raport_tbl);
@@ -496,6 +466,9 @@ namespace Raport
             widths = new float[] { 10f, 185f, 35f, 40f, 35f, 40f, 55f, 80f };
             raport_tbl.SetWidths(widths);
 
+            var phrase1 = new PdfPCell(new Phrase(new Chunk("CAPAIAN KOMPETENSI", TB11)));
+            phrase1.Colspan = 8; phrase1.HorizontalAlignment = Element.ALIGN_LEFT;
+            phrase1.BorderWidth = 0f;
             var cell1 = new PdfPCell(new Phrase(new Chunk("MATA PELAJARAN", TB11))); cell1.Rowspan = 2; cell1.Colspan = 2;
             cell1.HorizontalAlignment = Element.ALIGN_CENTER; cell1.VerticalAlignment = Element.ALIGN_MIDDLE;
             var cell2 = new PdfPCell(new Phrase(new Chunk("Pengetahuan \n(KI-3)", TB11))); cell2.Colspan = 2;
@@ -504,6 +477,7 @@ namespace Raport
             cell3.HorizontalAlignment = Element.ALIGN_CENTER; cell3.VerticalAlignment = Element.ALIGN_MIDDLE;
             var cell4 = new PdfPCell(new Phrase(new Chunk("Sikap Sosial dan Spiritual \n(KI-1 & KI-2)", TB11)));
             cell4.Colspan = 2; cell4.HorizontalAlignment = Element.ALIGN_CENTER; cell4.VerticalAlignment = Element.ALIGN_MIDDLE;
+            raport_tbl.AddCell(phrase1);
             raport_tbl.AddCell(cell1); raport_tbl.AddCell(cell2); raport_tbl.AddCell(cell3); raport_tbl.AddCell(cell4);
 
             var cell5 = new PdfPCell(new Phrase(new Chunk("Angka", TN11)));
@@ -529,66 +503,27 @@ namespace Raport
             doc.Add(raport_tbl);
         }
 
-        public void nilaiLCK_A(Document doc)
+        public void nilaiLCK(Document doc, string kelompok, string kelas, string nis_siswa, string semester, string kategori)
         {
             raport_tbl = new PdfPTable(8);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
             widths = new float[] { 10f, 185f, 35f, 40f, 35f, 40f, 55f, 80f };
             raport_tbl.SetWidths(widths);
-
-            myComm = new MySqlCommand(kategoriA, myConn);
-            try
+            if (kelompok != "Kelompok A (Wajib)")
             {
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                int i = 1;
-                while (myReader.Read())
-                {
-                    string mapel_guru = myReader.GetString("mata_pelajaran") + "\n(" + myReader.GetString("nama_guru") + ")";
-                    var cell1 = new PdfPCell(new Phrase(new Chunk(i.ToString(), TN10)));
-                    cell1.HorizontalAlignment = Element.ALIGN_CENTER; cell1.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell2 = new PdfPCell(new Phrase(new Chunk(mapel_guru, TN10)));
-                    cell2.HorizontalAlignment = Element.ALIGN_LEFT;
-                    var cell3 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("nama_guru"), TN10)));
-                    cell3.HorizontalAlignment = Element.ALIGN_LEFT; cell3.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell4 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("p_ang"), TN10)));
-                    cell4.HorizontalAlignment = Element.ALIGN_CENTER; cell4.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell5 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("p_pred"), TN10)));
-                    cell5.HorizontalAlignment = Element.ALIGN_CENTER; cell5.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell6 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("k_ang"), TN10)));
-                    cell6.HorizontalAlignment = Element.ALIGN_CENTER; cell6.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell7 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("k_pred"), TN10)));
-                    cell7.HorizontalAlignment = Element.ALIGN_CENTER; cell7.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell8 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("s_sikap"), TN10)));
-                    cell8.HorizontalAlignment = Element.ALIGN_CENTER; cell8.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    cell.BorderWidth = 0f; cell.BorderWidthRight = 0.5f;
-                    raport_tbl.AddCell(cell1); raport_tbl.AddCell(cell2);
-                    raport_tbl.AddCell(cell4); raport_tbl.AddCell(cell5); raport_tbl.AddCell(cell6);
-                    raport_tbl.AddCell(cell7); raport_tbl.AddCell(cell8); raport_tbl.AddCell(cell);
-                    i++;
-                }
-                myConn.Close();
-                doc.Add(raport_tbl);
+                var cell0 = new PdfPCell(new Phrase(new Chunk(kelompok, TB11))); cell0.HorizontalAlignment = Element.ALIGN_LEFT;
+                cell0.Colspan = 7;
+                cell.BorderWidth = 0f; cell.BorderWidthRight = 0.5f;
+                raport_tbl.AddCell(cell0); raport_tbl.AddCell(cell);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
-        public void nilaiLCK_B(Document doc)
-        {
-            raport_tbl = new PdfPTable(8);
-            raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
-            widths = new float[] { 10f, 185f, 35f, 40f, 35f, 40f, 55f, 80f };
-            raport_tbl.SetWidths(widths);
-
-            var cell0 = new PdfPCell(new Phrase(new Chunk("Kelompok B (Wajib)", TB11))); cell0.HorizontalAlignment = Element.ALIGN_LEFT;
-            cell0.Colspan = 7;
-            cell.BorderWidth = 0f; cell.BorderWidthRight = 0.5f;
-            raport_tbl.AddCell(cell0); raport_tbl.AddCell(cell);
+            string query = "SELECT mata_pelajaran, nama_guru, p_ang, p_pred, k_ang, k_pred, s_sikap " +
+                           "FROM nilai INNER JOIN mapel USING (kode_mapel) INNER JOIN detailmapelkelas USING (kode_mapel) " +
+                           "INNER JOIN guru USING (id_guru) WHERE nis_siswa = '1314.10.006' AND kode_semester= '" + semester +
+                           "' AND nilai.kode_kelas = '" + kelas + "' AND detailmapelkelas.kode_kelas = '" + kelas +
+                           "' AND kategori_mapel = '" + kategori + "'";
             
-            myComm = new MySqlCommand(kategoriB, myConn);
+            myComm = new MySqlCommand(query, myConn);
             try
             {
                 myConn.Open();
@@ -625,58 +560,17 @@ namespace Raport
                 MessageBox.Show(ex.Message);
             }
         }
-
-        public void nilaiLCK_C(Document doc)
+        
+        public void nilai_LCKAdd(Document doc)
         {
             raport_tbl = new PdfPTable(8);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
             widths = new float[] { 10f, 185f, 35f, 40f, 35f, 40f, 55f, 80f };
             raport_tbl.SetWidths(widths);
-
-            var cell0 = new PdfPCell(new Phrase(new Chunk("Kelompok C (Pilihan)", TB11))); cell0.HorizontalAlignment = Element.ALIGN_LEFT;
-            cell0.Colspan = 7;
-            cell.BorderWidthBottom = 0f; cell.BorderWidthLeft = 0f; cell.BorderWidthTop = 0f; cell.BorderWidthRight = 0.5f;
-            raport_tbl.AddCell(cell0); raport_tbl.AddCell(cell);
-            
-            myComm = new MySqlCommand(kategoriC, myConn);
-            try
-            {
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                int i = 1;
-                while (myReader.Read())
-                {
-                    string mapel_guru = myReader.GetString("mata_pelajaran") + "\n(" + myReader.GetString("nama_guru") + ")";
-                    var cell1 = new PdfPCell(new Phrase(new Chunk(i.ToString(), TN10)));
-                    cell1.HorizontalAlignment = Element.ALIGN_CENTER;
-                    var cell2 = new PdfPCell(new Phrase(new Chunk(mapel_guru, TN10)));
-                    cell2.HorizontalAlignment = Element.ALIGN_LEFT;
-                    var cell4 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("p_ang"), TN10)));
-                    cell4.VerticalAlignment = Element.ALIGN_MIDDLE; cell4.HorizontalAlignment = Element.ALIGN_CENTER;
-                    var cell5 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("p_pred"), TN10)));
-                    cell5.VerticalAlignment = Element.ALIGN_MIDDLE; cell5.HorizontalAlignment = Element.ALIGN_CENTER;
-                    var cell6 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("k_ang"), TN10)));
-                    cell6.VerticalAlignment = Element.ALIGN_MIDDLE; cell6.HorizontalAlignment = Element.ALIGN_CENTER;
-                    var cell7 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("k_pred"), TN10)));
-                    cell7.VerticalAlignment = Element.ALIGN_MIDDLE; cell7.HorizontalAlignment = Element.ALIGN_CENTER;
-                    var cell8 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("s_sikap"), TN10)));
-                    cell8.VerticalAlignment = Element.ALIGN_MIDDLE; cell8.HorizontalAlignment = Element.ALIGN_CENTER;
-                    cell.BorderWidth = 0f; cell.BorderWidthRight = 0.5f;
-                    raport_tbl.AddCell(cell1); raport_tbl.AddCell(cell2);
-                    raport_tbl.AddCell(cell4); raport_tbl.AddCell(cell5); raport_tbl.AddCell(cell6);
-                    raport_tbl.AddCell(cell7); raport_tbl.AddCell(cell8); raport_tbl.AddCell(cell);
-                    i++;
-                }
-                myConn.Close();
-                cell.BorderWidth = 0f; cell.BorderWidthTop = 0.5f;
-                raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-                raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell(cell);
-                doc.Add(raport_tbl);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            cell.BorderWidth = 0f; cell.BorderWidthTop = 0.5f;
+            raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+            raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell(cell);
+            doc.Add(raport_tbl);
         }
     
         public void ekskul_siswa(Document doc)
@@ -730,7 +624,7 @@ namespace Raport
             doc.Add(raport_tbl);
         }
 
-        public void walikelas_ortu(Document doc)
+        public void walikelas_ortu(Document doc, string kelas)
         {
             raport_tbl = new PdfPTable(4);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
@@ -739,15 +633,17 @@ namespace Raport
             raport_tbl.SetWidths(widths);
 
             string bulan = month[DateTime.Today.Month - 1] + " " + DateTime.Today.Year.ToString();
-            var cell1 = new PdfPCell(new Phrase(new Chunk("Mengetahui: \nOrang Tua/Wali", TN11)));
+            var cell1 = new PdfPCell(new Phrase(new Chunk("Mengetahui: \nOrang Tua/Wali", TN10)));
             cell1.HorizontalAlignment = Element.ALIGN_LEFT; cell1.BorderWidth = 0f;
             var cell3 = new PdfPCell(new Phrase(new Chunk("\n\n\n", TN10)));
             cell3.HorizontalAlignment = Element.ALIGN_LEFT; cell3.BorderWidth = 0f;
-            var cell4 = new PdfPCell(new Phrase(new Chunk("....................................", TN11)));
+            var cell4 = new PdfPCell(new Phrase(new Chunk("....................................", TN10)));
             cell4.HorizontalAlignment = Element.ALIGN_LEFT; cell4.BorderWidth = 0f;
-            var cell5 = new PdfPCell(new Phrase(new Chunk("Jampangkulon, " + tanggal + " " + bulan + "\nWali Kelas,", TN11)));
+            var cell5 = new PdfPCell(new Phrase(new Chunk("Jampangkulon, " + tanggal + " " + bulan + "\nWali Kelas,", TN10)));
             cell5.HorizontalAlignment = Element.ALIGN_LEFT; cell5.BorderWidth = 0f;
 
+            string wali_kelas = "SELECT nama_guru, nip FROM kelas INNER JOIN guru USING (id_guru) " +
+                                "WHERE kode_kelas = '" + kelas + "'";
             myComm = new MySqlCommand(wali_kelas, myConn);
             try
             {
@@ -765,9 +661,9 @@ namespace Raport
 
             }
 
-            var cell6 = new PdfPCell(new Phrase(new Chunk(nama_guru, TN11)));
+            var cell6 = new PdfPCell(new Phrase(new Chunk(nama_guru, TN10)));
             cell6.HorizontalAlignment = Element.ALIGN_LEFT; cell6.BorderWidth = 0f;
-            var cell7 = new PdfPCell(new Phrase(new Chunk(nip_guru, TN11)));
+            var cell7 = new PdfPCell(new Phrase(new Chunk(nip_guru, TN10)));
             cell7.HorizontalAlignment = Element.ALIGN_LEFT; cell7.BorderWidth = 0f;
             var cell8 = new PdfPCell(new Phrase(new Chunk("\n", TN8)));
             cell8.Colspan = 4; cell8.BorderWidth = 0f;
@@ -781,6 +677,106 @@ namespace Raport
             doc.Add(raport_tbl);
         }
 
+        public void kriteria_desk(Document doc)
+        {
+            raport_tbl = new PdfPTable(4);
+            raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
+            raport_tbl.DefaultCell.Border = Rectangle.NO_BORDER;
+            widths = new float[] { 10f, 125f, 100f, 275f };
+            raport_tbl.SetWidths(widths);
+
+            var cell1 = new PdfPCell(new Phrase(new Chunk("MATA PELAJARAN", TB11))); cell1.Colspan = 2;
+            cell1.HorizontalAlignment = Element.ALIGN_CENTER; cell1.VerticalAlignment = Element.ALIGN_MIDDLE; 
+            var cell2 = new PdfPCell(new Phrase(new Chunk("KOMPETENSI", TB11)));
+            cell2.HorizontalAlignment = Element.ALIGN_CENTER; cell2.VerticalAlignment = Element.ALIGN_MIDDLE;
+            var cell3 = new PdfPCell(new Phrase(new Chunk("CATATAN", TB11)));
+            cell3.HorizontalAlignment = Element.ALIGN_CENTER; cell3.VerticalAlignment = Element.ALIGN_MIDDLE;
+            var cell4 = new PdfPCell(new Phrase(new Chunk("DESKRIPSI KOMPETENSI", TB11)));
+            cell4.HorizontalAlignment = Element.ALIGN_LEFT; cell4.VerticalAlignment = Element.ALIGN_MIDDLE;
+            cell4.BorderWidth = 0f; cell4.Colspan = 4;
+            cell.BorderWidth = 0f; cell.Colspan = 3;
+
+            raport_tbl.AddCell(cell4); raport_tbl.AddCell(cell); raport_tbl.AddCell("\n");
+            raport_tbl.AddCell(cell1); raport_tbl.AddCell(cell2); raport_tbl.AddCell(cell3);
+
+            doc.Add(raport_tbl);
+        }
+        
+        public void deskripsiLCK(Document doc, DataGridView datagrid, string kategori, string semester, string kelas)
+        {
+            datagrid.DataSource = null;
+            raport_tbl = new PdfPTable(4);
+            raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
+            raport_tbl.DefaultCell.Border = Rectangle.NO_BORDER;
+            widths = new float[] { 10f, 125f, 100f, 275f };
+            raport_tbl.SetWidths(widths);
+
+            this.field = "nilai.kode_mapel as 'kode', mata_pelajaran, p_desk, k_desk, s_desk ";
+            this.table = "nilai INNER JOIN kelas USING (kode_kelas) INNER JOIN mapel USING (kode_mapel) ";
+            this.cond = "kode_semester= '" + semester + "' AND nilai.kode_kelas = '" + 
+                         kelas + "' AND kategori_mapel = '" + kategori + "'";
+            DataTable tabel = db.GetDataTable(field, table, cond);
+            datagrid.DataSource = tabel;
+
+            for (int i = 0; i < datagrid.Rows.Count; i++)
+            {
+                if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "A") valueA = "p_atas";
+                else if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "T") valueA = "p_tengah";
+                else if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "B") valueA = "p_bawah";
+
+                if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "A") valueB = "k_atas";
+                else if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "T") valueB = "k_tengah";
+                else if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "B") valueB = "k_bawah";
+
+                if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "A") valueC = "s_atas";
+                else if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "T") valueC = "s_tengah";
+                else if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "B") valueC = "s_bawah";
+
+                string deskA = "SELECT mata_pelajaran, " + valueA + ", " + valueB + ", " + valueC + " FROM " +
+                               "deskripsi INNER JOIN mapel USING (kode_mapel) INNER JOIN kelas USING (kode_kelas) " + 
+                               "WHERE kode_semester = '" + semester + "' AND kode_kelas = '" + kelas + 
+                               "' AND kode_mapel = '" + datagrid.Rows[i].Cells[0].Value.ToString() + "'";
+
+                myComm = new MySqlCommand(deskA, myConn);
+                try
+                {
+                    myConn.Open();
+                    myReader = myComm.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        var cell1 = new PdfPCell(new Phrase(new Chunk("", TN10))); cell1.Rowspan = 3;
+                        cell1.VerticalAlignment = Element.ALIGN_MIDDLE; cell1.HorizontalAlignment = Element.ALIGN_CENTER;
+                        var cell2 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("mata_pelajaran"), TN10))); cell2.Rowspan = 3;
+                        cell2.VerticalAlignment = Element.ALIGN_MIDDLE; cell2.HorizontalAlignment = Element.ALIGN_LEFT;
+                        var cell3 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueA), TN10)));
+                        cell3.HorizontalAlignment = Element.ALIGN_LEFT;
+                        var cell4 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueB), TN10)));
+                        cell4.HorizontalAlignment = Element.ALIGN_CENTER;
+                        var cell5 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueC), TN10)));
+                        cell5.HorizontalAlignment = Element.ALIGN_LEFT;
+                        var cell6 = new PdfPCell(new Phrase(new Chunk("Pengetahuan", TN10)));
+                        cell6.VerticalAlignment = Element.ALIGN_MIDDLE; cell6.HorizontalAlignment = Element.ALIGN_LEFT;
+                        var cell7 = new PdfPCell(new Phrase(new Chunk("Keterampilan", TN10)));
+                        cell7.VerticalAlignment = Element.ALIGN_MIDDLE; cell7.HorizontalAlignment = Element.ALIGN_LEFT;
+                        var cell8 = new PdfPCell(new Phrase(new Chunk("Sikap Sosial dan Spiritual", TN10)));
+                        cell8.VerticalAlignment = Element.ALIGN_MIDDLE; cell8.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell.BorderWidth = 0f; cell.BorderWidthRight = 0.5f;
+
+                        raport_tbl.AddCell(cell1); raport_tbl.AddCell(cell2);
+                        raport_tbl.AddCell(cell6); raport_tbl.AddCell(cell3);
+                        raport_tbl.AddCell(cell7); raport_tbl.AddCell(cell4);
+                        raport_tbl.AddCell(cell8); raport_tbl.AddCell(cell5);
+                    }
+                    myConn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            doc.Add(raport_tbl);
+        }
+        
         //END CLASS
     }
 }

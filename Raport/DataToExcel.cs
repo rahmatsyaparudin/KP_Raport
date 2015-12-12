@@ -37,6 +37,69 @@ namespace Raport
             return format.ToString();
         }
 
+        public void BrowserDialog(FolderBrowserDialog fbDialog, string dirPath)
+        {
+            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName.ToString();
+            string path = dirPath;
+            string dir = appRootDir + "\\Temp\\" + path;
+
+            if (fbDialog.ShowDialog() == DialogResult.OK)
+            {
+                string destFileName = fbDialog.SelectedPath + "\\" + Path.GetFileName(path);
+                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
+                DirectoryInfo target = new DirectoryInfo(destFileName);
+
+                foreach (FileInfo fi in sourceinfo.GetFiles())
+                {
+                    string namafile = fi.Name.ToString();
+                    foreach (Process proc in Process.GetProcessesByName(namafile))
+                    {
+                        proc.Kill();
+                    }
+                }
+                if (!Directory.Exists(destFileName))
+                {
+                    Directory.Move(dir, destFileName);
+                }
+                else
+                {
+                    foreach (FileInfo fi in sourceinfo.GetFiles())
+                    {
+                        string namafile2 = fi.Name.ToString();
+                        string subdir = dir + "\\" + namafile2;
+                        string subdest = destFileName + "\\" + namafile2;
+                        if (File.Exists(subdir))
+                        {
+                            File.Delete(subdest);
+                            File.Move(subdir, subdest);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
+                foreach (FileInfo fi in sourceinfo.GetFiles())
+                {
+                    string namafile = fi.Name.ToString();
+                    foreach (Process proc in Process.GetProcessesByName(namafile))
+                    {
+                        proc.Kill();
+                    }
+                }
+
+                foreach (FileInfo fi in sourceinfo.GetFiles())
+                {
+                    string namafile2 = fi.Name.ToString();
+                    string subdir = dir + "\\" + namafile2;
+                    if (File.Exists(subdir))
+                    {
+                        File.Delete(subdir);
+                    }
+                }
+            }
+        }
+
         public void killExcelProcess()
         {
             foreach (Process clsProcess in Process.GetProcesses())
@@ -59,65 +122,62 @@ namespace Raport
             datagrid.DataSource = tabel;
         }
 
-        public void GuruToExcel(DataGridView datagrid, string filename, SaveFileDialog sfDialog)
+        public void GuruToExcel(DataGridView datagrid, FolderBrowserDialog fbDialog)
         {
+            string tanggal = formattedDate();
+            string path = "Temp\\Data Guru";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string filename = "Data Guru SMANJAK (" + tanggal + ").xlsx";
+            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
             Excel.Application xlsApp = new Excel.Application();
             Excel.Worksheet xlsWorkSheet;
-            sfDialog.InitialDirectory = "D:";
-            sfDialog.Title = "Save as Excel File";
-            sfDialog.FileName = filename;
-            sfDialog.Filter = "Excel Files(2010)|*.xlsx|Excel Files(2007)|*.xls";
-            if (sfDialog.ShowDialog() != DialogResult.Cancel)
-            {
-                xlsApp.Application.Workbooks.Add(Type.Missing);
-                xlsWorkSheet = (Excel.Worksheet)xlsApp.Worksheets["Sheet1"];
-                ((Excel.Worksheet)xlsApp.ActiveWorkbook.Sheets["Sheet1"]).Select();
-                xlsWorkSheet.Name = "Data Guru";
-                xlsApp.StandardFont = "Times New Roman";
-                xlsApp.StandardFontSize = 12;
+            
+            xlsApp.Application.Workbooks.Add(Type.Missing);
+            xlsWorkSheet = (Excel.Worksheet)xlsApp.Worksheets["Sheet1"];
+            ((Excel.Worksheet)xlsApp.ActiveWorkbook.Sheets["Sheet1"]).Select();
+            xlsWorkSheet.Name = "Data Guru";
+            xlsApp.StandardFont = "Times New Roman";
+            xlsApp.StandardFontSize = 12;
 
-                int k = 1;
-                for (int i = 1; i < datagrid.Columns.Count + 1; i++)
+            int k = 1;
+            for (int i = 1; i < datagrid.Columns.Count + 1; i++)
+            {
+                xlsWorkSheet.Cells[3, i + 1] = datagrid.Columns[i - 1].HeaderText;
+                xlsWorkSheet.Cells[3, i + 1].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+                xlsWorkSheet.Cells[i + 2, 1] = "No";
+                xlsWorkSheet.Cells[3, i + 1].Font.Bold = true;
+                k++;
+            }
+            xlsWorkSheet.Cells[3, 1].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+            xlsWorkSheet.Cells[3, 1].Font.Bold = true;
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[1, k]].Merge(Type.Missing);
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[1, k]] = "DATA GURU SMAN 1 JAMPANGKULON";
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[2, 1], xlsWorkSheet.Cells[2, k]].Merge(Type.Missing);
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[2, 1], xlsWorkSheet.Cells[2, k]] = "TAHUN AJARAN " + passTahun;
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[2, k]].Font.Size = 14;
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[2, k]].Font.Bold = true;
+
+            for (int i = 0; i < datagrid.Rows.Count; i++)
+            {
+                for (int j = 0; j < datagrid.Columns.Count; j++)
                 {
-                    xlsWorkSheet.Cells[3, i + 1] = datagrid.Columns[i - 1].HeaderText;
-                    xlsWorkSheet.Cells[3, i+1].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
-                    xlsWorkSheet.Cells[i + 2, 1] = "No";
-                    xlsWorkSheet.Cells[3, i+1].Font.Bold = true;
-                    k++;
-                }
-                xlsWorkSheet.Cells[3, 1].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
-                xlsWorkSheet.Cells[3, 1].Font.Bold = true;
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[1, k]].Merge(Type.Missing);
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[1, k]] = "DATA GURU SMAN 1 JAMPANGKULON";
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[2, 1], xlsWorkSheet.Cells[2, k]].Merge(Type.Missing);
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[2, 1], xlsWorkSheet.Cells[2, k]] = "TAHUN AJARAN " + passTahun;
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[2, k]].Font.Size = 14;
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[2, k]].Font.Bold = true;
-                
-                for (int i = 0; i < datagrid.Rows.Count; i++)
-                {
-                    for (int j = 0; j < datagrid.Columns.Count; j++)
+                    if (datagrid.Rows[i].Cells[j].Value != null)
                     {
-                        if (datagrid.Rows[i].Cells[j].Value != null)
-                        {
-                            xlsWorkSheet.Cells[i + 4, j + 2] = datagrid.Rows[i].Cells[j].Value.ToString();
-                            xlsWorkSheet.Cells[i + 4, 1] = Convert.ToString(i + 1);
-                            xlsWorkSheet.Cells[i + 4, j + 1].EntireRow.NumberFormat = "@";
-                            xlsWorkSheet.Cells[i + 4, j + 1].EntireColumn.NumberFormat = "@";
-                            xlsWorkSheet.Columns.AutoFit();
-                        }
+                        xlsWorkSheet.Cells[i + 4, j + 2] = datagrid.Rows[i].Cells[j].Value.ToString();
+                        xlsWorkSheet.Cells[i + 4, 1] = Convert.ToString(i + 1);
+                        xlsWorkSheet.Cells[i + 4, j + 1].EntireRow.NumberFormat = "@";
+                        xlsWorkSheet.Cells[i + 4, j + 1].EntireColumn.NumberFormat = "@";
+                        xlsWorkSheet.Columns.AutoFit();
                     }
                 }
-                xlsApp.ActiveWorkbook.SaveCopyAs(sfDialog.FileName.ToString());
-                MessageBox.Show(sfDialog.FileName + " berhasil tersimpan");
-                xlsApp.ActiveWorkbook.Saved = true;
-                xlsApp.Quit();
-                killExcelProcess();
             }
-            else
-            {
-                killExcelProcess();
-            }
+            xlsApp.ActiveWorkbook.SaveCopyAs(appRootDir + "\\" + path + "\\" + filename.ToString());
+            xlsApp.ActiveWorkbook.Saved = true;
+            xlsApp.Quit();
+            killExcelProcess();
         }
 
         public void saveDataSiswa(DataGridView datagrid)
@@ -134,65 +194,60 @@ namespace Raport
             datagrid.DataSource = tabel;
         }
 
-        public void SiswaToExcel(DataGridView dg, string filename, SaveFileDialog sfDialog)
+        public void SiswaToExcel(DataGridView dg, FolderBrowserDialog fbDialog)
         {
+            string tanggal = formattedDate();
+            string path = "Temp\\Data Siswa";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string filename = "Data Siswa SMANJAK (" + tanggal + ").xlsx";
+            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
+
             Excel.Application xlsApp = new Excel.Application();
             Excel.Worksheet xlsWorkSheet;
-            sfDialog.InitialDirectory = "D:";
-            sfDialog.Title = "Save as Excel File";
-            sfDialog.FileName = filename;
-            sfDialog.Filter = "Excel Files(2010)|*.xlsx|Excel Files(2007)|*.xls";
-            if (sfDialog.ShowDialog() != DialogResult.Cancel)
+            xlsApp.Application.Workbooks.Add(Type.Missing);
+            xlsWorkSheet = (Excel.Worksheet)xlsApp.Worksheets["Sheet1"];
+            ((Excel.Worksheet)xlsApp.ActiveWorkbook.Sheets["Sheet1"]).Select();
+            xlsWorkSheet.Name = "Data Siswa";
+            xlsApp.StandardFont = "Times New Roman";
+            xlsApp.StandardFontSize = 12;
+
+            int k = 1;
+            for (int i = 1; i < dg.Columns.Count + 1; i++)
             {
-                xlsApp.Application.Workbooks.Add(Type.Missing);
-                xlsWorkSheet = (Excel.Worksheet)xlsApp.Worksheets["Sheet1"];
-                ((Excel.Worksheet)xlsApp.ActiveWorkbook.Sheets["Sheet1"]).Select();
-                xlsWorkSheet.Name = "Data Siswa";
-                xlsApp.StandardFont = "Times New Roman";
-                xlsApp.StandardFontSize = 12;
-             
-                int k = 1;
-                for (int i = 1; i < dg.Columns.Count + 1; i++)
+                xlsWorkSheet.Cells[5, i] = dg.Columns[i - 1].HeaderText;
+                xlsWorkSheet.Cells[5, i].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+                xlsWorkSheet.Cells[5, i].Font.Bold = true;
+                k++;
+            }
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[1, k - 1]].Merge(Type.Missing);
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[1, k - 1]] = "DATA SISWA SMAN 1 JAMPANGKULON";
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[2, 1], xlsWorkSheet.Cells[2, k - 1]].Merge(Type.Missing);
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[2, 1], xlsWorkSheet.Cells[2, k - 1]] = "TAHUN AJARAN " + passTahun;
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[2, k - 1]].Font.Size = 14;
+            xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[2, k - 1]].Font.Bold = true;
+
+            for (int i = 0; i < dg.Rows.Count; i++)
+            {
+                for (int j = 0; j < dg.Columns.Count; j++)
                 {
-                    xlsWorkSheet.Cells[5, i] = dg.Columns[i - 1].HeaderText;
-                    xlsWorkSheet.Cells[5, i].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
-                    xlsWorkSheet.Cells[5, i].Font.Bold = true;
-                    k++;
-                }
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[1, k - 1]].Merge(Type.Missing);
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[1, k - 1]] = "DATA SISWA SMAN 1 JAMPANGKULON";
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[2, 1], xlsWorkSheet.Cells[2, k - 1]].Merge(Type.Missing);
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[2, 1], xlsWorkSheet.Cells[2, k - 1]] = "TAHUN AJARAN " + passTahun;
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[2, k - 1]].Font.Size = 14;
-                xlsWorkSheet.Range[xlsWorkSheet.Cells[1, 1], xlsWorkSheet.Cells[2, k - 1]].Font.Bold = true;
-                
-                for (int i = 0; i < dg.Rows.Count; i++)
-                {
-                    for (int j = 0; j < dg.Columns.Count; j++)
+                    if (dg.Rows[i].Cells[j].Value != null)
                     {
-                        if (dg.Rows[i].Cells[j].Value != null)
-                        {
-                            xlsWorkSheet.Cells[i + 6, j + 1].EntireRow.ToString();
-                            xlsWorkSheet.Cells[i + 6, j + 1] = dg.Rows[i].Cells[j].Value.ToString();
-                            xlsWorkSheet.Cells[i + 6, j + 1].EntireRow.NumberFormat = "@";
-                            xlsWorkSheet.Cells[i + 6, j + 1].EntireColumn.NumberFormat = "@";
-                            //xlsWorkSheet.Cells[i + 6, 5].EntireColumn.NumberFormat = "@";
-                            //xlsWorkSheet.Cells[i + 6, 14].EntireColumn.NumberFormat = "@";
-                            xlsWorkSheet.Cells[i + 6, j + 1].EntireColumn.ToString();
-                            xlsWorkSheet.Columns.AutoFit();
-                        }
-                    }   
+                        xlsWorkSheet.Cells[i + 6, j + 1].EntireRow.ToString();
+                        xlsWorkSheet.Cells[i + 6, j + 1] = dg.Rows[i].Cells[j].Value.ToString();
+                        xlsWorkSheet.Cells[i + 6, j + 1].EntireRow.NumberFormat = "@";
+                        xlsWorkSheet.Cells[i + 6, j + 1].EntireColumn.NumberFormat = "@";
+                        xlsWorkSheet.Cells[i + 6, j + 1].EntireColumn.ToString();
+                        xlsWorkSheet.Columns.AutoFit();
+                    }
                 }
-                xlsApp.ActiveWorkbook.SaveCopyAs(sfDialog.FileName.ToString());
-                MessageBox.Show(sfDialog.FileName + " berhasil tersimpan");
-                xlsApp.ActiveWorkbook.Saved = true;
-                xlsApp.Quit();
-                killExcelProcess();
             }
-            else
-            {
-                killExcelProcess();
-            }
+            xlsApp.ActiveWorkbook.SaveCopyAs(appRootDir + "\\" + path + "\\" + filename.ToString());
+            xlsApp.ActiveWorkbook.Saved = true;
+            xlsApp.Quit();
+            killExcelProcess();
         }
 
         //END CLASS

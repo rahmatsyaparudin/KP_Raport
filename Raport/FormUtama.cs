@@ -305,73 +305,40 @@ namespace Raport
 
         private void printDataGuru_btn_Click(object sender, EventArgs e)
         {
-            dbToExcel.passTahun = tahuj_combo.Text.ToString();
-            string tanggal = dbToExcel.formattedDate();
+            dbToExcel.passTahun = tahuj_combo.Text.ToString();            
             dbToExcel.saveDataGuru(print_grid);
-            dbToExcel.GuruToExcel(print_grid, "Data Guru SMANJAK (" + tanggal + ")", sfDialog);
-            
+            dbToExcel.GuruToExcel(print_grid, fbDialog);
+            dbToExcel.BrowserDialog(fbDialog, "Data Guru");
         }
 
         private void printDataSiswa_btn_Click(object sender, EventArgs e)
         {
             dbToExcel.passTahun = tahuj_combo.Text.ToString();
-            string tanggal = dbToExcel.formattedDate();
             dbToExcel.saveDataSiswa(print_grid);
-            dbToExcel.SiswaToExcel(print_grid, "Data Siswa SMANJAK (" + tanggal + ")", sfDialog);
+            dbToExcel.SiswaToExcel(print_grid, fbDialog);
+            dbToExcel.BrowserDialog(fbDialog, "Data Siswa");
         }
 
         private void raport_printBtn_Click(object sender, EventArgs e)
         {
             dbToPDF.passTahun = tahuj_combo.Text.ToString();
-            dbToPDF.RaportToPDF2();
-            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName.ToString();
-            string path = "Nilai Siswa (PDF)";
-            string dir = appRootDir + "\\" + path;
-
-            if (fbDialog.ShowDialog() == DialogResult.OK)
-            {
-                string destFileName = fbDialog.SelectedPath + Path.GetFileName(path);
-                
-                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
-                DirectoryInfo target = new DirectoryInfo(destFileName);
-
-                foreach (FileInfo fi in sourceinfo.GetFiles())
-                {
-                    string namafile = fi.Name.ToString();
-                    foreach (Process proc in Process.GetProcessesByName(namafile))
-                    {
-                        proc.Kill();
-                    }
-                }
-                if (!Directory.Exists(destFileName))
-                {
-                    Directory.Move(dir, destFileName);
-                }
-                else
-                {
-                    foreach (FileInfo fi in sourceinfo.GetFiles())
-                    {
-                        string namafile2 = fi.Name.ToString();
-                        string subdir = dir + "\\" + namafile2;
-                        string subdest = destFileName + "\\" + namafile2;
-                        if (File.Exists(subdir))
-                        {
-                            File.Delete(subdest);
-                            File.Move(subdir, subdest);
-                        }
-                        else
-                        {
-                            File.Move(subdir, subdest);
-                        }
-                    }
-                }
-            }
+            dbToPDF.RaportToPDF2(print_grid, "1314.10.006");
+            dbToPDF.BrowserDialog(fbDialog, "Data Nilai");
         }
 
         private void export_btn_Click(object sender, EventArgs e)
         {
             FormExport fDesk = new FormExport();
             fDesk.ShowDialog();
+        }
+
+        private void print_formatBtn_Click(object sender, EventArgs e)
+        {
+            string path = "Temp\\Data Guru";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
         }
 
         private void color_timer_Tick(object sender, EventArgs e)

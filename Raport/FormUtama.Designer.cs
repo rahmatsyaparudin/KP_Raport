@@ -530,6 +530,7 @@
             this.print_formatBtn.TabIndex = 35;
             this.print_formatBtn.Text = "Print Format";
             this.print_formatBtn.UseVisualStyleBackColor = false;
+            this.print_formatBtn.Click += new System.EventHandler(this.print_formatBtn_Click);
             // 
             // raport_printBtn
             // 
