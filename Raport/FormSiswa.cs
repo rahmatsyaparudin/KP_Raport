@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -17,7 +12,7 @@ namespace Raport
         Function db = new Function();
         MySqlDataReader myReader;
         private string table, field, cond;
-        private string nis_siswa, nama_siswa, nama_kelas, kelasX, kelasXI, kelasXII;
+        private string nis_siswa, nama_siswa, status_siswa, nama_kelas, kelasX, kelasXI, kelasXII;
         private string query;
         public string tahuj;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
@@ -31,6 +26,76 @@ namespace Raport
         {
             loadData();
             addColumn_dataKelas();
+            sortby_combo.DataSource = db.getTahuj();
+            sortby_combo.DisplayMember = "valueDisplay";
+            tahun_sortBtn.DataSource = db.getTahuj();
+            tahun_sortBtn.DisplayMember = "valueDisplay";
+        }
+
+        private void tahun_sortBtn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tahun_sortBtn.Text.Equals(""))
+            {
+                kelas_sortBtn.Enabled = false;
+                kelas_sortBtn.SelectedIndex = -1;
+            }
+            else if (!tahun_sortBtn.Text.Equals(""))
+            {
+                kelas_sortBtn.Enabled = true;
+                string getTahun = tahun_sortBtn.Text.ToString();
+                try
+                {
+                    string idValue = "kode_kelas";
+                    string dispValue = "nama_kelas";
+                    this.table = "kelas";
+                    this.cond = "status_kelas = 'Aktif' AND tahun_ajaran = '" + getTahun + "'";
+                    string sortby = "nama_kelas";
+                    kelas_sortBtn.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
+                    kelas_sortBtn.DisplayMember = "valueDisplay";
+                    kelas_sortBtn.ValueMember = "valueID";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void kelas_sortBtn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            addColumn_dataKelas();
+        }
+
+        private void sortby_combo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (sortby_combo.Text.Equals(""))
+            {
+                siswa_grid.DataSource = null;
+                loadData();
+            }
+            else
+            {
+                try
+                {
+                    siswa_grid.DataSource = null;
+                    this.field = "id_detail as 'ID Detail', detailkelassiswa.kode_kelas as 'Kode Kelas', siswa.nis_siswa as 'NIS', nisn_siswa as 'NISN', nama_siswa as 'Nama Siswa', tempat_lahir as 'Tempat Lahir'," +
+                         "tanggal_lahir as 'Tanggal Lahir', jenis_kelamin as 'Jenis Kelamin', kelas.nama_kelas as 'Diterima di Kelas', status_keluarga as 'Status Anak'," +
+                         "anak_ke as 'Anak Ke-', agama as 'Agama', siswa.no_telp as 'No. Telp. Siswa', alamat as 'Alamat Siswa', asal_sekolah as 'Asal Sekolah'," +
+                         "tanggal_masuk as 'Diterima Tanggal', nama_ayah as 'Nama Ayah', nama_ibu as 'Nama Ibu', pekerjaan_ayah as 'Pekerjaan Ayah'," +
+                         "pekerjaan_ibu as 'Pekerjaan Ibu', orangtua.no_telp as 'No. Telp. Ortu', alamat_ortu as 'Alamat Ortu'," +
+                         "nama_wali as 'Nama Wali', pekerjaan_wali as 'Pekerjaan Wali', alamat_wali as 'Alamat Wali'";
+                    this.table = "detailkelassiswa INNER JOIN siswa ON siswa.nis_siswa = detailkelassiswa.nis_siswa INNER JOIN orangtua ON siswa.nis_siswa = orangtua.nis_siswa INNER JOIN kelas ON detailkelassiswa.kode_kelas = kelas.kode_kelas";
+                    this.cond = "detailkelassiswa.keterangan = 'Data Siswa' AND status_siswa != 'Tidak Aktif' AND tahun_ajaran LIKE '" + sortby_combo.Text + "'";
+                    DataTable tabel = db.GetDataTable(field, table, cond);
+                    this.siswa_grid.DataSource = tabel;
+                    siswa_grid.Columns[0].Visible = false;
+                    siswa_grid.Columns[1].Visible = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         public string tahun_ajaran
@@ -49,28 +114,28 @@ namespace Raport
             fAddSiswa.delete_btn.Enabled = false;
             fAddSiswa.Show();
         }
-        
+
         public void loadData()
         {
             this.field = "id_detail as 'ID Detail', detailkelassiswa.kode_kelas as 'Kode Kelas', siswa.nis_siswa as 'NIS', nisn_siswa as 'NISN', nama_siswa as 'Nama Siswa', tempat_lahir as 'Tempat Lahir'," +
                          "tanggal_lahir as 'Tanggal Lahir', jenis_kelamin as 'Jenis Kelamin', kelas.nama_kelas as 'Diterima di Kelas', status_keluarga as 'Status Anak'," +
-                         "anak_ke as 'Anak Ke-', agama as 'Agama', siswa.no_telp as 'No. Telp. Siswa', alamat as 'Alamat Siswa', asal_sekolah as 'Asal Sekolah',"+
+                         "anak_ke as 'Anak Ke-', agama as 'Agama', siswa.no_telp as 'No. Telp. Siswa', alamat as 'Alamat Siswa', asal_sekolah as 'Asal Sekolah'," +
                          "tanggal_masuk as 'Diterima Tanggal', nama_ayah as 'Nama Ayah', nama_ibu as 'Nama Ibu', pekerjaan_ayah as 'Pekerjaan Ayah'," +
                          "pekerjaan_ibu as 'Pekerjaan Ibu', orangtua.no_telp as 'No. Telp. Ortu', alamat_ortu as 'Alamat Ortu'," +
                          "nama_wali as 'Nama Wali', pekerjaan_wali as 'Pekerjaan Wali', alamat_wali as 'Alamat Wali'";
             this.table = "detailkelassiswa INNER JOIN siswa ON siswa.nis_siswa = detailkelassiswa.nis_siswa INNER JOIN orangtua ON siswa.nis_siswa = orangtua.nis_siswa INNER JOIN kelas ON detailkelassiswa.kode_kelas = kelas.kode_kelas";
-            this.cond = "detailkelassiswa.keterangan = 'Data Siswa' AND status_siswa = 'Aktif'";
+            this.cond = "detailkelassiswa.keterangan = 'Data Siswa' AND status_siswa != 'Tidak Aktif'";
             DataTable tabel = db.GetDataTable(field, table, cond);
             this.siswa_grid.DataSource = tabel;
             siswa_grid.Columns[0].Visible = false;
             siswa_grid.Columns[1].Visible = false;
         }
-        
+
         private void refresh_toolStr_Click(object sender, EventArgs e)
         {
             loadData();
         }
-        
+
         private void siswa_grid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if ((e.RowIndex >= 0) && (e.RowIndex != -1))
@@ -132,6 +197,16 @@ namespace Raport
 
         private void search_txt_TextChanged(object sender, EventArgs e)
         {
+            string tahun;
+            if (sortby_combo.Text.Equals("") ||
+                sortby_combo.SelectedIndex.Equals(-1))
+            {
+                tahun = tahuj;
+            }
+            else
+            {
+                tahun = sortby_combo.Text.ToString();
+            }
             this.field = "id_detail as 'ID Detail', detailkelassiswa.kode_kelas as 'Kode Kelas', siswa.nis_siswa as 'NIS', nisn_siswa as 'NISN', nama_siswa as 'Nama Siswa', tempat_lahir as 'Tempat Lahir'," +
                          "tanggal_lahir as 'Tanggal Lahir', jenis_kelamin as 'Jenis Kelamin', kelas.nama_kelas as 'Diterima di Kelas', status_keluarga as 'Status Anak'," +
                          "anak_ke as 'Anak Ke-', agama as 'Agama', siswa.no_telp as 'No. Telp. Siswa', alamat as 'Alamat Siswa', asal_sekolah as 'Asal Sekolah'," +
@@ -139,7 +214,7 @@ namespace Raport
                          "pekerjaan_ibu as 'Pekerjaan Ibu', orangtua.no_telp as 'No. Telp. Ortu', alamat_ortu as 'Alamat Ortu'," +
                          "nama_wali as 'Nama Wali', pekerjaan_wali as 'Pekerjaan Wali', alamat_wali as 'Alamat Wali'";
             this.table = "detailkelassiswa INNER JOIN siswa ON siswa.nis_siswa = detailkelassiswa.nis_siswa INNER JOIN orangtua ON siswa.nis_siswa = orangtua.nis_siswa INNER JOIN kelas ON detailkelassiswa.kode_kelas = kelas.kode_kelas";
-            this.cond = "detailkelassiswa.keterangan = 'Data Siswa' AND " +
+            this.cond = "detailkelassiswa.keterangan = 'Data Siswa' AND tahun_ajaran= '" + tahun + "' AND " +
                         "(siswa.nis_siswa LIKE '%" + search_txt.Text + "%' OR " +
                         "nisn_siswa LIKE '%" + search_txt.Text + "%' OR " +
                         "nama_siswa LIKE '%" + search_txt.Text + "%' OR " +
@@ -150,6 +225,7 @@ namespace Raport
                         "pekerjaan_ayah LIKE '%" + search_txt.Text + "%' OR " +
                         "pekerjaan_ibu LIKE '%" + search_txt.Text + "%' OR " +
                         "pekerjaan_wali LIKE '%" + search_txt.Text + "%' OR " +
+                        "tempat_lahir LIKE '%" + search_txt.Text + "%' OR " +
                         "kelas.nama_kelas LIKE '%" + search_txt.Text + "%')";
             DataTable tabel = db.GetDataTable(field, table, cond);
             this.siswa_grid.DataSource = tabel;
@@ -160,6 +236,13 @@ namespace Raport
         //TAB DATA KELAS
         public void addColumn_dataKelas()
         {
+            datagrid_datakelas.DataSource = null;
+            datagrid_datakelas.Columns.Clear();
+            datagrid_datakelas.Rows.Clear();
+            dataKelas_grid.DataSource = null;
+            dataKelas_grid.Columns.Clear();
+            dataKelas_grid.Rows.Clear();
+
             var col1 = new DataGridViewTextBoxColumn();
                 col1.HeaderText = "NIS Siswa";
                 col1.Name = "NIS Siswa";
@@ -175,33 +258,50 @@ namespace Raport
             var col5 = new DataGridViewTextBoxColumn();
                 col5.HeaderText = "Kelas 12";
                 col5.Name = "Kelas 12";
-            dataKelas_grid.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3, col4, col5 });
+            var col6 = new DataGridViewTextBoxColumn();
+                col6.HeaderText = "Status";
+                col6.Name = "Status";
+            dataKelas_grid.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3, col4, col5, col6 });
 
             try
             {
-                datagrid_datakelas.DataSource = null;
-                datagrid_datakelas.Columns.Clear();
-                datagrid_datakelas.Rows.Clear();
-
+                
                 //Membuat Checkbox
                 chk.ReadOnly = false;
                 chk.HeaderText = "Pilih";
                 datagrid_datakelas.Columns.Add(chk);
+                
+                if (tahun_sortBtn.Text.Equals("") && kelas_sortBtn.Text.Equals("")) 
+                {
+                    this.field = "nis_siswa";
+                    this.table = "siswa";
+                    this.cond = "status_siswa != 'Tidak Aktif'";
+                }
+                else if (!tahun_sortBtn.Text.Equals("") && kelas_sortBtn.Text.Equals(""))
+                {
+                    this.field = "nis_siswa";
+                    this.table = "detailkelassiswa INNER JOIN siswa USING (nis_siswa) INNER JOIN kelas USING (kode_kelas) ";
+                    this.cond = "status_siswa != 'Tidak Aktif' AND tahun_ajaran = '" + tahun_sortBtn.Text.ToString() + "'";
+                }
 
-                this.field = "nis_siswa";
-                this.table = "siswa";
-                this.cond = "status_siswa = 'Aktif'";
+                else if (!tahun_sortBtn.Text.Equals("") && !kelas_sortBtn.Text.Equals(""))
+                {
+                    this.field = "nis_siswa";
+                    this.table = "detailkelassiswa INNER JOIN siswa USING (nis_siswa) INNER JOIN kelas USING (kode_kelas) ";
+                    this.cond = "status_siswa != 'Tidak Aktif' AND tahun_ajaran = '" + tahun_sortBtn.Text.ToString() +
+                                "' AND kode_kelas = '" + kelas_sortBtn.SelectedValue.ToString() + "'";
+                }
 
                 DataTable tabel = db.GetDataTable(field, table, cond);
                 datagrid_datakelas.DataSource = tabel;
-
+                
                 foreach (DataGridViewRow row in datagrid_datakelas.Rows)
                 {
                     row.Cells[0].Value = true;
                     if (Convert.ToBoolean(row.Cells[0].Value) == true)
                     {
                         this.nis_siswa = row.Cells[1].Value.ToString();
-                        this.query = "SELECT nama_kelas, nama_siswa from detailkelassiswa " +
+                        this.query = "SELECT nama_kelas, nama_siswa, status_siswa from detailkelassiswa " +
                                      "INNER JOIN kelas USING (kode_kelas) " +
                                      "INNER JOIN siswa USING (nis_siswa) " +
                                      "WHERE detailkelassiswa.nis_siswa = '" + nis_siswa + "'";
@@ -212,6 +312,7 @@ namespace Raport
                         {
                             nama_kelas = myReader.GetString("nama_kelas");
                             nama_siswa = myReader.GetString("nama_siswa");
+                            status_siswa = myReader.GetString("status_siswa");
 
                             int i = nama_kelas.IndexOf(' ');
                             i = nama_kelas.IndexOf(' ', i);
@@ -228,14 +329,14 @@ namespace Raport
                                 this.kelasXII = nama_kelas;
                             }
                         }
-                        dataKelas_grid.Rows.Add(nis_siswa, nama_siswa, kelasX, kelasXI, kelasXII);
+                        dataKelas_grid.Rows.Add(nis_siswa, nama_siswa, kelasX, kelasXI, kelasXII, status_siswa);
                         myConn.Close();
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
 
         }

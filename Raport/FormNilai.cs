@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -383,7 +378,7 @@ namespace Raport
                 }
                 catch (InvalidCastException cast)
                 {
-                    //MessageBox.Show("Data Tidak boleh kosong (0-100)");
+                    throw cast;
                 }
             }
         }
@@ -396,11 +391,11 @@ namespace Raport
 
                 if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(6) && e.RowIndex != -1)
                 {
-                    if ((row.Cells[6].Value == "A") || (row.Cells[6].Value == "a"))
+                    if ((Convert.ToString(row.Cells[6].Value) == "A") || (Convert.ToString(row.Cells[6].Value) == "a"))
                         row.Cells[6].Value = "A";
-                    if ((row.Cells[6].Value == "T") || (row.Cells[6].Value == "t"))
+                    if ((Convert.ToString(row.Cells[6].Value) == "T") || (Convert.ToString(row.Cells[6].Value) == "t"))
                         row.Cells[6].Value = "T";
-                    if ((row.Cells[6].Value == "B") || (row.Cells[6].Value == "b"))
+                    if ((Convert.ToString(row.Cells[6].Value) == "B") || (Convert.ToString(row.Cells[6].Value) == "b"))
                         row.Cells[6].Value = "B";
                 }
                 
@@ -676,7 +671,9 @@ namespace Raport
                     {
                         nis_siswa = row.Cells[1].Value.ToString();
                         this.nis_lbl.Text = "null";
-                        getSiswa = "SELECT count(*) as 'jumlah' FROM nilai WHERE nis_siswa = '" + nis_siswa + "' AND kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel + "' AND kode_semester = '" + kodeSmt + "'";
+                        getSiswa = "SELECT count(*) as 'jumlah' FROM nilai WHERE nis_siswa = '" + nis_siswa + 
+                                   "' AND kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel + 
+                                   "' AND kode_semester = '" + kodeSmt + "'";
                         myConn.Open();
                         myComm = new MySqlCommand(getSiswa, myConn);
                         myReader = myComm.ExecuteReader();
@@ -780,7 +777,7 @@ namespace Raport
                 else
                     row.Cells[3].Style.BackColor = Color.LightSkyBlue;
 
-                if (row.Cells[6].Value == "")
+                if (Convert.ToString(row.Cells[6].Value) == "")
                     row.Cells[6].Style.BackColor = Color.LimeGreen;
                 else
                     row.Cells[6].Style.BackColor = Color.LightSkyBlue;
@@ -791,7 +788,7 @@ namespace Raport
                 else
                     row.Cells[7].Style.BackColor = Color.LightSkyBlue;
 
-                if (row.Cells[10].Value == "")
+                if (Convert.ToString(row.Cells[10].Value) == "")
                     row.Cells[10].Style.BackColor = Color.LimeGreen;
                 else
                     row.Cells[10].Style.BackColor = Color.LightSkyBlue;
@@ -802,7 +799,7 @@ namespace Raport
                 else
                     row.Cells[11].Style.BackColor = Color.LightSkyBlue;
 
-                if (row.Cells[13].Value == "")
+                if (Convert.ToString(row.Cells[13].Value) == "")
                     row.Cells[13].Style.BackColor = Color.LimeGreen;
                 else
                     row.Cells[13].Style.BackColor = Color.LightSkyBlue;

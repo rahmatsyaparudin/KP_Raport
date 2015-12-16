@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -198,8 +193,8 @@ namespace Raport
                 else
                 {
                     this.table = "mapel";
-                    this.field = "'" + this.kode_txt.Text +
-                            "', '" + this.mapel_txt.Text + "', '" + this.kategori_combo.Text +
+                    this.field = "'" + this.kode_txt.Text.Replace("'", "''") +
+                            "', '" + this.mapel_txt.Text.Replace("'", "''") + "', '" + this.kategori_combo.Text +
                             "', '" + this.jam_combo.Text + "', DEFAULT, DEFAULT";
                     db.insertData(table, field);
                     MessageBox.Show("Mata Pelajaran '" + this.mapel_txt.Text +
@@ -224,11 +219,11 @@ namespace Raport
             try
             {
                 this.table = "mapel";
-                this.field = "mata_pelajaran = '" + this.mapel_txt.Text +
+                this.field = "mata_pelajaran = '" + this.mapel_txt.Text.Replace("'", "''") +
                         "', kategori_mapel = '" + this.kategori_combo.Text +
                         "', jam_pelajaran = '" + jam_combo.Text + 
-                        "', kode_mapel = '" + kode_txt.Text + "'";
-                this.cond = "kode_mapel = '" + getId_txt.Text + "'";
+                        "', kode_mapel = '" + kode_txt.Text.Replace("'", "''") + "'";
+                this.cond = "kode_mapel = '" + getId_txt.Text.Replace("'", "''") + "'";
 
                 db.updateData(table, field, cond);
                 MessageBox.Show("Edit Data Mata Pelajaran Berhasil \n Data Tersimpan");

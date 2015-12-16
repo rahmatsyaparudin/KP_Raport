@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
-using System.Collections;
-using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using System.Diagnostics;
@@ -15,10 +9,7 @@ namespace Raport
 {
     class DataToExcel
     {
-        MySqlConnection myConn = Function.getKoneksi();
         Function db = new Function();
-        MySqlDataReader myReader;
-
         public string getTahun;
         public string field, table, cond;
   
@@ -58,9 +49,7 @@ namespace Raport
                     }
                 }
                 if (!Directory.Exists(destFileName))
-                {
                     Directory.Move(dir, destFileName);
-                }
                 else
                 {
                     foreach (FileInfo fi in sourceinfo.GetFiles())
@@ -93,9 +82,7 @@ namespace Raport
                     string namafile2 = fi.Name.ToString();
                     string subdir = dir + "\\" + namafile2;
                     if (File.Exists(subdir))
-                    {
                         File.Delete(subdir);
-                    }
                 }
             }
         }
@@ -127,14 +114,12 @@ namespace Raport
             string tanggal = formattedDate();
             string path = "Temp\\Data Guru";
             if (!Directory.Exists(path))
-            {
                 Directory.CreateDirectory(path);
-            }
+
             string filename = "Data Guru SMANJAK (" + tanggal + ").xlsx";
             string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
             Excel.Application xlsApp = new Excel.Application();
             Excel.Worksheet xlsWorkSheet;
-            
             xlsApp.Application.Workbooks.Add(Type.Missing);
             xlsWorkSheet = (Excel.Worksheet)xlsApp.Worksheets["Sheet1"];
             ((Excel.Worksheet)xlsApp.ActiveWorkbook.Sheets["Sheet1"]).Select();

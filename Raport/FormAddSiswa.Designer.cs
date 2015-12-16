@@ -622,6 +622,7 @@
             // 
             this.pekerjaanWali_txt.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pekerjaanWali_txt.Location = new System.Drawing.Point(370, 147);
+            this.pekerjaanWali_txt.MaxLength = 29;
             this.pekerjaanWali_txt.Name = "pekerjaanWali_txt";
             this.pekerjaanWali_txt.Size = new System.Drawing.Size(149, 29);
             this.pekerjaanWali_txt.TabIndex = 56;
@@ -670,6 +671,7 @@
             // 
             this.pekerjaanAyah_txt.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pekerjaanAyah_txt.Location = new System.Drawing.Point(17, 147);
+            this.pekerjaanAyah_txt.MaxLength = 29;
             this.pekerjaanAyah_txt.Name = "pekerjaanAyah_txt";
             this.pekerjaanAyah_txt.Size = new System.Drawing.Size(141, 29);
             this.pekerjaanAyah_txt.TabIndex = 51;
@@ -689,6 +691,7 @@
             // 
             this.pekerjaanIbu_txt.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pekerjaanIbu_txt.Location = new System.Drawing.Point(171, 147);
+            this.pekerjaanIbu_txt.MaxLength = 29;
             this.pekerjaanIbu_txt.Name = "pekerjaanIbu_txt";
             this.pekerjaanIbu_txt.Size = new System.Drawing.Size(149, 29);
             this.pekerjaanIbu_txt.TabIndex = 52;

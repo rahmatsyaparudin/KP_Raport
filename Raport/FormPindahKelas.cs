@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -16,10 +9,8 @@ namespace Raport
         MySqlConnection myConn = Function.getKoneksi();
         Function db = new Function();
         MySqlDataReader myReader;
-        MySqlCommand myComm;
         private string query;
-        private string table, field, cond;
-        private string idValue, dispValue, sortby, kodeKelas;
+        private string table, cond;
         public string getTahun, getUser, getLevel, getKelas, getText;
         
         public FormPindahKelas()
@@ -111,8 +102,18 @@ namespace Raport
 
         private void edit_link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            tahun_combo.Enabled = true;
-            kelas_combo.Enabled = true;
+            if (edit_link.Text.Equals("Edit"))
+            {
+                tahun_combo.Enabled = true;
+                kelas_combo.Enabled = true;
+                edit_link.Text = "Cancel";
+            }
+            else if (edit_link.Text.Equals("Cancel"))
+            {
+                tahun_combo.Enabled = false;
+                kelas_combo.Enabled = false;
+                edit_link.Text = "Edit";
+            }
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
@@ -125,6 +126,7 @@ namespace Raport
         {
             passText = "Create";
             passKelas = kelas_combo.SelectedValue.ToString();
+            passTahuj = tahun_combo.SelectedValue.ToString();
             this.Close();
         }
     }

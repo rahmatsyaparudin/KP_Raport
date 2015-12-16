@@ -35,6 +35,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.refresh_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.delete_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.view_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.user_lbl = new System.Windows.Forms.Label();
@@ -57,7 +58,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.delete_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataUser_grid)).BeginInit();
@@ -134,6 +134,15 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // delete_toolBtn
+            // 
+            this.delete_toolBtn.Image = global::Raport.Properties.Resources.delete;
+            this.delete_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.delete_toolBtn.Name = "delete_toolBtn";
+            this.delete_toolBtn.Size = new System.Drawing.Size(60, 22);
+            this.delete_toolBtn.Text = "Delete";
+            this.delete_toolBtn.Click += new System.EventHandler(this.delete_toolBtn_Click);
             // 
             // view_toolBtn
             // 
@@ -224,7 +233,7 @@
             this.edit_btn.Enabled = false;
             this.edit_btn.FlatAppearance.BorderSize = 0;
             this.edit_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.edit_btn.Image = global::Raport.Properties.Resources.edit_add;
+            this.edit_btn.Image = global::Raport.Properties.Resources.editadd;
             this.edit_btn.Location = new System.Drawing.Point(95, 244);
             this.edit_btn.Name = "edit_btn";
             this.edit_btn.Size = new System.Drawing.Size(75, 32);
@@ -267,6 +276,7 @@
             // retypePass_txt
             // 
             this.retypePass_txt.Location = new System.Drawing.Point(155, 161);
+            this.retypePass_txt.MaxLength = 30;
             this.retypePass_txt.Name = "retypePass_txt";
             this.retypePass_txt.PasswordChar = '*';
             this.retypePass_txt.Size = new System.Drawing.Size(201, 29);
@@ -284,6 +294,7 @@
             // pass_txt
             // 
             this.pass_txt.Location = new System.Drawing.Point(155, 124);
+            this.pass_txt.MaxLength = 30;
             this.pass_txt.Name = "pass_txt";
             this.pass_txt.PasswordChar = '*';
             this.pass_txt.Size = new System.Drawing.Size(201, 29);
@@ -292,6 +303,7 @@
             // user_txt
             // 
             this.user_txt.Location = new System.Drawing.Point(155, 89);
+            this.user_txt.MaxLength = 14;
             this.user_txt.Name = "user_txt";
             this.user_txt.Size = new System.Drawing.Size(201, 29);
             this.user_txt.TabIndex = 13;
@@ -385,15 +397,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // delete_toolBtn
-            // 
-            this.delete_toolBtn.Image = global::Raport.Properties.Resources.delete;
-            this.delete_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.delete_toolBtn.Name = "delete_toolBtn";
-            this.delete_toolBtn.Size = new System.Drawing.Size(60, 22);
-            this.delete_toolBtn.Text = "Delete";
-            this.delete_toolBtn.Click += new System.EventHandler(this.delete_toolBtn_Click);
             // 
             // FormUser
             // 

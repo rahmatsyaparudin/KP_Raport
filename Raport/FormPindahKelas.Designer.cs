@@ -171,9 +171,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button save_btn;
         private System.Windows.Forms.Button cancel_btn;
-        private System.Windows.Forms.Label judul_lbl;
         private System.Windows.Forms.Label kode_lbl;
         private System.Windows.Forms.LinkLabel edit_link;
         private System.Windows.Forms.ComboBox tahun_combo;
+        public System.Windows.Forms.Label judul_lbl;
     }
 }

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -72,16 +66,16 @@ namespace Raport
                 this.table = "profil_sekolah";
                 this.field = "npsn='" + this.npsn_txt.Text + 
                         "', nss='" + this.nss_txt.Text + 
-                        "', nama_sekolah='" + this.nama_txt.Text +
-                        "', alamat_sekolah='" + this.alamat_txt.Text + 
+                        "', nama_sekolah='" + this.nama_txt.Text.Replace("'", "''") +
+                        "', alamat_sekolah='" + this.alamat_txt.Text.Replace("'", "''") + 
                         "', kode_pos='" + this.pos_txt.Text + 
                         "', no_telp='" + this.telp_txt.Text + 
-                        "', kelurahan='" + this.kelurahan_txt.Text +
-                        "', kecamatan='" + this.kecamatan_txt.Text + 
-                        "', kota='" + this.kota_txt.Text + 
-                        "', provinsi='" + this.provinsi_txt.Text + 
-                        "', website='" + this.website_txt.Text +
-                        "', email='" + this.email_txt.Text + "'";
+                        "', kelurahan='" + this.kelurahan_txt.Text.Replace("'", "''") +
+                        "', kecamatan='" + this.kecamatan_txt.Text.Replace("'", "''") + 
+                        "', kota='" + this.kota_txt.Text.Replace("'", "''") + 
+                        "', provinsi='" + this.provinsi_txt.Text.Replace("'", "''") + 
+                        "', website='" + this.website_txt.Text.Replace("'", "''") +
+                        "', email='" + this.email_txt.Text.Replace("'", "''") + "'";
                 this.cond = "npsn = '" + this.npsn_lbl.Text + "'";
 
                 db.updateData(table, field, cond);

@@ -335,6 +335,7 @@
             // 
             this.mapel_txt.Enabled = false;
             this.mapel_txt.Location = new System.Drawing.Point(152, 11);
+            this.mapel_txt.MaxLength = 60;
             this.mapel_txt.Name = "mapel_txt";
             this.mapel_txt.Size = new System.Drawing.Size(227, 26);
             this.mapel_txt.TabIndex = 6;
@@ -379,7 +380,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Raport.Properties.Resources.appbar_book;
+            this.pictureBox1.Image = global::Raport.Properties.Resources.appbarbook;
             this.pictureBox1.Location = new System.Drawing.Point(297, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(88, 96);

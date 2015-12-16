@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
-using ExcelLibrary.CompoundDocumentFormat;
-using ExcelLibrary.SpreadSheet;
 using MySql.Data.MySqlClient;
 
 namespace Raport
@@ -20,7 +12,6 @@ namespace Raport
         Function db = new Function();
         private string table;
         private string field;
-        private string cond;
 
         public FormExport()
         {
@@ -47,10 +38,12 @@ namespace Raport
                 DataTable dt = new DataTable();
                 myAdapter.Fill(dt);
                 data_grid.DataSource = dt;
+                save_btn.Enabled = true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ada Kesalahan pada data \n Data harus menggunakan format Excel 2003(.xls)\n");
+                save_btn.Enabled = false;
             }
             
         }
@@ -63,33 +56,33 @@ namespace Raport
                 foreach (DataGridViewRow row in data_grid.Rows)
                 {
                     this.table = "siswa";
-                    this.field = "'" + row.Cells[0].Value.ToString() +
-                                "', '" + row.Cells[1].Value.ToString() +
-                                "', '" + row.Cells[2].Value.ToString() +
-                                "', '" + row.Cells[3].Value.ToString() +
-                                "', '" + row.Cells[4].Value.ToString() +
-                                "', '" + row.Cells[5].Value.ToString() +
-                                "', '" + row.Cells[6].Value.ToString() +
-                                "', '" + row.Cells[7].Value.ToString() +
-                                "', '" + row.Cells[8].Value.ToString() +
-                                "', '" + row.Cells[9].Value.ToString() +
-                                "', '" + row.Cells[10].Value.ToString() +
-                                "', '" + row.Cells[11].Value.ToString() +
-                                "', '" + row.Cells[13].Value.ToString() + "', DEFAULT";
+                    this.field = "'" + row.Cells[0].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[1].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[2].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[3].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[4].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[5].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[6].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[7].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[8].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[9].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[10].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[11].Value.ToString().Replace("'", "''") +
+                                "', '" + row.Cells[13].Value.ToString().Replace("'", "''") + "', DEFAULT";
                     db.insertData(table, field);
 
                     //insert ke tabel orangtua
                     string table2 = "orangtua";
-                    string field2 = "DEFAULT, '" + row.Cells[0].Value.ToString() +
-                                    "', '" + row.Cells[14].Value.ToString() +
-                                    "', '" + row.Cells[15].Value.ToString() +
-                                    "', '" + row.Cells[16].Value.ToString() +
-                                    "', '" + row.Cells[17].Value.ToString() +
-                                    "', '" + row.Cells[18].Value.ToString() +
-                                    "', '" + row.Cells[19].Value.ToString() +
-                                    "', '" + row.Cells[20].Value.ToString() +
-                                    "', '" + row.Cells[21].Value.ToString() +
-                                    "', '" + row.Cells[22].Value.ToString() + "'";
+                    string field2 = "DEFAULT, '" + row.Cells[0].Value.ToString().Replace("'", "''") +
+                                    "', '" + row.Cells[14].Value.ToString().Replace("'", "''") +
+                                    "', '" + row.Cells[15].Value.ToString().Replace("'", "''") +
+                                    "', '" + row.Cells[16].Value.ToString().Replace("'", "''") +
+                                    "', '" + row.Cells[17].Value.ToString().Replace("'", "''") +
+                                    "', '" + row.Cells[18].Value.ToString().Replace("'", "''") +
+                                    "', '" + row.Cells[19].Value.ToString().Replace("'", "''") +
+                                    "', '" + row.Cells[20].Value.ToString().Replace("'", "''") +
+                                    "', '" + row.Cells[21].Value.ToString().Replace("'", "''") +
+                                    "', '" + row.Cells[22].Value.ToString().Replace("'", "''") + "'";
                     db.insertData(table2, field2);
 
                     //insert ke tabel detailkelassiswa
@@ -109,6 +102,22 @@ namespace Raport
             {
                 MessageBox.Show("Kesalahan Dalam Input Data");
             }
+        }
+
+        private void path_txt_TextChanged(object sender, EventArgs e)
+        {
+            if (path_txt.Text != "")
+                sheet_txt.Enabled = true;
+            else
+                sheet_txt.Enabled = false;
+        }
+
+        private void sheet_txt_TextChanged(object sender, EventArgs e)
+        {
+            if (sheet_txt.Text != "")
+                load_btn.Enabled = true;
+            else
+                load_btn.Enabled = false;
         }
     }
 }

@@ -14,7 +14,7 @@ using iTextSharp.text.pdf;
 
 namespace Raport
 {
-    
+
     class DataToPDF
     {
         MySqlConnection myConn = Function.getKoneksi();
@@ -28,11 +28,8 @@ namespace Raport
         Font TN11 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 11);
         Font TN10 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10);
         Font TN8 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 8);
-        Font AB12 = FontFactory.GetFont("Arial Black", 12, Font.BOLD, BaseColor.BLACK);
         Font AN12 = FontFactory.GetFont("Arial Black", 12, Font.NORMAL, BaseColor.BLACK);
-        BaseFont TimesNW = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
-        Document doc; 
-        PdfWriter writer;
+        Document doc;
         PdfPTable raport_tbl;
         PdfPCell cell = new PdfPCell();
         
@@ -87,6 +84,19 @@ namespace Raport
             }
         }
 
+        public void testdiaog(FolderBrowserDialog fbDialog, string dirPath)
+        {
+            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName.ToString();
+            string path = dirPath;
+            string dir = appRootDir + "\\Temp\\" + path;
+
+            if (fbDialog.ShowDialog() == DialogResult.OK)
+            {
+                string destFileName = fbDialog.SelectedPath + "\\" + Path.GetFileName(path);
+                
+            }
+        }
+
         public void BrowserDialog(FolderBrowserDialog fbDialog, string dirPath)
         {
             string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName.ToString();
@@ -97,7 +107,6 @@ namespace Raport
             {
                 string destFileName = fbDialog.SelectedPath + "\\" + Path.GetFileName(path);
                 DirectoryInfo sourceinfo = new DirectoryInfo(dir);
-                DirectoryInfo target = new DirectoryInfo(destFileName);
 
                 foreach (FileInfo fi in sourceinfo.GetFiles())
                 {
@@ -109,7 +118,7 @@ namespace Raport
                 }
                 if (!Directory.Exists(destFileName))
                 {
-                    Directory.Move(dir, destFileName);
+                    JDStuart.DirectoryUtils.Directory.Move(dir, destFileName);
                 }
                 else
                 {
@@ -152,7 +161,6 @@ namespace Raport
 
         public void RaportToPDF2(DataGridView datagrid, string nis_siswa)
         {
-            datagrid.DataSource = null;
             killPDFProcess();
             try
             {
@@ -176,7 +184,7 @@ namespace Raport
                 string filename = nama_siswa + "-" + nis_siswa + " (" + kelas_siswa + "-" + getSemeter + ").pdf";
                 string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
                 using (FileStream fstream = new FileStream(appRootDir + "\\" + path +"\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None))
-                using (Document doc = new Document(iTextSharp.text.PageSize.A4, 20, 20, 10, 20))
+                using (Document doc = new Document(PageSize.A4, 20, 20, 10, 20))
                 using (PdfWriter writer = PdfWriter.GetInstance(doc, fstream))
                 {
                     writer.SetEncryption(PdfWriter.STRENGTH40BITS, null, null, PdfWriter.ALLOW_COPY);
@@ -231,17 +239,19 @@ namespace Raport
                     //LCK
                     doc.NewPage();
                     detailLCKSiswa(doc, getNisSiswa, getKodeKelas); kriteriaLCK(doc);
-                    nilaiLCK(doc, "Kelompok A (Wajib)", getKodeKelas, getNisSiswa, getSemeter, "Kelompok A");
-                    nilaiLCK(doc, "Kelompok B (Wajib)", getKodeKelas, getNisSiswa, getSemeter, "Kelompok B");
-                    nilaiLCK(doc, "Kelompok C (Pilihan)", getKodeKelas, getNisSiswa, getSemeter, "Kelompok C");
+                    nilaiLCK(doc, "Kelompok A (Wajib)", getKodeKelas, getSemeter, "Kelompok A");
+                    nilaiLCK(doc, "Kelompok B (Wajib)", getKodeKelas, getSemeter, "Kelompok B");
+                    nilaiLCK(doc, "Kelompok C (Pilihan)", getKodeKelas, getSemeter, "Kelompok C");
                     nilai_LCKAdd(doc); ekskul_siswa(doc); absensi_siswa(doc);
                     walikelas_ortu(doc, getKodeKelas);
                     //Deskripsi
                     doc.NewPage();
                     detailLCKSiswa(doc, getNisSiswa, getKodeKelas); kriteria_desk(doc);
-                    deskripsiLCK(doc, datagrid, "Kelompok A", getSemeter, getKodeKelas);
-                    deskripsiLCK(doc, datagrid, "Kelompok B", getSemeter, getKodeKelas);
-                    deskripsiLCK(doc, datagrid, "Kelompok C", getSemeter, getKodeKelas);
+                    deskripsiLCK(doc, datagrid, getNisSiswa, "Kelompok A", "Kelompok A (Wajib)", getSemeter, getKodeKelas);
+                    deskripsiLCK(doc, datagrid, getNisSiswa, "Kelompok B", "Kelompok B (Wajib)", getSemeter, getKodeKelas);
+                    deskripsiLCK(doc, datagrid, getNisSiswa, "Kelompok C", "Kelompok C (Pilihan)", getSemeter, getKodeKelas);
+                    walikelas_ortu(doc, getKodeKelas);
+                    //Close Document
                     doc.Close();
                     writer.Close();
                     fstream.Close();
@@ -274,7 +284,7 @@ namespace Raport
                 myReader = myComm.ExecuteReader();
                 while (myReader.Read())
                 {
-                    cell.Colspan = 2; cell.BorderWidth = 0f;
+                    cell.Colspan = 2; cell.Border = Rectangle.NO_BORDER;
                     raport_tbl.AddCell("Nama Sekolah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("nama_sekolah"));
                     raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
                     raport_tbl.AddCell("NPSN/NSS"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("npsn") + " / " + myReader.GetString("nss"));
@@ -503,7 +513,7 @@ namespace Raport
             doc.Add(raport_tbl);
         }
 
-        public void nilaiLCK(Document doc, string kelompok, string kelas, string nis_siswa, string semester, string kategori)
+        public void nilaiLCK(Document doc, string kelompok, string kelas, string semester, string kategori)
         {
             raport_tbl = new PdfPTable(8);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
@@ -702,7 +712,7 @@ namespace Raport
             doc.Add(raport_tbl);
         }
         
-        public void deskripsiLCK(Document doc, DataGridView datagrid, string kategori, string semester, string kelas)
+        public void deskripsiLCK(Document doc, DataGridView datagrid, string nis_siswa, string kategori, string kelompok, string semester, string kelas)
         {
             datagrid.DataSource = null;
             raport_tbl = new PdfPTable(4);
@@ -714,29 +724,37 @@ namespace Raport
             this.field = "nilai.kode_mapel as 'kode', mata_pelajaran, p_desk, k_desk, s_desk ";
             this.table = "nilai INNER JOIN kelas USING (kode_kelas) INNER JOIN mapel USING (kode_mapel) ";
             this.cond = "kode_semester= '" + semester + "' AND nilai.kode_kelas = '" + 
-                         kelas + "' AND kategori_mapel = '" + kategori + "'";
+                         kelas + "' AND kategori_mapel = '" + kategori + "' AND nilai.nis_siswa = '" + nis_siswa + "'";
             DataTable tabel = db.GetDataTable(field, table, cond);
             datagrid.DataSource = tabel;
 
+            var cell0 = new PdfPCell(new Phrase(new Chunk(kelompok, TB11))); cell0.Colspan = 4;
+            cell0.VerticalAlignment = Element.ALIGN_MIDDLE; cell0.HorizontalAlignment = Element.ALIGN_LEFT;
+            raport_tbl.AddCell(cell0);
+
+            int j = 1;
             for (int i = 0; i < datagrid.Rows.Count; i++)
             {
                 if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "A") valueA = "p_atas";
                 else if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "T") valueA = "p_tengah";
                 else if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "B") valueA = "p_bawah";
+                else if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "") valueA = "p_bawah";
 
                 if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "A") valueB = "k_atas";
                 else if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "T") valueB = "k_tengah";
                 else if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "B") valueB = "k_bawah";
+                else if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "") valueB = "k_bawah";
 
                 if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "A") valueC = "s_atas";
                 else if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "T") valueC = "s_tengah";
                 else if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "B") valueC = "s_bawah";
+                else if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "") valueC = "s_bawah";
 
                 string deskA = "SELECT mata_pelajaran, " + valueA + ", " + valueB + ", " + valueC + " FROM " +
                                "deskripsi INNER JOIN mapel USING (kode_mapel) INNER JOIN kelas USING (kode_kelas) " + 
                                "WHERE kode_semester = '" + semester + "' AND kode_kelas = '" + kelas + 
                                "' AND kode_mapel = '" + datagrid.Rows[i].Cells[0].Value.ToString() + "'";
-
+                
                 myComm = new MySqlCommand(deskA, myConn);
                 try
                 {
@@ -744,16 +762,16 @@ namespace Raport
                     myReader = myComm.ExecuteReader();
                     while (myReader.Read())
                     {
-                        var cell1 = new PdfPCell(new Phrase(new Chunk("", TN10))); cell1.Rowspan = 3;
+                        var cell1 = new PdfPCell(new Phrase(new Chunk(j.ToString(), TN10))); cell1.Rowspan = 3;
                         cell1.VerticalAlignment = Element.ALIGN_MIDDLE; cell1.HorizontalAlignment = Element.ALIGN_CENTER;
                         var cell2 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("mata_pelajaran"), TN10))); cell2.Rowspan = 3;
                         cell2.VerticalAlignment = Element.ALIGN_MIDDLE; cell2.HorizontalAlignment = Element.ALIGN_LEFT;
                         var cell3 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueA), TN10)));
-                        cell3.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell3.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
                         var cell4 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueB), TN10)));
-                        cell4.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cell4.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
                         var cell5 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueC), TN10)));
-                        cell5.HorizontalAlignment = Element.ALIGN_LEFT;
+                        cell5.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
                         var cell6 = new PdfPCell(new Phrase(new Chunk("Pengetahuan", TN10)));
                         cell6.VerticalAlignment = Element.ALIGN_MIDDLE; cell6.HorizontalAlignment = Element.ALIGN_LEFT;
                         var cell7 = new PdfPCell(new Phrase(new Chunk("Keterampilan", TN10)));
@@ -768,10 +786,11 @@ namespace Raport
                         raport_tbl.AddCell(cell8); raport_tbl.AddCell(cell5);
                     }
                     myConn.Close();
+                    j++;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Data Nilai atau deskripsi belum lengkap");
                 }
             }
             doc.Add(raport_tbl);

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -71,7 +66,7 @@ namespace Raport
             else
             {
                 this.table = "ekstrakurikuler";
-                this.field = "'" + kode_txt.Text + "', '" + nama_txt.Text + "', DEFAULT";
+                this.field = "'" + kode_txt.Text.Replace("'", "''") + "', '" + nama_txt.Text.Replace("'", "''") + "', DEFAULT";
                 db.insertData(table, field);
                 loadData();
                 MessageBox.Show("Eskul '" + nama_txt.Text + "'\n Berhasil di buat ");
@@ -125,8 +120,8 @@ namespace Raport
             try
             {
                 this.table = "ekstrakurikuler";
-                this.field = "kode_eskul ='" + this.kode_txt.Text +
-                        "', nama_eskul ='" + this.nama_txt.Text +"'";
+                this.field = "kode_eskul ='" + this.kode_txt.Text.Replace("'", "''") +
+                        "', nama_eskul ='" + this.nama_txt.Text.Replace("'", "''") + "'";
                 this.cond = "kode_eskul = '" + kode_lbl.Text + "'";
 
                 db.updateData(table, field, cond);

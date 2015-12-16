@@ -43,7 +43,8 @@
             this.schedule_grid.AllowUserToDeleteRows = false;
             this.schedule_grid.AllowUserToResizeColumns = false;
             this.schedule_grid.AllowUserToResizeRows = false;
-            this.schedule_grid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.schedule_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.schedule_grid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.schedule_grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.schedule_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.schedule_grid.Dock = System.Windows.Forms.DockStyle.Top;
@@ -52,7 +53,6 @@
             this.schedule_grid.Size = new System.Drawing.Size(585, 269);
             this.schedule_grid.TabIndex = 1;
             this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
-            this.schedule_grid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellEndEdit);
             // 
             // panel1
             // 
@@ -91,7 +91,7 @@
             // create_btn
             // 
             this.create_btn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.create_btn.Image = global::Raport.Properties.Resources.edit_add;
+            this.create_btn.Image = global::Raport.Properties.Resources.editadd;
             this.create_btn.Location = new System.Drawing.Point(215, 22);
             this.create_btn.Name = "create_btn";
             this.create_btn.Size = new System.Drawing.Size(88, 33);

@@ -63,46 +63,6 @@ namespace Raport.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _133x133 {
-            get {
-                object obj = ResourceManager.GetObject("133x133", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _3x4 {
-            get {
-                object obj = ResourceManager.GetObject("3x4", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _3x41 {
-            get {
-                object obj = ResourceManager.GetObject("3x41", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _lock {
-            get {
-                object obj = ResourceManager.GetObject("lock", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
@@ -113,9 +73,9 @@ namespace Raport.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap appbar_book {
+        internal static System.Drawing.Bitmap appbarbook {
             get {
-                object obj = ResourceManager.GetObject("appbar.book", resourceCulture);
+                object obj = ResourceManager.GetObject("appbarbook", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +133,9 @@ namespace Raport.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap edit_add {
+        internal static System.Drawing.Bitmap edit1 {
             get {
-                object obj = ResourceManager.GetObject("edit.add", resourceCulture);
+                object obj = ResourceManager.GetObject("edit1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +143,9 @@ namespace Raport.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap edit1 {
+        internal static System.Drawing.Bitmap editadd {
             get {
-                object obj = ResourceManager.GetObject("edit1", resourceCulture);
+                object obj = ResourceManager.GetObject("editadd", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -246,6 +206,26 @@ namespace Raport.Properties {
         internal static System.Drawing.Bitmap lockKey {
             get {
                 object obj = ResourceManager.GetObject("lockKey", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap locks {
+            get {
+                object obj = ResourceManager.GetObject("locks", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Logo133x133 {
+            get {
+                object obj = ResourceManager.GetObject("Logo133x133", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

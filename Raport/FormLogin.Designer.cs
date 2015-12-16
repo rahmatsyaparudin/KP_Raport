@@ -105,7 +105,7 @@
             // 
             this.pass_txt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pass_txt.Location = new System.Drawing.Point(182, 214);
-            this.pass_txt.MaxLength = 25;
+            this.pass_txt.MaxLength = 30;
             this.pass_txt.Name = "pass_txt";
             this.pass_txt.PasswordChar = '*';
             this.pass_txt.Size = new System.Drawing.Size(230, 26);
@@ -197,7 +197,7 @@
             this.login_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.login_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.login_btn.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.login_btn.Image = global::Raport.Properties.Resources._lock;
+            this.login_btn.Image = global::Raport.Properties.Resources.locks;
             this.login_btn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.login_btn.Location = new System.Drawing.Point(182, 258);
             this.login_btn.Name = "login_btn";
@@ -213,7 +213,7 @@
             // 
             // logo_picbox
             // 
-            this.logo_picbox.Image = global::Raport.Properties.Resources._133x133;
+            this.logo_picbox.Image = global::Raport.Properties.Resources.Logo133x133;
             this.logo_picbox.Location = new System.Drawing.Point(46, 141);
             this.logo_picbox.Name = "logo_picbox";
             this.logo_picbox.Size = new System.Drawing.Size(126, 127);

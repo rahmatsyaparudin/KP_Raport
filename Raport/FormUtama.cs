@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.IO;
-using System.Diagnostics;
 
 namespace Raport
 {
@@ -56,27 +50,19 @@ namespace Raport
 
         private void FormUtama_Load(object sender, EventArgs e)
         {
-            if (getLevel == "0")
+            if (getLevel == "0")  //User
             {
-                profil_menu.Enabled = false;
-                guru_menu.Enabled = false;
-                kelas_menu.Enabled = false;
-                mapel_menu.Enabled = false;
-                siswa_menu.Enabled = false;
-                eskul_menu.Enabled = false;
-                user_menu.Enabled = false;
-                siswa_menu.Enabled = false;
                 user_lbl.Text = getUser;
             }
-            else if (getLevel == "1")
+            else if (getLevel == "1") //Admin
             {
                 profil_menu.Enabled = true;
-                guru_menu.Enabled = true;
                 kelas_menu.Enabled = true;
                 mapel_menu.Enabled = true;
-                siswa_menu.Enabled = false;
                 eskul_menu.Enabled = true;
                 user_menu.Enabled = true;
+                user_menu.Enabled = true;
+                export_btn.Enabled = true;
                 user_lbl.Text = getUser;
             }
 
@@ -190,6 +176,8 @@ namespace Raport
             "Exit Aplikasi", MessageBoxButtons.YesNo);
             if (dialog == DialogResult.Yes)
             {
+                dbToExcel.killExcelProcess();
+                dbToPDF.killPDFProcess();
                 Application.ExitThread();
                 Application.Exit();
             }
@@ -240,42 +228,52 @@ namespace Raport
 
         private void set_btn_Click(object sender, EventArgs e)
         {
-            string tahuj = tahuj_combo.Text.ToString();
-            tahuj_combo.Enabled = false;
-            set_btn.Enabled = false;
-            change_btn.Enabled = true;
-            siswa_menu.Enabled = false;
-            if (tahuj_combo.Text != "")
+            if ((set_btn.Text.Equals("Set")) &&
+                (!String.IsNullOrEmpty(tahuj_combo.Text)))
             {
+                set_btn.Text = "Edit";
+                tahuj_combo.Enabled = false;
                 if (getLevel == "0")
                 {
-                    siswa_menu.Enabled = false;
                     deskripsi_menu.Enabled = true;
                     nilai_menu.Enabled = true;
-                    SimpanData_group.Enabled = true;
+                    saveDataGuru_btn.Enabled = true;
+                    saveDataKelas_btn.Enabled = true;
+                    saveDataNilai_btn.Enabled = true;
+                    printFormat_Btn.Enabled = true;
+                    printRaport_Btn.Enabled = true;
                 }
                 else if (getLevel == "1")
                 {
                     siswa_menu.Enabled = true;
                     deskripsi_menu.Enabled = true;
                     nilai_menu.Enabled = true;
-                    SimpanData_group.Enabled = true;
+                    guru_menu.Enabled = true;
+                    saveDataGuru_btn.Enabled = true;
+                    saveDataKelas_btn.Enabled = true;
+                    saveDataNilai_btn.Enabled = true;
+                    saveDataSiswa_btn.Enabled = true;
+                    printFormat_Btn.Enabled = true;
+                    printRaport_Btn.Enabled = true;
                 }
             }
+            else if (set_btn.Text.Equals("Edit"))
+            {
+                tahuj_combo.Enabled = true;
+                siswa_menu.Enabled = false;
+                deskripsi_menu.Enabled = false;
+                nilai_menu.Enabled = false;
+                guru_menu.Enabled = false;
+                saveDataGuru_btn.Enabled = false;
+                saveDataKelas_btn.Enabled = false;
+                saveDataNilai_btn.Enabled = false;
+                saveDataSiswa_btn.Enabled = false;
+                printFormat_Btn.Enabled = false;
+                printRaport_Btn.Enabled = false;
+                set_btn.Text = "Set";
+            }
         }
-
-        private void change_btn_Click(object sender, EventArgs e)
-        {
-            tahuj_combo.Enabled = true;
-            set_btn.Enabled = true;
-            change_btn.Enabled = false;
-
-            siswa_menu.Enabled = false;
-            deskripsi_menu.Enabled = false;
-            nilai_menu.Enabled = false;
-            SimpanData_group.Enabled = false;
-        }
-
+        
         private void clock_timer_Tick(object sender, EventArgs e)
         {
             string[] bulan = { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" };
@@ -324,6 +322,7 @@ namespace Raport
             dbToPDF.passTahun = tahuj_combo.Text.ToString();
             dbToPDF.RaportToPDF2(print_grid, "1314.10.006");
             dbToPDF.BrowserDialog(fbDialog, "Data Nilai");
+            //dbToPDF.testdiaog(fbDialog, "Data Nilai");
         }
 
         private void export_btn_Click(object sender, EventArgs e)
@@ -331,14 +330,16 @@ namespace Raport
             FormExport fDesk = new FormExport();
             fDesk.ShowDialog();
         }
-
+        
         private void print_formatBtn_Click(object sender, EventArgs e)
         {
-            string path = "Temp\\Data Guru";
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
+            
+        }
+
+        private void back_rest_Btn_Click(object sender, EventArgs e)
+        {
+            FormBackupRestoreDb fBackRest = new FormBackupRestoreDb();
+            fBackRest.ShowDialog();
         }
 
         private void color_timer_Tick(object sender, EventArgs e)

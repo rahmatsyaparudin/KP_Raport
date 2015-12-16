@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace Raport
 {
@@ -339,6 +333,7 @@ namespace Raport
         {
             FormAddMapel FAddMapel = new FormAddMapel();
             FAddMapel.passIdGuru = pilihGuru_combo.SelectedValue.ToString();
+            FAddMapel.passTahun = getTahun;
             FAddMapel.ShowDialog();
         }
 
@@ -353,7 +348,8 @@ namespace Raport
         public void load_jadwalGuru()
         {
             this.kodeIdGuru = this.pilihGuru_combo.SelectedValue.ToString();
-            this.query = "SELECT count(id_guru) as 'Jumlah' FROM detailmapelguru WHERE id_guru= '" + kodeIdGuru + "'";
+            this.query = "SELECT count(id_guru) as 'Jumlah' FROM detailmapelguru WHERE id_guru= '" + kodeIdGuru + 
+                        "' AND tahun_ajaran= '" + getTahun + "' ";
             MySqlCommand myComm = new MySqlCommand(query, myConn);
             myConn.Open();
             myReader = myComm.ExecuteReader();
@@ -379,13 +375,6 @@ namespace Raport
             }
         }
 
-        private void export_toolBtn_Click(object sender, EventArgs e)
-        {
-            dataToFile.passTahun = getTahun;
-            string tanggal = dataToFile.formattedDate();
-            //dataToFile.ExportToExcel(dataGuru_grid, "Data Guru SMANJAK (" + tanggal + ")", saveToExcel);
-        }
-        
         private void delete_toolBtn_Click_1(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in jadwalGuru_grid.Rows)
@@ -431,8 +420,8 @@ namespace Raport
 
             this.kodeIdGuru = this.pilihGuru_combo.SelectedValue.ToString();
             this.table = "detailmapelguru INNER JOIN mapel USING(kode_mapel)";
-            this.field = "id_detail as 'ID Detail', kode_mapel as 'Kode mapel', mata_pelajaran as 'Mata Pelajaran', kategori_mapel as 'Kategori', jam_pelajaran as 'Jam Pelajaran'";
-            this.cond = "status = 'Aktif' AND id_guru = '" + kodeIdGuru + "'";
+            this.field = "id_detail as 'ID Detail', kode_mapel as 'Kode mapel', mata_pelajaran as 'Mata Pelajaran', kategori_mapel as 'Kategori', jam_pelajaran as 'JP'";
+            this.cond = "status = 'Aktif' AND id_guru = '" + kodeIdGuru + "' AND tahun_ajaran = '" + getTahun + "'";
             DataTable result = db.GetDataTable(field, table, cond);
             jadwalGuru_grid.DataSource = result;
             jadwalGuru_grid.Columns[0].Visible = false;

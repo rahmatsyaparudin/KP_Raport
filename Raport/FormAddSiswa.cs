@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -218,32 +213,32 @@ namespace Raport
                 string dikelas = this.dikelas_combo.SelectedValue.ToString();
                 this.table = "siswa";
                 this.field = "'" + this.nis_txt.Text +
-                            "', '" + this.namaSiswa_txt.Text +
+                            "', '" + this.namaSiswa_txt.Text.Replace("'", "''") +
                             "', '" + this.nisn_txt.Text +
-                            "', '" + this.tempatLahir_txt.Text +
+                            "', '" + this.tempatLahir_txt.Text.Replace("'", "''") +
                             "', '" + this.ttl_date.Text +
                             "', '" + this.kelamin_combo.Text +
                             "', '" + this.agama_combo.Text +
                             "', '" + this.status_combo.Text +
                             "', '" + this.anakke_combo.Text +
-                            "', '" + this.alamatSiswa_txt.Text +
+                            "', '" + this.alamatSiswa_txt.Text.Replace("'", "''") +
                             "', '" + this.telpSiswa_txt.Text +
-                            "', '" + this.asalSekolah_txt.Text +
+                            "', '" + this.asalSekolah_txt.Text.Replace("'", "''") +
                             "', '" + this.diterima_date.Text + "', DEFAULT";
                 db.insertData(table, field);
 
                 //insert ke tabel orangtua
                 string table2 = "orangtua";
                 string field2 = "DEFAULT, '" + this.nis_txt.Text +
-                                "', '" + this.namaAyah_txt.Text +
-                                "', '" + this.namaIbu_txt.Text +
-                                "', '" + this.alamatOrtu_txt.Text +
+                                "', '" + this.namaAyah_txt.Text.Replace("'", "''") +
+                                "', '" + this.namaIbu_txt.Text.Replace("'", "''") +
+                                "', '" + this.alamatOrtu_txt.Text.Replace("'", "''") +
                                 "', '" + this.telpOrtu_txt.Text +
-                                "', '" + this.pekerjaanAyah_txt.Text +
-                                "', '" + this.pekerjaanIbu_txt.Text +
-                                "', '" + this.namaWali_txt.Text +
-                                "', '" + this.alamatWali_txt.Text +
-                                "', '" + this.pekerjaanWali_txt.Text + "'";
+                                "', '" + this.pekerjaanAyah_txt.Text.Replace("'", "''") +
+                                "', '" + this.pekerjaanIbu_txt.Text.Replace("'", "''") +
+                                "', '" + this.namaWali_txt.Text.Replace("'", "''") +
+                                "', '" + this.alamatWali_txt.Text.Replace("'", "''") +
+                                "', '" + this.pekerjaanWali_txt.Text.Replace("'", "''") + "'";
                 db.insertData(table2, field2);
 
                 //insert ke tabel detailkelassiswa
@@ -269,32 +264,32 @@ namespace Raport
                 //update ke tabel siswa
                 this.table = "siswa";
                 this.field = "nis_siswa ='" + this.nis_txt.Text +
-                        "', nama_siswa ='" + this.namaSiswa_txt.Text +
+                        "', nama_siswa ='" + this.namaSiswa_txt.Text.Replace("'", "''") +
                         "', nisn_siswa ='" + this.nisn_txt.Text +
-                        "', tempat_lahir ='" + this.tempatLahir_txt.Text +
+                        "', tempat_lahir ='" + this.tempatLahir_txt.Text.Replace("'", "''") +
                         "', tanggal_lahir ='" + this.ttl_date.Text +
                         "', jenis_kelamin ='" + this.kelamin_combo.Text +
                         "', agama ='" + this.agama_combo.Text +
                         "', status_keluarga ='" + this.status_combo.Text +
                         "', anak_ke ='" + this.anakke_combo.Text +
-                        "', alamat ='" + this.alamatSiswa_txt.Text +
+                        "', alamat ='" + this.alamatSiswa_txt.Text.Replace("'", "''") +
                         "', no_telp ='" + this.telpSiswa_txt.Text +
-                        "', asal_sekolah ='" + this.asalSekolah_txt.Text +
+                        "', asal_sekolah ='" + this.asalSekolah_txt.Text.Replace("'", "''") +
                         "', tanggal_masuk ='" + this.diterima_date.Text + "'";
                 this.cond = "nis_siswa = '" + nis_lbl.Text + "'";
                 db.updateData(table, field, cond);
 
                 //update ke tabel orangtua
                 string table2 = "orangtua";
-                string field2 = "nama_ayah = '" + this.namaAyah_txt.Text +
-                                "', nama_ibu = '" + this.namaIbu_txt.Text +
-                                "', alamat_ortu = '" + this.alamatOrtu_txt.Text +
+                string field2 = "nama_ayah = '" + this.namaAyah_txt.Text.Replace("'", "''") +
+                                "', nama_ibu = '" + this.namaIbu_txt.Text.Replace("'", "''") +
+                                "', alamat_ortu = '" + this.alamatOrtu_txt.Text.Replace("'", "''") +
                                 "', no_telp = '" + this.telpOrtu_txt.Text +
-                                "', pekerjaan_ayah = '" + this.pekerjaanAyah_txt.Text +
-                                "', pekerjaan_ibu ='" + this.pekerjaanIbu_txt.Text +
-                                "', nama_wali = '" + this.namaWali_txt.Text +
-                                "', alamat_wali = '" + this.alamatWali_txt.Text +
-                                "', pekerjaan_wali = '" + this.pekerjaanWali_txt.Text + "'";
+                                "', pekerjaan_ayah = '" + this.pekerjaanAyah_txt.Text.Replace("'", "''") +
+                                "', pekerjaan_ibu ='" + this.pekerjaanIbu_txt.Text.Replace("'", "''") +
+                                "', nama_wali = '" + this.namaWali_txt.Text.Replace("'", "''") +
+                                "', alamat_wali = '" + this.alamatWali_txt.Text.Replace("'", "''") +
+                                "', pekerjaan_wali = '" + this.pekerjaanWali_txt.Text.Replace("'", "''") + "'";
                 string cond2 = "nis_siswa = '" + nis_txt.Text + "'";
                 db.updateData(table2, field2, cond2);
 
@@ -409,26 +404,7 @@ namespace Raport
         {
             ttl_date.Checked = true;
         }
-        
-        //Event Jenis Kelamin Siswa
 
-        //Event Agama Siswa
-
-        //Event Status Anak
-
-        //Event Anak Ke-
-
-        //Event Telepon Siswa
-
-        //Event Asal Sekolah Siswa
-
-        //Event Tanggal diterima
-
-        //Event diterima di kelas
-        
-        //Event Alamat Siswa
-
-        //Event Nama Ayah
         private void namaAyah_txt_TextChanged(object sender, EventArgs e)
         {
             string nama = this.namaAyah_txt.Text;

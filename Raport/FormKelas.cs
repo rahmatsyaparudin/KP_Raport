@@ -1,30 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using System.Collections;
 
 namespace Raport
 {
     public partial class FormKelas : Form
     {
-        MySqlConnection myConn = Function.getKoneksi();
-        Function db = new Function();
-        MySqlDataReader myReader;
-        MySqlCommand myComm;
         private string table, cond, field;
         private string get_idGuru;
         private string query;
         public bool valType;
         char notif;
-        private string id_kelas, idGuru, kodeMapel, id_detail, check_kelas;
+        private string id_kelas, idGuru, kodeMapel, id_detail;
+        private string check_siswa, check_kelas, check_status;
         public string getVal, getKodeKelas;
+        MySqlConnection myConn = Function.getKoneksi();
+        Function db = new Function();
+        MySqlDataReader myReader;
+        MySqlCommand myComm;
         DataGridViewCheckBoxColumn chk = new DataGridViewCheckBoxColumn();
         DataGridViewCheckBoxColumn chk2 = new DataGridViewCheckBoxColumn();
         DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
@@ -102,11 +97,9 @@ namespace Raport
         private void addAction()
         {
             kelas_tab.SelectTab(1);
-
             create_toolBtn.Enabled = false;
             dataKelas_grid.Enabled = false;
             kelas_txt.ReadOnly = false;
-
             wali_combo.Enabled = true;
             tahun_combo.Enabled = true;
             save_btn.Enabled = true;
@@ -123,14 +116,12 @@ namespace Raport
                 this.wali_combo.Text = row.Cells["Wali Kelas"].Value.ToString();
                 this.tahun_combo.Text = row.Cells["Tahun Ajaran"].Value.ToString();
                 string sJumlah = row.Cells["Jumlah Siswa"].Value.ToString();
-
                 kelas_tab.SelectTab(1);
                 cancel_btn.Enabled = true;
                 update_btn.Enabled = true;
                 delete_btn.Enabled = true;
                 wali_combo.Enabled = true;
                 tahun_combo.Enabled = true;
-
                 kelas_txt.ReadOnly = false;
             }
         }
@@ -143,10 +134,7 @@ namespace Raport
 
         private void sort_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (sort_combo.Text == "")
-            {
-                loadData();
-            }
+            if (sort_combo.Text == "") loadData();
             else
             {
                 try
@@ -204,22 +192,12 @@ namespace Raport
         {
             try
             {
-                if ((kelas_txt.Text == "") && (wali_combo.Text == "") && (tahun_combo.Text == ""))
-                {
-                    MessageBox.Show("Data Kelas belum terisi");
-                }
-                else if (kelas_txt.Text == "")
-                {
+                if (String.IsNullOrWhiteSpace(kelas_txt.Text))
                     MessageBox.Show("Nama Kelas Belum diisi");
-                }
-                else if (wali_combo.Text == "")
-                {
+                else if (String.IsNullOrWhiteSpace(wali_combo.Text))
                     MessageBox.Show("Wali Kelas belum dipilih");
-                }
-                else if (tahun_combo.Text == "")
-                {
+                else if (String.IsNullOrWhiteSpace(tahun_combo.Text))
                     MessageBox.Show("Tahun ajaran belum dipilih");
-                }
                 else
                 {
                     string get_idGuru = this.wali_combo.SelectedValue.ToString();
@@ -242,14 +220,12 @@ namespace Raport
             kelas_txt.ResetText();
             wali_combo.SelectedIndex = -1;
             tahun_combo.SelectedIndex = -1;
-
             save_btn.Enabled = false;
             cancel_btn.Enabled = false;
             update_btn.Enabled = false;
             delete_btn.Enabled = false;
             wali_combo.Enabled = false;
             tahun_combo.Enabled = false;
-
             create_toolBtn.Enabled = true;
             dataKelas_grid.Enabled = true;
             kelas_txt.ReadOnly = true;
@@ -297,7 +273,6 @@ namespace Raport
                         "', tahun_ajaran='" + this.tahun_combo.Text +
                         "', id_guru= '" + get_idGuru + "'";
                 this.cond = "kode_kelas = '" + id_txt.Text + "'";
-
                 db.updateData(table, field, cond);
                 MessageBox.Show("Edit Data Kelas Berhasil \n Data Tersimpan");
                 loadData();
@@ -323,9 +298,8 @@ namespace Raport
         //TAB CLASS SCHEDULE
         private void pilihTahun_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((pilihTahun_combo.Text == "") || (pilihTahun_combo.SelectedIndex == -1))
+            if ((String.IsNullOrEmpty(pilihTahun_combo.Text)) || (pilihTahun_combo.SelectedIndex.Equals(-1)))
             {
-                cancel_schedule();
                 pilihKelas_combo.Enabled = false;
             }
             else
@@ -353,21 +327,17 @@ namespace Raport
 
         private void pilihKelas_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((pilihKelas_combo.Text == "") || (pilihKelas_combo.SelectedIndex == -1))
+            if (String.IsNullOrEmpty(pilihKelas_combo.Text) || pilihKelas_combo.SelectedIndex.Equals(-1))
             {
                 wali_txt.ResetText();
                 id_lbl.Text = "0";
-
-                schedule_grid.Enabled = false;
                 create_tool.Enabled = false;
                 load_tool.Enabled = false;
                 edit_tool.Enabled = false;
                 cancel2_btn.Enabled = false;
                 save2_btn.Enabled = false;
-
                 schedule_grid.DataSource = null;
                 schedule_grid.Columns.Clear();
-                schedule_grid.Enabled = false;
             }
             else
             {
@@ -378,8 +348,7 @@ namespace Raport
                 this.cond = "kode_kelas = '" + id_kelas +
                             "' AND status_kelas = 'Aktif' AND tahun_ajaran = '" + this.pilihTahun_combo.Text + "'";
                 string query = "SELECT " + field + " FROM " + table + " WHERE " + cond;
-
-                MySqlCommand myComm = new MySqlCommand(query, myConn);
+                myComm = new MySqlCommand(query, myConn);
                 myConn.Open();
                 myReader = myComm.ExecuteReader();
                 while (myReader.Read())
@@ -403,18 +372,15 @@ namespace Raport
                 {
                     schedule_grid.DataSource = null;
                     schedule_grid.Columns.Clear();
-                    schedule_grid.Enabled = false;
                     create_tool.Enabled = true;
                     edit_tool.Enabled = false;
                 }
                 else if (id_lbl.Text != "0")
                 {
-                    schedule_grid.Enabled = true;
                     edit_tool.Enabled = true;
                     load_Schedule();
                     schedule_grid.DataSource = null;
                     schedule_grid.Columns.Clear();
-                    schedule_grid.Enabled = false;
                     load_Schedule();
                     edit_schedule();
                     create_tool.Enabled = true;
@@ -422,22 +388,11 @@ namespace Raport
             }
         }
         
-        public void cancel_schedule()
-        { 
-            pilihKelas_combo.SelectedIndex = -1;
-            pilihTahun_combo.SelectedIndex = -1;
-            wali_txt.ResetText();
-            create_tool.Enabled = false;
-            load_tool.Enabled = false;
-            schedule_grid.Enabled = false;
-        }
-        
         private void cancel2_btn_Click(object sender, EventArgs e)
         {
             edit_tool.Enabled = true;
             save2_btn.Enabled = false;
             cancel2_btn.Enabled = false;
-            schedule_grid.Enabled = false;
             create_tool.Enabled = true;
             delete2_btn.Enabled = false;
             load_Schedule();
@@ -447,13 +402,14 @@ namespace Raport
 
         private void edit_tool_Click(object sender, EventArgs e)
         {
-            schedule_grid.Enabled = true;
             save2_btn.Enabled = true;
             cancel2_btn.Enabled = true;
             edit_tool.Enabled = false;
             create_tool.Enabled = false;
             delete2_btn.Enabled = true;
-            schedule_grid.Columns[0].Visible = true; 
+            schedule_grid.Columns[0].Visible = true;
+            schedule_grid.Columns[0].ReadOnly = false;
+            schedule_grid.Columns[1].ReadOnly = false;
         }
 
         private void load_tool_Click(object sender, EventArgs e)
@@ -463,7 +419,6 @@ namespace Raport
             edit_tool.Enabled = true;
             save2_btn.Enabled = false;
             cancel2_btn.Enabled = false;
-            schedule_grid.Enabled = false;
             create_tool.Enabled = true;
             delete2_btn.Enabled = false;
         }
@@ -505,7 +460,6 @@ namespace Raport
             edit_tool.Enabled = true;
             save2_btn.Enabled = false;
             cancel2_btn.Enabled = false;
-            schedule_grid.Enabled = false;
             create_tool.Enabled = true;
             delete2_btn.Enabled = false;
             load_Schedule();
@@ -515,6 +469,7 @@ namespace Raport
 
         private void schedule_grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            string getTahun = pilihTahun_combo.Text.ToString();
             if ((e.RowIndex >= 0) && (e.RowIndex != -1))
             {
                 DataGridViewRow row = this.schedule_grid.Rows[e.RowIndex];
@@ -526,7 +481,7 @@ namespace Raport
                 string idValue = "id_guru";
                 string dispValue = "nama_guru";
                 this.table = "detailmapelguru INNER JOIN guru USING (id_guru)";
-                this.cond = "status = 'Aktif' AND kode_mapel = '" + kodeMapel + "'";
+                this.cond = "status = 'Aktif' AND kode_mapel = '" + kodeMapel + "' AND tahun_ajaran = '" + getTahun + "'";
                 string sortby = "nama_guru";
                 cmb.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
                 cmb.DisplayMember = "valueDisplay";
@@ -578,6 +533,7 @@ namespace Raport
         {
             FormAddMapel FAddMapel = new FormAddMapel();
             FAddMapel.passKodeKelas = pilihKelas_combo.SelectedValue.ToString();
+            FAddMapel.passTahun = pilihTahun_combo.Text.ToString();
             FAddMapel.ShowDialog();
         }
 
@@ -658,13 +614,16 @@ namespace Raport
         //TAB CLASS MEMBERS
         private void viewKelas_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            select_toolBtn.Text = "Select All";
+            edit3_toolBtn.Text = "Edit";
+            edit3_toolBtn.Image = Properties.Resources.edit;
             if (viewKelas_combo.Text == "")
             {
                 edit3_toolBtn.Enabled = false;
                 select_toolBtn.Enabled = false;
-                naikKelas_toolBtn.Enabled = false;
-                cancel3_toolBtn.Enabled = false;
+                kelulusan_toolBtn.Enabled = false;
                 refresh2_toolBtn.Enabled = false;
+                opsi_toolBtn.Enabled = false;
                 viewMember_grid.Columns.Clear();
                 viewMember_grid.DataSource = null;
             }
@@ -672,18 +631,16 @@ namespace Raport
             {
                 edit3_toolBtn.Enabled = false;
                 select_toolBtn.Enabled = false;
-                naikKelas_toolBtn.Enabled = false;
-                refresh2_toolBtn.Enabled = true;
-                cancel3_toolBtn.Enabled = false;
+                kelulusan_toolBtn.Enabled = false;
                 loadMember();
-            }            
+            }
         }
-        
+
         private void loadMember()
         {
             this.id_kelas = this.viewKelas_combo.SelectedValue.ToString();
             this.query = "SELECT count(nis_siswa) as 'Jumlah' FROM detailkelassiswa WHERE kode_kelas= '" + id_kelas + "'";
-            MySqlCommand myComm = new MySqlCommand(query, myConn);
+            myComm = new MySqlCommand(query, myConn);
             myConn.Open();
             myReader = myComm.ExecuteReader();
             while (myReader.Read())
@@ -691,13 +648,16 @@ namespace Raport
                 countID_lbl.Text = myReader.GetString("Jumlah");
             }
             myConn.Close();
-
+            
             if (countID_lbl.Text == "0")
             {
                 viewMember_grid.DataSource = null;
                 viewMember_grid.Columns.Clear();
                 edit3_toolBtn.Enabled = false;
                 refresh2_toolBtn.Enabled = false;
+                kelulusan_toolBtn.Enabled = false;
+                naikKelas_btn.Enabled = false;
+                opsi_toolBtn.Enabled = false;
             }
             else if (countID_lbl.Text != "0")
             {
@@ -709,27 +669,55 @@ namespace Raport
 
         private void edit3_toolBtn_Click(object sender, EventArgs e)
         {
-            viewMember_grid.Columns[0].Visible = true;
-            select_toolBtn.Enabled = true;
-            naikKelas_toolBtn.Enabled = true;
-            cancel3_toolBtn.Enabled = true;
-            refresh2_toolBtn.Enabled = true;
+            string kelas = viewKelas_combo.Text.ToString();
+            int j = kelas.IndexOf(' ');
+            j = kelas.IndexOf(' ', j);
+
+            if (kelas.Substring(0, j) == "XII")
+            {
+                kelulusan_toolBtn.Visible = true;
+                naikKelas_btn.Visible = false;
+            }
+            else
+            {
+                kelulusan_toolBtn.Visible = false;
+                naikKelas_btn.Visible = true;
+            }
+
+            if (edit3_toolBtn.Text.Equals("Edit"))
+            {
+                viewMember_grid.Columns[0].Visible = true;
+                select_toolBtn.Enabled = true;
+                kelulusan_toolBtn.Enabled = true;
+                refresh2_toolBtn.Enabled = true;
+                opsi_toolBtn.Enabled = true;
+                naikKelas_btn.Enabled = true;
+                edit3_toolBtn.Text = "Cancel";
+                edit3_toolBtn.Image = Properties.Resources.cancel;
+            }
+            else if (edit3_toolBtn.Text.Equals("Cancel"))
+            {
+                cancel();
+            }
         }
 
-        private void cancel3_toolBtn_Click(object sender, EventArgs e)
+        public void cancel()
         {
             viewMember_grid.Columns[0].Visible = false;
             select_toolBtn.Enabled = false;
-            naikKelas_toolBtn.Enabled = false;
-            cancel3_toolBtn.Enabled = false;
+            kelulusan_toolBtn.Enabled = false;
             refresh2_toolBtn.Enabled = true;
             select_toolBtn.Text = "Select All";
+            opsi_toolBtn.Enabled = false;
+            naikKelas_btn.Enabled = false;
             foreach (DataGridViewRow row in viewMember_grid.Rows)
             {
                 row.Cells[0].Value = false;
             }
+            edit3_toolBtn.Text = "Edit";
+            edit3_toolBtn.Image = Properties.Resources.edit;
         }
-
+        
         private void viewMember_grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if ((e.RowIndex >= 0) && (e.RowIndex != -1))
@@ -775,35 +763,181 @@ namespace Raport
             }
         }
 
-        private void naikKelas_toolBtn_Click(object sender, EventArgs e)
+        private void naikKelasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            foreach (DataGridViewRow row in viewMember_grid.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                {
+                    string judul = "Naik ke Kelas";
+                    string str = viewKelas_combo.Text.ToString();
+                    int i = str.IndexOf(' ');
+                    i = str.IndexOf(' ', i);
+
+                    if (str.Substring(0, i) == "X")
+                    {
+                        naikKelas(str, "XI", judul);
+                    }
+                    else if (str.Substring(0, i) == "XI")
+                    {
+                        naikKelas(str, "XII", judul);
+                    }
+                }
+            }
+        }
+
+        private void lulusToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int i = 0;
+                foreach (DataGridViewRow row in viewMember_grid.Rows)
+                {
+                    if (Convert.ToBoolean(row.Cells[0].Value) == true) i++;
+                }
+
+                DialogResult dialog = MessageBox.Show("Anda yakin ingin meluluskan " + i.ToString() + " siswa kelas " +
+                    viewKelas_combo.Text.ToString() + "?", "Lulus", MessageBoxButtons.YesNo);
+                if (dialog == DialogResult.Yes)
+                {
+                    foreach (DataGridViewRow row in viewMember_grid.Rows)
+                    {
+                        if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                        {
+                            this.table = "siswa";
+                            this.field = "status_siswa = 'Lulus'";
+                            this.cond = "nis_siswa = '" + row.Cells[1].Value.ToString() + "' AND status_siswa= 'Aktif'";
+                            db.updateData(table, field, cond);
+                        }
+                    }
+                    MessageBox.Show("Selamat " + i.ToString() + " siswa kelas " +
+                    viewKelas_combo.Text.ToString() + "telah LULUS Sekolah");
+                }
+                else if (dialog == DialogResult.No)
+                {
+                    CancelEventArgs batal = new CancelEventArgs();
+                    batal.Cancel = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Terjadi kesalahan atau data kosong");
+            }
+        }
+
+        private void tidakNaikKelasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string judul = "Menetap di Kelas";
             string str = viewKelas_combo.Text.ToString();
             int i = str.IndexOf(' ');
             i = str.IndexOf(' ', i);
 
             if (str.Substring(0, i) == "X")
             {
-                string pindah = "XI";
-                FormPindahKelas fPindah = new FormPindahKelas();
-                fPindah.passTahuj = Convert.ToInt16(setTahun_combo.SelectedIndex + 1).ToString();
-                fPindah.passKelas = pindah + str.Substring(i);
-                fPindah.ShowDialog();
-                string status_pindah = fPindah.passText;
-                string kodeKelas = fPindah.passKelas;
-                MessageBox.Show(status_pindah);
-                if (status_pindah == "Create")
-                {
-                    createNewClass(kodeKelas);
-                }
+                naikKelas(str, "X", judul);
             }
             else if (str.Substring(0, i) == "XI")
             {
-                MessageBox.Show("Pindah kelas XII");
+                naikKelas(str, "XI", judul);
             }
-            else if (str.Substring(0, i) == "XII")
+        }
+
+        private void tidakLulusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string judul = "Menetap di Kelas";
+            string str = viewKelas_combo.Text.ToString();
+            int i = str.IndexOf(' ');
+            i = str.IndexOf(' ', i);
+
+            if (str.Substring(0, i) == "XII")
             {
-                MessageBox.Show("Lulus");
+                naikKelas(str, "XII", judul);
             }
+        }
+
+        private void dropOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in viewMember_grid.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                {
+                    DialogResult dialog = MessageBox.Show("Anda yakin siswa " + row.Cells[3].Value.ToString() +
+                        " akan di DROP OUT?", "Drop Out", MessageBoxButtons.YesNo);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        this.table = "siswa";
+                        this.field = "status_siswa = 'Drop Out'";
+                        this.cond = "nis_siswa = '" + row.Cells[1].Value.ToString() + "' AND status_siswa= 'Aktif'";
+                        db.updateData(table, field, cond);
+
+                        MessageBox.Show("Siswa '" + row.Cells[3].Value.ToString() +
+                            "' sudah di DROP OUT");
+                    }
+                    else if (dialog == DialogResult.No)
+                    {
+                        CancelEventArgs batal = new CancelEventArgs();
+                        batal.Cancel = true;
+                    }
+                }
+            }
+        }
+
+        private void pindahSekolahToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (DataGridViewRow row in viewMember_grid.Rows)
+                {
+                    if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                    {
+                        DialogResult dialog = MessageBox.Show("Anda yakin siswa " + row.Cells[3].Value.ToString() + 
+                            " ingin PINDAH SEKOLAH ?", "Pindah Sekolah", MessageBoxButtons.YesNo);
+                        if (dialog == DialogResult.Yes)
+                        {
+                            this.table = "siswa";
+                            this.field = "status_siswa = 'Pindah'";
+                            this.cond = "nis_siswa = '" + row.Cells[1].Value.ToString() + "' AND status_siswa= 'Aktif'";
+                            db.updateData(table, field, cond);
+
+                            MessageBox.Show("Siswa '" + row.Cells[3].Value.ToString() +
+                                "' sudah pindah sekolah");
+                        }
+                        else if (dialog == DialogResult.No)
+                        {
+                            CancelEventArgs batal = new CancelEventArgs();
+                            batal.Cancel = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Terjadi kesalahan atau data kosong");
+            }
+        }
+
+        public void naikKelas(string kelas, string pindah, string judul)
+        {
+            kelas = viewKelas_combo.Text.ToString();
+            int i = kelas.IndexOf(' ');
+            i = kelas.IndexOf(' ', i);
+            FormPindahKelas fPindah = new FormPindahKelas();
+            fPindah.passTahuj = Convert.ToInt16(setTahun_combo.SelectedIndex + 1).ToString();
+            fPindah.passKelas = pindah + kelas.Substring(i);
+            fPindah.judul_lbl.Text = judul;
+            fPindah.ShowDialog();
+            string status_pindah = fPindah.passText;
+            string kodeKelas = fPindah.passKelas;
+            MessageBox.Show(status_pindah);
+            if (status_pindah == "Create")
+            {
+                createNewClass(kodeKelas);
+            }
+        }
+
+        private void naikKelas_toolBtn_Click(object sender, EventArgs e)
+        {
+            
         }
 
         private void createNewClass(string dataKelas)
@@ -814,37 +948,58 @@ namespace Raport
                 {
                     if (Convert.ToBoolean(row.Cells[0].Value) == true)
                     {
-                        this.query = "SELECT COUNT(*) as jumlah FROM detailkelassiswa WHERE kode_kelas = '" + dataKelas +
-                                    "' AND nis_siswa = '" + row.Cells[1].Value.ToString() + "'";
-                        MySqlCommand myComm = new MySqlCommand(query, myConn);
+                        string tahuj = setTahun_combo.GetItemText(setTahun_combo.Items[Convert.ToInt16(setTahun_combo.SelectedIndex + 1)]).ToString();
+                        this.query = "SELECT COUNT(nis_siswa) as jumlah, nama_kelas, status_siswa FROM detailkelassiswa " +
+                                     "INNER JOIN kelas USING (kode_kelas) INNER JOIN siswa USING (nis_siswa) WHERE nis_siswa = '"
+                                     + row.Cells[1].Value.ToString() + "' AND status_siswa = 'Aktif' AND tahun_ajaran = '" + tahuj + "'";
+                        myComm = new MySqlCommand(query, myConn);
                         myConn.Open();
-                        myReader = myComm.ExecuteReader();
-                        while (myReader.Read())
+                        using (myReader = myComm.ExecuteReader())
                         {
-                            check_kelas = myReader.GetString("jumlah");
+                            int nama_kelas = myReader.GetOrdinal("nama_kelas");
+                            int status_siswa = myReader.GetOrdinal("status_siswa");
+                            while (myReader.Read())
+                            {
+                                check_siswa = myReader.GetString("jumlah");
+                                check_kelas = myReader.IsDBNull(nama_kelas) ? string.Empty
+                                            : myReader.GetString("nama_kelas");
+                                check_status = myReader.IsDBNull(status_siswa) ? string.Empty
+                                            : myReader.GetString("status_siswa");
+                            }
                         }
                         myConn.Close();
-
-                        if (check_kelas == "0")
+                        MessageBox.Show(check_status);
+                        if ((check_siswa == "0") && (check_status == "Aktif"))
                         {
                             this.field = "DEFAULT, '" + dataKelas + "', '" + row.Cells[1].Value.ToString() + "', 'Data Kelas'";
                             this.table = "detailkelassiswa";
                             db.insertData(table, field);
-                            MessageBox.Show(row.Cells[1].Value.ToString());
                         }
-                    }
+                        else if (check_siswa != "0")
+                        {
+                            MessageBox.Show("Siswa '" + row.Cells[3].Value.ToString() +
+                                            "' \nSudah ada di kelas " + check_kelas +
+                                            "\nTahun Ajaran " + tahuj);
+                        }
+                        else if (check_status != "Aktif")
+                        {
+                            MessageBox.Show("Siswa '" + row.Cells[3].Value.ToString() +
+                                            "' \nSudah TIDAK AKTIF sekolah " +
+                                            "\nMungkin pindah sekolah, Lulus, atau sudah di DO");
+                        }                        
+                    }                        
                 }
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                MessageBox.Show("Terjadi Kesalahan Data, atau data Kosong");
+                MessageBox.Show("Terjadi kesalahan atau data kosong");
             }
         }
 
         private void refresh2_toolBtn_Click(object sender, EventArgs e)
         {
             loadMember();
-            cancel3_toolBtn_Click(sender, e);
+            cancel();
         }
         
         private void setTahun_combo_SelectedIndexChanged(object sender, EventArgs e)

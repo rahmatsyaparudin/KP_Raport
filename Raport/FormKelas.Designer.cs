@@ -74,22 +74,31 @@ namespace Raport
             this.pilihTahun_combo = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.class_members = new System.Windows.Forms.TabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this.edit3_toolBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.refresh2_toolBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.select_toolBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.kelulusan_toolBtn = new System.Windows.Forms.ToolStripDropDownButton();
+            this.lulusToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tidakLulusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.naikKelas_btn = new System.Windows.Forms.ToolStripDropDownButton();
+            this.naikKelasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tidakNaikKelasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.opsi_toolBtn = new System.Windows.Forms.ToolStripDropDownButton();
+            this.pindahKelasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pindahSekolahToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dropOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.setTahun_combo = new System.Windows.Forms.ComboBox();
             this.countID_lbl = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.viewKelas_combo = new System.Windows.Forms.ComboBox();
-            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-            this.edit3_toolBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.select_toolBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.naikKelas_toolBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.refresh2_toolBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
-            this.cancel3_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.viewMember_grid = new System.Windows.Forms.DataGridView();
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -103,8 +112,9 @@ namespace Raport
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).BeginInit();
             this.class_members.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.toolStrip3.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.viewMember_grid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -182,7 +192,7 @@ namespace Raport
             // 
             // create_toolBtn
             // 
-            this.create_toolBtn.Image = global::Raport.Properties.Resources.edit_add;
+            this.create_toolBtn.Image = global::Raport.Properties.Resources.editadd;
             this.create_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.create_toolBtn.Name = "create_toolBtn";
             this.create_toolBtn.Size = new System.Drawing.Size(102, 25);
@@ -461,7 +471,7 @@ namespace Raport
             // 
             // create_tool
             // 
-            this.create_tool.Image = global::Raport.Properties.Resources.edit_add;
+            this.create_tool.Image = global::Raport.Properties.Resources.editadd;
             this.create_tool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.create_tool.Name = "create_tool";
             this.create_tool.Size = new System.Drawing.Size(75, 25);
@@ -512,7 +522,6 @@ namespace Raport
             this.schedule_grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.schedule_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.schedule_grid.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.schedule_grid.Enabled = false;
             this.schedule_grid.Location = new System.Drawing.Point(0, 28);
             this.schedule_grid.Name = "schedule_grid";
             this.schedule_grid.RowHeadersWidth = 30;
@@ -631,8 +640,8 @@ namespace Raport
             // class_members
             // 
             this.class_members.BackColor = System.Drawing.Color.Teal;
+            this.class_members.Controls.Add(this.panel3);
             this.class_members.Controls.Add(this.panel2);
-            this.class_members.Controls.Add(this.toolStrip3);
             this.class_members.Controls.Add(this.viewMember_grid);
             this.class_members.Location = new System.Drawing.Point(4, 30);
             this.class_members.Name = "class_members";
@@ -641,77 +650,14 @@ namespace Raport
             this.class_members.TabIndex = 3;
             this.class_members.Text = "Class Members";
             // 
-            // panel2
+            // panel3
             // 
-            this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.setTahun_combo);
-            this.panel2.Controls.Add(this.countID_lbl);
-            this.panel2.Controls.Add(this.label9);
-            this.panel2.Controls.Add(this.viewKelas_combo);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 31);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(769, 31);
-            this.panel2.TabIndex = 8;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Location = new System.Drawing.Point(172, 6);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(108, 21);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Tahun Ajaran";
-            // 
-            // setTahun_combo
-            // 
-            this.setTahun_combo.BackColor = System.Drawing.SystemColors.Control;
-            this.setTahun_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.setTahun_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.setTahun_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.setTahun_combo.FormattingEnabled = true;
-            this.setTahun_combo.IntegralHeight = false;
-            this.setTahun_combo.Location = new System.Drawing.Point(286, 4);
-            this.setTahun_combo.Name = "setTahun_combo";
-            this.setTahun_combo.Size = new System.Drawing.Size(107, 27);
-            this.setTahun_combo.TabIndex = 4;
-            this.setTahun_combo.SelectedIndexChanged += new System.EventHandler(this.setTahun_combo_SelectedIndexChanged);
-            // 
-            // countID_lbl
-            // 
-            this.countID_lbl.AutoSize = true;
-            this.countID_lbl.Location = new System.Drawing.Point(592, 4);
-            this.countID_lbl.Name = "countID_lbl";
-            this.countID_lbl.Size = new System.Drawing.Size(19, 21);
-            this.countID_lbl.TabIndex = 7;
-            this.countID_lbl.Text = "0";
-            this.countID_lbl.Visible = false;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Location = new System.Drawing.Point(408, 6);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(51, 21);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "Kelas";
-            // 
-            // viewKelas_combo
-            // 
-            this.viewKelas_combo.BackColor = System.Drawing.SystemColors.Control;
-            this.viewKelas_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.viewKelas_combo.Enabled = false;
-            this.viewKelas_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.viewKelas_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.viewKelas_combo.FormattingEnabled = true;
-            this.viewKelas_combo.IntegralHeight = false;
-            this.viewKelas_combo.Location = new System.Drawing.Point(465, 4);
-            this.viewKelas_combo.Name = "viewKelas_combo";
-            this.viewKelas_combo.Size = new System.Drawing.Size(121, 27);
-            this.viewKelas_combo.TabIndex = 6;
-            this.viewKelas_combo.SelectedIndexChanged += new System.EventHandler(this.viewKelas_combo_SelectedIndexChanged);
+            this.panel3.Controls.Add(this.toolStrip3);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(3, 34);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(769, 28);
+            this.panel3.TabIndex = 9;
             // 
             // toolStrip3
             // 
@@ -720,14 +666,15 @@ namespace Raport
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.edit3_toolBtn,
             this.toolStripSeparator6,
-            this.select_toolBtn,
-            this.toolStripSeparator7,
-            this.naikKelas_toolBtn,
-            this.toolStripSeparator8,
             this.refresh2_toolBtn,
             this.toolStripSeparator9,
-            this.cancel3_toolBtn});
-            this.toolStrip3.Location = new System.Drawing.Point(3, 3);
+            this.select_toolBtn,
+            this.toolStripSeparator7,
+            this.naikKelas_btn,
+            this.kelulusan_toolBtn,
+            this.toolStripSeparator10,
+            this.opsi_toolBtn});
+            this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.Size = new System.Drawing.Size(769, 28);
             this.toolStrip3.TabIndex = 2;
@@ -748,35 +695,6 @@ namespace Raport
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 28);
             // 
-            // select_toolBtn
-            // 
-            this.select_toolBtn.Enabled = false;
-            this.select_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.select_toolBtn.Name = "select_toolBtn";
-            this.select_toolBtn.Size = new System.Drawing.Size(77, 25);
-            this.select_toolBtn.Text = "Select All";
-            this.select_toolBtn.Click += new System.EventHandler(this.select_toolBtn_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 28);
-            // 
-            // naikKelas_toolBtn
-            // 
-            this.naikKelas_toolBtn.Enabled = false;
-            this.naikKelas_toolBtn.Image = global::Raport.Properties.Resources.edit_add;
-            this.naikKelas_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.naikKelas_toolBtn.Name = "naikKelas_toolBtn";
-            this.naikKelas_toolBtn.Size = new System.Drawing.Size(102, 25);
-            this.naikKelas_toolBtn.Text = "Naik Kelas";
-            this.naikKelas_toolBtn.Click += new System.EventHandler(this.naikKelas_toolBtn_Click);
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(6, 28);
-            // 
             // refresh2_toolBtn
             // 
             this.refresh2_toolBtn.Enabled = false;
@@ -792,15 +710,183 @@ namespace Raport
             this.toolStripSeparator9.Name = "toolStripSeparator9";
             this.toolStripSeparator9.Size = new System.Drawing.Size(6, 28);
             // 
-            // cancel3_toolBtn
+            // select_toolBtn
             // 
-            this.cancel3_toolBtn.Enabled = false;
-            this.cancel3_toolBtn.Image = global::Raport.Properties.Resources.cancel;
-            this.cancel3_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.cancel3_toolBtn.Name = "cancel3_toolBtn";
-            this.cancel3_toolBtn.Size = new System.Drawing.Size(76, 25);
-            this.cancel3_toolBtn.Text = "Cancel";
-            this.cancel3_toolBtn.Click += new System.EventHandler(this.cancel3_toolBtn_Click);
+            this.select_toolBtn.Enabled = false;
+            this.select_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.select_toolBtn.Name = "select_toolBtn";
+            this.select_toolBtn.Size = new System.Drawing.Size(77, 25);
+            this.select_toolBtn.Text = "Select All";
+            this.select_toolBtn.Click += new System.EventHandler(this.select_toolBtn_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 28);
+            // 
+            // kelulusan_toolBtn
+            // 
+            this.kelulusan_toolBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lulusToolStripMenuItem1,
+            this.tidakLulusToolStripMenuItem});
+            this.kelulusan_toolBtn.Enabled = false;
+            this.kelulusan_toolBtn.Image = global::Raport.Properties.Resources.editadd;
+            this.kelulusan_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.kelulusan_toolBtn.Name = "kelulusan_toolBtn";
+            this.kelulusan_toolBtn.Size = new System.Drawing.Size(106, 25);
+            this.kelulusan_toolBtn.Text = "Kelulusan";
+            this.kelulusan_toolBtn.Visible = false;
+            this.kelulusan_toolBtn.Click += new System.EventHandler(this.naikKelas_toolBtn_Click);
+            // 
+            // lulusToolStripMenuItem1
+            // 
+            this.lulusToolStripMenuItem1.Name = "lulusToolStripMenuItem1";
+            this.lulusToolStripMenuItem1.Size = new System.Drawing.Size(158, 26);
+            this.lulusToolStripMenuItem1.Text = "Lulus";
+            this.lulusToolStripMenuItem1.Click += new System.EventHandler(this.lulusToolStripMenuItem1_Click);
+            // 
+            // tidakLulusToolStripMenuItem
+            // 
+            this.tidakLulusToolStripMenuItem.Name = "tidakLulusToolStripMenuItem";
+            this.tidakLulusToolStripMenuItem.Size = new System.Drawing.Size(158, 26);
+            this.tidakLulusToolStripMenuItem.Text = "Tidak Lulus";
+            this.tidakLulusToolStripMenuItem.Click += new System.EventHandler(this.tidakLulusToolStripMenuItem_Click);
+            // 
+            // naikKelas_btn
+            // 
+            this.naikKelas_btn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.naikKelasToolStripMenuItem,
+            this.tidakNaikKelasToolStripMenuItem});
+            this.naikKelas_btn.Enabled = false;
+            this.naikKelas_btn.Image = global::Raport.Properties.Resources.editadd;
+            this.naikKelas_btn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.naikKelas_btn.Name = "naikKelas_btn";
+            this.naikKelas_btn.Size = new System.Drawing.Size(142, 25);
+            this.naikKelas_btn.Text = "Kenaikan Kelas";
+            // 
+            // naikKelasToolStripMenuItem
+            // 
+            this.naikKelasToolStripMenuItem.Name = "naikKelasToolStripMenuItem";
+            this.naikKelasToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
+            this.naikKelasToolStripMenuItem.Text = "Naik Kelas";
+            this.naikKelasToolStripMenuItem.Click += new System.EventHandler(this.naikKelasToolStripMenuItem_Click);
+            // 
+            // tidakNaikKelasToolStripMenuItem
+            // 
+            this.tidakNaikKelasToolStripMenuItem.Name = "tidakNaikKelasToolStripMenuItem";
+            this.tidakNaikKelasToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
+            this.tidakNaikKelasToolStripMenuItem.Text = "Tidak Naik Kelas";
+            this.tidakNaikKelasToolStripMenuItem.Click += new System.EventHandler(this.tidakNaikKelasToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 28);
+            // 
+            // opsi_toolBtn
+            // 
+            this.opsi_toolBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pindahKelasToolStripMenuItem,
+            this.pindahSekolahToolStripMenuItem,
+            this.dropOutToolStripMenuItem});
+            this.opsi_toolBtn.Enabled = false;
+            this.opsi_toolBtn.Image = global::Raport.Properties.Resources.setting1;
+            this.opsi_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.opsi_toolBtn.Name = "opsi_toolBtn";
+            this.opsi_toolBtn.Size = new System.Drawing.Size(104, 25);
+            this.opsi_toolBtn.Text = "Opsi Lain";
+            // 
+            // pindahKelasToolStripMenuItem
+            // 
+            this.pindahKelasToolStripMenuItem.Name = "pindahKelasToolStripMenuItem";
+            this.pindahKelasToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
+            this.pindahKelasToolStripMenuItem.Text = "Pindah Kelas";
+            // 
+            // pindahSekolahToolStripMenuItem
+            // 
+            this.pindahSekolahToolStripMenuItem.Name = "pindahSekolahToolStripMenuItem";
+            this.pindahSekolahToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
+            this.pindahSekolahToolStripMenuItem.Text = "Pindah Sekolah";
+            this.pindahSekolahToolStripMenuItem.Click += new System.EventHandler(this.pindahSekolahToolStripMenuItem_Click);
+            // 
+            // dropOutToolStripMenuItem
+            // 
+            this.dropOutToolStripMenuItem.Name = "dropOutToolStripMenuItem";
+            this.dropOutToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
+            this.dropOutToolStripMenuItem.Text = "Drop Out";
+            this.dropOutToolStripMenuItem.Click += new System.EventHandler(this.dropOutToolStripMenuItem_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label8);
+            this.panel2.Controls.Add(this.setTahun_combo);
+            this.panel2.Controls.Add(this.countID_lbl);
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.viewKelas_combo);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(769, 31);
+            this.panel2.TabIndex = 8;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Location = new System.Drawing.Point(5, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(108, 21);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Tahun Ajaran";
+            // 
+            // setTahun_combo
+            // 
+            this.setTahun_combo.BackColor = System.Drawing.SystemColors.Control;
+            this.setTahun_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.setTahun_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.setTahun_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.setTahun_combo.FormattingEnabled = true;
+            this.setTahun_combo.IntegralHeight = false;
+            this.setTahun_combo.Location = new System.Drawing.Point(119, 2);
+            this.setTahun_combo.Name = "setTahun_combo";
+            this.setTahun_combo.Size = new System.Drawing.Size(107, 27);
+            this.setTahun_combo.TabIndex = 4;
+            this.setTahun_combo.SelectedIndexChanged += new System.EventHandler(this.setTahun_combo_SelectedIndexChanged);
+            // 
+            // countID_lbl
+            // 
+            this.countID_lbl.AutoSize = true;
+            this.countID_lbl.Location = new System.Drawing.Point(416, 6);
+            this.countID_lbl.Name = "countID_lbl";
+            this.countID_lbl.Size = new System.Drawing.Size(19, 21);
+            this.countID_lbl.TabIndex = 7;
+            this.countID_lbl.Text = "0";
+            this.countID_lbl.Visible = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Location = new System.Drawing.Point(232, 6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(51, 21);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Kelas";
+            // 
+            // viewKelas_combo
+            // 
+            this.viewKelas_combo.BackColor = System.Drawing.SystemColors.Control;
+            this.viewKelas_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.viewKelas_combo.Enabled = false;
+            this.viewKelas_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.viewKelas_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewKelas_combo.FormattingEnabled = true;
+            this.viewKelas_combo.IntegralHeight = false;
+            this.viewKelas_combo.Location = new System.Drawing.Point(289, 2);
+            this.viewKelas_combo.Name = "viewKelas_combo";
+            this.viewKelas_combo.Size = new System.Drawing.Size(121, 27);
+            this.viewKelas_combo.TabIndex = 6;
+            this.viewKelas_combo.SelectedIndexChanged += new System.EventHandler(this.viewKelas_combo_SelectedIndexChanged);
             // 
             // viewMember_grid
             // 
@@ -808,13 +894,13 @@ namespace Raport
             this.viewMember_grid.AllowUserToDeleteRows = false;
             this.viewMember_grid.AllowUserToResizeColumns = false;
             this.viewMember_grid.AllowUserToResizeRows = false;
-            this.viewMember_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.viewMember_grid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.viewMember_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.viewMember_grid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.viewMember_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.viewMember_grid.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.viewMember_grid.Location = new System.Drawing.Point(3, 68);
+            this.viewMember_grid.Location = new System.Drawing.Point(3, 65);
             this.viewMember_grid.Name = "viewMember_grid";
-            this.viewMember_grid.Size = new System.Drawing.Size(769, 355);
+            this.viewMember_grid.Size = new System.Drawing.Size(769, 358);
             this.viewMember_grid.TabIndex = 8;
             this.viewMember_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.viewMember_grid_CellClick);
             // 
@@ -869,11 +955,12 @@ namespace Raport
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.schedule_grid)).EndInit();
             this.class_members.ResumeLayout(false);
-            this.class_members.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.viewMember_grid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -939,11 +1026,20 @@ namespace Raport
         private System.Windows.Forms.ToolStripButton select_toolBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ToolStripButton naikKelas_toolBtn;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-        private System.Windows.Forms.ToolStripButton cancel3_toolBtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripButton refresh2_toolBtn;
         private System.Windows.Forms.DataGridView viewMember_grid;
+        private System.Windows.Forms.ToolStripDropDownButton opsi_toolBtn;
+        private System.Windows.Forms.ToolStripMenuItem pindahSekolahToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dropOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pindahKelasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripDropDownButton naikKelas_btn;
+        private System.Windows.Forms.ToolStripMenuItem naikKelasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tidakNaikKelasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripDropDownButton kelulusan_toolBtn;
+        private System.Windows.Forms.ToolStripMenuItem lulusToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tidakLulusToolStripMenuItem;
+        private System.Windows.Forms.Panel panel3;
     }
 }

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.view_tab = new System.Windows.Forms.TabPage();
             this.search_txt = new System.Windows.Forms.TextBox();
             this.sortby_combo = new System.Windows.Forms.ComboBox();
@@ -49,6 +49,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.datagrid_datakelas = new System.Windows.Forms.DataGridView();
+            this.kelas_sortBtn = new System.Windows.Forms.ComboBox();
+            this.tahun_sortBtn = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.view_tab.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.siswa_grid)).BeginInit();
@@ -97,6 +102,7 @@
             this.sortby_combo.Name = "sortby_combo";
             this.sortby_combo.Size = new System.Drawing.Size(112, 25);
             this.sortby_combo.TabIndex = 3;
+            this.sortby_combo.SelectedIndexChanged += new System.EventHandler(this.sortby_combo_SelectedIndexChanged);
             // 
             // toolStrip1
             // 
@@ -155,30 +161,31 @@
             this.siswa_grid.AllowUserToAddRows = false;
             this.siswa_grid.AllowUserToDeleteRows = false;
             this.siswa_grid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.NullValue = null;
-            this.siswa_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle7.NullValue = null;
+            this.siswa_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.siswa_grid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.siswa_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.siswa_grid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.siswa_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.siswa_grid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.siswa_grid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.siswa_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.NullValue = null;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.siswa_grid.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.NullValue = null;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.siswa_grid.DefaultCellStyle = dataGridViewCellStyle9;
             this.siswa_grid.Location = new System.Drawing.Point(0, 36);
             this.siswa_grid.Name = "siswa_grid";
             this.siswa_grid.ReadOnly = true;
@@ -203,6 +210,11 @@
             // 
             // kelas_tab
             // 
+            this.kelas_tab.Controls.Add(this.tahun_sortBtn);
+            this.kelas_tab.Controls.Add(this.kelas_sortBtn);
+            this.kelas_tab.Controls.Add(this.label4);
+            this.kelas_tab.Controls.Add(this.label3);
+            this.kelas_tab.Controls.Add(this.label1);
             this.kelas_tab.Controls.Add(this.dataKelas_grid);
             this.kelas_tab.Controls.Add(this.toolStrip2);
             this.kelas_tab.Location = new System.Drawing.Point(4, 30);
@@ -217,7 +229,8 @@
             // 
             this.dataKelas_grid.AllowUserToAddRows = false;
             this.dataKelas_grid.AllowUserToDeleteRows = false;
-            this.dataKelas_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataKelas_grid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataKelas_grid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataKelas_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataKelas_grid.Dock = System.Windows.Forms.DockStyle.Top;
             this.dataKelas_grid.Location = new System.Drawing.Point(3, 28);
@@ -278,6 +291,59 @@
             this.datagrid_datakelas.TabIndex = 3;
             this.datagrid_datakelas.Visible = false;
             // 
+            // kelas_sortBtn
+            // 
+            this.kelas_sortBtn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.kelas_sortBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.kelas_sortBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kelas_sortBtn.FormattingEnabled = true;
+            this.kelas_sortBtn.IntegralHeight = false;
+            this.kelas_sortBtn.Location = new System.Drawing.Point(355, 1);
+            this.kelas_sortBtn.Name = "kelas_sortBtn";
+            this.kelas_sortBtn.Size = new System.Drawing.Size(128, 27);
+            this.kelas_sortBtn.TabIndex = 3;
+            this.kelas_sortBtn.SelectedIndexChanged += new System.EventHandler(this.kelas_sortBtn_SelectedIndexChanged);
+            // 
+            // tahun_sortBtn
+            // 
+            this.tahun_sortBtn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tahun_sortBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.tahun_sortBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tahun_sortBtn.FormattingEnabled = true;
+            this.tahun_sortBtn.IntegralHeight = false;
+            this.tahun_sortBtn.Location = new System.Drawing.Point(178, 1);
+            this.tahun_sortBtn.Name = "tahun_sortBtn";
+            this.tahun_sortBtn.Size = new System.Drawing.Size(121, 27);
+            this.tahun_sortBtn.TabIndex = 4;
+            this.tahun_sortBtn.SelectedIndexChanged += new System.EventHandler(this.tahun_sortBtn_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 21);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Sort By";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(71, 4);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(108, 21);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Tahun Ajaran";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(305, 4);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 21);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Kelas";
+            // 
             // FormSiswa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -329,5 +395,10 @@
         private System.Windows.Forms.DataGridView dataKelas_grid;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.DataGridView datagrid_datakelas;
+        private System.Windows.Forms.ComboBox kelas_sortBtn;
+        private System.Windows.Forms.ComboBox tahun_sortBtn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }

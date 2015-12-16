@@ -1,43 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace Raport
 {
     public partial class FormUser : Form
     {
-        MySqlConnection myConn = Function.getKoneksi();
         Function db = new Function();
         private string table;
         private string field;
         private string cond;
-        private string value, pass, level, user;
+        private string value, password, level, user;
 
         public FormUser()
         {
             InitializeComponent();
         }
 
-        public string getPass
+        public string GetPass
         {
-            get { return pass; }
-            set { pass = value; }
+            get { return password; }
+            set { password = value; }
         }
 
-        public string getUser
+        public string GetUser
         {
             get { return user; }
             set { user = value; }
         }
 
-        public string getLevel
+        public string GetLevel
         {
             get { return level; }
             set { level = value; }
@@ -69,7 +62,7 @@ namespace Raport
             }
         }
 
-        public void cancelAction()
+        public void CancelAction()
         {
             user_radio.Checked = false;
             admin_radio.Checked = false;
@@ -87,7 +80,7 @@ namespace Raport
 
         private void cancel_btn_Click(object sender, EventArgs e)
         {
-            cancelAction();
+            CancelAction();
         }
 
         private void dataUser_grid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -122,9 +115,9 @@ namespace Raport
             if ((e.RowIndex >= 0) && (e.RowIndex != -1))
             {
                 DataGridViewRow row = this.dataUser_grid.Rows[e.RowIndex];
-                this.getPass = db.Decrypt(row.Cells["Password"].Value.ToString());
-                this.getLevel = row.Cells["Level"].Value.ToString();
-                this.getUser = row.Cells["Username"].Value.ToString();
+                this.GetPass = db.Decrypt(row.Cells["Password"].Value.ToString());
+                this.GetLevel = row.Cells["Level"].Value.ToString();
+                this.GetUser = row.Cells["Username"].Value.ToString();
             }
         }
 
@@ -138,15 +131,15 @@ namespace Raport
             if (level == "0")
             {
                 this.value = "User";
-            }
-            MessageBox.Show("Level: " + value + "\nUsername: " + user + "\nPassword: " + pass);
+            } 
+            MessageBox.Show("Level: " + value + "\nUsername: " + user + "\nPassword:" + password);
         }
 
         private void delete_btn_Click(object sender, EventArgs e)
         {
             try
             {
-                DialogResult dialog = MessageBox.Show("Hapus user '" + user_txt.Text + "'?",
+                DialogResult dialog = MessageBox.Show("Hapus user " + user_txt.Text + "?",
                "Hapus Data", MessageBoxButtons.YesNo);
                 if (dialog == DialogResult.Yes)
                 {
@@ -201,7 +194,7 @@ namespace Raport
             {
                 MessageBox.Show("Level User belum dipilih");
             }
-            else if (guru_combo.Text == "")
+            else if (!String.IsNullOrEmpty(guru_combo.Text))
             {
                 MessageBox.Show("Guru belum dipilih");
             }
@@ -227,11 +220,11 @@ namespace Raport
                 {
                     if (aksi_lbl.Text == "save")
                     {
-                        saveData();
+                        SaveData();
                     }   
                     else if (aksi_lbl.Text == "edit")
                     {
-                        editData();
+                        EditData();
                     }
                 }
             }
@@ -263,43 +256,44 @@ namespace Raport
             }
         }
 
-        public void saveData()
+        public void SaveData()
         {
             try
             {
                 string guru = guru_combo.SelectedValue.ToString();
                 string pass = db.Encrypt(pass_txt.Text);
                 table = "user";
-                field = "'" + user_txt.Text + "', '" + pass + "', '" + guru + "', '" + value + "'";
+                field = "'" + user_txt.Text.Replace("'", "''") + "', '" 
+                        + pass.Replace("'", "''") + "', '" + guru.Replace("'", "''") + "', '" + value + "'";
                 db.insertData(table, field);
                 load_user();
                 MessageBox.Show("User '" + user_txt.Text + "' telah ditambah");
-                cancelAction();
+                CancelAction();
             }
-            catch
+            catch (Exception)
             {
                 MessageBox.Show("Username sudah Terpakai atau terjadi kesalahan input");
             }
         }
 
-        public void editData()
+        public void EditData()
         {
             try
             {
                 string guru = guru_combo.SelectedValue.ToString();
                 string pass = db.Encrypt(pass_txt.Text);
                 this.table = "user";
-                this.field = " username = '" + user_txt.Text +
-                             "', password = '" + pass +
-                             "', nama = '" + guru +
+                this.field = " username = '" + user_txt.Text.Replace("'", "''") +
+                             "', password = '" + pass.Replace("'", "''") +
+                             "', nama = '" + guru.Replace("'", "''") +
                              "', level = '" + value + "'";
                 this.cond = "username = '" + user_lbl.Text + "'";
                 db.updateData(table, field, cond);
                 load_user();
                 MessageBox.Show("Edit Data User '" + user_txt.Text + "' berhasil");
-                cancelAction();
+                CancelAction();
             }
-            catch
+            catch (Exception)
             {
                 MessageBox.Show("Username sudah Terpakai atau terjadi kesalahan input");
             }

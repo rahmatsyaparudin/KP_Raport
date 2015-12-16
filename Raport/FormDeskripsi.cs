@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -298,24 +291,25 @@ namespace Raport
         private void save_btn_Click(object sender, EventArgs e)
         {
             if (fieldVal == "PENG")
-            {
-                this.field = "p_atas = '" + atas_txt.Text + "', p_tengah = '" + tengah_txt.Text + "', p_bawah = '" + bawah_txt.Text + "'";
+            {             
+                field = "p_atas = '" + atas_txt.Text.Replace("'", "''") + "', p_tengah = '"
+                            + tengah_txt.Text.Replace("'", "''") + "', p_bawah = '" + bawah_txt.Text.Replace("'", "''") + "'";
             }
-
             if (fieldVal == "KET")
             {
-                this.field = "k_atas = '" + atas_txt.Text + "', k_tengah = '" + tengah_txt.Text + "', k_bawah = '" + bawah_txt.Text + "'";
+                field = "k_atas = '" + atas_txt.Text.Replace("'", "''") + "', k_tengah = '"
+                        + tengah_txt.Text.Replace("'", "''") + "', k_bawah = '" + bawah_txt.Text.Replace("'", "''") + "'";
             }
-
+                
             if (fieldVal == "SSS")
             {
-                this.field = "s_atas = '" + atas_txt.Text + "', s_tengah = '" + tengah_txt.Text + "', s_bawah = '" + bawah_txt.Text + "'";
+                this.field = "s_atas = '" + atas_txt.Text.Replace("'", "''") + "', s_tengah = '"
+                    + tengah_txt.Text.Replace("'", "''") + "', s_bawah = '" + bawah_txt.Text.Replace("'", "''") + "'";
             }
-
+                            
             this.table = "deskripsi";
             this.cond = "kode_kelas = '" + kelas_combo.SelectedValue.ToString() + "' AND kode_mapel = '" + mapel_combo.SelectedValue.ToString() +
                         "' AND kode_semester = '" + smt_combo.SelectedValue.ToString() + "'";
-
             db.updateData(table, field, cond);
             save_btn.Enabled = false;
             reset_btn.Enabled = false;

@@ -58,19 +58,18 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.tahuj_combo = new System.Windows.Forms.ComboBox();
-            this.change_btn = new System.Windows.Forms.Button();
             this.set_btn = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.print_formatBtn = new System.Windows.Forms.Button();
-            this.raport_printBtn = new System.Windows.Forms.Button();
+            this.printLaporan_group = new System.Windows.Forms.GroupBox();
+            this.printFormat_Btn = new System.Windows.Forms.Button();
+            this.printRaport_Btn = new System.Windows.Forms.Button();
             this.user_menu = new System.Windows.Forms.Button();
             this.user_lbl = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.SimpanData_group = new System.Windows.Forms.GroupBox();
-            this.printDataNilai_btn = new System.Windows.Forms.Button();
-            this.printDataKelas_btn = new System.Windows.Forms.Button();
-            this.printDataSiswa_btn = new System.Windows.Forms.Button();
-            this.printDataGuru_btn = new System.Windows.Forms.Button();
+            this.saveDataNilai_btn = new System.Windows.Forms.Button();
+            this.saveDataKelas_btn = new System.Windows.Forms.Button();
+            this.saveDataSiswa_btn = new System.Windows.Forms.Button();
+            this.saveDataGuru_btn = new System.Windows.Forms.Button();
             this.sfDialog = new System.Windows.Forms.SaveFileDialog();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -81,15 +80,16 @@
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.print_grid = new System.Windows.Forms.DataGridView();
             this.export_btn = new System.Windows.Forms.Button();
+            this.fbDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.back_rest_Btn = new System.Windows.Forms.Button();
             this.LogOut_btn = new System.Windows.Forms.Button();
             this.exit_btn = new System.Windows.Forms.Button();
-            this.fbDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo_pic)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.printLaporan_group.SuspendLayout();
             this.SimpanData_group.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.print_grid)).BeginInit();
@@ -185,7 +185,7 @@
             // 
             // logo_pic
             // 
-            this.logo_pic.Image = global::Raport.Properties.Resources._133x133;
+            this.logo_pic.Image = global::Raport.Properties.Resources.Logo133x133;
             this.logo_pic.Location = new System.Drawing.Point(18, 5);
             this.logo_pic.Name = "logo_pic";
             this.logo_pic.Size = new System.Drawing.Size(133, 133);
@@ -216,6 +216,7 @@
             // 
             this.guru_menu.BackColor = System.Drawing.Color.CadetBlue;
             this.guru_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.guru_menu.Enabled = false;
             this.guru_menu.FlatAppearance.BorderSize = 0;
             this.guru_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.guru_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -234,6 +235,7 @@
             // 
             this.profil_menu.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.profil_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.profil_menu.Enabled = false;
             this.profil_menu.FlatAppearance.BorderSize = 0;
             this.profil_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.profil_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -253,6 +255,7 @@
             // 
             this.siswa_menu.BackColor = System.Drawing.Color.Yellow;
             this.siswa_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.siswa_menu.Enabled = false;
             this.siswa_menu.FlatAppearance.BorderSize = 0;
             this.siswa_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.siswa_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -290,10 +293,11 @@
             // 
             this.mapel_menu.BackColor = System.Drawing.Color.Lavender;
             this.mapel_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.mapel_menu.Enabled = false;
             this.mapel_menu.FlatAppearance.BorderSize = 0;
             this.mapel_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mapel_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mapel_menu.Image = global::Raport.Properties.Resources.appbar_book;
+            this.mapel_menu.Image = global::Raport.Properties.Resources.appbarbook;
             this.mapel_menu.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.mapel_menu.Location = new System.Drawing.Point(155, 55);
             this.mapel_menu.Name = "mapel_menu";
@@ -327,6 +331,7 @@
             // 
             this.kelas_menu.BackColor = System.Drawing.Color.LimeGreen;
             this.kelas_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.kelas_menu.Enabled = false;
             this.kelas_menu.FlatAppearance.BorderSize = 0;
             this.kelas_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.kelas_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -345,6 +350,7 @@
             // 
             this.eskul_menu.BackColor = System.Drawing.Color.Red;
             this.eskul_menu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.eskul_menu.Enabled = false;
             this.eskul_menu.FlatAppearance.BorderSize = 0;
             this.eskul_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.eskul_menu.Font = new System.Drawing.Font("Kristen ITC", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -443,7 +449,6 @@
             this.panel3.BackColor = System.Drawing.Color.DodgerBlue;
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.tahuj_combo);
-            this.panel3.Controls.Add(this.change_btn);
             this.panel3.Controls.Add(this.set_btn);
             this.panel3.Location = new System.Drawing.Point(485, 173);
             this.panel3.Name = "panel3";
@@ -476,28 +481,13 @@
             this.tahuj_combo.Size = new System.Drawing.Size(121, 27);
             this.tahuj_combo.TabIndex = 20;
             // 
-            // change_btn
-            // 
-            this.change_btn.BackColor = System.Drawing.Color.Blue;
-            this.change_btn.Enabled = false;
-            this.change_btn.FlatAppearance.BorderSize = 0;
-            this.change_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.change_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.change_btn.Location = new System.Drawing.Point(64, 73);
-            this.change_btn.Name = "change_btn";
-            this.change_btn.Size = new System.Drawing.Size(64, 29);
-            this.change_btn.TabIndex = 22;
-            this.change_btn.Text = "Edit";
-            this.change_btn.UseVisualStyleBackColor = false;
-            this.change_btn.Click += new System.EventHandler(this.change_btn_Click);
-            // 
             // set_btn
             // 
             this.set_btn.BackColor = System.Drawing.Color.Blue;
             this.set_btn.FlatAppearance.BorderSize = 0;
             this.set_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.set_btn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.set_btn.Location = new System.Drawing.Point(6, 73);
+            this.set_btn.Location = new System.Drawing.Point(36, 68);
             this.set_btn.Name = "set_btn";
             this.set_btn.Size = new System.Drawing.Size(55, 29);
             this.set_btn.TabIndex = 21;
@@ -505,50 +495,53 @@
             this.set_btn.UseVisualStyleBackColor = false;
             this.set_btn.Click += new System.EventHandler(this.set_btn_Click);
             // 
-            // groupBox2
+            // printLaporan_group
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.SteelBlue;
-            this.groupBox2.Controls.Add(this.print_formatBtn);
-            this.groupBox2.Controls.Add(this.raport_printBtn);
-            this.groupBox2.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(477, 304);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(148, 209);
-            this.groupBox2.TabIndex = 34;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Print Laporan";
+            this.printLaporan_group.BackColor = System.Drawing.Color.SteelBlue;
+            this.printLaporan_group.Controls.Add(this.printFormat_Btn);
+            this.printLaporan_group.Controls.Add(this.printRaport_Btn);
+            this.printLaporan_group.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printLaporan_group.Location = new System.Drawing.Point(477, 304);
+            this.printLaporan_group.Name = "printLaporan_group";
+            this.printLaporan_group.Size = new System.Drawing.Size(148, 209);
+            this.printLaporan_group.TabIndex = 34;
+            this.printLaporan_group.TabStop = false;
+            this.printLaporan_group.Text = "Print Laporan";
             // 
-            // print_formatBtn
+            // printFormat_Btn
             // 
-            this.print_formatBtn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.print_formatBtn.FlatAppearance.BorderSize = 0;
-            this.print_formatBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.print_formatBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.print_formatBtn.Location = new System.Drawing.Point(9, 71);
-            this.print_formatBtn.Name = "print_formatBtn";
-            this.print_formatBtn.Size = new System.Drawing.Size(124, 31);
-            this.print_formatBtn.TabIndex = 35;
-            this.print_formatBtn.Text = "Print Format";
-            this.print_formatBtn.UseVisualStyleBackColor = false;
-            this.print_formatBtn.Click += new System.EventHandler(this.print_formatBtn_Click);
+            this.printFormat_Btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.printFormat_Btn.Enabled = false;
+            this.printFormat_Btn.FlatAppearance.BorderSize = 0;
+            this.printFormat_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.printFormat_Btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printFormat_Btn.Location = new System.Drawing.Point(11, 34);
+            this.printFormat_Btn.Name = "printFormat_Btn";
+            this.printFormat_Btn.Size = new System.Drawing.Size(124, 31);
+            this.printFormat_Btn.TabIndex = 35;
+            this.printFormat_Btn.Text = "Print Format";
+            this.printFormat_Btn.UseVisualStyleBackColor = false;
+            this.printFormat_Btn.Click += new System.EventHandler(this.print_formatBtn_Click);
             // 
-            // raport_printBtn
+            // printRaport_Btn
             // 
-            this.raport_printBtn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.raport_printBtn.FlatAppearance.BorderSize = 0;
-            this.raport_printBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.raport_printBtn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.raport_printBtn.Location = new System.Drawing.Point(9, 34);
-            this.raport_printBtn.Name = "raport_printBtn";
-            this.raport_printBtn.Size = new System.Drawing.Size(124, 31);
-            this.raport_printBtn.TabIndex = 34;
-            this.raport_printBtn.Text = "Print Raport";
-            this.raport_printBtn.UseVisualStyleBackColor = false;
-            this.raport_printBtn.Click += new System.EventHandler(this.raport_printBtn_Click);
+            this.printRaport_Btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.printRaport_Btn.Enabled = false;
+            this.printRaport_Btn.FlatAppearance.BorderSize = 0;
+            this.printRaport_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.printRaport_Btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printRaport_Btn.Location = new System.Drawing.Point(11, 71);
+            this.printRaport_Btn.Name = "printRaport_Btn";
+            this.printRaport_Btn.Size = new System.Drawing.Size(124, 31);
+            this.printRaport_Btn.TabIndex = 34;
+            this.printRaport_Btn.Text = "Print Raport";
+            this.printRaport_Btn.UseVisualStyleBackColor = false;
+            this.printRaport_Btn.Click += new System.EventHandler(this.raport_printBtn_Click);
             // 
             // user_menu
             // 
             this.user_menu.BackColor = System.Drawing.Color.DodgerBlue;
+            this.user_menu.Enabled = false;
             this.user_menu.FlatAppearance.BorderSize = 0;
             this.user_menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.user_menu.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -585,11 +578,10 @@
             // SimpanData_group
             // 
             this.SimpanData_group.BackColor = System.Drawing.Color.SteelBlue;
-            this.SimpanData_group.Controls.Add(this.printDataNilai_btn);
-            this.SimpanData_group.Controls.Add(this.printDataKelas_btn);
-            this.SimpanData_group.Controls.Add(this.printDataSiswa_btn);
-            this.SimpanData_group.Controls.Add(this.printDataGuru_btn);
-            this.SimpanData_group.Enabled = false;
+            this.SimpanData_group.Controls.Add(this.saveDataNilai_btn);
+            this.SimpanData_group.Controls.Add(this.saveDataKelas_btn);
+            this.SimpanData_group.Controls.Add(this.saveDataSiswa_btn);
+            this.SimpanData_group.Controls.Add(this.saveDataGuru_btn);
             this.SimpanData_group.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SimpanData_group.Location = new System.Drawing.Point(326, 304);
             this.SimpanData_group.Name = "SimpanData_group";
@@ -598,59 +590,63 @@
             this.SimpanData_group.TabStop = false;
             this.SimpanData_group.Text = "Simpan Data";
             // 
-            // printDataNilai_btn
+            // saveDataNilai_btn
             // 
-            this.printDataNilai_btn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.printDataNilai_btn.FlatAppearance.BorderSize = 0;
-            this.printDataNilai_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.printDataNilai_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.printDataNilai_btn.Location = new System.Drawing.Point(17, 145);
-            this.printDataNilai_btn.Name = "printDataNilai_btn";
-            this.printDataNilai_btn.Size = new System.Drawing.Size(110, 32);
-            this.printDataNilai_btn.TabIndex = 33;
-            this.printDataNilai_btn.Text = "Data Nilai";
-            this.printDataNilai_btn.UseVisualStyleBackColor = false;
+            this.saveDataNilai_btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.saveDataNilai_btn.Enabled = false;
+            this.saveDataNilai_btn.FlatAppearance.BorderSize = 0;
+            this.saveDataNilai_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveDataNilai_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveDataNilai_btn.Location = new System.Drawing.Point(17, 145);
+            this.saveDataNilai_btn.Name = "saveDataNilai_btn";
+            this.saveDataNilai_btn.Size = new System.Drawing.Size(110, 32);
+            this.saveDataNilai_btn.TabIndex = 33;
+            this.saveDataNilai_btn.Text = "Data Nilai";
+            this.saveDataNilai_btn.UseVisualStyleBackColor = false;
             // 
-            // printDataKelas_btn
+            // saveDataKelas_btn
             // 
-            this.printDataKelas_btn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.printDataKelas_btn.FlatAppearance.BorderSize = 0;
-            this.printDataKelas_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.printDataKelas_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.printDataKelas_btn.Location = new System.Drawing.Point(17, 108);
-            this.printDataKelas_btn.Name = "printDataKelas_btn";
-            this.printDataKelas_btn.Size = new System.Drawing.Size(110, 31);
-            this.printDataKelas_btn.TabIndex = 32;
-            this.printDataKelas_btn.Text = "Data Kelas";
-            this.printDataKelas_btn.UseVisualStyleBackColor = false;
+            this.saveDataKelas_btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.saveDataKelas_btn.Enabled = false;
+            this.saveDataKelas_btn.FlatAppearance.BorderSize = 0;
+            this.saveDataKelas_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveDataKelas_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveDataKelas_btn.Location = new System.Drawing.Point(17, 108);
+            this.saveDataKelas_btn.Name = "saveDataKelas_btn";
+            this.saveDataKelas_btn.Size = new System.Drawing.Size(110, 31);
+            this.saveDataKelas_btn.TabIndex = 32;
+            this.saveDataKelas_btn.Text = "Data Kelas";
+            this.saveDataKelas_btn.UseVisualStyleBackColor = false;
             // 
-            // printDataSiswa_btn
+            // saveDataSiswa_btn
             // 
-            this.printDataSiswa_btn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.printDataSiswa_btn.FlatAppearance.BorderSize = 0;
-            this.printDataSiswa_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.printDataSiswa_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.printDataSiswa_btn.Location = new System.Drawing.Point(17, 71);
-            this.printDataSiswa_btn.Name = "printDataSiswa_btn";
-            this.printDataSiswa_btn.Size = new System.Drawing.Size(110, 31);
-            this.printDataSiswa_btn.TabIndex = 31;
-            this.printDataSiswa_btn.Text = "Data Siswa";
-            this.printDataSiswa_btn.UseVisualStyleBackColor = false;
-            this.printDataSiswa_btn.Click += new System.EventHandler(this.printDataSiswa_btn_Click);
+            this.saveDataSiswa_btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.saveDataSiswa_btn.Enabled = false;
+            this.saveDataSiswa_btn.FlatAppearance.BorderSize = 0;
+            this.saveDataSiswa_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveDataSiswa_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveDataSiswa_btn.Location = new System.Drawing.Point(17, 71);
+            this.saveDataSiswa_btn.Name = "saveDataSiswa_btn";
+            this.saveDataSiswa_btn.Size = new System.Drawing.Size(110, 31);
+            this.saveDataSiswa_btn.TabIndex = 31;
+            this.saveDataSiswa_btn.Text = "Data Siswa";
+            this.saveDataSiswa_btn.UseVisualStyleBackColor = false;
+            this.saveDataSiswa_btn.Click += new System.EventHandler(this.printDataSiswa_btn_Click);
             // 
-            // printDataGuru_btn
+            // saveDataGuru_btn
             // 
-            this.printDataGuru_btn.BackColor = System.Drawing.Color.DodgerBlue;
-            this.printDataGuru_btn.FlatAppearance.BorderSize = 0;
-            this.printDataGuru_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.printDataGuru_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.printDataGuru_btn.Location = new System.Drawing.Point(17, 34);
-            this.printDataGuru_btn.Name = "printDataGuru_btn";
-            this.printDataGuru_btn.Size = new System.Drawing.Size(110, 31);
-            this.printDataGuru_btn.TabIndex = 30;
-            this.printDataGuru_btn.Text = "Data Guru";
-            this.printDataGuru_btn.UseVisualStyleBackColor = false;
-            this.printDataGuru_btn.Click += new System.EventHandler(this.printDataGuru_btn_Click);
+            this.saveDataGuru_btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.saveDataGuru_btn.Enabled = false;
+            this.saveDataGuru_btn.FlatAppearance.BorderSize = 0;
+            this.saveDataGuru_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveDataGuru_btn.Font = new System.Drawing.Font("Segoe Print", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveDataGuru_btn.Location = new System.Drawing.Point(17, 34);
+            this.saveDataGuru_btn.Name = "saveDataGuru_btn";
+            this.saveDataGuru_btn.Size = new System.Drawing.Size(110, 31);
+            this.saveDataGuru_btn.TabIndex = 30;
+            this.saveDataGuru_btn.Text = "Data Guru";
+            this.saveDataGuru_btn.UseVisualStyleBackColor = false;
+            this.saveDataGuru_btn.Click += new System.EventHandler(this.printDataGuru_btn_Click);
             // 
             // toolStripDropDownButton1
             // 
@@ -715,6 +711,7 @@
             // export_btn
             // 
             this.export_btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.export_btn.Enabled = false;
             this.export_btn.FlatAppearance.BorderSize = 0;
             this.export_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.export_btn.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -725,6 +722,21 @@
             this.export_btn.Text = "Export Siswa";
             this.export_btn.UseVisualStyleBackColor = false;
             this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
+            // 
+            // back_rest_Btn
+            // 
+            this.back_rest_Btn.BackColor = System.Drawing.Color.DodgerBlue;
+            this.back_rest_Btn.Enabled = false;
+            this.back_rest_Btn.FlatAppearance.BorderSize = 0;
+            this.back_rest_Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.back_rest_Btn.Font = new System.Drawing.Font("Segoe Print", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.back_rest_Btn.Location = new System.Drawing.Point(326, 249);
+            this.back_rest_Btn.Name = "back_rest_Btn";
+            this.back_rest_Btn.Size = new System.Drawing.Size(153, 32);
+            this.back_rest_Btn.TabIndex = 39;
+            this.back_rest_Btn.Text = "Backup/Restore";
+            this.back_rest_Btn.UseVisualStyleBackColor = false;
+            this.back_rest_Btn.Click += new System.EventHandler(this.back_rest_Btn_Click);
             // 
             // LogOut_btn
             // 
@@ -774,13 +786,14 @@
             this.CancelButton = this.deskripsi_menu;
             this.ClientSize = new System.Drawing.Size(780, 557);
             this.ControlBox = false;
+            this.Controls.Add(this.back_rest_Btn);
             this.Controls.Add(this.export_btn);
             this.Controls.Add(this.LogOut_btn);
             this.Controls.Add(this.SimpanData_group);
             this.Controls.Add(this.user_lbl);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.user_menu);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.printLaporan_group);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.tanggal_lbl);
             this.Controls.Add(this.groupBox1);
@@ -807,7 +820,7 @@
             this.groupBox1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.printLaporan_group.ResumeLayout(false);
             this.SimpanData_group.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.print_grid)).EndInit();
@@ -844,19 +857,18 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button set_btn;
-        private System.Windows.Forms.Button change_btn;
         private System.Windows.Forms.ComboBox tahuj_combo;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox printLaporan_group;
         private System.Windows.Forms.Button user_menu;
         private System.Windows.Forms.Label user_lbl;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox SimpanData_group;
-        private System.Windows.Forms.Button printDataGuru_btn;
+        private System.Windows.Forms.Button saveDataGuru_btn;
         public System.Windows.Forms.Label tanggal_lbl;
         public System.Windows.Forms.Label bulan_lbl;
         private System.Windows.Forms.SaveFileDialog sfDialog;
-        private System.Windows.Forms.Button printDataSiswa_btn;
+        private System.Windows.Forms.Button saveDataSiswa_btn;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
@@ -865,12 +877,13 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         public System.Windows.Forms.DataGridView print_grid;
-        private System.Windows.Forms.Button printDataKelas_btn;
-        private System.Windows.Forms.Button printDataNilai_btn;
+        private System.Windows.Forms.Button saveDataKelas_btn;
+        private System.Windows.Forms.Button saveDataNilai_btn;
         private System.Windows.Forms.Button LogOut_btn;
-        private System.Windows.Forms.Button raport_printBtn;
-        private System.Windows.Forms.Button print_formatBtn;
+        private System.Windows.Forms.Button printRaport_Btn;
+        private System.Windows.Forms.Button printFormat_Btn;
         private System.Windows.Forms.Button export_btn;
         private System.Windows.Forms.FolderBrowserDialog fbDialog;
+        private System.Windows.Forms.Button back_rest_Btn;
     }
 }
