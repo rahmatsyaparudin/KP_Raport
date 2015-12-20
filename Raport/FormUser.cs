@@ -8,9 +8,7 @@ namespace Raport
     public partial class FormUser : Form
     {
         Function db = new Function();
-        private string table;
-        private string field;
-        private string cond;
+        private string table, field,cond;
         private string value, password, level, user;
 
         public FormUser()
@@ -46,15 +44,11 @@ namespace Raport
         {
             try
             {
-                string idValue = "nama_guru";
-                string dispValue = "nama_guru";
-                this.table = "guru";
-                this.cond = "status_guru = 'Aktif'";
+                string idValue = "nama_guru"; string dispValue = "nama_guru";
+                this.table = "guru"; this.cond = "status_guru = 'Aktif'";
                 string sortby = "nama_guru";
-
                 guru_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
-                guru_combo.DisplayMember = "valueDisplay";
-                guru_combo.ValueMember = "valueID";
+                guru_combo.DisplayMember = "valueDisplay"; guru_combo.ValueMember = "valueID";
             }
             catch (Exception ex)
             {
@@ -64,18 +58,12 @@ namespace Raport
 
         public void CancelAction()
         {
-            user_radio.Checked = false;
-            admin_radio.Checked = false;
-            guru_combo.SelectedIndex = -1;
-            user_txt.ResetText();
-            pass_txt.ResetText();
-            retypePass_txt.ResetText();
-            save_btn.Enabled = true;
-            cancel_btn.Enabled = true;
-            delete_btn.Enabled = false;
-            edit_btn.Enabled = false;
-            aksi_lbl.Text = "save";
-            user_lbl.Text = "null";
+            user_radio.Checked = false; admin_radio.Checked = false;
+            guru_combo.SelectedIndex = -1; user_txt.ResetText();
+            pass_txt.ResetText(); retypePass_txt.ResetText();
+            save_btn.Enabled = true; cancel_btn.Enabled = true;
+            delete_btn.Enabled = false; edit_btn.Enabled = false;
+            aksi_lbl.Text = "save"; user_lbl.Text = "null";
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
@@ -96,17 +84,9 @@ namespace Raport
                 this.level_lbl.Text = row.Cells["Level"].Value.ToString();
                 this.aksi_lbl.Text = "edit";
             }
-            if (level_lbl.Text == "1")
-            {
-                user_radio.Checked = true;
-            }
-            if (level_lbl.Text == "0")
-            {
-                admin_radio.Checked = true;
-            }
-
-            save_btn.Enabled = false;
-            edit_btn.Enabled = true;
+            if (level_lbl.Text == "1") user_radio.Checked = true;
+            if (level_lbl.Text == "0") admin_radio.Checked = true;
+            save_btn.Enabled = false; edit_btn.Enabled = true;
             delete_btn.Enabled = true;
         }
 
@@ -123,15 +103,8 @@ namespace Raport
 
         private void view_toolBtn_Click(object sender, EventArgs e)
         {
-            if (level == "1")
-            {
-                this.value = "Administrator";
-            }
-
-            if (level == "0")
-            {
-                this.value = "User";
-            } 
+            if (level == "1") value = "Administrator";
+            if (level == "0") value = "User";
             MessageBox.Show("Level: " + value + "\nUsername: " + user + "\nPassword:" + password);
         }
 
@@ -143,10 +116,8 @@ namespace Raport
                "Hapus Data", MessageBoxButtons.YesNo);
                 if (dialog == DialogResult.Yes)
                 {
-                    this.table = "user";
-                    this.cond = "username = '" + user_txt.Text + "'";
-                    db.deleteData(table, cond);
-                    load_user();
+                    this.table = "user"; this.cond = "username = '" + user_txt.Text + "'";
+                    db.deleteData(table, cond); load_user();
                     MessageBox.Show("Username '" + user_txt.Text + "' Terhapus");
                 }
                 else if (dialog == DialogResult.No)
@@ -168,8 +139,7 @@ namespace Raport
 
         private void refresh_toolBtn_Click(object sender, EventArgs e)
         {
-            load_user();
-            cancel_btn_Click(sender, e);
+            load_user(); cancel_btn_Click(sender, e);
         }
         
         private void save_btn_Click(object sender, EventArgs e)
@@ -180,52 +150,23 @@ namespace Raport
         private void filledData()
         {
             value = "NULL";
-            if (user_radio.Checked == true)
-            {
-                value = "1";
-            }
-
-            if (admin_radio.Checked == true)
-            {
-                value = "0";
-            }
-
-            if (value == "NULL")
-            {
-                MessageBox.Show("Level User belum dipilih");
-            }
-            else if (!String.IsNullOrEmpty(guru_combo.Text))
-            {
-                MessageBox.Show("Guru belum dipilih");
-            }
-            else if (string.IsNullOrWhiteSpace(user_txt.Text) && user_txt.Text.Length >= 0)
-            {
+            if (user_radio.Checked == true) value = "1";
+            if (admin_radio.Checked == true) value = "0";
+            if (value == "NULL") MessageBox.Show("Level User belum dipilih");
+            else if (String.IsNullOrEmpty(guru_combo.Text)) MessageBox.Show("Guru belum dipilih");
+            else if (String.IsNullOrWhiteSpace(user_txt.Text) && user_txt.Text.Length >= 0)
                 MessageBox.Show("Username Tidak Boleh Kosong");
-            }
-            else if (string.IsNullOrWhiteSpace(pass_txt.Text) && pass_txt.Text.Length >= 0)
-            {
+            else if (String.IsNullOrWhiteSpace(pass_txt.Text) && pass_txt.Text.Length >= 0)
                 MessageBox.Show("Password Tidak Boleh Kosong");
-            }
-            else if (string.IsNullOrWhiteSpace(retypePass_txt.Text) && retypePass_txt.Text.Length >= 0)
-            {
+            else if (String.IsNullOrWhiteSpace(retypePass_txt.Text) && retypePass_txt.Text.Length >= 0)
                 MessageBox.Show("Retype Password Tidak Boleh Kosong");
-            }
             else
             {
-                if (pass_txt.Text != retypePass_txt.Text)
-                {
-                    MessageBox.Show("Password Tidak Sama");
-                }
+                if (pass_txt.Text != retypePass_txt.Text) MessageBox.Show("Password Tidak Sama");
                 else if (pass_txt.Text == retypePass_txt.Text)
                 {
-                    if (aksi_lbl.Text == "save")
-                    {
-                        SaveData();
-                    }   
-                    else if (aksi_lbl.Text == "edit")
-                    {
-                        EditData();
-                    }
+                    if (aksi_lbl.Text == "save") SaveData();
+                    else if (aksi_lbl.Text == "edit") EditData();
                 }
             }
         }
@@ -238,16 +179,13 @@ namespace Raport
                 "Hapus Data", MessageBoxButtons.YesNo);
                 if (dialog == DialogResult.Yes)
                 {
-                    this.table = "user";
-                    this.cond = "username = '" + user + "'";
+                    this.table = "user"; this.cond = "username = '" + user + "'";
                     db.deleteData(table, cond);
-                    MessageBox.Show("Data User '" + user + "' Terhapus");
-                    load_user();
+                    MessageBox.Show("Data User '" + user + "' Terhapus"); load_user();
                 }
                 else if (dialog == DialogResult.No)
                 {
-                    CancelEventArgs batal = new CancelEventArgs();
-                    batal.Cancel = true;
+                    CancelEventArgs batal = new CancelEventArgs(); batal.Cancel = true;
                 }
             }
             catch (Exception ex)
@@ -265,10 +203,8 @@ namespace Raport
                 table = "user";
                 field = "'" + user_txt.Text.Replace("'", "''") + "', '" 
                         + pass.Replace("'", "''") + "', '" + guru.Replace("'", "''") + "', '" + value + "'";
-                db.insertData(table, field);
-                load_user();
-                MessageBox.Show("User '" + user_txt.Text + "' telah ditambah");
-                CancelAction();
+                db.insertData(table, field); load_user();
+                MessageBox.Show("User '" + user_txt.Text + "' telah ditambah"); CancelAction();
             }
             catch (Exception)
             {
@@ -288,10 +224,8 @@ namespace Raport
                              "', nama = '" + guru.Replace("'", "''") +
                              "', level = '" + value + "'";
                 this.cond = "username = '" + user_lbl.Text + "'";
-                db.updateData(table, field, cond);
-                load_user();
-                MessageBox.Show("Edit Data User '" + user_txt.Text + "' berhasil");
-                CancelAction();
+                db.updateData(table, field, cond); load_user();
+                MessageBox.Show("Edit Data User '" + user_txt.Text + "' berhasil"); CancelAction();
             }
             catch (Exception)
             {

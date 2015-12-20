@@ -92,7 +92,6 @@ namespace Raport
                     db.insertData(table3, field3);
                     FormSiswa fSiswa = new FormSiswa();
                     fSiswa.loadData();
-                    MessageBox.Show("Data Siswa '" + row.Cells[1].Value.ToString() + "' disimpan");
                     this.Close();
                 }
                 //insert ke tabel siswa

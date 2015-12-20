@@ -24,7 +24,6 @@ namespace Raport
 
         private void FormSiswa_Load(object sender, EventArgs e)
         {
-            loadData();
             addColumn_dataKelas();
             sortby_combo.DataSource = db.getTahuj();
             sortby_combo.DisplayMember = "valueDisplay";
@@ -71,7 +70,6 @@ namespace Raport
             if (sortby_combo.Text.Equals(""))
             {
                 siswa_grid.DataSource = null;
-                loadData();
             }
             else
             {

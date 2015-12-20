@@ -32,14 +32,12 @@ namespace Raport
         {
             this.view_tab = new System.Windows.Forms.TabPage();
             this.search_txt = new System.Windows.Forms.TextBox();
-            this.sort_combo = new System.Windows.Forms.ComboBox();
             this.dataKelas_grid = new System.Windows.Forms.DataGridView();
             this.sortBy_combo = new System.Windows.Forms.ToolStrip();
             this.create_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.refresh_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.create_tab = new System.Windows.Forms.TabPage();
             this.kelas_txt = new System.Windows.Forms.TextBox();
             this.id_txt = new System.Windows.Forms.TextBox();
@@ -71,8 +69,6 @@ namespace Raport
             this.label6 = new System.Windows.Forms.Label();
             this.pilihKelas_combo = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.pilihTahun_combo = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.class_members = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
@@ -82,12 +78,12 @@ namespace Raport
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.select_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.kelulusan_toolBtn = new System.Windows.Forms.ToolStripDropDownButton();
-            this.lulusToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tidakLulusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.naikKelas_btn = new System.Windows.Forms.ToolStripDropDownButton();
             this.naikKelasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tidakNaikKelasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kelulusan_toolBtn = new System.Windows.Forms.ToolStripDropDownButton();
+            this.lulusToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tidakLulusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.opsi_toolBtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.pindahKelasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,7 +119,6 @@ namespace Raport
             // 
             this.view_tab.BackColor = System.Drawing.Color.PaleGoldenrod;
             this.view_tab.Controls.Add(this.search_txt);
-            this.view_tab.Controls.Add(this.sort_combo);
             this.view_tab.Controls.Add(this.dataKelas_grid);
             this.view_tab.Controls.Add(this.sortBy_combo);
             this.view_tab.Location = new System.Drawing.Point(4, 30);
@@ -142,19 +137,6 @@ namespace Raport
             this.search_txt.Size = new System.Drawing.Size(192, 26);
             this.search_txt.TabIndex = 4;
             this.search_txt.TextChanged += new System.EventHandler(this.search_txt_TextChanged);
-            // 
-            // sort_combo
-            // 
-            this.sort_combo.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.sort_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sort_combo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.sort_combo.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sort_combo.FormattingEnabled = true;
-            this.sort_combo.Location = new System.Drawing.Point(281, 5);
-            this.sort_combo.Name = "sort_combo";
-            this.sort_combo.Size = new System.Drawing.Size(121, 23);
-            this.sort_combo.TabIndex = 3;
-            this.sort_combo.SelectedIndexChanged += new System.EventHandler(this.sort_combo_SelectedIndexChanged);
             // 
             // dataKelas_grid
             // 
@@ -181,8 +163,7 @@ namespace Raport
             this.create_toolBtn,
             this.toolStripSeparator1,
             this.refresh_toolBtn,
-            this.toolStripSeparator3,
-            this.toolStripLabel1});
+            this.toolStripSeparator3});
             this.sortBy_combo.Location = new System.Drawing.Point(3, 3);
             this.sortBy_combo.Name = "sortBy_combo";
             this.sortBy_combo.Padding = new System.Windows.Forms.Padding(0);
@@ -217,12 +198,6 @@ namespace Raport
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 28);
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(60, 25);
-            this.toolStripLabel1.Text = "Sort by";
             // 
             // create_tab
             // 
@@ -267,6 +242,7 @@ namespace Raport
             // tahun_combo
             // 
             this.tahun_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tahun_combo.Enabled = false;
             this.tahun_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.tahun_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tahun_combo.FormattingEnabled = true;
@@ -418,8 +394,6 @@ namespace Raport
             this.class_schedule.Controls.Add(this.label6);
             this.class_schedule.Controls.Add(this.pilihKelas_combo);
             this.class_schedule.Controls.Add(this.label5);
-            this.class_schedule.Controls.Add(this.pilihTahun_combo);
-            this.class_schedule.Controls.Add(this.label4);
             this.class_schedule.Location = new System.Drawing.Point(4, 30);
             this.class_schedule.Name = "class_schedule";
             this.class_schedule.Padding = new System.Windows.Forms.Padding(3);
@@ -448,9 +422,9 @@ namespace Raport
             // 
             this.panel1.Controls.Add(this.toolStrip1);
             this.panel1.Controls.Add(this.schedule_grid);
-            this.panel1.Location = new System.Drawing.Point(23, 81);
+            this.panel1.Location = new System.Drawing.Point(24, 50);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(745, 299);
+            this.panel1.Size = new System.Drawing.Size(745, 334);
             this.panel1.TabIndex = 25;
             // 
             // toolStrip1
@@ -522,10 +496,10 @@ namespace Raport
             this.schedule_grid.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.schedule_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.schedule_grid.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.schedule_grid.Location = new System.Drawing.Point(0, 28);
+            this.schedule_grid.Location = new System.Drawing.Point(0, 31);
             this.schedule_grid.Name = "schedule_grid";
             this.schedule_grid.RowHeadersWidth = 30;
-            this.schedule_grid.Size = new System.Drawing.Size(745, 271);
+            this.schedule_grid.Size = new System.Drawing.Size(745, 303);
             this.schedule_grid.TabIndex = 10;
             this.schedule_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.schedule_grid_CellClick);
             // 
@@ -567,7 +541,7 @@ namespace Raport
             // 
             this.id_lbl.AutoSize = true;
             this.id_lbl.Enabled = false;
-            this.id_lbl.Location = new System.Drawing.Point(456, 15);
+            this.id_lbl.Location = new System.Drawing.Point(8, 18);
             this.id_lbl.Name = "id_lbl";
             this.id_lbl.Size = new System.Drawing.Size(19, 21);
             this.id_lbl.TabIndex = 6;
@@ -576,7 +550,7 @@ namespace Raport
             // wali_txt
             // 
             this.wali_txt.Enabled = false;
-            this.wali_txt.Location = new System.Drawing.Point(133, 46);
+            this.wali_txt.Location = new System.Drawing.Point(312, 15);
             this.wali_txt.Name = "wali_txt";
             this.wali_txt.ReadOnly = true;
             this.wali_txt.Size = new System.Drawing.Size(317, 29);
@@ -586,7 +560,7 @@ namespace Raport
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 51);
+            this.label6.Location = new System.Drawing.Point(218, 18);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 21);
             this.label6.TabIndex = 7;
@@ -595,12 +569,11 @@ namespace Raport
             // pilihKelas_combo
             // 
             this.pilihKelas_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.pilihKelas_combo.Enabled = false;
             this.pilihKelas_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.pilihKelas_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pilihKelas_combo.FormattingEnabled = true;
             this.pilihKelas_combo.IntegralHeight = false;
-            this.pilihKelas_combo.Location = new System.Drawing.Point(325, 13);
+            this.pilihKelas_combo.Location = new System.Drawing.Point(87, 16);
             this.pilihKelas_combo.Name = "pilihKelas_combo";
             this.pilihKelas_combo.Size = new System.Drawing.Size(125, 27);
             this.pilihKelas_combo.TabIndex = 5;
@@ -609,33 +582,11 @@ namespace Raport
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(268, 15);
+            this.label5.Location = new System.Drawing.Point(30, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 21);
             this.label5.TabIndex = 4;
             this.label5.Text = "Kelas";
-            // 
-            // pilihTahun_combo
-            // 
-            this.pilihTahun_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.pilihTahun_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pilihTahun_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pilihTahun_combo.FormattingEnabled = true;
-            this.pilihTahun_combo.IntegralHeight = false;
-            this.pilihTahun_combo.Location = new System.Drawing.Point(133, 13);
-            this.pilihTahun_combo.Name = "pilihTahun_combo";
-            this.pilihTahun_combo.Size = new System.Drawing.Size(127, 27);
-            this.pilihTahun_combo.TabIndex = 3;
-            this.pilihTahun_combo.SelectedIndexChanged += new System.EventHandler(this.pilihTahun_combo_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 15);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 21);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Tahun Ajaran";
             // 
             // class_members
             // 
@@ -724,34 +675,6 @@ namespace Raport
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(6, 28);
             // 
-            // kelulusan_toolBtn
-            // 
-            this.kelulusan_toolBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lulusToolStripMenuItem1,
-            this.tidakLulusToolStripMenuItem});
-            this.kelulusan_toolBtn.Enabled = false;
-            this.kelulusan_toolBtn.Image = global::Raport.Properties.Resources.editadd;
-            this.kelulusan_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.kelulusan_toolBtn.Name = "kelulusan_toolBtn";
-            this.kelulusan_toolBtn.Size = new System.Drawing.Size(106, 25);
-            this.kelulusan_toolBtn.Text = "Kelulusan";
-            this.kelulusan_toolBtn.Visible = false;
-            this.kelulusan_toolBtn.Click += new System.EventHandler(this.naikKelas_toolBtn_Click);
-            // 
-            // lulusToolStripMenuItem1
-            // 
-            this.lulusToolStripMenuItem1.Name = "lulusToolStripMenuItem1";
-            this.lulusToolStripMenuItem1.Size = new System.Drawing.Size(158, 26);
-            this.lulusToolStripMenuItem1.Text = "Lulus";
-            this.lulusToolStripMenuItem1.Click += new System.EventHandler(this.lulusToolStripMenuItem1_Click);
-            // 
-            // tidakLulusToolStripMenuItem
-            // 
-            this.tidakLulusToolStripMenuItem.Name = "tidakLulusToolStripMenuItem";
-            this.tidakLulusToolStripMenuItem.Size = new System.Drawing.Size(158, 26);
-            this.tidakLulusToolStripMenuItem.Text = "Tidak Lulus";
-            this.tidakLulusToolStripMenuItem.Click += new System.EventHandler(this.tidakLulusToolStripMenuItem_Click);
-            // 
             // naikKelas_btn
             // 
             this.naikKelas_btn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -778,6 +701,33 @@ namespace Raport
             this.tidakNaikKelasToolStripMenuItem.Text = "Tidak Naik Kelas";
             this.tidakNaikKelasToolStripMenuItem.Click += new System.EventHandler(this.tidakNaikKelasToolStripMenuItem_Click);
             // 
+            // kelulusan_toolBtn
+            // 
+            this.kelulusan_toolBtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lulusToolStripMenuItem1,
+            this.tidakLulusToolStripMenuItem});
+            this.kelulusan_toolBtn.Enabled = false;
+            this.kelulusan_toolBtn.Image = global::Raport.Properties.Resources.editadd;
+            this.kelulusan_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.kelulusan_toolBtn.Name = "kelulusan_toolBtn";
+            this.kelulusan_toolBtn.Size = new System.Drawing.Size(106, 25);
+            this.kelulusan_toolBtn.Text = "Kelulusan";
+            this.kelulusan_toolBtn.Visible = false;
+            // 
+            // lulusToolStripMenuItem1
+            // 
+            this.lulusToolStripMenuItem1.Name = "lulusToolStripMenuItem1";
+            this.lulusToolStripMenuItem1.Size = new System.Drawing.Size(158, 26);
+            this.lulusToolStripMenuItem1.Text = "Lulus";
+            this.lulusToolStripMenuItem1.Click += new System.EventHandler(this.lulusToolStripMenuItem1_Click);
+            // 
+            // tidakLulusToolStripMenuItem
+            // 
+            this.tidakLulusToolStripMenuItem.Name = "tidakLulusToolStripMenuItem";
+            this.tidakLulusToolStripMenuItem.Size = new System.Drawing.Size(158, 26);
+            this.tidakLulusToolStripMenuItem.Text = "Tidak Lulus";
+            this.tidakLulusToolStripMenuItem.Click += new System.EventHandler(this.tidakLulusToolStripMenuItem_Click);
+            // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
@@ -801,6 +751,7 @@ namespace Raport
             this.pindahKelasToolStripMenuItem.Name = "pindahKelasToolStripMenuItem";
             this.pindahKelasToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
             this.pindahKelasToolStripMenuItem.Text = "Pindah Kelas";
+            this.pindahKelasToolStripMenuItem.Click += new System.EventHandler(this.pindahKelasToolStripMenuItem_Click);
             // 
             // pindahSekolahToolStripMenuItem
             // 
@@ -843,6 +794,7 @@ namespace Raport
             // 
             this.setTahun_combo.BackColor = System.Drawing.SystemColors.Control;
             this.setTahun_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.setTahun_combo.Enabled = false;
             this.setTahun_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.setTahun_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.setTahun_combo.FormattingEnabled = true;
@@ -851,7 +803,6 @@ namespace Raport
             this.setTahun_combo.Name = "setTahun_combo";
             this.setTahun_combo.Size = new System.Drawing.Size(107, 27);
             this.setTahun_combo.TabIndex = 4;
-            this.setTahun_combo.SelectedIndexChanged += new System.EventHandler(this.setTahun_combo_SelectedIndexChanged);
             // 
             // countID_lbl
             // 
@@ -877,7 +828,6 @@ namespace Raport
             // 
             this.viewKelas_combo.BackColor = System.Drawing.SystemColors.Control;
             this.viewKelas_combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.viewKelas_combo.Enabled = false;
             this.viewKelas_combo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.viewKelas_combo.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.viewKelas_combo.FormattingEnabled = true;
@@ -982,15 +932,7 @@ namespace Raport
         private System.Windows.Forms.TextBox id_txt;
         private System.Windows.Forms.TextBox kelas_txt;
         private System.Windows.Forms.DataGridView dataKelas_grid;
-        private System.Windows.Forms.ToolStrip sortBy_combo;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton refresh_toolBtn;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ComboBox sort_combo;
         private System.Windows.Forms.TabPage class_schedule;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox pilihTahun_combo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox pilihKelas_combo;
         private System.Windows.Forms.Label label6;
@@ -1012,7 +954,6 @@ namespace Raport
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripButton create_toolBtn;
         private System.Windows.Forms.Button delete2_btn;
         private System.Windows.Forms.TabPage class_members;
         private System.Windows.Forms.Label label8;
@@ -1041,5 +982,10 @@ namespace Raport
         private System.Windows.Forms.ToolStripMenuItem lulusToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tidakLulusToolStripMenuItem;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ToolStrip sortBy_combo;
+        private System.Windows.Forms.ToolStripButton create_toolBtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton refresh_toolBtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }

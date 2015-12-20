@@ -45,7 +45,7 @@ namespace Raport
                            "Oktober", "November", "Desember" };
         string tanggal = DateTime.Today.Day.ToString();
         
-        public string getNisSiswa = "1314.10.006";
+        public string getNisSiswa = "1";
         public string getKodeKelas = "3";
         public string getSemeter = "SMT1";
 
@@ -83,83 +83,8 @@ namespace Raport
                 }
             }
         }
-
-        public void testdiaog(FolderBrowserDialog fbDialog, string dirPath)
-        {
-            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName.ToString();
-            string path = dirPath;
-            string dir = appRootDir + "\\Temp\\" + path;
-
-            if (fbDialog.ShowDialog() == DialogResult.OK)
-            {
-                string destFileName = fbDialog.SelectedPath + "\\" + Path.GetFileName(path);
                 
-            }
-        }
-
-        public void BrowserDialog(FolderBrowserDialog fbDialog, string dirPath)
-        {
-            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName.ToString();
-            string path = dirPath;
-            string dir = appRootDir + "\\Temp\\" + path;
-
-            if (fbDialog.ShowDialog() == DialogResult.OK)
-            {
-                string destFileName = fbDialog.SelectedPath + "\\" + Path.GetFileName(path);
-                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
-
-                foreach (FileInfo fi in sourceinfo.GetFiles())
-                {
-                    string namafile = fi.Name.ToString();
-                    foreach (Process proc in Process.GetProcessesByName(namafile))
-                    {
-                        proc.Kill();
-                    }
-                }
-                if (!Directory.Exists(destFileName))
-                {
-                    JDStuart.DirectoryUtils.Directory.Move(dir, destFileName);
-                }
-                else
-                {
-                    foreach (FileInfo fi in sourceinfo.GetFiles())
-                    {
-                        string namafile2 = fi.Name.ToString();
-                        string subdir = dir + "\\" + namafile2;
-                        string subdest = destFileName + "\\" + namafile2;
-                        if (File.Exists(subdir))
-                        {
-                            File.Delete(subdest);
-                            File.Move(subdir, subdest);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
-                foreach (FileInfo fi in sourceinfo.GetFiles())
-                {
-                    string namafile = fi.Name.ToString();
-                    foreach (Process proc in Process.GetProcessesByName(namafile))
-                    {
-                        proc.Kill();
-                    }
-                }
-
-                foreach (FileInfo fi in sourceinfo.GetFiles())
-                {
-                    string namafile2 = fi.Name.ToString();
-                    string subdir = dir + "\\" + namafile2;
-                    if (File.Exists(subdir))
-                    {
-                        File.Delete(subdir);
-                    }
-                }
-            }
-        }
-
-        public void RaportToPDF2(DataGridView datagrid, string nis_siswa)
+        public void RaportToPDF(string nis_siswa)
         {
             killPDFProcess();
             try
@@ -247,16 +172,15 @@ namespace Raport
                     //Deskripsi
                     doc.NewPage();
                     detailLCKSiswa(doc, getNisSiswa, getKodeKelas); kriteria_desk(doc);
-                    deskripsiLCK(doc, datagrid, getNisSiswa, "Kelompok A", "Kelompok A (Wajib)", getSemeter, getKodeKelas);
-                    deskripsiLCK(doc, datagrid, getNisSiswa, "Kelompok B", "Kelompok B (Wajib)", getSemeter, getKodeKelas);
-                    deskripsiLCK(doc, datagrid, getNisSiswa, "Kelompok C", "Kelompok C (Pilihan)", getSemeter, getKodeKelas);
+                    deskripsiLCK(doc, getNisSiswa, "Kelompok A", "Kelompok A (Wajib)", getSemeter, getKodeKelas);
+                    deskripsiLCK(doc, getNisSiswa, "Kelompok B", "Kelompok B (Wajib)", getSemeter, getKodeKelas);
+                    deskripsiLCK(doc, getNisSiswa, "Kelompok C", "Kelompok C (Pilihan)", getSemeter, getKodeKelas);
                     walikelas_ortu(doc, getKodeKelas);
                     //Close Document
                     doc.Close();
                     writer.Close();
                     fstream.Close();
                 }
-                datagrid.DataSource = null;
             }
 			catch (DocumentException de)
 			{
@@ -529,8 +453,8 @@ namespace Raport
 
             string query = "SELECT mata_pelajaran, nama_guru, p_ang, p_pred, k_ang, k_pred, s_sikap " +
                            "FROM nilai INNER JOIN mapel USING (kode_mapel) INNER JOIN detailmapelkelas USING (kode_mapel) " +
-                           "INNER JOIN guru USING (id_guru) WHERE nis_siswa = '1314.10.006' AND kode_semester= '" + semester +
-                           "' AND nilai.kode_kelas = '" + kelas + "' AND detailmapelkelas.kode_kelas = '" + kelas +
+                           "INNER JOIN guru USING (id_guru) WHERE nis_siswa = '" + getNisSiswa + "' AND kode_semester= '" 
+                           + semester + "' AND nilai.kode_kelas = '" + kelas + "' AND detailmapelkelas.kode_kelas = '" + kelas +
                            "' AND kategori_mapel = '" + kategori + "'";
             
             myComm = new MySqlCommand(query, myConn);
@@ -712,9 +636,8 @@ namespace Raport
             doc.Add(raport_tbl);
         }
         
-        public void deskripsiLCK(Document doc, DataGridView datagrid, string nis_siswa, string kategori, string kelompok, string semester, string kelas)
+        public void deskripsiLCK(Document doc, string nis_siswa, string kategori, string kelompok, string semester, string kelas)
         {
-            datagrid.DataSource = null;
             raport_tbl = new PdfPTable(4);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
             raport_tbl.DefaultCell.Border = Rectangle.NO_BORDER;
@@ -726,35 +649,34 @@ namespace Raport
             this.cond = "kode_semester= '" + semester + "' AND nilai.kode_kelas = '" + 
                          kelas + "' AND kategori_mapel = '" + kategori + "' AND nilai.nis_siswa = '" + nis_siswa + "'";
             DataTable tabel = db.GetDataTable(field, table, cond);
-            datagrid.DataSource = tabel;
-
+            
             var cell0 = new PdfPCell(new Phrase(new Chunk(kelompok, TB11))); cell0.Colspan = 4;
             cell0.VerticalAlignment = Element.ALIGN_MIDDLE; cell0.HorizontalAlignment = Element.ALIGN_LEFT;
             raport_tbl.AddCell(cell0);
 
-            int j = 1;
-            for (int i = 0; i < datagrid.Rows.Count; i++)
+            int i = 0; int j = 1;
+            foreach (DataRow row in tabel.Rows)
             {
-                if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "A") valueA = "p_atas";
-                else if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "T") valueA = "p_tengah";
-                else if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "B") valueA = "p_bawah";
-                else if (Convert.ToString(datagrid.Rows[i].Cells[2].Value) == "") valueA = "p_bawah";
+                if (Convert.ToString(row["p_desk"]) == "A") valueA = "p_atas";
+                else if (Convert.ToString(row["p_desk"]) == "T") valueA = "p_tengah";
+                else if (Convert.ToString(row["p_desk"]) == "B") valueA = "p_bawah";
+                else if (Convert.ToString(row["p_desk"]) == "") valueA = "p_bawah";
 
-                if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "A") valueB = "k_atas";
-                else if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "T") valueB = "k_tengah";
-                else if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "B") valueB = "k_bawah";
-                else if (Convert.ToString(datagrid.Rows[i].Cells[3].Value) == "") valueB = "k_bawah";
+                if (Convert.ToString(row["k_desk"]) == "A") valueB = "k_atas";
+                else if (Convert.ToString(row["k_desk"]) == "T") valueB = "k_tengah";
+                else if (Convert.ToString(row["k_desk"]) == "B") valueB = "k_bawah";
+                else if (Convert.ToString(row["k_desk"]) == "") valueB = "k_bawah";
 
-                if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "A") valueC = "s_atas";
-                else if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "T") valueC = "s_tengah";
-                else if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "B") valueC = "s_bawah";
-                else if (Convert.ToString(datagrid.Rows[i].Cells[4].Value) == "") valueC = "s_bawah";
+                if (Convert.ToString(row["s_desk"]) == "A") valueC = "s_atas";
+                else if (Convert.ToString(row["s_desk"]) == "T") valueC = "s_tengah";
+                else if (Convert.ToString(row["s_desk"]) == "B") valueC = "s_bawah";
+                else if (Convert.ToString(row["s_desk"]) == "") valueC = "s_bawah";
 
                 string deskA = "SELECT mata_pelajaran, " + valueA + ", " + valueB + ", " + valueC + " FROM " +
-                               "deskripsi INNER JOIN mapel USING (kode_mapel) INNER JOIN kelas USING (kode_kelas) " + 
-                               "WHERE kode_semester = '" + semester + "' AND kode_kelas = '" + kelas + 
-                               "' AND kode_mapel = '" + datagrid.Rows[i].Cells[0].Value.ToString() + "'";
-                
+                               "deskripsi INNER JOIN mapel USING (kode_mapel) INNER JOIN kelas USING (kode_kelas) " +
+                               "WHERE kode_semester = '" + semester + "' AND kode_kelas = '" + kelas +
+                               "' AND kode_mapel = '" + row["kode"].ToString() + "'";
+
                 myComm = new MySqlCommand(deskA, myConn);
                 try
                 {

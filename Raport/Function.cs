@@ -4,6 +4,9 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using System.Configuration;
 using System.Security.Cryptography;
+using System.Windows.Forms;
+using System.IO;
+using System.Diagnostics;
 
 namespace Raport
 {
@@ -51,7 +54,6 @@ namespace Raport
             myComm.ExecuteNonQuery();
             myConn.Close();
         }
-
 
         // -> ubah data  > UPDATE <namatabel> SET namafield='nilaifield',namafield2=nilaifield2,.. [WHERE kondisi]
         public void deleteData(string table, string cond)
@@ -297,13 +299,72 @@ namespace Raport
             aes.IV = ASCIIEncoding.ASCII.GetBytes(IV);
             aes.Padding = PaddingMode.PKCS7;
             aes.Mode = CipherMode.CBC;
-
             ICryptoTransform icrypt = aes.CreateDecryptor(aes.Key, aes.IV);
-
             byte[] dec = icrypt.TransformFinalBlock(encbytes, 0, encbytes.Length);
             icrypt.Dispose();
             return ASCIIEncoding.ASCII.GetString(dec);
         }
-        
+
+        public void BrowserDialog(FolderBrowserDialog fbDialog, string dirPath)
+        {
+            string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName.ToString();
+            string path = dirPath;
+            string dir = appRootDir + "\\Temp\\" + path;
+
+            if (fbDialog.ShowDialog() == DialogResult.OK)
+            {
+                string destFileName = fbDialog.SelectedPath + "\\" + Path.GetFileName(path);
+                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
+
+                foreach (FileInfo fi in sourceinfo.GetFiles())
+                {
+                    string namafile = fi.Name.ToString();
+                    foreach (Process proc in Process.GetProcessesByName(namafile))
+                    {
+                        proc.Kill();
+                    }
+                }
+                if (!Directory.Exists(destFileName))
+                {
+                    JDStuart.DirectoryUtils.Directory.Move(dir, destFileName);
+                }
+                else
+                {
+                    foreach (FileInfo fi in sourceinfo.GetFiles())
+                    {
+                        string namafile2 = fi.Name.ToString();
+                        string subdir = dir + "\\" + namafile2;
+                        string subdest = destFileName + "\\" + namafile2;
+                        if (File.Exists(subdir))
+                        {
+                            File.Delete(subdest);
+                            File.Move(subdir, subdest);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                DirectoryInfo sourceinfo = new DirectoryInfo(dir);
+                foreach (FileInfo fi in sourceinfo.GetFiles())
+                {
+                    string namafile = fi.Name.ToString();
+                    foreach (Process proc in Process.GetProcessesByName(namafile))
+                    {
+                        proc.Kill();
+                    }
+                }
+
+                foreach (FileInfo fi in sourceinfo.GetFiles())
+                {
+                    string namafile2 = fi.Name.ToString();
+                    string subdir = dir + "\\" + namafile2;
+                    if (File.Exists(subdir))
+                    {
+                        File.Delete(subdir);
+                    }
+                }
+            }
+        }
     }
 }

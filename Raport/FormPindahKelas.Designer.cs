@@ -158,6 +158,7 @@
             this.Name = "FormPindahKelas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Naik Kelas";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormPindahKelas_FormClosed);
             this.Load += new System.EventHandler(this.FormPindahKelas_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -78,7 +78,6 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.print_grid = new System.Windows.Forms.DataGridView();
             this.export_btn = new System.Windows.Forms.Button();
             this.fbDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.back_rest_Btn = new System.Windows.Forms.Button();
@@ -92,7 +91,6 @@
             this.printLaporan_group.SuspendLayout();
             this.SimpanData_group.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.print_grid)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -603,6 +601,7 @@
             this.saveDataNilai_btn.TabIndex = 33;
             this.saveDataNilai_btn.Text = "Data Nilai";
             this.saveDataNilai_btn.UseVisualStyleBackColor = false;
+            this.saveDataNilai_btn.Click += new System.EventHandler(this.saveDataNilai_btn_Click);
             // 
             // saveDataKelas_btn
             // 
@@ -617,6 +616,7 @@
             this.saveDataKelas_btn.TabIndex = 32;
             this.saveDataKelas_btn.Text = "Data Kelas";
             this.saveDataKelas_btn.UseVisualStyleBackColor = false;
+            this.saveDataKelas_btn.Click += new System.EventHandler(this.saveDataKelas_btn_Click);
             // 
             // saveDataSiswa_btn
             // 
@@ -631,7 +631,7 @@
             this.saveDataSiswa_btn.TabIndex = 31;
             this.saveDataSiswa_btn.Text = "Data Siswa";
             this.saveDataSiswa_btn.UseVisualStyleBackColor = false;
-            this.saveDataSiswa_btn.Click += new System.EventHandler(this.printDataSiswa_btn_Click);
+            this.saveDataSiswa_btn.Click += new System.EventHandler(this.saveDataSiswa_btn_Click);
             // 
             // saveDataGuru_btn
             // 
@@ -646,7 +646,7 @@
             this.saveDataGuru_btn.TabIndex = 30;
             this.saveDataGuru_btn.Text = "Data Guru";
             this.saveDataGuru_btn.UseVisualStyleBackColor = false;
-            this.saveDataGuru_btn.Click += new System.EventHandler(this.printDataGuru_btn_Click);
+            this.saveDataGuru_btn.Click += new System.EventHandler(this.saveDataGuru_btn_Click);
             // 
             // toolStripDropDownButton1
             // 
@@ -693,20 +693,6 @@
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem5.Text = "toolStripMenuItem5";
-            // 
-            // print_grid
-            // 
-            this.print_grid.AllowUserToAddRows = false;
-            this.print_grid.AllowUserToDeleteRows = false;
-            this.print_grid.AllowUserToResizeColumns = false;
-            this.print_grid.AllowUserToResizeRows = false;
-            this.print_grid.BackgroundColor = System.Drawing.Color.CornflowerBlue;
-            this.print_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.print_grid.Location = new System.Drawing.Point(326, 143);
-            this.print_grid.Name = "print_grid";
-            this.print_grid.Size = new System.Drawing.Size(442, 153);
-            this.print_grid.TabIndex = 14;
-            this.print_grid.Visible = false;
             // 
             // export_btn
             // 
@@ -804,7 +790,6 @@
             this.Controls.Add(this.jam_lbl);
             this.Controls.Add(this.hari_lbl);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.print_grid);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -823,7 +808,6 @@
             this.printLaporan_group.ResumeLayout(false);
             this.SimpanData_group.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.print_grid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -876,7 +860,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
-        public System.Windows.Forms.DataGridView print_grid;
         private System.Windows.Forms.Button saveDataKelas_btn;
         private System.Windows.Forms.Button saveDataNilai_btn;
         private System.Windows.Forms.Button LogOut_btn;

@@ -11,7 +11,8 @@ namespace Raport
         MySqlDataReader myReader;
         private string query;
         private string table, cond;
-        public string getTahun, getUser, getLevel, getKelas, getText;
+        public string getTahun, getUser, getLevel;
+        public string getKelas, getText, getPindah, getCond;
         
         public FormPindahKelas()
         {
@@ -35,14 +36,32 @@ namespace Raport
             get { return getKelas; }
             set { getKelas = value; }
         }
-        
+
+        public string passPindah
+        {
+            get { return getPindah; }
+            set { getPindah = value; }
+        }
+
         private void FormPindahKelas_Load(object sender, EventArgs e)
         {
             tahun_combo.DataSource = db.getTahuj();
             tahun_combo.DisplayMember = "valueDisplay";
             tahun_combo.SelectedIndex = Convert.ToInt16(getTahun);
-            fillKelas();
-            setKelas();
+            if (getPindah.Equals("Pindah Kelas"))
+            {
+                edit_link.Visible = false; kelas_combo.Enabled = true;
+                tahun_combo.Enabled = false; fillKelas(); setKelas();
+            }
+            else if (!getPindah.Equals("Pindah Kelas"))
+            {
+                fillKelas(); setKelas();
+            }
+        }
+
+        private void FormPindahKelas_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            passText = "Cancel"; this.Close(); passPindah = "";
         }
 
         private void tahun_combo_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,7 +81,8 @@ namespace Raport
             string tahuj = tahun_combo.GetItemText(tahun_combo.Items[Convert.ToInt16(getTahun)]).ToString();
             try
             {
-                this.query = "SELECT kode_kelas from kelas where nama_kelas = '" + getKelas + "' AND tahun_ajaran = '" + tahuj + "'";
+                query = "SELECT kode_kelas from kelas where nama_kelas = '" + getKelas + 
+                             "' AND tahun_ajaran = '" + tahuj + "'";
                 MySqlCommand myComm = new MySqlCommand(query, myConn);
                 myConn.Open();
                 myReader = myComm.ExecuteReader();
@@ -84,13 +104,27 @@ namespace Raport
             string tahun = tahun_combo.Text.ToString();
             try
             {
+                string str = getKelas;
+                int i = str.IndexOf(' ');
+                i = str.IndexOf(' ', i);
+                string angkatan = str.Substring(0, i);
+                string jurusan = angkatan + str.Substring(i, 4);
+                
                 string idValue = "kode_kelas";
                 string dispValue = "nama_kelas";
-                this.table = "kelas";
-                this.cond = "status_kelas = 'Aktif' AND tahun_ajaran = '" + tahun + "'";
+                table = "kelas";
                 string sortby = "nama_kelas";
+                if (getPindah == "")
+                {
+                    this.cond = "status_kelas = 'Aktif' AND tahun_ajaran = '" + tahun + "'";
+                    kelas_combo.DataSource = db.setCombo(idValue, dispValue, table, this.cond, sortby);
+                }
 
-                kelas_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
+                if (getPindah == "Pindah Kelas")
+                {
+                    this.cond = "status_kelas = 'Aktif' AND tahun_ajaran = '" + tahun + "' AND nama_kelas LIKE '" + jurusan + "%'";
+                    kelas_combo.DataSource = db.setCombo(idValue, dispValue, table, this.cond, sortby);
+                }
                 kelas_combo.DisplayMember = "valueDisplay";
                 kelas_combo.ValueMember = "valueID";
             }
@@ -104,30 +138,37 @@ namespace Raport
         {
             if (edit_link.Text.Equals("Edit"))
             {
-                tahun_combo.Enabled = true;
-                kelas_combo.Enabled = true;
+                tahun_combo.Enabled = true; kelas_combo.Enabled = true;
                 edit_link.Text = "Cancel";
             }
             else if (edit_link.Text.Equals("Cancel"))
             {
-                tahun_combo.Enabled = false;
-                kelas_combo.Enabled = false;
+                tahun_combo.Enabled = false; kelas_combo.Enabled = false;
                 edit_link.Text = "Edit";
             }
         }
 
         private void cancel_btn_Click(object sender, EventArgs e)
         {
-            passText = "Cancel";
-            this.Close();
+            passPindah = ""; passText = "Cancel"; this.Close();
         }
 
         private void save_btn_Click(object sender, EventArgs e)
         {
-            passText = "Create";
-            passKelas = kelas_combo.SelectedValue.ToString();
-            passTahuj = tahun_combo.SelectedValue.ToString();
-            this.Close();
+            if (String.IsNullOrEmpty(kelas_combo.Text))
+                MessageBox.Show("Kelas belum dipilih");
+            else
+            {
+                if (getPindah == "Pindah Kelas")
+                    passText = "Pindah Kelas";
+                else if (getPindah == "")
+                    passText = "Create";
+
+                passKelas = kelas_combo.SelectedValue.ToString();
+                passTahuj = tahun_combo.SelectedValue.ToString();
+                passPindah = "";
+                this.Close();
+            }
         }
     }
 }
