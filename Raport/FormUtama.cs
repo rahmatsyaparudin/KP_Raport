@@ -297,6 +297,8 @@ namespace Raport
         private void saveDataKelas_btn_Click(object sender, EventArgs e)
         {
             dbToExcel.passTahun = tahuj_combo.Text.ToString();
+            dbToExcel.KelasToExcel("Aktif");
+            db.BrowserDialog(fbDialog, "Data Kelas");
         }
 
         private void saveDataNilai_btn_Click(object sender, EventArgs e)
@@ -312,9 +314,7 @@ namespace Raport
         
         private void print_formatBtn_Click(object sender, EventArgs e)
         {
-            dbToExcel.passTahun = tahuj_combo.Text.ToString();
-            dbToExcel.KelasToExcel("Aktif");
-            db.BrowserDialog(fbDialog, "Data Kelas");
+            
         }
 
         private void back_rest_Btn_Click(object sender, EventArgs e)
