@@ -3,11 +3,10 @@ using System.Data;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
-using System.Drawing;
 using MySql.Data.MySqlClient;
 using SpreadsheetLight;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
+//using DocumentFormat.OpenXml;
+//using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Raport
