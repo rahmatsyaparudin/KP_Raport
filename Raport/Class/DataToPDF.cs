@@ -18,13 +18,13 @@ namespace Raport
         MySqlCommand myComm;
         Font TB12 = FontFactory.GetFont(FontFactory.TIMES_BOLD, 12);
         Font TB11 = FontFactory.GetFont(FontFactory.TIMES_BOLD, 11);
+        Font TB10 = FontFactory.GetFont(FontFactory.TIMES_BOLD, 10);
         Font TB14 = FontFactory.GetFont(FontFactory.TIMES_BOLD, 14);
         Font TN12 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 12);
         Font TN11 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 11);
         Font TN10 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10);
         Font TN8 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 8);
         Font AN12 = FontFactory.GetFont("Arial Black", 12, Font.NORMAL, BaseColor.BLACK);
-        Document doc;
         PdfPTable raport_tbl;
         PdfPCell cell = new PdfPCell();
         
@@ -34,20 +34,40 @@ namespace Raport
         public string getTahun;
         public string valueA, valueB, valueC;
         public string field, table, cond;
+        public string getNisSiswa, getKodeKelas, getSemeter, getFormat;
         float[] widths;
-
         string[] month = { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
                            "Oktober", "November", "Desember" };
         string tanggal = DateTime.Today.Day.ToString();
         
-        public string getNisSiswa = "1";
-        public string getKodeKelas = "3";
-        public string getSemeter = "SMT1";
+        public string passKodeKelas
+        {
+            get { return getKodeKelas; }
+            set { getKodeKelas = value; }
+        }
+
+        public string passNisSiswa
+        {
+            get { return getNisSiswa; }
+            set { getNisSiswa = value; }
+        }
+
+        public string passSemester
+        {
+            get { return getSemeter; }
+            set { getSemeter = value; }
+        }
 
         public string passTahun
         {
             get { return getTahun; }
             set { getTahun = value; }
+        }
+
+        public string printFormat
+        {
+            get { return getFormat; }
+            set { getFormat = value; }
         }
 
         public string getBulan(string bulan)
@@ -79,13 +99,13 @@ namespace Raport
             }
         }
                 
-        public void RaportToPDF(string nis_siswa)
+        public void RaportToPDF(string nis_siswa, string kode_kelas, string semester)
         {
             killPDFProcess();
             try
             {
                 string setNamaSiswa = "SELECT nama_siswa, nama_kelas FROM siswa, kelas WHERE nis_siswa = '" 
-                                      + nis_siswa + "' AND kode_kelas = '"+ getKodeKelas + "'";
+                                      + nis_siswa + "' AND kode_kelas = '"+ kode_kelas + "'";
                 myComm = new MySqlCommand(setNamaSiswa, myConn);
                 myConn.Open();
                 myReader = myComm.ExecuteReader();
@@ -179,12 +199,26 @@ namespace Raport
             }
 			catch (DocumentException de)
 			{
-				throw de;
-			}
+                MessageBox.Show(de.Message);
+            }
 			catch (IOException ioe)
 			{
-				throw ioe;
+                MessageBox.Show(ioe.Message);
 			}
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void ProfilSekolah(Document doc)
@@ -226,6 +260,16 @@ namespace Raport
                 }
                 myConn.Close();
                 doc.Add(raport_tbl);
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
             catch (Exception ex)
             {
@@ -288,6 +332,16 @@ namespace Raport
                 myConn.Close();
                 doc.Add(raport_tbl);
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -327,6 +381,16 @@ namespace Raport
                 }
                 myConn.Close();
                 doc.Add(raport_tbl);
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
             catch (Exception ex)
             {
@@ -381,6 +445,16 @@ namespace Raport
                 }
                 myConn.Close();
                 doc.Add(raport_tbl);
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
             catch (Exception ex)
             {
@@ -484,6 +558,16 @@ namespace Raport
                 myConn.Close();
                 doc.Add(raport_tbl);
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -585,9 +669,19 @@ namespace Raport
                 }
                 myConn.Close();
             }
-            catch
+            catch (MySqlException myex)
             {
-
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
             var cell6 = new PdfPCell(new Phrase(new Chunk(nama_guru, TN10)));
@@ -649,7 +743,7 @@ namespace Raport
             cell0.VerticalAlignment = Element.ALIGN_MIDDLE; cell0.HorizontalAlignment = Element.ALIGN_LEFT;
             raport_tbl.AddCell(cell0);
 
-            int i = 0; int j = 1;
+            int j = 1;
             foreach (DataRow row in tabel.Rows)
             {
                 if (Convert.ToString(row["p_desk"]) == "A") valueA = "p_atas";
@@ -705,12 +799,174 @@ namespace Raport
                     myConn.Close();
                     j++;
                 }
+                catch (MySqlException myex)
+                {
+                    switch (myex.Number)
+                    {
+                        case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                        case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                        case 1045: MessageBox.Show("username/password salah."); break;
+                        default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                    }
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Data Nilai atau deskripsi belum lengkap");
                 }
             }
             doc.Add(raport_tbl);
+        }
+
+        public void FormatNilaiPDF()
+        {
+            killPDFProcess();
+            try
+            {
+                string path = "Temp\\Print";
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                string filename = "Format Penilaian Ujian Siswa.pdf";
+                string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
+                using (FileStream fstream = new FileStream(appRootDir + "\\" + path + "\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (Document doc = new Document(PageSize.A4, 20, 20, 10, 20))
+                using (PdfWriter writer = PdfWriter.GetInstance(doc, fstream))
+                {
+                    writer.SetEncryption(PdfWriter.STRENGTH40BITS, null, null, PdfWriter.ALLOW_COPY);
+                    var paragraf = new Paragraph(new Chunk("FORMAT PENILAIAN HASIL UJIAN SISWA", TB12));
+                    paragraf.Alignment = Element.ALIGN_CENTER;
+
+                    this.field = "kode_kelas as 'Kode', nama_kelas as 'Nama Kelas'";
+                    this.table = "kelas";
+                    this.cond = "tahun_ajaran = '" + getTahun + "' ORDER by nama_kelas ASC";
+                    DataTable tabelKelas = db.GetDataTable(field, table, cond);
+
+                    //Open Document
+                    doc.Open();
+                    foreach (DataRow row1 in tabelKelas.Rows)
+                    {
+                        PdfPTable format_tbl = new PdfPTable(7);
+                        format_tbl.TotalWidth = 525f; format_tbl.LockedWidth = true;
+                        format_tbl.DefaultCell.Border = Rectangle.NO_BORDER;
+                        widths = new float[] { 100f, 5f, 100f, 115f, 100f, 5f, 100f };
+                        format_tbl.SetWidths(widths);
+
+                        var cella = new PdfPCell(new Phrase(new Chunk("Pengajar", TN10)));
+                        cella.HorizontalAlignment = Element.ALIGN_LEFT; cella.BorderWidth = 0f;
+                        var cellb = new PdfPCell(new Phrase(new Chunk("Mata Pelajaran", TN10)));
+                        cellb.HorizontalAlignment = Element.ALIGN_LEFT; cellb.BorderWidth = 0f;
+                        var cellc = new PdfPCell(new Phrase(new Chunk("Kelompok Mapel", TN10)));
+                        cellc.HorizontalAlignment = Element.ALIGN_LEFT; cellc.BorderWidth = 0f;
+                        var celld = new PdfPCell(new Phrase(new Chunk("Kelas", TN10)));
+                        celld.HorizontalAlignment = Element.ALIGN_LEFT; celld.BorderWidth = 0f;
+                        var celle = new PdfPCell(new Phrase(new Chunk("Tahun Ajaran", TN10)));
+                        celle.HorizontalAlignment = Element.ALIGN_LEFT; celle.BorderWidth = 0f;
+                        var cellf = new PdfPCell(new Phrase(new Chunk("Semester", TN10)));
+                        cellf.HorizontalAlignment = Element.ALIGN_LEFT; cellf.BorderWidth = 0f;
+                        var cellg = new PdfPCell(new Phrase(new Chunk("Satu / Dua", TN10)));
+                        cellg.HorizontalAlignment = Element.ALIGN_LEFT; cellg.BorderWidth = 0f;
+                        var cellh = new PdfPCell(new Phrase(new Chunk(getTahun, TN10)));
+                        cellh.HorizontalAlignment = Element.ALIGN_LEFT; cellh.BorderWidth = 0f;
+                        var celli = new PdfPCell(new Phrase(new Chunk("A / B / C", TN10)));
+                        celli.HorizontalAlignment = Element.ALIGN_LEFT; celli.BorderWidth = 0f;
+                        var cellj = new PdfPCell(new Phrase(new Chunk("\n", TN10))); cellj.Colspan = 7;
+                        cellj.HorizontalAlignment = Element.ALIGN_LEFT; cellj.BorderWidth = 0f;
+                        var cellk = new PdfPCell(new Phrase(new Chunk(":", TN10)));
+                        cellk.HorizontalAlignment = Element.ALIGN_LEFT; cellk.BorderWidth = 0f;
+                        var celll = new PdfPCell(new Phrase(new Chunk(row1["Nama Kelas"].ToString(), TN10)));
+                        celll.HorizontalAlignment = Element.ALIGN_LEFT; celll.BorderWidth = 0f;
+
+                        format_tbl.AddCell(cellj);
+                        format_tbl.AddCell(cella); format_tbl.AddCell(cellk); format_tbl.AddCell("");
+                        format_tbl.AddCell(""); format_tbl.AddCell(celld); format_tbl.AddCell(cellk); format_tbl.AddCell(celll);//
+                        format_tbl.AddCell(cellb); format_tbl.AddCell(cellk); format_tbl.AddCell("");
+                        format_tbl.AddCell(""); format_tbl.AddCell(celle); format_tbl.AddCell(cellk); format_tbl.AddCell(cellh);//
+                        format_tbl.AddCell(cellc); format_tbl.AddCell(cellk); format_tbl.AddCell(celli);
+                        format_tbl.AddCell(""); format_tbl.AddCell(cellf); format_tbl.AddCell(cellk); format_tbl.AddCell(cellg);//
+                        format_tbl.AddCell(cellj);
+
+                        raport_tbl = new PdfPTable(9);
+                        raport_tbl.TotalWidth = 525f; raport_tbl.LockedWidth = true;
+                        //raport_tbl.DefaultCell.Border = Rectangle.NO_BORDER;
+                        widths = new float[] { 20f, 80f, 170f, 35f, 50f, 35f, 50f, 35f, 50f };
+                        raport_tbl.SetWidths(widths);
+
+                        var cell2 = new PdfPCell(new Phrase(new Chunk("Pengetahuan", TB10))); cell2.Colspan = 2;
+                        cell2.HorizontalAlignment = Element.ALIGN_CENTER; cell2.VerticalAlignment = Element.ALIGN_MIDDLE;
+                        var cell3 = new PdfPCell(new Phrase(new Chunk("Keterampilan", TB10))); cell3.Colspan = 2;
+                        cell3.HorizontalAlignment = Element.ALIGN_CENTER; cell3.VerticalAlignment = Element.ALIGN_MIDDLE;
+                        var cell4 = new PdfPCell(new Phrase(new Chunk("Sikap Sosial dan Spiritual", TB10)));
+                        cell4.Colspan = 2; cell4.HorizontalAlignment = Element.ALIGN_CENTER; cell4.VerticalAlignment = Element.ALIGN_MIDDLE;
+                        var cell5 = new PdfPCell(new Phrase(new Chunk("Skala\n(0-100)", TN10)));
+                        cell5.HorizontalAlignment = Element.ALIGN_CENTER; cell5.VerticalAlignment = Element.ALIGN_BOTTOM;
+                        var cell6 = new PdfPCell(new Phrase(new Chunk("Deskripsi\n(A/T/B)", TN10)));
+                        cell6.HorizontalAlignment = Element.ALIGN_CENTER; cell6.VerticalAlignment = Element.ALIGN_BOTTOM;
+                        var cell9 = new PdfPCell(new Phrase(new Chunk("No.", TB10))); cell9.Rowspan = 2;
+                        cell9.HorizontalAlignment = Element.ALIGN_CENTER; cell9.VerticalAlignment = Element.ALIGN_BOTTOM;
+                        var cell10 = new PdfPCell(new Phrase(new Chunk("NIS Siswa", TB10))); cell10.Rowspan = 2;
+                        cell10.HorizontalAlignment = Element.ALIGN_CENTER; cell10.VerticalAlignment = Element.ALIGN_BOTTOM;
+                        var cell11 = new PdfPCell(new Phrase(new Chunk("Nama Siswa", TB10))); cell11.Rowspan = 2;
+                        cell11.HorizontalAlignment = Element.ALIGN_CENTER; cell11.VerticalAlignment = Element.ALIGN_BOTTOM;
+
+                        raport_tbl.AddCell(cell9); raport_tbl.AddCell(cell10); raport_tbl.AddCell(cell11);
+                        raport_tbl.AddCell(cell2); raport_tbl.AddCell(cell3); raport_tbl.AddCell(cell4);//Kompetensi induk
+                        raport_tbl.AddCell(cell5); raport_tbl.AddCell(cell6); raport_tbl.AddCell(cell5);
+                        raport_tbl.AddCell(cell6); raport_tbl.AddCell(cell5); raport_tbl.AddCell(cell6);//no, nis, nama, skala, deskripsi
+
+                        string kelas = row1["Kode"].ToString();
+                        this.field = "siswa.nis_siswa as 'NIS Siswa', nama_siswa as 'Nama Siswa'";
+                        this.table = "detailkelassiswa INNER JOIN siswa USING (nis_siswa)";
+                        this.cond = "kode_kelas = '" + kelas + "' AND siswa.status_siswa != 'Tidak Aktif' ORDER by nama_siswa ASC";
+                        DataTable tabelSiswa = db.GetDataTable(field, table, cond);
+                        int i = 1;
+                        foreach (DataRow row in tabelSiswa.Rows)
+                        {
+                            var cell12 = new PdfPCell(new Phrase(new Chunk(i.ToString(), TN11)));
+                            cell12.HorizontalAlignment = Element.ALIGN_LEFT;
+                            var cell13 = new PdfPCell(new Phrase(new Chunk(row["NIS Siswa"].ToString(), TN11)));
+                            cell13.HorizontalAlignment = Element.ALIGN_LEFT;
+                            var cell14 = new PdfPCell(new Phrase(new Chunk(row["Nama Siswa"].ToString(), TN11)));
+                            cell14.HorizontalAlignment = Element.ALIGN_LEFT;
+                            raport_tbl.AddCell(cell12); raport_tbl.AddCell(cell13); raport_tbl.AddCell(cell14);
+                            raport_tbl.AddCell(cell); raport_tbl.AddCell(cell); raport_tbl.AddCell(cell);
+                            raport_tbl.AddCell(cell); raport_tbl.AddCell(cell); raport_tbl.AddCell(cell);
+                            i++;
+                        }
+                        doc.NewPage();
+                        doc.Add(paragraf);
+                        doc.Add(format_tbl);
+                        doc.Add(raport_tbl);
+                    }
+                    //Close Document
+                    doc.Close();
+                    writer.Close();
+                    fstream.Close();
+                    printFormat = appRootDir + "\\" + path + "\\" + filename;
+                }
+            }
+            catch (DocumentException de)
+            {
+                MessageBox.Show(de.Message);
+            }
+            catch (IOException ioe)
+            {
+                MessageBox.Show(ioe.Message);
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         
         //END CLASS

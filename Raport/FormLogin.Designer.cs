@@ -226,9 +226,9 @@
             this.level_lbl.AutoSize = true;
             this.level_lbl.Location = new System.Drawing.Point(180, 294);
             this.level_lbl.Name = "level_lbl";
-            this.level_lbl.Size = new System.Drawing.Size(19, 13);
+            this.level_lbl.Size = new System.Drawing.Size(23, 13);
             this.level_lbl.TabIndex = 11;
-            this.level_lbl.Text = "10";
+            this.level_lbl.Text = "null";
             this.level_lbl.Visible = false;
             // 
             // user_lbl

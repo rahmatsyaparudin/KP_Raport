@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Drawing.Printing;
 
 namespace Raport
 {
@@ -364,6 +365,31 @@ namespace Raport
                         File.Delete(subdir);
                     }
                 }
+            }
+        }
+
+        public String randomFile()
+        {
+            Random rnd = new Random();
+            int angka = rnd.Next(987654321);
+            string idGuru = angka.ToString();
+            return idGuru;
+        }
+
+        public void SendToPrinter(string filename)
+        {
+            PrintDocument pd = new PrintDocument();
+            //pd.PrintPage += new PrintPageEventHandler(thisPrintPage);
+            PrintDialog pdi = new PrintDialog();
+            pdi.Document = pd;
+            if (pdi.ShowDialog() == DialogResult.OK)
+            {
+                pd.DocumentName = filename;
+                pd.Print();
+            }
+            else
+            {
+                MessageBox.Show("Print Cancelled");
             }
         }
     }

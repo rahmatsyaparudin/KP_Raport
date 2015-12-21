@@ -49,7 +49,6 @@ namespace Raport
             smt_combo.DisplayMember = "valueDisplay";
             smt_combo.ValueMember = "valueID";
             fillKelas();
-
         }
         
         public void fillKelas()
@@ -79,6 +78,16 @@ namespace Raport
                 kelas_combo.DisplayMember = "valueDisplay";
                 kelas_combo.ValueMember = "valueID";
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau aplikasi."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -87,15 +96,15 @@ namespace Raport
 
         private void dataNilai_grid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            try
             {
-                try
+                if ((e.RowIndex >= 0) && (e.RowIndex != -1))
                 {
                     string inputString1, inputString2, inputString3;
                     int numVal1, numVal2, numVal3;
                     float result1, result2;
                     DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
-                    
+
                     if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(3) && e.RowIndex != -1)
                     {
                         //Nilai skala untuk Pengetahuan (0-100)
@@ -170,7 +179,7 @@ namespace Raport
                             dataNilai_grid.CurrentRow.Cells[5].Value = "D";
                         }
                     }
-                    
+
                     if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(7) && e.RowIndex != -1)
                     {
                         //Nilai skala untuk Keterampilan (0-100)
@@ -248,7 +257,7 @@ namespace Raport
 
                     if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(11) && e.RowIndex != -1)
                     {
-                        
+
                         //Nilai skala untuk Sikap dan Spiritual (0-100)
                         if (Convert.ToInt16(row.Cells[11].Value) >= 0 &&
                         Convert.ToInt16(row.Cells[11].Value) <= 100)
@@ -376,10 +385,25 @@ namespace Raport
                         }
                     }
                 }
-                catch (InvalidCastException cast)
+            }
+            catch (InvalidCastException cast)
+            {
+                throw cast;
+                MessageBox.Show("Ada kesalahan input!.");
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
                 {
-                    throw cast;
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau aplikasi."); break;
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -414,6 +438,16 @@ namespace Raport
                 this.cond = "id_nilai = '" + row.Cells[0].Value.ToString() + "'";
                 db.updateData(table, field, cond);
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -422,115 +456,194 @@ namespace Raport
         
         private void dataNilai_grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            try
             {
-                DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
-                peng_lbl.Text = row.Cells[3].Value.ToString();
-                dPeng_lbl.Text = row.Cells[6].Value.ToString();
-                ket_lbl.Text = row.Cells[7].Value.ToString();
-                dKet_lbl.Text = row.Cells[10].Value.ToString();
-                sikap_lbl.Text = row.Cells[11].Value.ToString();
-                dSik_lbl.Text = row.Cells[13].Value.ToString();
+                if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+                {
+                    DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
+                    peng_lbl.Text = row.Cells[3].Value.ToString();
+                    dPeng_lbl.Text = row.Cells[6].Value.ToString();
+                    ket_lbl.Text = row.Cells[7].Value.ToString();
+                    dKet_lbl.Text = row.Cells[10].Value.ToString();
+                    sikap_lbl.Text = row.Cells[11].Value.ToString();
+                    dSik_lbl.Text = row.Cells[13].Value.ToString();
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void dataNilai_grid_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
-
-            if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(3) && e.RowIndex != -1)
+            try
             {
-                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (P) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
-                row.Cells[3].Value = Int16.Parse(peng_lbl.ToString());
-                row.Cells[3].Style.BackColor = Color.Yellow;
+                DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
+                if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(3) && e.RowIndex != -1)
+                {
+                    MessageBox.Show("Ada kesalahan Input pada Nilai Skala (P) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
+                    row.Cells[3].Value = Int16.Parse(peng_lbl.ToString()); row.Cells[3].Style.BackColor = Color.Yellow;
+                }
+
+                if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(7) && e.RowIndex != -1)
+                {
+                    MessageBox.Show("Ada kesalahan Input pada Nilai Skala (K) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
+                    row.Cells[7].Value = Int16.Parse(ket_lbl.ToString()); row.Cells[7].Style.BackColor = Color.Yellow;
+                }
+
+                if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(11) && e.RowIndex != -1)
+                {
+                    MessageBox.Show("Ada kesalahan Input pada Nilai Skala (S) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
+                    row.Cells[11].Value = Int16.Parse(sikap_lbl.ToString()); row.Cells[11].Style.BackColor = Color.Yellow;
+                }
             }
-
-            if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(7) && e.RowIndex != -1)
+            catch (MySqlException myex)
             {
-                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (K) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
-                row.Cells[7].Value = Int16.Parse(ket_lbl.ToString());
-                row.Cells[7].Style.BackColor = Color.Yellow;
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
-
-            if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(11) && e.RowIndex != -1)
+            catch (Exception ex)
             {
-                MessageBox.Show("Ada kesalahan Input pada Nilai Skala (S) \nTekan ENTER untuk EDIT \nTekan ESC Data tidak berubah");
-                row.Cells[11].Value = Int16.Parse(sikap_lbl.ToString());
-                row.Cells[11].Style.BackColor = Color.Yellow;
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void dataNilai_grid_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            try
             {
-                DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
-                peng_lbl.Text = row.Cells[3].Value.ToString();
-                dPeng_lbl.Text = row.Cells[6].Value.ToString();
-                ket_lbl.Text = row.Cells[7].Value.ToString();
-                dKet_lbl.Text = row.Cells[10].Value.ToString();
-                sikap_lbl.Text = row.Cells[11].Value.ToString();
-                dSik_lbl.Text = row.Cells[13].Value.ToString();
+                if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+                {
+                    DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
+                    peng_lbl.Text = row.Cells[3].Value.ToString();
+                    dPeng_lbl.Text = row.Cells[6].Value.ToString();
+                    ket_lbl.Text = row.Cells[7].Value.ToString();
+                    dKet_lbl.Text = row.Cells[10].Value.ToString();
+                    sikap_lbl.Text = row.Cells[11].Value.ToString();
+                    dSik_lbl.Text = row.Cells[13].Value.ToString();
+                }
+
+                DataGridViewTextBoxColumn cPeng = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[3];
+                cPeng.MaxInputLength = 3;
+                DataGridViewTextBoxColumn dPeng = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[6];
+                dPeng.MaxInputLength = 1;
+                DataGridViewTextBoxColumn cKet = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[7];
+                cKet.MaxInputLength = 3;
+                DataGridViewTextBoxColumn dKet = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[10];
+                dKet.MaxInputLength = 1;
+                DataGridViewTextBoxColumn cSik = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[11];
+                cSik.MaxInputLength = 3;
+                DataGridViewTextBoxColumn dSik = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[13];
+                dSik.MaxInputLength = 1;
             }
-
-            DataGridViewTextBoxColumn cPeng = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[3];
-            cPeng.MaxInputLength = 3;
-            DataGridViewTextBoxColumn dPeng = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[6];
-            dPeng.MaxInputLength = 1;
-            DataGridViewTextBoxColumn cKet = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[7];
-            cKet.MaxInputLength = 3;
-            DataGridViewTextBoxColumn dKet = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[10];
-            dKet.MaxInputLength = 1;
-            DataGridViewTextBoxColumn cSik = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[11];
-            cSik.MaxInputLength = 3;
-            DataGridViewTextBoxColumn dSik = (DataGridViewTextBoxColumn)dataNilai_grid.Columns[13];
-            dSik.MaxInputLength = 1;
-
-
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         
         public void kelasSiswa()
         {
-            siswa_grid.DataSource = null;
-            siswa_grid.Columns.Clear();
-            siswa_grid.Rows.Clear();
+            try
+            {
+                siswa_grid.DataSource = null;
+                siswa_grid.Columns.Clear();
+                siswa_grid.Rows.Clear();
 
-            //Membuat Checkbox
-            chk.ReadOnly = false;
-            chk.HeaderText = "Pilih";
-            siswa_grid.Columns.Add(chk);
+                //Membuat Checkbox
+                chk.ReadOnly = false;
+                chk.HeaderText = "Pilih";
+                siswa_grid.Columns.Add(chk);
 
-            this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
-            this.field = "nis_siswa";
-            this.table = "detailkelassiswa INNER JOIN siswa USING (nis_siswa)";
-            this.cond = "kode_kelas = '" + kodeKelas + "' AND status_siswa = 'Aktif'";
-            DataTable tabel = db.GetDataTable(field, table, cond);
-            siswa_grid.DataSource = tabel;
+                this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
+                this.field = "nis_siswa";
+                this.table = "detailkelassiswa INNER JOIN siswa USING (nis_siswa)";
+                this.cond = "kode_kelas = '" + kodeKelas + "' AND status_siswa = 'Aktif'";
+                DataTable tabel = db.GetDataTable(field, table, cond);
+                siswa_grid.DataSource = tabel;
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void kelas_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (kelas_combo.Text == "")
+            try
             {
-                mapel_combo.SelectedIndex = -1;
-                mapel_combo.Enabled = false;
-            }
-            else if (kelas_combo.Text != "")
-            {
-                mapel_combo.Enabled = true;
-                kelasSiswa();
-                this.jumlah_lbl.Text = "0";
-                string jumlah = "SELECT count(*) as 'jumlah' FROM detailkelassiswa INNER JOIN siswa USING (nis_siswa) WHERE kode_kelas = '" +
-                                kodeKelas + "' AND status_siswa = 'Aktif'";
-                myConn.Open();
-                myComm = new MySqlCommand(jumlah, myConn);
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
+                if (kelas_combo.Text == "")
                 {
-                    jumlah_lbl.Text = myReader.GetString("jumlah");
+                    mapel_combo.SelectedIndex = -1;
+                    mapel_combo.Enabled = false;
                 }
-                myConn.Close();
-                fillMapel();
+                else if (kelas_combo.Text != "")
+                {
+                    mapel_combo.Enabled = true;
+                    kelasSiswa();
+                    this.jumlah_lbl.Text = "0";
+                    string jumlah = "SELECT count(*) as 'jumlah' FROM detailkelassiswa INNER JOIN siswa USING (nis_siswa) WHERE kode_kelas = '" +
+                                    kodeKelas + "' AND status_siswa = 'Aktif'";
+                    myConn.Open();
+                    myComm = new MySqlCommand(jumlah, myConn);
+                    myReader = myComm.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        jumlah_lbl.Text = myReader.GetString("jumlah");
+                    }
+                    myConn.Close();
+                    fillMapel();
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -596,6 +709,16 @@ namespace Raport
                 mapel_combo.DisplayMember = "valueDisplay";
                 mapel_combo.ValueMember = "valueID";
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -604,100 +727,127 @@ namespace Raport
 
         private void mapel_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((mapel_combo.Text == "") || (mapel_combo.SelectedIndex == -1))
+            try
             {
-                load_toolBtn.Enabled = false;
-                mapel_txt.ResetText();
-                wali_txt.ResetText();
-                all_rad.Checked = false;
-                peng_rad.Checked = false;
-                ket_rad.Checked = false;
-                sss_rad.Checked = false;
-                all_rad.Enabled = false;
-                peng_rad.Enabled = false;
-                ket_rad.Enabled = false;
-                sss_rad.Enabled = false;
-                dataNilai_grid.DataSource = null;
-                dataNilai_grid.Columns.Clear();
-                dataNilai_grid.Rows.Clear();
-            }
-            else if (mapel_combo.Text != "")
-            {
-                this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
-                this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
-                query = "SELECT mata_pelajaran, nama_guru from detailmapelkelas INNER JOIN guru USING (id_guru)" +
-                         "INNER JOIN mapel USING (kode_mapel) WHERE kode_kelas='" + kodeKelas + "' AND detailmapelkelas.kode_mapel='" +
-                         kodeMapel + "'";
-                MySqlCommand getProfil = new MySqlCommand(query, myConn);
-                try
+                if ((mapel_combo.Text == "") || (mapel_combo.SelectedIndex == -1))
                 {
+                    load_toolBtn.Enabled = false;
+                    mapel_txt.ResetText();
+                    wali_txt.ResetText();
+                    all_rad.Checked = false;
+                    peng_rad.Checked = false;
+                    ket_rad.Checked = false;
+                    sss_rad.Checked = false;
+                    all_rad.Enabled = false;
+                    peng_rad.Enabled = false;
+                    ket_rad.Enabled = false;
+                    sss_rad.Enabled = false;
+                    dataNilai_grid.DataSource = null;
+                    dataNilai_grid.Columns.Clear();
+                    dataNilai_grid.Rows.Clear();
+                }
+                else if (mapel_combo.Text != "")
+                {
+                    this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
+                    this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
+                    query = "SELECT mata_pelajaran, nama_guru from detailmapelkelas INNER JOIN guru USING (id_guru)" +
+                             "INNER JOIN mapel USING (kode_mapel) WHERE kode_kelas='" + kodeKelas + "' AND detailmapelkelas.kode_mapel='" +
+                             kodeMapel + "'";
+                    myComm = new MySqlCommand(query, myConn);
                     myConn.Open();
-                    myReader = getProfil.ExecuteReader();
+                    myReader = myComm.ExecuteReader();
                     while (myReader.Read())
                     {
                         mapel_txt.Text = myReader.GetString("mata_pelajaran");
                         wali_txt.Text = myReader.GetString("nama_guru");
                     }
                     myConn.Close();
+                    loadData();
+                    generate_nilai();
+                    load_toolBtn.Enabled = true;
+                    all_rad.Enabled = true;
+                    peng_rad.Enabled = true;
+                    ket_rad.Enabled = true;
+                    sss_rad.Enabled = true;
+                    all_rad.Checked = true;
                 }
-                catch (Exception ex)
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
                 {
-                    MessageBox.Show(ex.Message);
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
                 }
-                loadData();
-                generate_nilai();
-                load_toolBtn.Enabled = true;
-                all_rad.Enabled = true;
-                peng_rad.Enabled = true;
-                ket_rad.Enabled = true;
-                sss_rad.Enabled = true;
-                all_rad.Checked = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         public void generate_nilai()
         {
-            this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
-            this.kodeSmt = this.smt_combo.SelectedValue.ToString();
-            this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
-            string nis_siswa, getSiswa;
+            try
+            {
+                this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
+                this.kodeSmt = this.smt_combo.SelectedValue.ToString();
+                this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
+                string nis_siswa, getSiswa;
 
-            if (jumlah_lbl.Text != "0")
-            {
-                foreach (DataGridViewRow row in siswa_grid.Rows)
+                if (jumlah_lbl.Text != "0")
                 {
-                    row.Cells[0].Value = true;
-                    if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                    foreach (DataGridViewRow row in siswa_grid.Rows)
                     {
-                        nis_siswa = row.Cells[1].Value.ToString();
-                        this.nis_lbl.Text = "null";
-                        getSiswa = "SELECT count(*) as 'jumlah' FROM nilai WHERE nis_siswa = '" + nis_siswa + 
-                                   "' AND kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel + 
-                                   "' AND kode_semester = '" + kodeSmt + "'";
-                        myConn.Open();
-                        myComm = new MySqlCommand(getSiswa, myConn);
-                        myReader = myComm.ExecuteReader();
-                        while (myReader.Read())
+                        row.Cells[0].Value = true;
+                        if (Convert.ToBoolean(row.Cells[0].Value) == true)
                         {
-                            nis_lbl.Text = myReader.GetString("jumlah");
+                            nis_siswa = row.Cells[1].Value.ToString();
+                            this.nis_lbl.Text = "null";
+                            getSiswa = "SELECT count(*) as 'jumlah' FROM nilai WHERE nis_siswa = '" + nis_siswa +
+                                       "' AND kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel +
+                                       "' AND kode_semester = '" + kodeSmt + "'";
+                            myConn.Open();
+                            myComm = new MySqlCommand(getSiswa, myConn);
+                            myReader = myComm.ExecuteReader();
+                            while (myReader.Read())
+                            {
+                                nis_lbl.Text = myReader.GetString("jumlah");
+                            }
+                            if (nis_lbl.Text == "0")
+                            {
+                                this.field = "DEFAULT, '" + nis_siswa + "', '" + kodeKelas + "', '" + kodeMapel + "', '" + kodeSmt +
+                                        "', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT";
+                                this.table = "nilai";
+                                db.insertData(table, field);
+                                loadData();
+                            }
+                            myConn.Close();
                         }
-                        if (nis_lbl.Text == "0")
-                        {
-                            this.field = "DEFAULT, '" + nis_siswa + "', '" + kodeKelas + "', '" + kodeMapel + "', '" + kodeSmt +
-                                    "', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT";
-                            this.table = "nilai";
-                            db.insertData(table, field);
-                            loadData();
-                        }
-                        myConn.Close();
                     }
+                    this.nis_lbl.Text = "null";
                 }
-                this.nis_lbl.Text = "null";
+                if (jumlah_lbl.Text == "0")
+                {
+                    this.nis_lbl.Text = "null";
+                    this.jumlah_lbl.Text = "0";
+                }
             }
-            if (jumlah_lbl.Text == "0")
+            catch (MySqlException myex)
             {
-                this.nis_lbl.Text = "null";
-                this.jumlah_lbl.Text = "0";
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         
@@ -751,99 +901,156 @@ namespace Raport
 
         public void loadData()
         {
-            dataNilai_grid.DataSource = null;
-            dataNilai_grid.Columns.Clear();
-            dataNilai_grid.Rows.Clear();
-                       
-            this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
-            this.kodeSmt = this.smt_combo.SelectedValue.ToString();
-            this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
-
-            this.field = "id_nilai as 'ID Nilai', siswa.nis_siswa as 'NIS Siswa', nama_siswa as 'Nama Siswa', p_skala as 'Skala (P)', p_ang as 'Angka (P)', p_pred as 'Predikat (P)'" +
-                        ", p_desk as 'Deskripsi (P)', k_skala as 'Skala (K)', k_ang as 'Angka (K)', k_pred as 'Predikat (K)', k_desk as 'Deskripsi (K)'" +
-                        ", s_skala as 'Skala (S)', s_sikap as 'SB/B/C/K (S)', s_desk as 'Deskripsi (S)'";
-            this.table = "nilai INNER JOIN siswa USING (nis_siswa)";
-            this.cond = "kode_kelas = '" + kodeKelas + "' AND kode_mapel='" + kodeMapel + 
-                        "' AND kode_semester = '" + kodeSmt +
-                        "' AND siswa.status_siswa = 'Aktif' ORDER by nama_siswa ASC";
-            DataTable tabel = db.GetDataTable(field, table, cond);
-            this.dataNilai_grid.DataSource = tabel;
-
-            //Cell Formatting untuk Pengetahuan
-            foreach (DataGridViewRow row in dataNilai_grid.Rows)
+            try
             {
-                if (Convert.ToInt16(row.Cells[3].Value) == 0)
-                    row.Cells[3].Style.BackColor = Color.LimeGreen;
-                else
-                    row.Cells[3].Style.BackColor = Color.LightSkyBlue;
+                dataNilai_grid.DataSource = null;
+                dataNilai_grid.Columns.Clear();
+                dataNilai_grid.Rows.Clear();
 
-                if (Convert.ToString(row.Cells[6].Value) == "")
-                    row.Cells[6].Style.BackColor = Color.LimeGreen;
-                else
-                    row.Cells[6].Style.BackColor = Color.LightSkyBlue;
+                this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
+                this.kodeSmt = this.smt_combo.SelectedValue.ToString();
+                this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
 
-                //Cell Formatting untuk Keterangan
-                if (Convert.ToInt16(row.Cells[7].Value) == 0)
-                    row.Cells[7].Style.BackColor = Color.LimeGreen;
-                else
-                    row.Cells[7].Style.BackColor = Color.LightSkyBlue;
+                this.field = "id_nilai as 'ID Nilai', siswa.nis_siswa as 'NIS Siswa', nama_siswa as 'Nama Siswa', p_skala as 'Skala (P)', p_ang as 'Angka (P)', p_pred as 'Predikat (P)'" +
+                            ", p_desk as 'Deskripsi (P)', k_skala as 'Skala (K)', k_ang as 'Angka (K)', k_pred as 'Predikat (K)', k_desk as 'Deskripsi (K)'" +
+                            ", s_skala as 'Skala (S)', s_sikap as 'SB/B/C/K (S)', s_desk as 'Deskripsi (S)'";
+                this.table = "nilai INNER JOIN siswa USING (nis_siswa)";
+                this.cond = "kode_kelas = '" + kodeKelas + "' AND kode_mapel='" + kodeMapel +
+                            "' AND kode_semester = '" + kodeSmt +
+                            "' AND siswa.status_siswa != 'Tidak Aktif' ORDER by nama_siswa ASC";
+                DataTable tabel = db.GetDataTable(field, table, cond);
+                this.dataNilai_grid.DataSource = tabel;
 
-                if (Convert.ToString(row.Cells[10].Value) == "")
-                    row.Cells[10].Style.BackColor = Color.LimeGreen;
-                else
-                    row.Cells[10].Style.BackColor = Color.LightSkyBlue;
+                //Cell Formatting untuk Pengetahuan
+                foreach (DataGridViewRow row in dataNilai_grid.Rows)
+                {
+                    if (Convert.ToInt16(row.Cells[3].Value) == 0)
+                        row.Cells[3].Style.BackColor = Color.LimeGreen;
+                    else
+                        row.Cells[3].Style.BackColor = Color.LightSkyBlue;
 
-                //Cell Formatting untuk Sikap Sosial dan Spiritual
-                if (Convert.ToInt16(row.Cells[11].Value) == 0)
-                    row.Cells[11].Style.BackColor = Color.LimeGreen;
-                else
-                    row.Cells[11].Style.BackColor = Color.LightSkyBlue;
+                    if (Convert.ToString(row.Cells[6].Value) == "")
+                        row.Cells[6].Style.BackColor = Color.LimeGreen;
+                    else
+                        row.Cells[6].Style.BackColor = Color.LightSkyBlue;
 
-                if (Convert.ToString(row.Cells[13].Value) == "")
-                    row.Cells[13].Style.BackColor = Color.LimeGreen;
-                else
-                    row.Cells[13].Style.BackColor = Color.LightSkyBlue;
+                    //Cell Formatting untuk Keterangan
+                    if (Convert.ToInt16(row.Cells[7].Value) == 0)
+                        row.Cells[7].Style.BackColor = Color.LimeGreen;
+                    else
+                        row.Cells[7].Style.BackColor = Color.LightSkyBlue;
+
+                    if (Convert.ToString(row.Cells[10].Value) == "")
+                        row.Cells[10].Style.BackColor = Color.LimeGreen;
+                    else
+                        row.Cells[10].Style.BackColor = Color.LightSkyBlue;
+
+                    //Cell Formatting untuk Sikap Sosial dan Spiritual
+                    if (Convert.ToInt16(row.Cells[11].Value) == 0)
+                        row.Cells[11].Style.BackColor = Color.LimeGreen;
+                    else
+                        row.Cells[11].Style.BackColor = Color.LightSkyBlue;
+
+                    if (Convert.ToString(row.Cells[13].Value) == "")
+                        row.Cells[13].Style.BackColor = Color.LimeGreen;
+                    else
+                        row.Cells[13].Style.BackColor = Color.LightSkyBlue;
+                }
+
+
+                dataNilai_grid.Columns[0].Visible = false;
+                dataNilai_grid.Columns[1].ReadOnly = true;
+                dataNilai_grid.Columns[2].ReadOnly = true;
+                dataNilai_grid.Columns[4].ReadOnly = true;
+                dataNilai_grid.Columns[5].ReadOnly = true;
+                dataNilai_grid.Columns[8].ReadOnly = true;
+                dataNilai_grid.Columns[9].ReadOnly = true;
+                dataNilai_grid.Columns[12].ReadOnly = true;
+
+                for (int i = 0; i <= dataNilai_grid.ColumnCount - 1; i++)
+                {
+                    dataNilai_grid.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                }
+                dataNilai_grid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dataNilai_grid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                disableSorting();
             }
-            
-
-            dataNilai_grid.Columns[0].Visible = false;
-            dataNilai_grid.Columns[1].ReadOnly = true;
-            dataNilai_grid.Columns[2].ReadOnly = true;
-            dataNilai_grid.Columns[4].ReadOnly = true;
-            dataNilai_grid.Columns[5].ReadOnly = true;
-            dataNilai_grid.Columns[8].ReadOnly = true;
-            dataNilai_grid.Columns[9].ReadOnly = true;
-            dataNilai_grid.Columns[12].ReadOnly = true;
-            
-            for (int i = 0; i <= dataNilai_grid.ColumnCount - 1; i++)
+            catch (MySqlException myex)
             {
-                dataNilai_grid.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
-            dataNilai_grid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataNilai_grid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            disableSorting();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void FormNilai_SizeChanged(object sender, EventArgs e)
         {
-            if ((this.Size.Width == 991) &&
+            try
+            {
+                if ((this.Size.Width == 991) &&
                     (this.Size.Height == 651))
-            {
-                dataNilai_grid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                dataNilai_grid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                {
+                    if (dataNilai_grid.DataSource != null)
+                    {
+                        dataNilai_grid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        dataNilai_grid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    }
+                }
+                else
+                {
+                    if (dataNilai_grid.DataSource != null)
+                    {
+                        dataNilai_grid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dataNilai_grid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    }
+                }
             }
-            else
+            catch (MySqlException myex)
             {
-                dataNilai_grid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dataNilai_grid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void disableSorting()
         {
-            for (int i = 0; i <= dataNilai_grid.ColumnCount - 1; i++)
+            try
             {
-                dataNilai_grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                for (int i = 0; i <= dataNilai_grid.ColumnCount - 1; i++)
+                {
+                    dataNilai_grid.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

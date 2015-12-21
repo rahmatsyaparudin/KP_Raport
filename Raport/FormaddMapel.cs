@@ -47,29 +47,46 @@ namespace Raport
 
         private void schedule_grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            try
             {
-                DataGridViewRow row = this.schedule_grid.Rows[e.RowIndex];
-                var cmb = (DataGridViewComboBoxCell)schedule_grid.CurrentRow.Cells[5];
-                schedule_grid.CurrentRow.Cells[5].Value = null;
-                cmb.DataSource = null; cmb.Items.Clear();
-                kodeMapel = row.Cells["Kode Mapel"].Value.ToString();
-                string idValue = "id_guru";
-                string dispValue = "nama_guru";
-                table = "detailmapelguru INNER JOIN guru USING (id_guru)";
-                cond = "status = 'Aktif' AND tahun_ajaran = '" + getTahun + "' AND kode_mapel = '" + kodeMapel + "'";
-                string sortby = "nama_guru";
-                cmb.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
-                cmb.DisplayMember = "valueDisplay";
-                cmb.ValueMember = "valueID";
+                if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+                {
+                    DataGridViewRow row = this.schedule_grid.Rows[e.RowIndex];
+                    var cmb = (DataGridViewComboBoxCell)schedule_grid.CurrentRow.Cells[5];
+                    schedule_grid.CurrentRow.Cells[5].Value = null;
+                    cmb.DataSource = null; cmb.Items.Clear();
+                    kodeMapel = row.Cells["Kode Mapel"].Value.ToString();
+                    string idValue = "id_guru";
+                    string dispValue = "nama_guru";
+                    table = "detailmapelguru INNER JOIN guru USING (id_guru)";
+                    cond = "status = 'Aktif' AND tahun_ajaran = '" + getTahun + "' AND kode_mapel = '" + kodeMapel + "'";
+                    string sortby = "nama_guru";
+                    cmb.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
+                    cmb.DisplayMember = "valueDisplay";
+                    cmb.ValueMember = "valueID";
+                }
+
+                foreach (DataGridViewRow row in schedule_grid.Rows)
+                {
+                    if (Convert.ToBoolean(row.Cells[0].Value) == false)
+                        row.Cells[5].ReadOnly = true;
+                    else if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                        row.Cells[5].ReadOnly = false;
+                }
             }
-            
-            foreach (DataGridViewRow row in schedule_grid.Rows)
+            catch (MySqlException myex)
             {
-                if (Convert.ToBoolean(row.Cells[0].Value) == false)
-                    row.Cells[5].ReadOnly = true;
-                else if (Convert.ToBoolean(row.Cells[0].Value) == true)
-                    row.Cells[5].ReadOnly = false;
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         
@@ -123,6 +140,16 @@ namespace Raport
                     schedule_grid.Columns[i].ReadOnly = true;
                 }
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -131,119 +158,136 @@ namespace Raport
 
         private void create_btn_Click(object sender, EventArgs e)
         {
-            kodeKelas = getKodeKelas;
-            kodeIdGuru = passIdGuru;
-            char notif; notif = 'A';
-
-            foreach (DataGridViewRow row in schedule_grid.Rows)
+            try
             {
-                kodeMapel = row.Cells[1].Value.ToString();
-                if (kodeKelas != null)
+                kodeKelas = getKodeKelas;
+                kodeIdGuru = passIdGuru;
+                char notif; notif = 'A';
+
+                foreach (DataGridViewRow row in schedule_grid.Rows)
                 {
-                    if ((Convert.ToBoolean(row.Cells[0].Value) == true) &&
-                        (Convert.ToString(row.Cells[5].Value) != ""))
+                    kodeMapel = row.Cells[1].Value.ToString();
+                    if (kodeKelas != null)
                     {
-                        string status_no = "SELECT id_detail, kode_mapel from detailmapelkelas where kode_mapel = '" +
-                                                kodeMapel + "' AND kode_kelas = '" +
-                                                kodeKelas + "' AND status = 'Tidak Aktif'";
-                        myConn.Open();
-                        myComm = new MySqlCommand(status_no, myConn);
-                        myReader = myComm.ExecuteReader();
-                        while (myReader.Read())
+                        if ((Convert.ToBoolean(row.Cells[0].Value) == true) &&
+                            (Convert.ToString(row.Cells[5].Value) != ""))
                         {
-                            string getMapel = myReader.GetString("kode_mapel");
-                            if (kodeMapel == getMapel)
+                            string status_no = "SELECT id_detail, kode_mapel from detailmapelkelas where kode_mapel = '" +
+                                                    kodeMapel + "' AND kode_kelas = '" +
+                                                    kodeKelas + "' AND status = 'Tidak Aktif'";
+                            myConn.Open();
+                            myComm = new MySqlCommand(status_no, myConn);
+                            myReader = myComm.ExecuteReader();
+                            while (myReader.Read())
                             {
-                                string detail_check = myReader.GetString("id_detail");
+                                string getMapel = myReader.GetString("kode_mapel");
+                                if (kodeMapel == getMapel)
+                                {
+                                    string detail_check = myReader.GetString("id_detail");
+                                    this.idGuru = row.Cells[5].Value.ToString();
+                                    this.table = "detailmapelkelas";
+                                    this.field = "id_guru = '" + idGuru + "', status ='Aktif'";
+                                    this.cond = "kode_kelas = '" + kodeKelas + "' AND id_detail = '" + detail_check + "'";
+                                    db.updateData(table, field, cond);
+                                }
+                            }
+                            myConn.Close();
+
+                            string status_yes = "SELECT kode_mapel as 'Kode' from mapel where kode_mapel = '" +
+                                                kodeMapel + "' AND kode_mapel NOT IN (SELECT kode_mapel FROM detailmapelkelas WHERE kode_mapel = '" +
+                                                kodeMapel + "' AND kode_kelas = '" + getKodeKelas + "')";
+                            myConn.Open();
+                            myComm = new MySqlCommand(status_yes, myConn);
+                            myReader = myComm.ExecuteReader();
+                            while (myReader.Read())
+                            {
+                                string getMapel = myReader.GetString("Kode");
                                 this.idGuru = row.Cells[5].Value.ToString();
                                 this.table = "detailmapelkelas";
-                                this.field = "id_guru = '" + idGuru + "', status ='Aktif'";
-                                this.cond = "kode_kelas = '" + kodeKelas + "' AND id_detail = '" + detail_check + "'";
-                                db.updateData(table, field, cond);
+                                this.field = "DEFAULT, '" + kodeKelas + "', '" + idGuru +
+                                             "', '" + kodeMapel + "', DEFAULT";
+                                db.insertData(table, field);
                             }
+                            myConn.Close();
+                            notif = 'B';
                         }
-                        myConn.Close();
-
-                        string status_yes = "SELECT kode_mapel as 'Kode' from mapel where kode_mapel = '" +
-                                            kodeMapel + "' AND kode_mapel NOT IN (SELECT kode_mapel FROM detailmapelkelas WHERE kode_mapel = '" +
-                                            kodeMapel + "' AND kode_kelas = '" + getKodeKelas + "')";
-                        myConn.Open();
-                        myComm = new MySqlCommand(status_yes, myConn);
-                        myReader = myComm.ExecuteReader();
-                        while (myReader.Read())
+                        else if ((Convert.ToBoolean(row.Cells[0].Value) == true) &&
+                                (Convert.ToString(row.Cells[5].Value) == ""))
                         {
-                            string getMapel = myReader.GetString("Kode");
-                            this.idGuru = row.Cells[5].Value.ToString();
-                            this.table = "detailmapelkelas";
-                            this.field = "DEFAULT, '" + kodeKelas + "', '" + idGuru +
-                                         "', '" + kodeMapel + "', DEFAULT";
-                            db.insertData(table, field);
+                            string warning = row.Cells[3].Value.ToString();
+                            MessageBox.Show(row.Cells[3].Value.ToString() + " belum ditambahkan ke jadwal");
                         }
-                        myConn.Close();
-                        notif = 'B';
                     }
-                    else if ((Convert.ToBoolean(row.Cells[0].Value) == true) &&
-                            (Convert.ToString(row.Cells[5].Value) == ""))
-                    {
-                        string warning = row.Cells[3].Value.ToString();
-                        MessageBox.Show(row.Cells[3].Value.ToString() + " belum ditambahkan ke jadwal");
-                    }
-                }
 
-                if (passIdGuru != null)
-                {
-                    if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                    if (passIdGuru != null)
                     {
-                        string status_no = "SELECT id_detail, kode_mapel from detailmapelguru where kode_mapel = '" +
-                                           kodeMapel + "' AND id_guru ='" + kodeIdGuru + "' AND status = 'Tidak Aktif'";
-                        myConn.Open();
-                        myComm = new MySqlCommand(status_no, myConn);
-                        myReader = myComm.ExecuteReader();
-                        while (myReader.Read())
+                        if (Convert.ToBoolean(row.Cells[0].Value) == true)
                         {
-                            string getMapel = myReader.GetString("kode_mapel");
-                            if (kodeMapel == getMapel)
+                            string status_no = "SELECT id_detail, kode_mapel from detailmapelguru where kode_mapel = '" +
+                                               kodeMapel + "' AND id_guru ='" + kodeIdGuru + "' AND status = 'Tidak Aktif'";
+                            myConn.Open();
+                            myComm = new MySqlCommand(status_no, myConn);
+                            myReader = myComm.ExecuteReader();
+                            while (myReader.Read())
                             {
-                                string detail_check = myReader.GetString("id_detail");
-                                this.table = "detailmapelguru";
-                                this.field = "status ='Aktif'";
-                                this.cond = "id_guru = '" + kodeIdGuru + "' AND id_detail = '" + detail_check + "'";
-                                db.updateData(table, field, cond);
+                                string getMapel = myReader.GetString("kode_mapel");
+                                if (kodeMapel == getMapel)
+                                {
+                                    string detail_check = myReader.GetString("id_detail");
+                                    this.table = "detailmapelguru";
+                                    this.field = "status ='Aktif'";
+                                    this.cond = "id_guru = '" + kodeIdGuru + "' AND id_detail = '" + detail_check + "'";
+                                    db.updateData(table, field, cond);
+                                }
                             }
-                        }
-                        myConn.Close();
+                            myConn.Close();
 
-                        string status_yes = "SELECT kode_mapel as 'Kode' from mapel where kode_mapel = '" +
-                                            kodeMapel + "' AND kode_mapel NOT IN (SELECT kode_mapel FROM detailmapelguru WHERE kode_mapel = '" +
-                                            kodeMapel + "' AND id_guru = '" + kodeIdGuru + "' AND tahun_ajaran = '" + getTahun + "' )";
-                        myConn.Open();
-                        myComm = new MySqlCommand(status_yes, myConn);
-                        myReader = myComm.ExecuteReader();
-                        while (myReader.Read())
-                        {
-                            string getMapel = myReader.GetString("Kode");
-                            this.table = "detailmapelguru";
-                            this.field = "DEFAULT, '" + kodeIdGuru + "', '" + kodeMapel + "', '" + getTahun +
-                                         "', DEFAULT";
-                            db.insertData(table, field);
+                            string status_yes = "SELECT kode_mapel as 'Kode' from mapel where kode_mapel = '" +
+                                                kodeMapel + "' AND kode_mapel NOT IN (SELECT kode_mapel FROM detailmapelguru WHERE kode_mapel = '" +
+                                                kodeMapel + "' AND id_guru = '" + kodeIdGuru + "' AND tahun_ajaran = '" + getTahun + "' )";
+                            myConn.Open();
+                            myComm = new MySqlCommand(status_yes, myConn);
+                            myReader = myComm.ExecuteReader();
+                            while (myReader.Read())
+                            {
+                                string getMapel = myReader.GetString("Kode");
+                                this.table = "detailmapelguru";
+                                this.field = "DEFAULT, '" + kodeIdGuru + "', '" + kodeMapel + "', '" + getTahun +
+                                             "', DEFAULT";
+                                db.insertData(table, field);
+                            }
+                            myConn.Close();
+                            notif = 'C';
                         }
-                        myConn.Close();
-                        notif = 'C';
                     }
                 }
-            }
 
-            if (notif == 'A')
-                MessageBox.Show("Jadwal belum dibuat!");
-            else if (notif == 'B')
-            {
-                MessageBox.Show("Jadwal Kelas berhasil dibuat!");
-                this.Close();
+                if (notif == 'A')
+                    MessageBox.Show("Jadwal belum dibuat!");
+                else if (notif == 'B')
+                {
+                    MessageBox.Show("Jadwal Kelas berhasil dibuat!");
+                    this.Close();
+                }
+                else if (notif == 'C')
+                {
+                    MessageBox.Show("Mata Pelajaran berhasil dipilih!");
+                    this.Close();
+                }
             }
-            else if (notif == 'C')
+            catch (MySqlException myex)
             {
-                MessageBox.Show("Mata Pelajaran berhasil dipilih!");
-                this.Close();
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

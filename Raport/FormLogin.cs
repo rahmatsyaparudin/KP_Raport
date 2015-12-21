@@ -25,8 +25,9 @@ namespace Raport
                 username = username.Replace("\"", "");
                 string password = pass_txt.Text.Replace("'", "");
                 password = password.Replace("\"", "");
-                SelectCommand = new MySqlCommand("SELECT username, password, nama, level from user where username = '" + username +
-                                                "'and password='" + db.Encrypt(password) + "'; ", myConn);
+                SelectCommand = new MySqlCommand("SELECT username, password, nama_guru, level from user INNER JOIN guru USING (id_guru) "+
+                                                 " where username = '" + username +"'and password='" + db.Encrypt(password) + 
+                                                 "' AND (status_guru = 'Aktif' OR status_guru = 'Aktivasi')", myConn);
                 myConn.Open();
                 myReader = SelectCommand.ExecuteReader();
                 int count = 0;
@@ -34,7 +35,7 @@ namespace Raport
                 {
                     count = count + 1;
                     level_lbl.Text = myReader.GetString("level");
-                    user_lbl.Text = myReader.GetString("nama");
+                    user_lbl.Text = myReader.GetString("nama_guru");
                 }
                 if (count == 1)
                 {

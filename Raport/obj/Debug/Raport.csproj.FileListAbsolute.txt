@@ -3,7 +3,6 @@ E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\Raport.exe
 E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\Raport.pdb
 E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\DocumentFormat.OpenXml.dll
 E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\JDStuart.DirectoryUtils.dll
-E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\MySqlBackup.dll
 E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\SpreadsheetLight.dll
 E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\SpreadsheetLight.xml
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csproj.ResolveComReference.cache
@@ -29,3 +28,4 @@ E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.SplashScreen.resources
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csproj.GenerateResource.Cache
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.exe
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.pdb
+E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csprojResolveAssemblyReference.cache

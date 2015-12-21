@@ -190,12 +190,12 @@
             // 
             this.toolStrip1.BackColor = System.Drawing.Color.SteelBlue;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.load_toolBtn,
             this.nis_lbl,
             this.jumlah_lbl,
             this.peng_lbl,
-            this.ket_lbl,
             this.sikap_lbl,
-            this.load_toolBtn,
+            this.ket_lbl,
             this.dPeng_lbl,
             this.dKet_lbl,
             this.dSik_lbl,

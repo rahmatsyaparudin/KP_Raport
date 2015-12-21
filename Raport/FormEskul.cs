@@ -30,6 +30,16 @@ namespace Raport
                 DataTable kelas = db.GetDataTable(field, table, cond);
                 this.dataEskul_grid.DataSource = kelas;
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -38,47 +48,58 @@ namespace Raport
 
         private void add_btn_Click(object sender, EventArgs e)
         {
-            dataEskul_grid.Enabled = false;
-            add_btn.Enabled = false;
-            delete_btn.Enabled = false;
-            edit_btn.Enabled = false;
-
-            save_btn.Enabled = true;
-            cancel_btn.Enabled = true;
-            kode_txt.Enabled = true;
-            nama_txt.Enabled = true;
-            kode_txt.ResetText();
-            nama_txt.ResetText();
+            dataEskul_grid.Enabled = false; add_btn.Enabled = false;
+            delete_btn.Enabled = false; edit_btn.Enabled = false;
+            save_btn.Enabled = true; cancel_btn.Enabled = true;
+            kode_txt.Enabled = true; nama_txt.Enabled = true;
+            kode_txt.ResetText(); nama_txt.ResetText();
         }
 
         private void save_btn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(kode_txt.Text) && kode_txt.Text.Length >= 0)
+            try
             {
-                MessageBox.Show("Kode Eskul tidak Boleh Kosong");
-                kode_txt.Focus();
-            }
-            else if (string.IsNullOrWhiteSpace(nama_txt.Text) && nama_txt.Text.Length >= 0)
-            {
-                MessageBox.Show("Nama Eskul tidak Boleh Kosong");
-                kode_txt.Focus();
-            }
-            else
-            {
-                this.table = "ekstrakurikuler";
-                this.field = "'" + kode_txt.Text.Replace("'", "''") + "', '" + nama_txt.Text.Replace("'", "''") + "', DEFAULT";
-                db.insertData(table, field);
-                loadData();
-                MessageBox.Show("Eskul '" + nama_txt.Text + "'\n Berhasil di buat ");
+                if (string.IsNullOrWhiteSpace(kode_txt.Text) && kode_txt.Text.Length >= 0)
+                {
+                    MessageBox.Show("Kode Eskul tidak Boleh Kosong");
+                    kode_txt.Focus();
+                }
+                else if (string.IsNullOrWhiteSpace(nama_txt.Text) && nama_txt.Text.Length >= 0)
+                {
+                    MessageBox.Show("Nama Eskul tidak Boleh Kosong");
+                    kode_txt.Focus();
+                }
+                else
+                {
+                    this.table = "ekstrakurikuler";
+                    this.field = "'" + kode_txt.Text.Replace("'", "''") + "', '" + nama_txt.Text.Replace("'", "''") + "', DEFAULT";
+                    db.insertData(table, field);
+                    loadData();
+                    MessageBox.Show("Eskul '" + nama_txt.Text + "'\n Berhasil di buat ");
 
-                add_btn.Enabled = true;
-                dataEskul_grid.Enabled = true;
-                save_btn.Enabled = false;
-                cancel_btn.Enabled = false;
-                kode_txt.Enabled = false;
-                nama_txt.Enabled = false;
-                kode_txt.ResetText();
-                nama_txt.ResetText();
+                    add_btn.Enabled = true;
+                    dataEskul_grid.Enabled = true;
+                    save_btn.Enabled = false;
+                    cancel_btn.Enabled = false;
+                    kode_txt.Enabled = false;
+                    nama_txt.Enabled = false;
+                    kode_txt.ResetText();
+                    nama_txt.ResetText();
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -98,20 +119,37 @@ namespace Raport
 
         private void dataEskul_grid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            try
             {
-                DataGridViewRow row = this.dataEskul_grid.Rows[e.RowIndex];
-                string getkode = row.Cells["Kode"].Value.ToString();
-                this.nama_txt.Text = row.Cells["Nama Eskul"].Value.ToString();
-                this.kode_txt.Text = getkode;
-                this.kode_lbl.Text = getkode;
+                if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+                {
+                    DataGridViewRow row = this.dataEskul_grid.Rows[e.RowIndex];
+                    string getkode = row.Cells["Kode"].Value.ToString();
+                    this.nama_txt.Text = row.Cells["Nama Eskul"].Value.ToString();
+                    this.kode_txt.Text = getkode;
+                    this.kode_lbl.Text = getkode;
 
-                kode_txt.Enabled = true;
-                nama_txt.Enabled = true;
-                cancel_btn.Enabled = true;
-                edit_btn.Enabled = true;
-                delete_btn.Enabled = true;
-                add_btn.Enabled = false;
+                    kode_txt.Enabled = true;
+                    nama_txt.Enabled = true;
+                    cancel_btn.Enabled = true;
+                    edit_btn.Enabled = true;
+                    delete_btn.Enabled = true;
+                    add_btn.Enabled = false;
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -127,6 +165,16 @@ namespace Raport
                 db.updateData(table, field, cond);
                 loadData();
                 MessageBox.Show("Edit Data Eskul  Berhasil \n Data Tersimpan");
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
             catch (Exception ex)
             {
@@ -153,6 +201,16 @@ namespace Raport
                 {
                     CancelEventArgs batal = new CancelEventArgs();
                     batal.Cancel = true;
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
                 }
             }
             catch (Exception ex)

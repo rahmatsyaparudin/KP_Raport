@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace Raport
 {
@@ -44,11 +45,21 @@ namespace Raport
         {
             try
             {
-                string idValue = "nama_guru"; string dispValue = "nama_guru";
+                string idValue = "id_guru"; string dispValue = "nama_guru";
                 this.table = "guru"; this.cond = "status_guru = 'Aktif'";
                 string sortby = "nama_guru";
                 guru_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
                 guru_combo.DisplayMember = "valueDisplay"; guru_combo.ValueMember = "valueID";
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
             catch (Exception ex)
             {
@@ -73,21 +84,38 @@ namespace Raport
 
         private void dataUser_grid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            try
             {
-                DataGridViewRow row = this.dataUser_grid.Rows[e.RowIndex];
-                this.guru_combo.Text = row.Cells["Nama User"].Value.ToString();
-                this.user_txt.Text = row.Cells["Username"].Value.ToString();
-                this.user_lbl.Text = row.Cells["Username"].Value.ToString();
-                this.pass_txt.Text = db.Decrypt(row.Cells["Password"].Value.ToString());
-                this.retypePass_txt.Text = db.Decrypt(row.Cells["Password"].Value.ToString());
-                this.level_lbl.Text = row.Cells["Level"].Value.ToString();
-                this.aksi_lbl.Text = "edit";
+                if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+                {
+                    DataGridViewRow row = this.dataUser_grid.Rows[e.RowIndex];
+                    this.guru_combo.Text = row.Cells["Nama User"].Value.ToString();
+                    this.user_txt.Text = row.Cells["Username"].Value.ToString();
+                    this.user_lbl.Text = row.Cells["Username"].Value.ToString();
+                    this.pass_txt.Text = db.Decrypt(row.Cells["Password"].Value.ToString());
+                    this.retypePass_txt.Text = db.Decrypt(row.Cells["Password"].Value.ToString());
+                    this.level_lbl.Text = row.Cells["Level"].Value.ToString();
+                    this.aksi_lbl.Text = "edit";
+                }
+                if (level_lbl.Text == "1") user_radio.Checked = true;
+                if (level_lbl.Text == "0") admin_radio.Checked = true;
+                save_btn.Enabled = false; edit_btn.Enabled = true;
+                delete_btn.Enabled = true;
             }
-            if (level_lbl.Text == "1") user_radio.Checked = true;
-            if (level_lbl.Text == "0") admin_radio.Checked = true;
-            save_btn.Enabled = false; edit_btn.Enabled = true;
-            delete_btn.Enabled = true;
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void dataUser_grid_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -124,6 +152,16 @@ namespace Raport
                 {
                     CancelEventArgs batal = new CancelEventArgs();
                     batal.Cancel = true;
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
                 }
             }
             catch (Exception ex)
@@ -188,6 +226,16 @@ namespace Raport
                     CancelEventArgs batal = new CancelEventArgs(); batal.Cancel = true;
                 }
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -206,9 +254,19 @@ namespace Raport
                 db.insertData(table, field); load_user();
                 MessageBox.Show("User '" + user_txt.Text + "' telah ditambah"); CancelAction();
             }
-            catch (Exception)
+            catch (MySqlException myex)
             {
-                MessageBox.Show("Username sudah Terpakai atau terjadi kesalahan input");
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -221,27 +279,54 @@ namespace Raport
                 this.table = "user";
                 this.field = " username = '" + user_txt.Text.Replace("'", "''") +
                              "', password = '" + pass.Replace("'", "''") +
-                             "', nama = '" + guru.Replace("'", "''") +
+                             "', id_guru = '" + guru.Replace("'", "''") +
                              "', level = '" + value + "'";
                 this.cond = "username = '" + user_lbl.Text + "'";
                 db.updateData(table, field, cond); load_user();
                 MessageBox.Show("Edit Data User '" + user_txt.Text + "' berhasil"); CancelAction();
             }
-            catch (Exception)
+            catch (MySqlException myex)
             {
-                MessageBox.Show("Username sudah Terpakai atau terjadi kesalahan input");
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void load_user()
         {
-            this.field = "username as 'Username', password as 'Password', nama as 'Nama User', level as 'Level'";
-            this.table = "user";
-            this.cond = "level = '0' OR level = '1'";
-            DataTable tabel = db.GetDataTable(field, table, cond);
-            this.dataUser_grid.DataSource = tabel;
-            dataUser_grid.Columns[1].Visible = false;
-            dataUser_grid.Columns[3].Visible = false;
+            try
+            {
+                this.field = "username as 'Username', password as 'Password', nama_guru as 'Nama User', level as 'Level'";
+                this.table = "user INNER JOIN guru USING (id_guru)";
+                this.cond = "(level = '0' OR level = '1') AND (status_guru = 'Aktif' OR status_guru= 'Aktivasi')";
+                DataTable tabel = db.GetDataTable(field, table, cond);
+                this.dataUser_grid.DataSource = tabel;
+                dataUser_grid.Columns[1].Visible = false;
+                dataUser_grid.Columns[3].Visible = false;
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     //END CLASS
     }

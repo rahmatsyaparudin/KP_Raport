@@ -85,6 +85,16 @@ namespace Raport
                 fillKelas(); loadKelas();
                 setTahun_combo.Text = getTahun;
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -106,17 +116,34 @@ namespace Raport
 
         private void dataKelas_grid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            try
             {
-                DataGridViewRow row = dataKelas_grid.Rows[e.RowIndex];
-                id_txt.Text = row.Cells["ID"].Value.ToString();
-                kelas_txt.Text = row.Cells["Kelas"].Value.ToString();
-                wali_combo.Text = row.Cells["Wali Kelas"].Value.ToString();
-                tahun_combo.Text = row.Cells["Tahun Ajaran"].Value.ToString();
-                string sJumlah = row.Cells["Jumlah Siswa"].Value.ToString();
-                kelas_tab.SelectTab(1); cancel_btn.Enabled = true;
-                update_btn.Enabled = true; delete_btn.Enabled = true;
-                wali_combo.Enabled = true; kelas_txt.ReadOnly = false;
+                if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+                {
+                    DataGridViewRow row = dataKelas_grid.Rows[e.RowIndex];
+                    id_txt.Text = row.Cells["ID"].Value.ToString();
+                    kelas_txt.Text = row.Cells["Kelas"].Value.ToString();
+                    wali_combo.Text = row.Cells["Wali Kelas"].Value.ToString();
+                    tahun_combo.Text = row.Cells["Tahun Ajaran"].Value.ToString();
+                    string sJumlah = row.Cells["Jumlah Siswa"].Value.ToString();
+                    kelas_tab.SelectTab(1); cancel_btn.Enabled = true;
+                    update_btn.Enabled = true; delete_btn.Enabled = true;
+                    wali_combo.Enabled = true; kelas_txt.ReadOnly = false;
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -127,16 +154,33 @@ namespace Raport
         
         private void search_txt_TextChanged(object sender, EventArgs e)
         {
-            field = "kode_kelas as 'ID', nama_kelas as 'Kelas', nama_guru as 'Wali Kelas', " +
+            try
+            {
+                field = "kode_kelas as 'ID', nama_kelas as 'Kelas', nama_guru as 'Wali Kelas', " +
                     "tahun_ajaran as 'Tahun Ajaran', jumlah_siswa as 'Jumlah Siswa'";
-            table = "kelas INNER JOIN guru USING (id_guru)";
-            cond = "status_kelas = 'Aktif' AND" +
-                   "(nama_guru LIKE '%" + search_txt.Text + "%' OR " +
-                   "nama_kelas LIKE '%" + search_txt.Text + "%' OR " +
-                   "tahun_ajaran LIKE '%" + search_txt.Text + "%')" +
-                   "ORDER BY tahun_ajaran, nama_kelas ASC";
-            DataTable tabel = db.GetDataTable(field, table, cond);
-            dataKelas_grid.DataSource = tabel;
+                table = "kelas INNER JOIN guru USING (id_guru)";
+                cond = "status_kelas = 'Aktif' AND" +
+                       "(nama_guru LIKE '%" + search_txt.Text + "%' OR " +
+                       "nama_kelas LIKE '%" + search_txt.Text + "%' OR " +
+                       "tahun_ajaran LIKE '%" + search_txt.Text + "%')" +
+                       "ORDER BY tahun_ajaran, nama_kelas ASC";
+                DataTable tabel = db.GetDataTable(field, table, cond);
+                dataKelas_grid.DataSource = tabel;
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         //TAB NEW CLASS
@@ -151,6 +195,16 @@ namespace Raport
                 cond = "status_guru = 'Aktif'";
                 wali_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
                 wali_combo.DisplayMember = "valueDisplay"; wali_combo.ValueMember = "valueID";
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
             catch (Exception ex)
             {
@@ -178,6 +232,16 @@ namespace Raport
                     MessageBox.Show("Kelas baru '" + kelas_txt.Text +
                         "' dibuat \n Data Tersimpan");
                     loadData();
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
                 }
             }
             catch (Exception ex)
@@ -221,6 +285,16 @@ namespace Raport
                     batal.Cancel = true;
                 }
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -240,6 +314,16 @@ namespace Raport
                 db.updateData(table, field, cond);
                 MessageBox.Show("Edit Data Kelas Berhasil \n Data Tersimpan");
                 loadData(); kelas_tab.SelectTab(0);
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
             catch (Exception ex)
             {
@@ -270,6 +354,16 @@ namespace Raport
                 pilihKelas_combo.DisplayMember = "valueDisplay";
                 pilihKelas_combo.ValueMember = "valueID";
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -278,53 +372,70 @@ namespace Raport
 
         private void pilihKelas_combo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(pilihKelas_combo.Text) || pilihKelas_combo.SelectedIndex.Equals(-1))
+            try
             {
-                wali_txt.ResetText(); id_lbl.Text = "0";
-                create_tool.Enabled = false; load_tool.Enabled = false;
-                edit_tool.Enabled = false; cancel2_btn.Enabled = false;
-                save2_btn.Enabled = false; schedule_grid.DataSource = null;
-                schedule_grid.Columns.Clear();
+                if (string.IsNullOrEmpty(pilihKelas_combo.Text) || pilihKelas_combo.SelectedIndex.Equals(-1))
+                {
+                    wali_txt.ResetText(); id_lbl.Text = "0";
+                    create_tool.Enabled = false; load_tool.Enabled = false;
+                    edit_tool.Enabled = false; cancel2_btn.Enabled = false;
+                    save2_btn.Enabled = false; schedule_grid.DataSource = null;
+                    schedule_grid.Columns.Clear();
+                }
+                else
+                {
+                    load_tool.Enabled = true; id_kelas = pilihKelas_combo.SelectedValue.ToString();
+                    field = "nama_guru";
+                    table = "guru INNER JOIN kelas USING (id_guru)";
+                    cond = "kode_kelas = '" + id_kelas +
+                           "' AND status_kelas = 'Aktif'";
+                    string query = "SELECT " + field + " FROM " + table + " WHERE " + cond;
+                    myComm = new MySqlCommand(query, myConn);
+                    myConn.Open();
+                    myReader = myComm.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        wali_txt.Text = myReader.GetString("nama_guru");
+                    }
+                    myConn.Close();
+
+                    string check_id = "SELECT COUNT(kode_kelas) as 'id kelas' from detailmapelkelas where kode_kelas = '" +
+                                        id_kelas + "' AND status = 'Aktif'";
+                    myConn.Open();
+                    myComm = new MySqlCommand(check_id, myConn);
+                    myReader = myComm.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        id_lbl.Text = myReader.GetString("id kelas");
+                    }
+                    myConn.Close();
+
+                    if (id_lbl.Text.Equals("0"))
+                    {
+                        schedule_grid.DataSource = null; schedule_grid.Columns.Clear();
+                        create_tool.Enabled = true; edit_tool.Enabled = false;
+                    }
+                    else if (!id_lbl.Text.Equals("0"))
+                    {
+                        edit_tool.Enabled = true; load_Schedule();
+                        schedule_grid.DataSource = null; schedule_grid.Columns.Clear();
+                        load_Schedule(); edit_schedule(); create_tool.Enabled = true;
+                    }
+                }
             }
-            else
+            catch (MySqlException myex)
             {
-                load_tool.Enabled = true; id_kelas = pilihKelas_combo.SelectedValue.ToString();
-                field = "nama_guru";
-                table = "guru INNER JOIN kelas USING (id_guru)";
-                cond = "kode_kelas = '" + id_kelas +
-                       "' AND status_kelas = 'Aktif'";
-                string query = "SELECT " + field + " FROM " + table + " WHERE " + cond;
-                myComm = new MySqlCommand(query, myConn);
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
+                switch (myex.Number)
                 {
-                    wali_txt.Text = myReader.GetString("nama_guru");
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
                 }
-                myConn.Close();
-
-                string check_id = "SELECT COUNT(kode_kelas) as 'id kelas' from detailmapelkelas where kode_kelas = '" +
-                                    id_kelas + "' AND status = 'Aktif'";
-                myConn.Open();
-                myComm = new MySqlCommand(check_id, myConn);
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
-                {
-                    id_lbl.Text = myReader.GetString("id kelas");
-                }
-                myConn.Close();
-
-                if (id_lbl.Text.Equals("0"))
-                {
-                    schedule_grid.DataSource = null;  schedule_grid.Columns.Clear();
-                    create_tool.Enabled = true; edit_tool.Enabled = false;
-                }
-                else if (!id_lbl.Text.Equals("0"))
-                {
-                    edit_tool.Enabled = true; load_Schedule();
-                    schedule_grid.DataSource = null; schedule_grid.Columns.Clear();
-                    load_Schedule(); edit_schedule(); create_tool.Enabled = true;
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         
@@ -356,93 +467,144 @@ namespace Raport
         
         private void save2_btn_Click(object sender, EventArgs e)
         {
-            notif = 'A';
-            foreach (DataGridViewRow row in schedule_grid.Rows)
+            try
             {
-                if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                notif = 'A';
+                foreach (DataGridViewRow row in schedule_grid.Rows)
                 {
-                    if (Convert.ToString(row.Cells[6].Value).Equals(""))
+                    if (Convert.ToBoolean(row.Cells[0].Value) == true)
                     {
-                        string kosong = row.Cells[4].Value.ToString();
-                        MessageBox.Show("Guru "+ kosong +" kosong \n Data tidak berubah");
-                    }
-                    else
-                    {
-                        if ((Convert.ToBoolean(row.Cells[0].Value) == true) &&
-                            (Convert.ToString(row.Cells[6].Value) != ""))
+                        if (Convert.ToString(row.Cells[6].Value).Equals(""))
                         {
-                            id_detail = row.Cells[1].Value.ToString();
-                            idGuru = row.Cells[6].Value.ToString();
-                            table = "detailmapelkelas";
-                            field = "id_guru = '" + idGuru + "'";
-                            cond = "id_detail = '" + id_detail + "'";
-                            db.updateData(table, field, cond);
-                            notif = 'B';
+                            string kosong = row.Cells[4].Value.ToString();
+                            MessageBox.Show("Guru " + kosong + " kosong \n Data tidak berubah");
+                        }
+                        else
+                        {
+                            if ((Convert.ToBoolean(row.Cells[0].Value) == true) &&
+                                (Convert.ToString(row.Cells[6].Value) != ""))
+                            {
+                                id_detail = row.Cells[1].Value.ToString();
+                                idGuru = row.Cells[6].Value.ToString();
+                                table = "detailmapelkelas";
+                                field = "id_guru = '" + idGuru + "'";
+                                cond = "id_detail = '" + id_detail + "'";
+                                db.updateData(table, field, cond);
+                                notif = 'B';
+                            }
                         }
                     }
                 }
-            }
 
-            if (notif == 'B')
-                MessageBox.Show("Data berhasil diubah");
-            
-            edit_tool.Enabled = true; save2_btn.Enabled = false;
-            cancel2_btn.Enabled = false; create_tool.Enabled = true;
-            delete2_btn.Enabled = false; load_Schedule(); edit_schedule();
-            schedule_grid.Columns[0].Visible = false;
+                if (notif == 'B')
+                    MessageBox.Show("Data berhasil diubah");
+
+                edit_tool.Enabled = true; save2_btn.Enabled = false;
+                cancel2_btn.Enabled = false; create_tool.Enabled = true;
+                delete2_btn.Enabled = false; load_Schedule(); edit_schedule();
+                schedule_grid.Columns[0].Visible = false;
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void schedule_grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            try
             {
-                DataGridViewRow row = schedule_grid.Rows[e.RowIndex];
-                var cmb = (DataGridViewComboBoxCell)schedule_grid.CurrentRow.Cells[6];
-                schedule_grid.CurrentRow.Cells[6].Value = null;
-                cmb.DataSource = null;
-                cmb.Items.Clear();
-                kodeMapel = row.Cells["Kode Mapel"].Value.ToString();
-                string idValue = "id_guru";
-                string dispValue = "nama_guru";
-                string sortby = "nama_guru";
-                table = "detailmapelguru INNER JOIN guru USING (id_guru)";
-                cond = "status = 'Aktif' AND kode_mapel = '" + kodeMapel + "' AND tahun_ajaran = '" + getTahun + "'";
-                cmb.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
-                cmb.DisplayMember = "valueDisplay"; cmb.ValueMember = "valueID";
+                if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+                {
+                    DataGridViewRow row = schedule_grid.Rows[e.RowIndex];
+                    var cmb = (DataGridViewComboBoxCell)schedule_grid.CurrentRow.Cells[6];
+                    schedule_grid.CurrentRow.Cells[6].Value = null;
+                    cmb.DataSource = null;
+                    cmb.Items.Clear();
+                    kodeMapel = row.Cells["Kode Mapel"].Value.ToString();
+                    string idValue = "id_guru";
+                    string dispValue = "nama_guru";
+                    string sortby = "nama_guru";
+                    table = "detailmapelguru INNER JOIN guru USING (id_guru)";
+                    cond = "status = 'Aktif' AND kode_mapel = '" + kodeMapel + "' AND tahun_ajaran = '" + getTahun + "'";
+                    cmb.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
+                    cmb.DisplayMember = "valueDisplay"; cmb.ValueMember = "valueID";
+                }
+                foreach (DataGridViewRow row in schedule_grid.Rows)
+                {
+                    if (Convert.ToBoolean(row.Cells[0].Value) == false)
+                        row.Cells[6].ReadOnly = true;
+                    else row.Cells[6].ReadOnly = false;
+                }
             }
-            foreach (DataGridViewRow row in schedule_grid.Rows)
+            catch (MySqlException myex)
             {
-                if (Convert.ToBoolean(row.Cells[0].Value) == false)
-                    row.Cells[6].ReadOnly = true;
-                else row.Cells[6].ReadOnly = false;
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void delete2_btn_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in schedule_grid.Rows)
+            try
             {
-                if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                foreach (DataGridViewRow row in schedule_grid.Rows)
                 {
-                    kodeMapel = row.Cells[4].Value.ToString();
-                    DialogResult dialog = MessageBox.Show("Hapus mapel '" + kodeMapel + "'?",
-                        "Hapus Data", MessageBoxButtons.YesNo);
-                    if (dialog == DialogResult.Yes)
+                    if (Convert.ToBoolean(row.Cells[0].Value) == true)
                     {
-                        id_detail = row.Cells[1].Value.ToString();
-                        table = "detailmapelkelas";
-                        field = "status = 'Tidak Aktif'";
-                        cond = "id_detail = '" + id_detail + "'";
-                        db.updateData(table, field, cond);
-                        MessageBox.Show("Mapel '" + kodeMapel + "' berhasil dihapus");
+                        kodeMapel = row.Cells[4].Value.ToString();
+                        DialogResult dialog = MessageBox.Show("Hapus mapel '" + kodeMapel + "'?",
+                            "Hapus Data", MessageBoxButtons.YesNo);
+                        if (dialog == DialogResult.Yes)
+                        {
+                            id_detail = row.Cells[1].Value.ToString();
+                            table = "detailmapelkelas";
+                            field = "status = 'Tidak Aktif'";
+                            cond = "id_detail = '" + id_detail + "'";
+                            db.updateData(table, field, cond);
+                            MessageBox.Show("Mapel '" + kodeMapel + "' berhasil dihapus");
+                        }
+                        else if (dialog == DialogResult.No)
+                        {
+                            CancelEventArgs batal = new CancelEventArgs();
+                            batal.Cancel = true;
+                        }
                     }
-                    else if (dialog == DialogResult.No)
-                    {
-                        CancelEventArgs batal = new CancelEventArgs();
-                        batal.Cancel = true;
-                    }
+                    cancel2_btn_Click(sender, e); load_tool_Click(sender, e);
                 }
-                cancel2_btn_Click(sender, e); load_tool_Click(sender, e);
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -492,6 +654,16 @@ namespace Raport
                     schedule_grid.Columns[i].ReadOnly = true;
                 }
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -500,22 +672,39 @@ namespace Raport
         
         public void edit_schedule()
         {
-            id_kelas = pilihKelas_combo.SelectedValue.ToString();
-            query = "SELECT kode_mapel, id_guru FROM detailmapelkelas WHERE kode_kelas = '" + id_kelas + "'";
-            myConn.Open();
-            myComm = new MySqlCommand(query, myConn);
-            myReader = myComm.ExecuteReader();
-            while (myReader.Read())
+            try
             {
-                kodeMapel = myReader.GetString("kode_mapel");
-                idGuru = myReader.GetString("id_guru");
-                foreach (DataGridViewRow row in schedule_grid.Rows)
+                id_kelas = pilihKelas_combo.SelectedValue.ToString();
+                query = "SELECT kode_mapel, id_guru FROM detailmapelkelas WHERE kode_kelas = '" + id_kelas + "'";
+                myConn.Open();
+                myComm = new MySqlCommand(query, myConn);
+                myReader = myComm.ExecuteReader();
+                while (myReader.Read())
                 {
-                    if (kodeMapel == row.Cells[2].Value.ToString())
-                        row.Cells[6].Value = idGuru;
+                    kodeMapel = myReader.GetString("kode_mapel");
+                    idGuru = myReader.GetString("id_guru");
+                    foreach (DataGridViewRow row in schedule_grid.Rows)
+                    {
+                        if (kodeMapel == row.Cells[2].Value.ToString())
+                            row.Cells[6].Value = idGuru;
+                    }
+                }
+                myConn.Close();
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
                 }
             }
-            myConn.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         //TAB CLASS MEMBERS
@@ -539,28 +728,45 @@ namespace Raport
 
         private void loadMember()
         {
-            id_kelas = viewKelas_combo.SelectedValue.ToString();
-            query = "SELECT count(nis_siswa) as 'Jumlah' FROM detailkelassiswa WHERE kode_kelas= '" + id_kelas + "'";
-            myComm = new MySqlCommand(query, myConn);
-            myConn.Open();
-            myReader = myComm.ExecuteReader();
-            while (myReader.Read())
+            try
             {
-                countID_lbl.Text = myReader.GetString("Jumlah");
+                id_kelas = viewKelas_combo.SelectedValue.ToString();
+                query = "SELECT count(nis_siswa) as 'Jumlah' FROM detailkelassiswa WHERE kode_kelas= '" + id_kelas + "'";
+                myComm = new MySqlCommand(query, myConn);
+                myConn.Open();
+                myReader = myComm.ExecuteReader();
+                while (myReader.Read())
+                {
+                    countID_lbl.Text = myReader.GetString("Jumlah");
+                }
+                myConn.Close();
+
+                if (countID_lbl.Text == "0")
+                {
+                    viewMember_grid.DataSource = null; viewMember_grid.Columns.Clear();
+                    edit3_toolBtn.Enabled = false; refresh2_toolBtn.Enabled = false;
+                    kelulusan_toolBtn.Enabled = false; naikKelas_btn.Enabled = false;
+                    opsi_toolBtn.Enabled = false;
+                }
+                else if (countID_lbl.Text != "0")
+                {
+                    viewMemberKelas(); edit3_toolBtn.Enabled = true;
+                    refresh2_toolBtn.Enabled = true;
+                }
             }
-            myConn.Close();
-            
-            if (countID_lbl.Text == "0")
+            catch (MySqlException myex)
             {
-                viewMember_grid.DataSource = null; viewMember_grid.Columns.Clear();
-                edit3_toolBtn.Enabled = false; refresh2_toolBtn.Enabled = false;
-                kelulusan_toolBtn.Enabled = false; naikKelas_btn.Enabled = false;
-                opsi_toolBtn.Enabled = false;
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
-            else if (countID_lbl.Text != "0")
+            catch (Exception ex)
             {
-                viewMemberKelas(); edit3_toolBtn.Enabled = true;
-                refresh2_toolBtn.Enabled = true;
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -614,38 +820,72 @@ namespace Raport
         
         private void viewMember_grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            try
             {
-                DataGridViewRow row = this.viewMember_grid.Rows[e.RowIndex];
-                if (Convert.ToBoolean(row.Cells[0].Value) == false)
-                    row.Cells[0].Value = true;
-                else if (Convert.ToBoolean(row.Cells[0].Value) == true)
-                    row.Cells[0].Value = false;
+                if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+                {
+                    DataGridViewRow row = this.viewMember_grid.Rows[e.RowIndex];
+                    if (Convert.ToBoolean(row.Cells[0].Value) == false)
+                        row.Cells[0].Value = true;
+                    else if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                        row.Cells[0].Value = false;
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void select_toolBtn_Click(object sender, EventArgs e)
         {
-            if (select_toolBtn.Text == "Select All")
+            try
             {
-                foreach (DataGridViewRow row in viewMember_grid.Rows)
+                if (select_toolBtn.Text == "Select All")
                 {
-                    row.Cells[0].Value = false;
-                    if (Convert.ToBoolean(row.Cells[0].Value) == false || 
-                        Convert.ToBoolean(row.Cells[0].Value) == true)
+                    foreach (DataGridViewRow row in viewMember_grid.Rows)
+                    {
+                        row.Cells[0].Value = false;
+                        if (Convert.ToBoolean(row.Cells[0].Value) == false ||
+                            Convert.ToBoolean(row.Cells[0].Value) == true)
+                            row.Cells[0].Value = true;
+                        select_toolBtn.Text = "Unselect All";
+                    }
+                }
+                else
+                {
+                    foreach (DataGridViewRow row in viewMember_grid.Rows)
+                    {
                         row.Cells[0].Value = true;
-                    select_toolBtn.Text = "Unselect All";
+                        if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                            row.Cells[0].Value = false;
+                        select_toolBtn.Text = "Select All";
+                    }
                 }
             }
-            else
+            catch (MySqlException myex)
             {
-                foreach (DataGridViewRow row in viewMember_grid.Rows)
+                switch (myex.Number)
                 {
-                    row.Cells[0].Value = true;
-                    if (Convert.ToBoolean(row.Cells[0].Value) == true)
-                        row.Cells[0].Value = false;
-                    select_toolBtn.Text = "Select All";
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -692,9 +932,19 @@ namespace Raport
                     batal.Cancel = true;
                 }
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Terjadi kesalahan atau data kosong");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -719,28 +969,45 @@ namespace Raport
 
         private void dropOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in viewMember_grid.Rows)
+            try
             {
-                if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                foreach (DataGridViewRow row in viewMember_grid.Rows)
                 {
-                    DialogResult dialog = MessageBox.Show("Anda yakin siswa " + row.Cells[3].Value.ToString() +
-                        " akan di DROP OUT?", "Drop Out", MessageBoxButtons.YesNo);
-                    if (dialog == DialogResult.Yes)
+                    if (Convert.ToBoolean(row.Cells[0].Value) == true)
                     {
-                        table = "siswa";
-                        field = "status_siswa = 'Drop Out'";
-                        cond = "nis_siswa = '" + row.Cells[1].Value.ToString() + "' AND status_siswa= 'Aktif'";
-                        db.updateData(table, field, cond);
+                        DialogResult dialog = MessageBox.Show("Anda yakin siswa " + row.Cells[3].Value.ToString() +
+                            " akan di DROP OUT?", "Drop Out", MessageBoxButtons.YesNo);
+                        if (dialog == DialogResult.Yes)
+                        {
+                            table = "siswa";
+                            field = "status_siswa = 'Drop Out'";
+                            cond = "nis_siswa = '" + row.Cells[1].Value.ToString() + "' AND status_siswa= 'Aktif'";
+                            db.updateData(table, field, cond);
 
-                        MessageBox.Show("Siswa '" + row.Cells[3].Value.ToString() +
-                            "' sudah di DROP OUT");
-                    }
-                    else if (dialog == DialogResult.No)
-                    {
-                        CancelEventArgs batal = new CancelEventArgs();
-                        batal.Cancel = true;
+                            MessageBox.Show("Siswa '" + row.Cells[3].Value.ToString() +
+                                "' sudah di DROP OUT");
+                        }
+                        else if (dialog == DialogResult.No)
+                        {
+                            CancelEventArgs batal = new CancelEventArgs();
+                            batal.Cancel = true;
+                        }
                     }
                 }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -786,46 +1053,90 @@ namespace Raport
                     }
                 }
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Terjadi kesalahan atau data kosong");
+                MessageBox.Show(ex.Message);
             }
         }
 
         public void naikKelas(string kelas, string pindah, string judul)
         {
-            kelas = viewKelas_combo.Text.ToString();
-            int i = kelas.IndexOf(' ');
-            i = kelas.IndexOf(' ', i);
-            FormPindahKelas fPindah = new FormPindahKelas();
-            fPindah.passTahuj = Convert.ToInt16(setTahun_combo.SelectedIndex + 1).ToString();
-            fPindah.passKelas = pindah + kelas.Substring(i);
-            fPindah.judul_lbl.Text = judul;
-            fPindah.passPindah = "";
-            fPindah.ShowDialog();
-            string status_pindah = fPindah.passText;
-            string kodeKelas = fPindah.passKelas;
-            if (status_pindah == "Create")
-                createNewClass(kodeKelas);
+            try
+            {
+                kelas = viewKelas_combo.Text.ToString();
+                int i = kelas.IndexOf(' ');
+                i = kelas.IndexOf(' ', i);
+                FormPindahKelas fPindah = new FormPindahKelas();
+                fPindah.passTahuj = Convert.ToInt16(setTahun_combo.SelectedIndex + 1).ToString();
+                fPindah.passKelas = pindah + kelas.Substring(i);
+                fPindah.judul_lbl.Text = judul;
+                fPindah.passPindah = "";
+                fPindah.ShowDialog();
+                string status_pindah = fPindah.passText;
+                string kodeKelas = fPindah.passKelas;
+                if (status_pindah == "Create")
+                    createNewClass(kodeKelas);
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void pindahKelas(string kelas, string pindah, string judul, string setPindah)
         {
-            kelas = viewKelas_combo.Text.ToString();
-            int i = kelas.IndexOf(' ');
-            i = kelas.IndexOf(' ', i);
-            FormPindahKelas fPindah = new FormPindahKelas();
-            fPindah.passTahuj = Convert.ToInt16(setTahun_combo.SelectedIndex).ToString();
-            fPindah.passKelas = pindah + kelas.Substring(i);
-            fPindah.judul_lbl.Text = judul;
-            fPindah.passPindah = setPindah;
-            fPindah.ShowDialog();
-            string status_pindah = fPindah.passText;
-            string kodeKelas = fPindah.passKelas;
-            if (status_pindah == "Pindah Kelas")
+            try
             {
-                moveNewClass(kodeKelas);
-                MessageBox.Show("Status kenaikan berhasil dilakukan");
+                kelas = viewKelas_combo.Text.ToString();
+                int i = kelas.IndexOf(' ');
+                i = kelas.IndexOf(' ', i);
+                FormPindahKelas fPindah = new FormPindahKelas();
+                fPindah.passTahuj = Convert.ToInt16(setTahun_combo.SelectedIndex).ToString();
+                fPindah.passKelas = pindah + kelas.Substring(i);
+                fPindah.judul_lbl.Text = judul;
+                fPindah.passPindah = setPindah;
+                fPindah.ShowDialog();
+                string status_pindah = fPindah.passText;
+                string kodeKelas = fPindah.passKelas;
+                if (status_pindah == "Pindah Kelas")
+                {
+                    moveNewClass(kodeKelas);
+                    MessageBox.Show("Status kenaikan berhasil dilakukan");
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -882,6 +1193,16 @@ namespace Raport
                             myConn.Close();
                         }
                     }
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
                 }
             }
             catch (Exception ex)
@@ -953,9 +1274,19 @@ namespace Raport
                     }                        
                 }
             }
-            catch(Exception ex)
+            catch (MySqlException myex)
             {
-                MessageBox.Show("Terjadi kesalahan atau data kosong");
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -967,9 +1298,9 @@ namespace Raport
         
         public void fillKelas()
         {
-            string getTahun = setTahun_combo.Text.ToString();
             try
             {
+                string getTahun = setTahun_combo.Text.ToString();
                 string idValue = "kode_kelas";
                 string dispValue = "nama_kelas";
                 string sortby = "nama_kelas";
@@ -977,6 +1308,16 @@ namespace Raport
                 cond = "status_kelas = 'Aktif' AND tahun_ajaran = '" + getTahun + "'";
                 viewKelas_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
                 viewKelas_combo.DisplayMember = "valueDisplay"; viewKelas_combo.ValueMember = "valueID";
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
             catch (Exception ex)
             {
@@ -986,21 +1327,38 @@ namespace Raport
 
         private void viewMemberKelas()
         {
-            viewMember_grid.DataSource = null; viewMember_grid.Columns.Clear();
-            //Membuat Checkbox
-            chk2.ReadOnly = false; chk2.HeaderText = "Pilih";
-            viewMember_grid.Columns.Add(chk2);
-            id_kelas = viewKelas_combo.SelectedValue.ToString();
-            table = "detailkelassiswa INNER JOIN siswa USING(nis_siswa) INNER JOIN orangtua USING (nis_siswa)";
-            field = "detailkelassiswa.nis_siswa as 'NIS', nisn_siswa as 'NISN', nama_siswa as 'Nama Siswa', " +
-                    "tanggal_lahir as 'Tanggal Lahir', nama_ayah as 'Nama Ayah'";
-            cond = "detailkelassiswa.kode_kelas= '" + id_kelas + "' AND (keterangan = 'Data Siswa' OR keterangan = 'Data Kelas')";
-            DataTable result = db.GetDataTable(field, table, cond);
-            viewMember_grid.DataSource = result; viewMember_grid.Columns[0].Visible = false;
-            viewMember_grid.Columns[0].ReadOnly = true;
-            for (int i = 1; i <= 5; i++)
+            try
             {
-                viewMember_grid.Columns[i].ReadOnly = true;
+                viewMember_grid.DataSource = null; viewMember_grid.Columns.Clear();
+                //Membuat Checkbox
+                chk2.ReadOnly = false; chk2.HeaderText = "Pilih";
+                viewMember_grid.Columns.Add(chk2);
+                id_kelas = viewKelas_combo.SelectedValue.ToString();
+                table = "detailkelassiswa INNER JOIN siswa USING(nis_siswa) INNER JOIN orangtua USING (nis_siswa)";
+                field = "detailkelassiswa.nis_siswa as 'NIS', nisn_siswa as 'NISN', nama_siswa as 'Nama Siswa', " +
+                        "tanggal_lahir as 'Tanggal Lahir', nama_ayah as 'Nama Ayah'";
+                cond = "detailkelassiswa.kode_kelas= '" + id_kelas + "' AND (keterangan = 'Data Siswa' OR keterangan = 'Data Kelas')";
+                DataTable result = db.GetDataTable(field, table, cond);
+                viewMember_grid.DataSource = result; viewMember_grid.Columns[0].Visible = false;
+                viewMember_grid.Columns[0].ReadOnly = true;
+                for (int i = 1; i <= 5; i++)
+                {
+                    viewMember_grid.Columns[i].ReadOnly = true;
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         //END CLASS

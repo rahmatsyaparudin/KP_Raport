@@ -53,6 +53,16 @@ namespace Raport
 
                 cancelAction();
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -77,6 +87,16 @@ namespace Raport
                     DataTable kelas = db.GetDataTable(field, table, cond);
                     this.dataMapel_grid.DataSource = kelas;
                 }
+                catch (MySqlException myex)
+                {
+                    switch (myex.Number)
+                    {
+                        case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                        case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                        case 1045: MessageBox.Show("username/password salah."); break;
+                        default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                    }
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
@@ -97,58 +117,85 @@ namespace Raport
 
         private void dataMapel_grid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+            try
             {
-                mapel_tab.SelectTab(1);
-                DataGridViewRow row = this.dataMapel_grid.Rows[e.RowIndex];
-                this.kode_txt.Text = row.Cells["Kode"].Value.ToString();
-                this.mapel_txt.Text = row.Cells["Mata Pelajaran"].Value.ToString();
-                this.jam_combo.Text = row.Cells["JP"].Value.ToString();
-                this.kategori_combo.Text = row.Cells["Kategori"].Value.ToString();
-                this.getId_txt.Text = row.Cells["Kode"].Value.ToString();
+                if ((e.RowIndex >= 0) && (e.RowIndex != -1))
+                {
+                    mapel_tab.SelectTab(1);
+                    DataGridViewRow row = this.dataMapel_grid.Rows[e.RowIndex];
+                    this.kode_txt.Text = row.Cells["Kode"].Value.ToString();
+                    this.mapel_txt.Text = row.Cells["Mata Pelajaran"].Value.ToString();
+                    this.jam_combo.Text = row.Cells["JP"].Value.ToString();
+                    this.kategori_combo.Text = row.Cells["Kategori"].Value.ToString();
+                    this.getId_txt.Text = row.Cells["Kode"].Value.ToString();
 
-                cancel_btn.Enabled = true;
-                update_btn.Enabled = true;
-                delete_btn.Enabled = true;
-                jam_combo.Enabled = true;
-                mapel_txt.Enabled = true;
-                kode_txt.Enabled = true;
-                kategori_combo.Enabled = true;
+                    cancel_btn.Enabled = true;
+                    update_btn.Enabled = true;
+                    delete_btn.Enabled = true;
+                    jam_combo.Enabled = true;
+                    mapel_txt.Enabled = true;
+                    kode_txt.Enabled = true;
+                    kategori_combo.Enabled = true;
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void search_txt_TextChanged(object sender, EventArgs e)
         {
-            this.field = "kode_mapel as 'Kode', mata_pelajaran as 'Mata Pelajaran', kategori_mapel as 'Kategori', " +
+            try
+            {
+                this.field = "kode_mapel as 'Kode', mata_pelajaran as 'Mata Pelajaran', kategori_mapel as 'Kategori', " +
                             "jam_pelajaran as 'JP', jumlah_jp as 'Jumlah JP'";
-            this.table = "mapel";
-            this.cond = "status_mapel = 'Aktif' AND" +
-            "(kode_mapel LIKE '%" + search_txt.Text + "%' OR " +
-            "mata_pelajaran LIKE '%" + search_txt.Text + "%' OR " +
-            "jumlah_jp LIKE '%" + search_txt.Text + "%' OR " +
-            "jam_pelajaran LIKE '%" + search_txt.Text + "%') ORDER BY kategori_mapel, mata_pelajaran ASC";
-            DataTable tabel = db.GetDataTable(field, table, cond);
-            this.dataMapel_grid.DataSource = tabel;
+                this.table = "mapel";
+                this.cond = "status_mapel = 'Aktif' AND" +
+                "(kode_mapel LIKE '%" + search_txt.Text + "%' OR " +
+                "mata_pelajaran LIKE '%" + search_txt.Text + "%' OR " +
+                "jumlah_jp LIKE '%" + search_txt.Text + "%' OR " +
+                "jam_pelajaran LIKE '%" + search_txt.Text + "%') ORDER BY kategori_mapel, mata_pelajaran ASC";
+                DataTable tabel = db.GetDataTable(field, table, cond);
+                this.dataMapel_grid.DataSource = tabel;
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         //TAB ADD MAPEL
         private void cancelAction()
         {
-            save_btn.Enabled = false;
-            cancel_btn.Enabled = false;
-            update_btn.Enabled = false;
-            delete_btn.Enabled = false;
-            mapel_txt.Enabled = false;
-            jam_combo.Enabled = false;
-            kode_txt.Enabled = false;
-            kategori_combo.Enabled = false;
+            save_btn.Enabled = false; cancel_btn.Enabled = false;
+            update_btn.Enabled = false; delete_btn.Enabled = false;
+            mapel_txt.Enabled = false; jam_combo.Enabled = false;
+            kode_txt.Enabled = false; kategori_combo.Enabled = false;
 
-            dataMapel_grid.Enabled = true;
-            add_toolBtn.Enabled = true;
-            mapel_txt.ResetText();
-            jam_combo.SelectedIndex = -1;
-            kategori_combo.SelectedIndex = -1;
-            kode_txt.ResetText();
+            dataMapel_grid.Enabled = true; add_toolBtn.Enabled = true;
+            mapel_txt.ResetText(); jam_combo.SelectedIndex = -1;
+            kategori_combo.SelectedIndex = -1; kode_txt.ResetText();
         }
         
         private void comboAngka()
@@ -203,6 +250,16 @@ namespace Raport
                     mapel_tab.SelectTab(0);
                 }
             }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -229,6 +286,16 @@ namespace Raport
                 MessageBox.Show("Edit Data Mata Pelajaran Berhasil \n Data Tersimpan");
                 loadData();
                 mapel_tab.SelectTab(0);
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+                }
             }
             catch (Exception ex)
             {
@@ -264,6 +331,16 @@ namespace Raport
                 {
                     CancelEventArgs batal = new CancelEventArgs();
                     batal.Cancel = true;
+                }
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
                 }
             }
             catch (Exception ex)

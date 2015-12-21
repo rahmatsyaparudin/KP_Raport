@@ -202,7 +202,6 @@ namespace Raport
             sl.InsertTable(table);
 
             int iStartColumnCount = 0;
-            int iStartRowCount = 1;
             int iEndColumnCount = dt.Columns.Count;
             int iEndRowCount = dt.Rows.Count;
             style = sl.CreateStyle();
