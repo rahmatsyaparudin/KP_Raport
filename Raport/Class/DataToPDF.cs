@@ -16,6 +16,7 @@ namespace Raport
         Function db = new Function();
         MySqlDataReader myReader;
         MySqlCommand myComm;
+        DataTable dt;
         Font TB12 = FontFactory.GetFont(FontFactory.TIMES_BOLD, 12);
         Font TB11 = FontFactory.GetFont(FontFactory.TIMES_BOLD, 11);
         Font TB10 = FontFactory.GetFont(FontFactory.TIMES_BOLD, 10);
@@ -23,39 +24,47 @@ namespace Raport
         Font TN12 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 12);
         Font TN11 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 11);
         Font TN10 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 10);
+        Font TN9 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 9);
         Font TN8 = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 8);
         Font AN12 = FontFactory.GetFont("Arial Black", 12, Font.NORMAL, BaseColor.BLACK);
         PdfPTable raport_tbl;
         PdfPCell cell = new PdfPCell();
         
-        public string nama_siswa, nisn_siswa, kelas_siswa;
+        public string nama_siswa, nisn_siswa, kelas_siswa, nis_siswa;
+        public string nama_sekolah, alamat_sekolah;
         public string nama_guru, nip_guru;
         public string nama_bulan;
         public string getTahun;
         public string valueA, valueB, valueC;
         public string field, table, cond;
-        public string getNisSiswa, getKodeKelas, getSemeter, getFormat;
+        public string setNisSiswa, setKodeKelas, setKode, setSemeter, getFormat;
         float[] widths;
         string[] month = { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
                            "Oktober", "November", "Desember" };
         string tanggal = DateTime.Today.Day.ToString();
-        
-        public string passKodeKelas
-        {
-            get { return getKodeKelas; }
-            set { getKodeKelas = value; }
-        }
 
-        public string passNisSiswa
+        //public string passKodeKelas
+        //{
+        //    get { return setKodeKelas; }
+        //    set { setKodeKelas = value; }
+        //}
+
+        //public string passNisSiswa
+        //{
+        //    get { return setNisSiswa; }
+        //    set { setNisSiswa = value; }
+        //}
+
+        public string passKode
         {
-            get { return getNisSiswa; }
-            set { getNisSiswa = value; }
+            get { return setKode; }
+            set { setKode = value; }
         }
 
         public string passSemester
         {
-            get { return getSemeter; }
-            set { getSemeter = value; }
+            get { return setSemeter; }
+            set { setSemeter = value; }
         }
 
         public string passTahun
@@ -68,6 +77,25 @@ namespace Raport
         {
             get { return getFormat; }
             set { getFormat = value; }
+        }
+
+        public DataTable saveToPDF(string getKode)
+        {
+            table = "detailkelassiswa INNER JOIN kelas USING (kode_kelas)";
+            field = "nis_siswa, kode_kelas";
+            cond = "kode_kelas = '" + getKode + "'";
+            dt = db.GetDataTable(field, table, cond);
+            return dt;
+        }
+
+        public DataTable profil_sekolah()
+        {
+            table = "profil_sekolah";
+            field = "nama_sekolah, npsn, nss, alamat_sekolah, kode_pos, " +
+                    "no_telp, kelurahan, kecamatan, kota, provinsi, website, email";
+            cond = "nss != ''";
+            dt = db.GetDataTable(field, table, cond);
+            return dt;
         }
 
         public string getBulan(string bulan)
@@ -98,32 +126,23 @@ namespace Raport
                 }
             }
         }
-                
-        public void RaportToPDF(string nis_siswa, string kode_kelas, string semester)
+        
+        //Versi per-Kelas
+        public void RaportKelasToPDF()
         {
             killPDFProcess();
+            MessageBox.Show(setKode);
+            MessageBox.Show(setSemeter);
             try
             {
-                string setNamaSiswa = "SELECT nama_siswa, nama_kelas FROM siswa, kelas WHERE nis_siswa = '" 
-                                      + nis_siswa + "' AND kode_kelas = '"+ kode_kelas + "'";
-                myComm = new MySqlCommand(setNamaSiswa, myConn);
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
-                {
-                    nama_siswa = myReader.GetString("nama_siswa");
-                    kelas_siswa = myReader.GetString("nama_kelas");
-                }
-                myConn.Close();
-
                 string path = "Temp\\Data Nilai";
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
-                string filename = nama_siswa + "-" + nis_siswa + " (" + kelas_siswa + "-" + getSemeter + ").pdf";
+                string filename = "Data Nilai Siswa (" + kelas_siswa + "-" + setSemeter + ").pdf";
                 string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
-                using (FileStream fstream = new FileStream(appRootDir + "\\" + path +"\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (FileStream fstream = new FileStream(appRootDir + "\\" + path + "\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None))
                 using (Document doc = new Document(PageSize.A4, 20, 20, 10, 20))
                 using (PdfWriter writer = PdfWriter.GetInstance(doc, fstream))
                 {
@@ -132,17 +151,6 @@ namespace Raport
                     iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png);
                     pic.ScalePercent(13.0f);
                     pic.Alignment = Element.ALIGN_CENTER;
-
-                    string profil_siswa = "SELECT nama_siswa, nisn_siswa FROM siswa WHERE nis_siswa = '" + nis_siswa + "'";
-                    myComm = new MySqlCommand(profil_siswa, myConn);
-                    myConn.Open();
-                    myReader = myComm.ExecuteReader();
-                    while (myReader.Read())
-                    {
-                        nama_siswa = myReader.GetString("nama_siswa");
-                        nisn_siswa = myReader.GetString("nisn_siswa");
-                    }
-                    myConn.Close();
 
                     var paragraf = new Paragraph("\n\n");
                     var paragraf0 = new Paragraph("\n\n\n");
@@ -159,52 +167,60 @@ namespace Raport
 
                     //Jilid
                     doc.Open();
-                    doc.NewPage();
-                    doc.Add(paragraf0); doc.Add(pic);
-                    doc.Add(paragraf0); doc.Add(paragraf1);
-                    doc.Add(paragraf0); doc.Add(paragraf0);
-                    doc.Add(paragraf); doc.Add(paragraf2);
-                    doc.Add(paragraf3); doc.Add(paragraf);
-                    doc.Add(paragraf4); doc.Add(paragraf5);
-                    doc.Add(paragraf0); doc.Add(paragraf6);
-                    //Profil Sekolah
-                    doc.NewPage();
-                    doc.Add(paragraf1); doc.Add(paragraf0);
-                    ProfilSekolah(doc);
-                    //Data Diri siswa
-                    doc.NewPage();
-                    doc.Add(paragraf7); doc.Add(paragraf8);
-                    DataSiswa(doc, getNisSiswa);
-                    KepalaSekolah(doc);
-                    //LCK
-                    doc.NewPage();
-                    detailLCKSiswa(doc, getNisSiswa, getKodeKelas); kriteriaLCK(doc);
-                    nilaiLCK(doc, "Kelompok A (Wajib)", getKodeKelas, getSemeter, "Kelompok A");
-                    nilaiLCK(doc, "Kelompok B (Wajib)", getKodeKelas, getSemeter, "Kelompok B");
-                    nilaiLCK(doc, "Kelompok C (Pilihan)", getKodeKelas, getSemeter, "Kelompok C");
-                    nilai_LCKAdd(doc); ekskul_siswa(doc); absensi_siswa(doc);
-                    walikelas_ortu(doc, getKodeKelas);
-                    //Deskripsi
-                    doc.NewPage();
-                    detailLCKSiswa(doc, getNisSiswa, getKodeKelas); kriteria_desk(doc);
-                    deskripsiLCK(doc, getNisSiswa, "Kelompok A", "Kelompok A (Wajib)", getSemeter, getKodeKelas);
-                    deskripsiLCK(doc, getNisSiswa, "Kelompok B", "Kelompok B (Wajib)", getSemeter, getKodeKelas);
-                    deskripsiLCK(doc, getNisSiswa, "Kelompok C", "Kelompok C (Pilihan)", getSemeter, getKodeKelas);
-                    walikelas_ortu(doc, getKodeKelas);
+                    foreach (DataRow row in saveToPDF(setKode).Rows)
+                    {
+                        setKodeKelas = row["kode_kelas"].ToString();
+                        setNisSiswa = row["nis_siswa"].ToString();
+
+                        doc.NewPage();
+                        doc.Add(paragraf0); doc.Add(pic);
+                        doc.Add(paragraf0); doc.Add(paragraf1);
+                        doc.Add(paragraf0); doc.Add(paragraf0);
+                        doc.Add(paragraf); doc.Add(paragraf2);
+                        doc.Add(paragraf3); doc.Add(paragraf);
+                        doc.Add(paragraf4); doc.Add(paragraf5);
+                        doc.Add(paragraf0); doc.Add(paragraf6);
+                        //Profil Sekolah
+                        doc.NewPage();
+                        doc.Add(paragraf1); doc.Add(paragraf0);
+                        ProfilSekolah(doc);
+                        //Data Diri siswa
+                        doc.NewPage();
+                        doc.Add(paragraf7); doc.Add(paragraf8);
+                        DataSiswa(doc, setNisSiswa);
+                        KepalaSekolah(doc);
+                        //LCK
+                        doc.NewPage();
+                        detailLCKSiswa(doc, setNisSiswa, setKodeKelas); kriteriaLCK(doc);
+                        nilaiLCK(doc, setNisSiswa, setKodeKelas, "Kelompok A (Wajib)", "Kelompok A");
+                        nilaiLCK(doc, setNisSiswa, setKodeKelas, "Kelompok B (Wajib)", "Kelompok B");
+                        nilaiLCK(doc, setNisSiswa, setKodeKelas, "Kelompok C (Pilihan)", "Kelompok C");
+                        nilai_LCKAdd(doc); ekskul_siswa(doc); absensi_siswa(doc);
+                        walikelas_ortu(doc, setKodeKelas);
+                        //Deskripsi
+                        doc.NewPage();
+                        detailLCKSiswa(doc, setNisSiswa, setKodeKelas); kriteria_desk(doc);
+                        deskripsiLCK(doc, setKodeKelas, setNisSiswa, "Kelompok A", "Kelompok A (Wajib)");
+                        deskripsiLCK(doc, setKodeKelas, setNisSiswa, "Kelompok B", "Kelompok B (Wajib)");
+                        deskripsiLCK(doc, setKodeKelas, setNisSiswa, "Kelompok C", "Kelompok C (Pilihan)");
+                        walikelas_ortu(doc, setKodeKelas);
+
+                    }
+
                     //Close Document
                     doc.Close();
                     writer.Close();
                     fstream.Close();
                 }
             }
-			catch (DocumentException de)
-			{
+            catch (DocumentException de)
+            {
                 MessageBox.Show(de.Message);
             }
-			catch (IOException ioe)
-			{
+            catch (IOException ioe)
+            {
                 MessageBox.Show(ioe.Message);
-			}
+            }
             catch (MySqlException myex)
             {
                 switch (myex.Number)
@@ -220,6 +236,115 @@ namespace Raport
                 MessageBox.Show(ex.Message);
             }
         }
+
+   //     //Versi per-Siswa
+   //     public void RaportSiswaToPDF()
+   //     {
+   //         killPDFProcess();
+   //         try
+   //         {
+   //             foreach (DataRow row in siswa_kelas().Rows)
+   //             {
+   //                 nama_siswa = row["nama_siswa"].ToString();
+   //                 kelas_siswa = row["nama_kelas"].ToString();
+   //                 nisn_siswa = row["nisn_siswa"].ToString();
+   //                 nis_siswa = row["nisn_siswa"].ToString();
+   //             }
+
+   //             string path = "Temp\\Data Nilai";
+   //             if (!Directory.Exists(path))
+   //             {
+   //                 Directory.CreateDirectory(path);
+   //             }
+
+   //             string filename = nama_siswa + "-" + setNisSiswa + " (" + kelas_siswa + "-" + setSemeter + ").pdf";
+   //             string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
+   //             using (FileStream fstream = new FileStream(appRootDir + "\\" + path +"\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None))
+   //             using (Document doc = new Document(PageSize.A4, 20, 20, 10, 20))
+   //             using (PdfWriter writer = PdfWriter.GetInstance(doc, fstream))
+   //             {
+   //                 writer.SetEncryption(PdfWriter.STRENGTH40BITS, null, null, PdfWriter.ALLOW_COPY);
+   //                 System.Drawing.Image image = Properties.Resources.LogoPendidikan;
+   //                 iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png);
+   //                 pic.ScalePercent(13.0f);
+   //                 pic.Alignment = Element.ALIGN_CENTER;
+
+   //                 var paragraf = new Paragraph("\n\n");
+   //                 var paragraf0 = new Paragraph("\n\n\n");
+   //                 var paragraf1 = new Paragraph(new Chunk("LAPORAN \nCAPAIAN KOMPETENSI PESERTA DIDIK" +
+   //                                                     "\nSEKOLAH MENENGAH ATAS \n(SMA)", TB14)); paragraf1.Alignment = Element.ALIGN_CENTER;
+   //                 var paragraf2 = new Paragraph(new Chunk("Nama Peserta Didik", TB12)); paragraf2.Alignment = Element.ALIGN_CENTER;
+   //                 var paragraf3 = new Paragraph(new Chunk(nama_siswa, TN12)); paragraf3.Alignment = Element.ALIGN_CENTER;
+   //                 var paragraf4 = new Paragraph(new Chunk("NISN:", TB12)); paragraf4.Alignment = Element.ALIGN_CENTER;
+   //                 var paragraf5 = new Paragraph(new Chunk(nisn_siswa, TN12)); paragraf5.Alignment = Element.ALIGN_CENTER;
+   //                 var paragraf6 = new Paragraph(new Chunk("KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN \nREPUBLIK INDONESIA", TB14));
+   //                 paragraf6.Alignment = Element.ALIGN_CENTER;
+   //                 var paragraf7 = new Paragraph(new Chunk("KETERANGAN TENTANG DIRI PESERTA DIDIK", TB14)); paragraf7.Alignment = Element.ALIGN_CENTER;
+   //                 var paragraf8 = new Paragraph("\n");
+
+   //                 //Jilid
+   //                 doc.Open();
+   //                 doc.NewPage();
+   //                 doc.Add(paragraf0); doc.Add(pic);
+   //                 doc.Add(paragraf0); doc.Add(paragraf1);
+   //                 doc.Add(paragraf0); doc.Add(paragraf0);
+   //                 doc.Add(paragraf); doc.Add(paragraf2);
+   //                 doc.Add(paragraf3); doc.Add(paragraf);
+   //                 doc.Add(paragraf4); doc.Add(paragraf5);
+   //                 doc.Add(paragraf0); doc.Add(paragraf6);
+   //                 //Profil Sekolah
+   //                 doc.NewPage();
+   //                 doc.Add(paragraf1); doc.Add(paragraf0);
+   //                 ProfilSekolah(doc);
+   //                 //Data Diri siswa
+   //                 doc.NewPage();
+   //                 doc.Add(paragraf7); doc.Add(paragraf8);
+   //                 DataSiswa(doc);
+   //                 KepalaSekolah(doc);
+   //                 //LCK
+   //                 doc.NewPage();
+   //                 detailLCKSiswa(doc); kriteriaLCK(doc);
+   //                 nilaiLCK(doc, "Kelompok A (Wajib)", "Kelompok A");
+   //                 nilaiLCK(doc, "Kelompok B (Wajib)", "Kelompok B");
+   //                 nilaiLCK(doc, "Kelompok C (Pilihan)", "Kelompok C");
+   //                 nilai_LCKAdd(doc); ekskul_siswa(doc); absensi_siswa(doc);
+   //                 walikelas_ortu(doc);
+   //                 //Deskripsi
+   //                 doc.NewPage();
+   //                 detailLCKSiswa(doc); kriteria_desk(doc);
+   //                 deskripsiLCK(doc, "Kelompok A", "Kelompok A (Wajib)");
+   //                 deskripsiLCK(doc, "Kelompok B", "Kelompok B (Wajib)");
+   //                 deskripsiLCK(doc, "Kelompok C", "Kelompok C (Pilihan)");
+   //                 walikelas_ortu(doc);
+   //                 //Close Document
+   //                 doc.Close();
+   //                 writer.Close();
+   //                 fstream.Close();
+   //             }
+   //         }
+			//catch (DocumentException de)
+			//{
+   //             MessageBox.Show(de.Message);
+   //         }
+			//catch (IOException ioe)
+			//{
+   //             MessageBox.Show(ioe.Message);
+			//}
+   //         catch (MySqlException myex)
+   //         {
+   //             switch (myex.Number)
+   //             {
+   //                 case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+   //                 case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+   //                 case 1045: MessageBox.Show("username/password salah."); break;
+   //                 default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+   //             }
+   //         }
+   //         catch (Exception ex)
+   //         {
+   //             MessageBox.Show(ex.Message);
+   //         }
+   //     }
 
         public void ProfilSekolah(Document doc)
         {
@@ -229,55 +354,33 @@ namespace Raport
             widths = new float[] { 200f, 30f, 770f };
             raport_tbl.SetWidths(widths);
 
-            string profil_sekolah = "SELECT * FROM profil_sekolah";
-            myComm = new MySqlCommand(profil_sekolah, myConn);
-            try
+            foreach (DataRow row in profil_sekolah().Rows)
             {
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
-                {
-                    cell.Colspan = 2; cell.Border = Rectangle.NO_BORDER;
-                    raport_tbl.AddCell("Nama Sekolah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("nama_sekolah"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
-                    raport_tbl.AddCell("NPSN/NSS"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("npsn") + " / " + myReader.GetString("nss"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
-                    raport_tbl.AddCell("Alamat Sekolah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("alamat_sekolah"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
-                    raport_tbl.AddCell("\n\n\n"); raport_tbl.AddCell(""); raport_tbl.AddCell("Kode Pos " + myReader.GetString("kode_pos") + "Telp. " + myReader.GetString("no_telp"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
-                    raport_tbl.AddCell("Kelurahan"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("kelurahan"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
-                    raport_tbl.AddCell("Kecamatan"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("kecamatan"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
-                    raport_tbl.AddCell("Kabupaten/Kota"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("kota"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
-                    raport_tbl.AddCell("Provinsi"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("provinsi"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
-                    raport_tbl.AddCell("Website"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("website"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
-                    raport_tbl.AddCell("Email"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("email"));
-                }
-                myConn.Close();
-                doc.Add(raport_tbl);
+                cell.Colspan = 2; cell.Border = Rectangle.NO_BORDER;
+                raport_tbl.AddCell("Nama Sekolah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["nama_sekolah"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
+                raport_tbl.AddCell("NPSN/NSS"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["npsn"].ToString() + " / " + row["nss"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
+                raport_tbl.AddCell("Alamat Sekolah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["alamat_sekolah"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell); raport_tbl.AddCell("\n\n\n"); raport_tbl.AddCell("");
+                raport_tbl.AddCell("Kode Pos " + row["kode_pos"].ToString() + " Telp. " + row["no_telp"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
+                raport_tbl.AddCell("Kelurahan"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["kelurahan"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
+                raport_tbl.AddCell("Kecamatan"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["kecamatan"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
+                raport_tbl.AddCell("Kabupaten/Kota"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["kota"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
+                raport_tbl.AddCell("Provinsi"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["provinsi"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
+                raport_tbl.AddCell("Website"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["website"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(cell);
+                raport_tbl.AddCell("Email"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["email"].ToString());
             }
-            catch (MySqlException myex)
-            {
-                switch (myex.Number)
-                {
-                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                    case 1045: MessageBox.Show("username/password salah."); break;
-                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            doc.Add(raport_tbl);
         }
 
-        public void DataSiswa(Document doc, string nis_siswa)
+        public void DataSiswa(Document doc, string getNisSiswa)
         {
             raport_tbl = new PdfPTable(4);
             raport_tbl.TotalWidth = 500f; raport_tbl.LockedWidth = true;
@@ -285,67 +388,57 @@ namespace Raport
             widths = new float[] { 50f, 350f, 30f, 600f };
             raport_tbl.SetWidths(widths);
 
-            string siswa_ortu = "SELECT *, orangtua.no_telp as 'Telp Ortu' FROM siswa INNER JOIN orangtua " +
-                                   "USING (nis_siswa) WHERE siswa.nis_siswa = '" + nis_siswa + "'";
-            myComm = new MySqlCommand(siswa_ortu, myConn);
-            try
-            {
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
-                {
-                    string diterima = myReader.GetString("tanggal_masuk"); string tanggal_diterima = diterima.Substring(0, 2);
-                    string bulan_diterima = diterima.Substring(3, 2); string tahun_diterima = diterima.Substring(6, 4);
-                    string diterima_bulan = getBulan(bulan_diterima);
-                    string lahir = myReader.GetString("tanggal_lahir"); string tanggal_lahir = lahir.Substring(0, 2);
-                    string bulan_lahir = lahir.Substring(3, 2); string tahun_lahir = lahir.Substring(6, 4);
-                    string lahir_bulan = getBulan(bulan_lahir);
+            field = "siswa.nis_siswa as 'NIS', nisn_siswa as 'NISN', nama_siswa as 'Nama Siswa', tempat_lahir as " +
+                    "'Tempat Lahir', tanggal_lahir as 'Tanggal Lahir', jenis_kelamin as 'Jenis Kelamin', kelas.nama_kelas " +
+                    "as 'Diterima di Kelas', status_keluarga as 'Status Anak', anak_ke as 'Anak Ke-', agama as 'Agama', " +
+                    "siswa.no_telp as 'No. Telp. Siswa', alamat as 'Alamat Siswa', asal_sekolah as 'Asal Sekolah', " +
+                    "tanggal_masuk as 'Diterima Tanggal', nama_ayah as 'Nama Ayah', nama_ibu as 'Nama Ibu', " +
+                    "pekerjaan_ayah as 'Pekerjaan Ayah', pekerjaan_ibu as 'Pekerjaan Ibu', orangtua.no_telp as " +
+                    "'No. Telp. Ortu', alamat_ortu as 'Alamat Ortu', nama_wali as 'Nama Wali', pekerjaan_wali as " +
+                    "'Pekerjaan Wali', alamat_wali as 'Alamat Wali'";
+            table = "siswa INNER JOIN detailkelassiswa ON siswa.nis_siswa = detailkelassiswa.nis_siswa INNER JOIN orangtua " +
+                    "ON siswa.nis_siswa = orangtua.nis_siswa INNER JOIN kelas ON detailkelassiswa.kode_kelas = kelas.kode_kelas";
+            cond = "siswa.nis_siswa = '" + getNisSiswa + "' AND keterangan = 'Data Siswa'";
+            dt = db.GetDataTable(field, table, cond);
 
-                    raport_tbl.AddCell("1"); raport_tbl.AddCell("Nama Peserta Didik Lengkap"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("nama_siswa"));
-                    raport_tbl.AddCell("2"); raport_tbl.AddCell("Nomor Induk Siswa Nasional"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("nisn_siswa"));
-                    raport_tbl.AddCell("3"); raport_tbl.AddCell("Tempat Tanggal Lahir"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("tempat_lahir") + ", " + tanggal_lahir + " " + lahir_bulan + " " + tahun_lahir);
-                    raport_tbl.AddCell("4"); raport_tbl.AddCell("Jenis Kelamin"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("jenis_kelamin"));
-                    raport_tbl.AddCell("5"); raport_tbl.AddCell("Agama"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("agama"));
-                    raport_tbl.AddCell("6"); raport_tbl.AddCell("Status dalam Keluarga"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("status_keluarga"));
-                    raport_tbl.AddCell("7"); raport_tbl.AddCell("Anak Ke-"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("anak_ke"));
-                    raport_tbl.AddCell("8"); raport_tbl.AddCell("Alamat Peserta Didik"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("alamat"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-                    raport_tbl.AddCell("9"); raport_tbl.AddCell("Nomor Telepon Rumah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("no_telp"));
-                    raport_tbl.AddCell("10"); raport_tbl.AddCell("Sekolah Asal"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("asal_sekolah"));
-                    raport_tbl.AddCell("11"); raport_tbl.AddCell("Diterima di Sekolah ini"); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-                    raport_tbl.AddCell(""); raport_tbl.AddCell("a. Di Kelas"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("asal_sekolah"));
-                    raport_tbl.AddCell(""); raport_tbl.AddCell("b. Pada Tanggal"); raport_tbl.AddCell(":"); raport_tbl.AddCell(tanggal_diterima + " " + diterima_bulan + " " + tahun_diterima);
-                    raport_tbl.AddCell("12"); raport_tbl.AddCell("Nama Orang Tua"); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-                    raport_tbl.AddCell(""); raport_tbl.AddCell("a. Ayah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("nama_ayah"));
-                    raport_tbl.AddCell(""); raport_tbl.AddCell("b. Ibu"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("nama_ibu"));
-                    raport_tbl.AddCell("13"); raport_tbl.AddCell("Alamat Orang Tua"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("alamat_ortu"));
-                    raport_tbl.AddCell(""); raport_tbl.AddCell("Nomor Telepon Rumah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("Telp Ortu"));
-                    raport_tbl.AddCell("14"); raport_tbl.AddCell("Pekerjaan Orang Tua"); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-                    raport_tbl.AddCell(""); raport_tbl.AddCell("a. Pekerjaan Ayah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("pekerjaan_ayah"));
-                    raport_tbl.AddCell(""); raport_tbl.AddCell("b. Pekerjaan Ibu"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("pekerjaan_ibu"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-                    raport_tbl.AddCell("15"); raport_tbl.AddCell("Nama Wali Peserta Didik"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("nama_wali"));
-                    raport_tbl.AddCell("16"); raport_tbl.AddCell("Pekerjaan Wali Peserta Didik"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("pekerjaan_wali"));
-                    raport_tbl.AddCell("17"); raport_tbl.AddCell("Alamat Wali Peserta Didik"); raport_tbl.AddCell(":"); raport_tbl.AddCell(myReader.GetString("alamat_wali"));
-                    raport_tbl.AddCell("\n"); raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-                }
-                myConn.Close();
-                doc.Add(raport_tbl);
-            }
-            catch (MySqlException myex)
+            foreach (DataRow row in dt.Rows)
             {
-                switch (myex.Number)
-                {
-                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                    case 1045: MessageBox.Show("username/password salah."); break;
-                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
-                }
+                string diterima = row["Diterima Tanggal"].ToString(); string tanggal_diterima = diterima.Substring(0, 2);
+                string bulan_diterima = diterima.Substring(3, 2); string tahun_diterima = diterima.Substring(6, 4);
+                string diterima_bulan = getBulan(bulan_diterima);
+                string lahir = row["Tanggal Lahir"].ToString(); string tanggal_lahir = lahir.Substring(0, 2);
+                string bulan_lahir = lahir.Substring(3, 2); string tahun_lahir = lahir.Substring(6, 4);
+                string lahir_bulan = getBulan(bulan_lahir);
+
+                raport_tbl.AddCell("1"); raport_tbl.AddCell("Nama Peserta Didik Lengkap"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Nama Siswa"].ToString());
+                raport_tbl.AddCell("2"); raport_tbl.AddCell("Nomor Induk Siswa Nasional"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["NISN"].ToString());
+                raport_tbl.AddCell("3"); raport_tbl.AddCell("Tempat Tanggal Lahir"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Tempat Lahir"].ToString() + ", " + tanggal_lahir + " " + lahir_bulan + " " + tahun_lahir);
+                raport_tbl.AddCell("4"); raport_tbl.AddCell("Jenis Kelamin"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Jenis Kelamin"].ToString());
+                raport_tbl.AddCell("5"); raport_tbl.AddCell("Agama"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Agama"].ToString());
+                raport_tbl.AddCell("6"); raport_tbl.AddCell("Status dalam Keluarga"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Status Anak"].ToString());
+                raport_tbl.AddCell("7"); raport_tbl.AddCell("Anak Ke-"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Anak Ke-"].ToString());
+                raport_tbl.AddCell("8"); raport_tbl.AddCell("Alamat Peserta Didik"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Alamat Siswa"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+                raport_tbl.AddCell("9"); raport_tbl.AddCell("Nomor Telepon Rumah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["No. Telp. Siswa"].ToString());
+                raport_tbl.AddCell("10"); raport_tbl.AddCell("Sekolah Asal"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Asal Sekolah"].ToString());
+                raport_tbl.AddCell("11"); raport_tbl.AddCell("Diterima di Sekolah ini"); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+                raport_tbl.AddCell(""); raport_tbl.AddCell("a. Di Kelas"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Diterima di Kelas"].ToString());
+                raport_tbl.AddCell(""); raport_tbl.AddCell("b. Pada Tanggal"); raport_tbl.AddCell(":"); raport_tbl.AddCell(tanggal_diterima + " " + diterima_bulan + " " + tahun_diterima);
+                raport_tbl.AddCell("12"); raport_tbl.AddCell("Nama Orang Tua"); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+                raport_tbl.AddCell(""); raport_tbl.AddCell("a. Ayah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Nama Ayah"].ToString());
+                raport_tbl.AddCell(""); raport_tbl.AddCell("b. Ibu"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Nama Ibu"].ToString());
+                raport_tbl.AddCell("13"); raport_tbl.AddCell("Alamat Orang Tua"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Alamat Ortu"].ToString());
+                raport_tbl.AddCell(""); raport_tbl.AddCell("Nomor Telepon Rumah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["No. Telp. Ortu"].ToString());
+                raport_tbl.AddCell("14"); raport_tbl.AddCell("Pekerjaan Orang Tua"); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+                raport_tbl.AddCell(""); raport_tbl.AddCell("a. Pekerjaan Ayah"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Pekerjaan Ayah"].ToString());
+                raport_tbl.AddCell(""); raport_tbl.AddCell("b. Pekerjaan Ibu"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Pekerjaan Ibu"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+                raport_tbl.AddCell("15"); raport_tbl.AddCell("Nama Wali Peserta Didik"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Nama Wali"].ToString());
+                raport_tbl.AddCell("16"); raport_tbl.AddCell("Pekerjaan Wali Peserta Didik"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Pekerjaan Wali"].ToString());
+                raport_tbl.AddCell("17"); raport_tbl.AddCell("Alamat Wali Peserta Didik"); raport_tbl.AddCell(":"); raport_tbl.AddCell(row["Alamat Wali"].ToString());
+                raport_tbl.AddCell("\n"); raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            doc.Add(raport_tbl);
         }
 
         public void KepalaSekolah(Document doc)
@@ -357,109 +450,84 @@ namespace Raport
             raport_tbl.SetWidths(widths);
 
             string kepala_sekolah = "SELECT nama_guru, nip FROM guru WHERE keterangan LIKE 'Kepala Sekolah%'";
+            myConn.Open();
             myComm = new MySqlCommand(kepala_sekolah, myConn);
-            try
+            myReader = myComm.ExecuteReader();
+            while (myReader.Read())
             {
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
-                {
-                    string bulan = month[DateTime.Today.Month - 1] + " " + DateTime.Today.Year.ToString();
-                    var phrase1 = new Paragraph(new Chunk("Jampangkulon, " + tanggal + " " + bulan, AN12));
-                    var phrase2 = new Paragraph(new Chunk("\n          Pas Foto \n          3x4 \n", AN12));
-                    var phrase3 = new Paragraph(new Chunk("Kepala Sekolah", AN12));
-                    var phrase4 = new Paragraph(new Chunk(myReader.GetString("nama_guru") + "\nNIP. " + 
-                                                          myReader.GetString("nip"), AN12)); 
-                    phrase1.Alignment = Element.ALIGN_LEFT; phrase2.Alignment = Element.ALIGN_RIGHT;
-                    phrase3.Alignment = Element.ALIGN_LEFT; phrase4.Alignment = Element.ALIGN_LEFT;
-                    cell.Colspan = 2; cell.BorderWidth = 0f;
+                string bulan = month[DateTime.Today.Month - 1] + " " + DateTime.Today.Year.ToString();
+                var phrase1 = new Paragraph(new Chunk("Jampangkulon, " + tanggal + " " + bulan, AN12));
+                var phrase2 = new Paragraph(new Chunk("\n          Pas Foto \n          3x4 \n", AN12));
+                var phrase3 = new Paragraph(new Chunk("Kepala Sekolah", AN12));
+                var phrase4 = new Paragraph(new Chunk(myReader.GetString("nama_guru") + "\nNIP. " +
+                                                      myReader.GetString("nip"), AN12));
+                phrase1.Alignment = Element.ALIGN_LEFT; phrase2.Alignment = Element.ALIGN_RIGHT;
+                phrase3.Alignment = Element.ALIGN_LEFT; phrase4.Alignment = Element.ALIGN_LEFT;
+                cell.Colspan = 2; cell.BorderWidth = 0f;
 
-                    raport_tbl.AddCell(cell); raport_tbl.AddCell(phrase1);
-                    raport_tbl.AddCell(phrase2); raport_tbl.AddCell(""); raport_tbl.AddCell(phrase3);
-                    raport_tbl.AddCell(cell); raport_tbl.AddCell("\n\n\n");
-                    raport_tbl.AddCell(cell); raport_tbl.AddCell(phrase4);
-                }
-                myConn.Close();
-                doc.Add(raport_tbl);
+                raport_tbl.AddCell(cell); raport_tbl.AddCell(phrase1);
+                raport_tbl.AddCell(phrase2); raport_tbl.AddCell(""); raport_tbl.AddCell(phrase3);
+                raport_tbl.AddCell(cell); raport_tbl.AddCell("\n\n\n");
+                raport_tbl.AddCell(cell); raport_tbl.AddCell(phrase4);
             }
-            catch (MySqlException myex)
-            {
-                switch (myex.Number)
-                {
-                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                    case 1045: MessageBox.Show("username/password salah."); break;
-                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            myConn.Close();
+            doc.Add(raport_tbl);
         }
         
-        public void detailLCKSiswa(Document doc, string nis_siswa, string kelas)
+        public void detailLCKSiswa(Document doc, string getNisSiswa, string getKodeKelas)
         {
             PdfPTable raport_tbl = new PdfPTable(6);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
             raport_tbl.DefaultCell.Border = Rectangle.NO_BORDER;
             float[] widths0 = new float[] { 120f, 10f, 205f, 80f, 10f, 85f };
             raport_tbl.SetWidths(widths0);
-
-            string profil_LCK = "SELECT nama_sekolah, alamat_sekolah, nama_siswa, nis_siswa, nama_kelas " +
-                               "FROM profil_sekolah, siswa, kelas WHERE siswa.nis_siswa = '" + nis_siswa + 
-                               "' AND kelas.kode_kelas = '" + kelas + "'";
-            myComm = new MySqlCommand(profil_LCK, myConn);
-            try
+            
+            foreach (DataRow row in profil_sekolah().Rows)
             {
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
-                {
-                    var phrase1 = new Paragraph(new Chunk("Nama Sekolah", TN11));
-                    var phrase2 = new Paragraph(new Chunk(myReader.GetString("nama_sekolah"), TN11));
-                    var phrase3 = new Paragraph(new Chunk("Kelas", TN11));
-                    var phrase4 = new Paragraph(new Chunk(myReader.GetString("nama_kelas"), TN11));
-                    raport_tbl.AddCell(phrase1); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase2);
-                    raport_tbl.AddCell(phrase3); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase4);
-
-                    var phrase5 = new Paragraph(new Chunk("Alamat Sekolah", TN11));
-                    var phrase6 = new Paragraph(new Chunk(myReader.GetString("alamat_sekolah"), TN11));
-                    var phrase7 = new Paragraph(new Chunk("Semester", TN11));
-                    //SEMESTER BELUM DITENTUKAN JANGAN SAMPE LUPA BISA GAWAT
-                    var phrase8 = new Paragraph(new Chunk("1 (Satu)", TN11));
-                    raport_tbl.AddCell(phrase5); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase6);
-                    raport_tbl.AddCell(phrase7); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase8);
-
-                    var phrase9 = new Paragraph(new Chunk("Nama Peserta Didik", TN11));
-                    var phrase10 = new Paragraph(new Chunk(myReader.GetString("nama_siswa"), TN11));
-                    var phrase11 = new Paragraph(new Chunk("Tahun Ajaran", TN11));
-                    var phrase12 = new Paragraph(new Chunk(getTahun, TN11));
-                    raport_tbl.AddCell(phrase9); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase10);
-                    raport_tbl.AddCell(phrase11); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase12);
-
-                    var phrase13 = new Paragraph(new Chunk("Nomor Induk/NISN", TN11));
-                    var phrase14 = new Paragraph(new Chunk(myReader.GetString("nis_siswa"), TN11));
-                    raport_tbl.AddCell(phrase13); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase14);
-                    raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-                }
-                myConn.Close();
-                doc.Add(raport_tbl);
+                nama_sekolah = row["nama_sekolah"].ToString();
+                alamat_sekolah = row["alamat_sekolah"].ToString();
             }
-            catch (MySqlException myex)
+
+            field = "nis_siswa, nisn_siswa, nama_siswa, nama_kelas, nama_guru, nip";
+            table = "siswa, kelas INNER JOIN guru USING (id_guru)";
+            cond = "nis_siswa = '" + getNisSiswa + "' AND kode_kelas = '" + getKodeKelas + "'";
+            dt = db.GetDataTable(field, table, cond);
+
+            foreach (DataRow row in dt.Rows)
             {
-                switch (myex.Number)
-                {
-                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                    case 1045: MessageBox.Show("username/password salah."); break;
-                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
-                }
+                kelas_siswa = row["nama_kelas"].ToString();
+                nama_siswa = row["nama_siswa"].ToString();
+                nis_siswa = row["nis_siswa"].ToString();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+
+            var phrase1 = new Paragraph(new Chunk("Nama Sekolah", TN11));
+            var phrase2 = new Paragraph(new Chunk(nama_sekolah, TN11));
+            var phrase3 = new Paragraph(new Chunk("Kelas", TN11));
+            var phrase4 = new Paragraph(new Chunk(kelas_siswa, TN11));
+            raport_tbl.AddCell(phrase1); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase2);
+            raport_tbl.AddCell(phrase3); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase4);
+
+            var phrase5 = new Paragraph(new Chunk("Alamat Sekolah", TN11));
+            var phrase6 = new Paragraph(new Chunk(alamat_sekolah, TN11));
+            var phrase7 = new Paragraph(new Chunk("Semester", TN11));
+            //SEMESTER BELUM DITENTUKAN JANGAN SAMPE LUPA BISA GAWAT
+            var phrase8 = new Paragraph(new Chunk("1 (Satu)", TN11));
+            raport_tbl.AddCell(phrase5); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase6);
+            raport_tbl.AddCell(phrase7); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase8);
+
+            var phrase9 = new Paragraph(new Chunk("Nama Peserta Didik", TN11));
+            var phrase10 = new Paragraph(new Chunk(nama_siswa, TN11));
+            var phrase11 = new Paragraph(new Chunk("Tahun Ajaran", TN11));
+            var phrase12 = new Paragraph(new Chunk(getTahun, TN11));
+            raport_tbl.AddCell(phrase9); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase10);
+            raport_tbl.AddCell(phrase11); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase12);
+
+            var phrase13 = new Paragraph(new Chunk("Nomor Induk/NISN", TN11));
+            var phrase14 = new Paragraph(new Chunk(nis_siswa, TN11));
+            raport_tbl.AddCell(phrase13); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase14);
+            raport_tbl.AddCell(""); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+
+            doc.Add(raport_tbl);
         }
 
         public void kriteriaLCK(Document doc)
@@ -506,7 +574,7 @@ namespace Raport
             doc.Add(raport_tbl);
         }
 
-        public void nilaiLCK(Document doc, string kelompok, string kelas, string semester, string kategori)
+        public void nilaiLCK(Document doc, string getNisSiswa, string getKodeKelas, string kelompok, string kategori)
         {
             raport_tbl = new PdfPTable(8);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
@@ -519,59 +587,38 @@ namespace Raport
                 cell.BorderWidth = 0f; cell.BorderWidthRight = 0.5f;
                 raport_tbl.AddCell(cell0); raport_tbl.AddCell(cell);
             }
-
-            string query = "SELECT mata_pelajaran, nama_guru, p_ang, p_pred, k_ang, k_pred, s_sikap " +
-                           "FROM nilai INNER JOIN mapel USING (kode_mapel) INNER JOIN detailmapelkelas USING (kode_mapel) " +
-                           "INNER JOIN guru USING (id_guru) WHERE nis_siswa = '" + getNisSiswa + "' AND kode_semester= '" 
-                           + semester + "' AND nilai.kode_kelas = '" + kelas + "' AND detailmapelkelas.kode_kelas = '" + kelas +
-                           "' AND kategori_mapel = '" + kategori + "'";
             
-            myComm = new MySqlCommand(query, myConn);
-            try
+            field = "mata_pelajaran, nama_guru, p_ang, p_pred, k_ang, k_pred, s_sikap";
+            table = "nilai INNER JOIN mapel USING (kode_mapel) INNER JOIN detailmapelkelas USING (kode_mapel) " +
+                    "INNER JOIN guru USING (id_guru) ";
+            cond = "nis_siswa = '" + getNisSiswa + "' AND kode_semester= '" + setSemeter + "' AND nilai.kode_kelas = '" 
+                   + getKodeKelas + "' AND detailmapelkelas.kode_kelas = '" + getKodeKelas + "' AND kategori_mapel = '" + kategori + "'";
+            dt = db.GetDataTable(field, table, cond);
+            int i = 1;
+            foreach (DataRow row in dt.Rows)
             {
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                int i = 1;
-                while (myReader.Read())
-                {
-                    string mapel_guru = myReader.GetString("mata_pelajaran") + "\n(" + myReader.GetString("nama_guru") + ")";
-                    var cell1 = new PdfPCell(new Phrase(new Chunk(i.ToString(), TN10)));
-                    cell1.HorizontalAlignment = Element.ALIGN_CENTER; cell1.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell2 = new PdfPCell(new Phrase(new Chunk(mapel_guru, TN10)));
-                    cell2.HorizontalAlignment = Element.ALIGN_LEFT;
-                    var cell4 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("p_ang"), TN10)));
-                    cell4.HorizontalAlignment = Element.ALIGN_CENTER; cell4.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell5 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("p_pred"), TN10)));
-                    cell5.HorizontalAlignment = Element.ALIGN_CENTER; cell5.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell6 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("k_ang"), TN10)));
-                    cell6.HorizontalAlignment = Element.ALIGN_CENTER; cell6.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell7 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("k_pred"), TN10)));
-                    cell7.HorizontalAlignment = Element.ALIGN_CENTER; cell7.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    var cell8 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("s_sikap"), TN10)));
-                    cell8.HorizontalAlignment = Element.ALIGN_CENTER; cell8.VerticalAlignment = Element.ALIGN_MIDDLE;
-                    cell.BorderWidth = 0f; cell.BorderWidthRight = 0.5f;
-                    raport_tbl.AddCell(cell1); raport_tbl.AddCell(cell2);
-                    raport_tbl.AddCell(cell4); raport_tbl.AddCell(cell5); raport_tbl.AddCell(cell6);
-                    raport_tbl.AddCell(cell7); raport_tbl.AddCell(cell8); raport_tbl.AddCell(cell);
-                    i++;
-                }
-                myConn.Close();
-                doc.Add(raport_tbl);
+                string mapel_guru = row["mata_pelajaran"].ToString() + "\n(" + row["nama_guru"].ToString() + ")";
+                var cell1 = new PdfPCell(new Phrase(new Chunk(i.ToString(), TN10)));
+                cell1.HorizontalAlignment = Element.ALIGN_CENTER; cell1.VerticalAlignment = Element.ALIGN_MIDDLE;
+                var cell2 = new PdfPCell(new Phrase(new Chunk(mapel_guru, TN10)));
+                cell2.HorizontalAlignment = Element.ALIGN_LEFT;
+                var cell4 = new PdfPCell(new Phrase(new Chunk(row["p_ang"].ToString(), TN10)));
+                cell4.HorizontalAlignment = Element.ALIGN_CENTER; cell4.VerticalAlignment = Element.ALIGN_MIDDLE;
+                var cell5 = new PdfPCell(new Phrase(new Chunk(row["p_pred"].ToString(), TN10)));
+                cell5.HorizontalAlignment = Element.ALIGN_CENTER; cell5.VerticalAlignment = Element.ALIGN_MIDDLE;
+                var cell6 = new PdfPCell(new Phrase(new Chunk(row["k_ang"].ToString(), TN10)));
+                cell6.HorizontalAlignment = Element.ALIGN_CENTER; cell6.VerticalAlignment = Element.ALIGN_MIDDLE;
+                var cell7 = new PdfPCell(new Phrase(new Chunk(row["k_pred"].ToString(), TN10)));
+                cell7.HorizontalAlignment = Element.ALIGN_CENTER; cell7.VerticalAlignment = Element.ALIGN_MIDDLE;
+                var cell8 = new PdfPCell(new Phrase(new Chunk(row["s_sikap"].ToString(), TN10)));
+                cell8.HorizontalAlignment = Element.ALIGN_CENTER; cell8.VerticalAlignment = Element.ALIGN_MIDDLE;
+                cell.BorderWidth = 0f; cell.BorderWidthRight = 0.5f;
+                raport_tbl.AddCell(cell1); raport_tbl.AddCell(cell2);
+                raport_tbl.AddCell(cell4); raport_tbl.AddCell(cell5); raport_tbl.AddCell(cell6);
+                raport_tbl.AddCell(cell7); raport_tbl.AddCell(cell8); raport_tbl.AddCell(cell);
+                i++;
             }
-            catch (MySqlException myex)
-            {
-                switch (myex.Number)
-                {
-                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                    case 1045: MessageBox.Show("username/password salah."); break;
-                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            doc.Add(raport_tbl);
         }
         
         public void nilai_LCKAdd(Document doc)
@@ -637,7 +684,7 @@ namespace Raport
             doc.Add(raport_tbl);
         }
 
-        public void walikelas_ortu(Document doc, string kelas)
+        public void walikelas_ortu(Document doc, string getKodeKelas)
         {
             raport_tbl = new PdfPTable(4);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
@@ -655,33 +702,15 @@ namespace Raport
             var cell5 = new PdfPCell(new Phrase(new Chunk("Jampangkulon, " + tanggal + " " + bulan + "\nWali Kelas,", TN10)));
             cell5.HorizontalAlignment = Element.ALIGN_LEFT; cell5.BorderWidth = 0f;
 
-            string wali_kelas = "SELECT nama_guru, nip FROM kelas INNER JOIN guru USING (id_guru) " +
-                                "WHERE kode_kelas = '" + kelas + "'";
-            myComm = new MySqlCommand(wali_kelas, myConn);
-            try
+            field = "nama_guru, nip";
+            table = "kelas INNER JOIN guru USING (id_guru)";
+            cond = "kode_kelas = '" + getKodeKelas + "'";
+            dt = db.GetDataTable(field, table, cond);
+
+            foreach (DataRow row in dt.Rows)
             {
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
-                {
-                    nama_guru = myReader.GetString("nama_guru");
-                    nip_guru = myReader.GetString("nip");
-                }
-                myConn.Close();
-            }
-            catch (MySqlException myex)
-            {
-                switch (myex.Number)
-                {
-                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                    case 1045: MessageBox.Show("username/password salah."); break;
-                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                nama_guru = row["nama_guru"].ToString();
+                nip_guru = row["nip"].ToString();
             }
 
             var cell6 = new PdfPCell(new Phrase(new Chunk(nama_guru, TN10)));
@@ -725,7 +754,7 @@ namespace Raport
             doc.Add(raport_tbl);
         }
         
-        public void deskripsiLCK(Document doc, string nis_siswa, string kategori, string kelompok, string semester, string kelas)
+        public void deskripsiLCK(Document doc, string getKodeKelas, string getNisSiswa, string kategori, string kelompok)
         {
             raport_tbl = new PdfPTable(4);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
@@ -735,8 +764,8 @@ namespace Raport
 
             this.field = "nilai.kode_mapel as 'kode', mata_pelajaran, p_desk, k_desk, s_desk ";
             this.table = "nilai INNER JOIN kelas USING (kode_kelas) INNER JOIN mapel USING (kode_mapel) ";
-            this.cond = "kode_semester= '" + semester + "' AND nilai.kode_kelas = '" + 
-                         kelas + "' AND kategori_mapel = '" + kategori + "' AND nilai.nis_siswa = '" + nis_siswa + "'";
+            this.cond = "kode_semester= '" + setSemeter + "' AND nilai.kode_kelas = '" + 
+                         getKodeKelas + "' AND kategori_mapel = '" + kategori + "' AND nilai.nis_siswa = '" + getNisSiswa + "'";
             DataTable tabel = db.GetDataTable(field, table, cond);
             
             var cell0 = new PdfPCell(new Phrase(new Chunk(kelompok, TB11))); cell0.Colspan = 4;
@@ -763,56 +792,38 @@ namespace Raport
 
                 string deskA = "SELECT mata_pelajaran, " + valueA + ", " + valueB + ", " + valueC + " FROM " +
                                "deskripsi INNER JOIN mapel USING (kode_mapel) INNER JOIN kelas USING (kode_kelas) " +
-                               "WHERE kode_semester = '" + semester + "' AND kode_kelas = '" + kelas +
+                               "WHERE kode_semester = '" + setSemeter + "' AND kode_kelas = '" + getKodeKelas +
                                "' AND kode_mapel = '" + row["kode"].ToString() + "'";
-
+                myConn.Open();
                 myComm = new MySqlCommand(deskA, myConn);
-                try
+                myReader = myComm.ExecuteReader();
+                while (myReader.Read())
                 {
-                    myConn.Open();
-                    myReader = myComm.ExecuteReader();
-                    while (myReader.Read())
-                    {
-                        var cell1 = new PdfPCell(new Phrase(new Chunk(j.ToString(), TN10))); cell1.Rowspan = 3;
-                        cell1.VerticalAlignment = Element.ALIGN_MIDDLE; cell1.HorizontalAlignment = Element.ALIGN_CENTER;
-                        var cell2 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("mata_pelajaran"), TN10))); cell2.Rowspan = 3;
-                        cell2.VerticalAlignment = Element.ALIGN_MIDDLE; cell2.HorizontalAlignment = Element.ALIGN_LEFT;
-                        var cell3 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueA), TN10)));
-                        cell3.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
-                        var cell4 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueB), TN10)));
-                        cell4.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
-                        var cell5 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueC), TN10)));
-                        cell5.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
-                        var cell6 = new PdfPCell(new Phrase(new Chunk("Pengetahuan", TN10)));
-                        cell6.VerticalAlignment = Element.ALIGN_MIDDLE; cell6.HorizontalAlignment = Element.ALIGN_LEFT;
-                        var cell7 = new PdfPCell(new Phrase(new Chunk("Keterampilan", TN10)));
-                        cell7.VerticalAlignment = Element.ALIGN_MIDDLE; cell7.HorizontalAlignment = Element.ALIGN_LEFT;
-                        var cell8 = new PdfPCell(new Phrase(new Chunk("Sikap Sosial dan Spiritual", TN10)));
-                        cell8.VerticalAlignment = Element.ALIGN_MIDDLE; cell8.HorizontalAlignment = Element.ALIGN_LEFT;
-                        cell.BorderWidth = 0f; cell.BorderWidthRight = 0.5f;
+                    var cell1 = new PdfPCell(new Phrase(new Chunk(j.ToString(), TN10))); cell1.Rowspan = 3;
+                    cell1.VerticalAlignment = Element.ALIGN_MIDDLE; cell1.HorizontalAlignment = Element.ALIGN_CENTER;
+                    var cell2 = new PdfPCell(new Phrase(new Chunk(myReader.GetString("mata_pelajaran"), TN10))); cell2.Rowspan = 3;
+                    cell2.VerticalAlignment = Element.ALIGN_MIDDLE; cell2.HorizontalAlignment = Element.ALIGN_LEFT;
+                    var cell3 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueA), TN10)));
+                    cell3.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
+                    var cell4 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueB), TN10)));
+                    cell4.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
+                    var cell5 = new PdfPCell(new Phrase(new Chunk(myReader.GetString(valueC), TN10)));
+                    cell5.HorizontalAlignment = Element.ALIGN_JUSTIFIED;
+                    var cell6 = new PdfPCell(new Phrase(new Chunk("Pengetahuan", TN10)));
+                    cell6.VerticalAlignment = Element.ALIGN_MIDDLE; cell6.HorizontalAlignment = Element.ALIGN_LEFT;
+                    var cell7 = new PdfPCell(new Phrase(new Chunk("Keterampilan", TN10)));
+                    cell7.VerticalAlignment = Element.ALIGN_MIDDLE; cell7.HorizontalAlignment = Element.ALIGN_LEFT;
+                    var cell8 = new PdfPCell(new Phrase(new Chunk("Sikap Sosial dan Spiritual", TN10)));
+                    cell8.VerticalAlignment = Element.ALIGN_MIDDLE; cell8.HorizontalAlignment = Element.ALIGN_LEFT;
+                    cell.BorderWidth = 0f; cell.BorderWidthRight = 0.5f;
 
-                        raport_tbl.AddCell(cell1); raport_tbl.AddCell(cell2);
-                        raport_tbl.AddCell(cell6); raport_tbl.AddCell(cell3);
-                        raport_tbl.AddCell(cell7); raport_tbl.AddCell(cell4);
-                        raport_tbl.AddCell(cell8); raport_tbl.AddCell(cell5);
-                    }
-                    myConn.Close();
-                    j++;
+                    raport_tbl.AddCell(cell1); raport_tbl.AddCell(cell2);
+                    raport_tbl.AddCell(cell6); raport_tbl.AddCell(cell3);
+                    raport_tbl.AddCell(cell7); raport_tbl.AddCell(cell4);
+                    raport_tbl.AddCell(cell8); raport_tbl.AddCell(cell5);
                 }
-                catch (MySqlException myex)
-                {
-                    switch (myex.Number)
-                    {
-                        case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                        case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                        case 1045: MessageBox.Show("username/password salah."); break;
-                        default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Data Nilai atau deskripsi belum lengkap");
-                }
+                myConn.Close();
+                j++;
             }
             doc.Add(raport_tbl);
         }
@@ -870,7 +881,7 @@ namespace Raport
                         cellh.HorizontalAlignment = Element.ALIGN_LEFT; cellh.BorderWidth = 0f;
                         var celli = new PdfPCell(new Phrase(new Chunk("A / B / C", TN10)));
                         celli.HorizontalAlignment = Element.ALIGN_LEFT; celli.BorderWidth = 0f;
-                        var cellj = new PdfPCell(new Phrase(new Chunk("\n", TN10))); cellj.Colspan = 7;
+                        var cellj = new PdfPCell(new Phrase(new Chunk("\n", TN8))); cellj.Colspan = 7;
                         cellj.HorizontalAlignment = Element.ALIGN_LEFT; cellj.BorderWidth = 0f;
                         var cellk = new PdfPCell(new Phrase(new Chunk(":", TN10)));
                         cellk.HorizontalAlignment = Element.ALIGN_LEFT; cellk.BorderWidth = 0f;
@@ -922,11 +933,11 @@ namespace Raport
                         int i = 1;
                         foreach (DataRow row in tabelSiswa.Rows)
                         {
-                            var cell12 = new PdfPCell(new Phrase(new Chunk(i.ToString(), TN11)));
+                            var cell12 = new PdfPCell(new Phrase(new Chunk(i.ToString(), TN10)));
                             cell12.HorizontalAlignment = Element.ALIGN_LEFT;
-                            var cell13 = new PdfPCell(new Phrase(new Chunk(row["NIS Siswa"].ToString(), TN11)));
+                            var cell13 = new PdfPCell(new Phrase(new Chunk(row["NIS Siswa"].ToString(), TN10)));
                             cell13.HorizontalAlignment = Element.ALIGN_LEFT;
-                            var cell14 = new PdfPCell(new Phrase(new Chunk(row["Nama Siswa"].ToString(), TN11)));
+                            var cell14 = new PdfPCell(new Phrase(new Chunk(row["Nama Siswa"].ToString(), TN10)));
                             cell14.HorizontalAlignment = Element.ALIGN_LEFT;
                             raport_tbl.AddCell(cell12); raport_tbl.AddCell(cell13); raport_tbl.AddCell(cell14);
                             raport_tbl.AddCell(cell); raport_tbl.AddCell(cell); raport_tbl.AddCell(cell);
@@ -938,6 +949,8 @@ namespace Raport
                         doc.Add(format_tbl);
                         doc.Add(raport_tbl);
                     }
+                    doc.NewPage();
+                    FormatDeskripsi(doc);
                     //Close Document
                     doc.Close();
                     writer.Close();
@@ -968,7 +981,83 @@ namespace Raport
                 MessageBox.Show(ex.Message);
             }
         }
-        
+
+        public void FormatDeskripsi(Document doc)
+        {
+            PdfPTable format_tbl = new PdfPTable(7);
+            format_tbl.TotalWidth = 525f; format_tbl.LockedWidth = true;
+            format_tbl.DefaultCell.Border = Rectangle.NO_BORDER;
+            widths = new float[] { 100f, 5f, 100f, 115f, 100f, 5f, 100f };
+            format_tbl.SetWidths(widths);
+
+            var paragraf = new Paragraph(new Chunk("FORMAT DESKRIPSI NILAI UJIAN SISWA", TB12));
+            paragraf.Alignment = Element.ALIGN_CENTER;
+
+            var cella = new PdfPCell(new Phrase(new Chunk("Pengajar", TN10)));
+            cella.HorizontalAlignment = Element.ALIGN_LEFT; cella.BorderWidth = 0f;
+            var cellb = new PdfPCell(new Phrase(new Chunk("Mata Pelajaran", TN10)));
+            cellb.HorizontalAlignment = Element.ALIGN_LEFT; cellb.BorderWidth = 0f;
+            var cellc = new PdfPCell(new Phrase(new Chunk("Kelompok Mapel", TN10)));
+            cellc.HorizontalAlignment = Element.ALIGN_LEFT; cellc.BorderWidth = 0f;
+            var celld = new PdfPCell(new Phrase(new Chunk("Kelas", TN10)));
+            celld.HorizontalAlignment = Element.ALIGN_LEFT; celld.BorderWidth = 0f;
+            var celle = new PdfPCell(new Phrase(new Chunk("Tahun Ajaran", TN10)));
+            celle.HorizontalAlignment = Element.ALIGN_LEFT; celle.BorderWidth = 0f;
+            var cellf = new PdfPCell(new Phrase(new Chunk("Semester", TN10)));
+            cellf.HorizontalAlignment = Element.ALIGN_LEFT; cellf.BorderWidth = 0f;
+            var cellg = new PdfPCell(new Phrase(new Chunk("Satu / Dua", TN10)));
+            cellg.HorizontalAlignment = Element.ALIGN_LEFT; cellg.BorderWidth = 0f;
+            var cellh = new PdfPCell(new Phrase(new Chunk(getTahun, TN10)));
+            cellh.HorizontalAlignment = Element.ALIGN_LEFT; cellh.BorderWidth = 0f;
+            var celli = new PdfPCell(new Phrase(new Chunk("A / B / C", TN10)));
+            celli.HorizontalAlignment = Element.ALIGN_LEFT; celli.BorderWidth = 0f;
+            var cellj = new PdfPCell(new Phrase(new Chunk("\n", TN10))); cellj.Colspan = 7;
+            cellj.HorizontalAlignment = Element.ALIGN_LEFT; cellj.BorderWidth = 0f;
+            var cellk = new PdfPCell(new Phrase(new Chunk(":", TN10)));
+            cellk.HorizontalAlignment = Element.ALIGN_LEFT; cellk.BorderWidth = 0f;
+
+            format_tbl.AddCell(cellj);
+            format_tbl.AddCell(cella); format_tbl.AddCell(cellk); format_tbl.AddCell("");
+            format_tbl.AddCell(""); format_tbl.AddCell(celld); format_tbl.AddCell(cellk); format_tbl.AddCell("");//
+            format_tbl.AddCell(cellb); format_tbl.AddCell(cellk); format_tbl.AddCell("");
+            format_tbl.AddCell(""); format_tbl.AddCell(celle); format_tbl.AddCell(cellk); format_tbl.AddCell(cellh);//
+            format_tbl.AddCell(cellc); format_tbl.AddCell(cellk); format_tbl.AddCell(celli);
+            format_tbl.AddCell(""); format_tbl.AddCell(cellf); format_tbl.AddCell(cellk); format_tbl.AddCell(cellg);//
+            format_tbl.AddCell(cellj);
+
+            var cell1 = new PdfPCell(new Phrase(new Chunk("Kompetensi Pengetahuan", TB10)));
+            cell1.HorizontalAlignment = Element.ALIGN_CENTER; cell1.Colspan = 7;
+            var cell2 = new PdfPCell(new Phrase(new Chunk("Kompetensi Keterampilan", TB10)));
+            cell2.HorizontalAlignment = Element.ALIGN_CENTER; cell2.Colspan = 7;
+            var cell3 = new PdfPCell(new Phrase(new Chunk("Kompetensi Sikap Sosial dan Spiritual", TB10)));
+            cell3.HorizontalAlignment = Element.ALIGN_CENTER; cell3.Colspan = 7;
+            var cell4 = new PdfPCell(new Phrase(new Chunk("Kelompok Atas", TN10)));
+            cell4.HorizontalAlignment = Element.ALIGN_LEFT; cell4.Colspan = 7;
+            var cell5 = new PdfPCell(new Phrase(new Chunk("Kelompok Tengah", TN10)));
+            cell5.HorizontalAlignment = Element.ALIGN_LEFT; cell5.Colspan = 7;
+            var cell6 = new PdfPCell(new Phrase(new Chunk("Kelompok Bawah", TN10)));
+            cell6.HorizontalAlignment = Element.ALIGN_LEFT; cell6.Colspan = 7;
+            var cell7 = new PdfPCell(new Phrase(new Chunk("\n\n\n\n\n", TN10)));
+            cell7.HorizontalAlignment = Element.ALIGN_LEFT; cell7.Colspan = 7;
+            var cell8 = new PdfPCell(new Phrase(new Chunk("\n", TN10))); cell8.BorderWidthBottom = 0f;
+            cell8.Colspan = 7; cell8.BorderWidthLeft = 0f; cell8.BorderWidthRight = 0f;
+
+            format_tbl.AddCell(paragraf);
+            format_tbl.AddCell(cell1);
+            format_tbl.AddCell(cell4); format_tbl.AddCell(cell7);
+            format_tbl.AddCell(cell5); format_tbl.AddCell(cell7);
+            format_tbl.AddCell(cell6); format_tbl.AddCell(cell7);
+            format_tbl.AddCell(cell8); format_tbl.AddCell(cell2);
+            format_tbl.AddCell(cell4); format_tbl.AddCell(cell7);
+            format_tbl.AddCell(cell5); format_tbl.AddCell(cell7);
+            format_tbl.AddCell(cell6); format_tbl.AddCell(cell7);
+            format_tbl.AddCell(cell8); format_tbl.AddCell(cell3);
+            format_tbl.AddCell(cell4); format_tbl.AddCell(cell7);
+            format_tbl.AddCell(cell5); format_tbl.AddCell(cell7);
+            format_tbl.AddCell(cell6); format_tbl.AddCell(cell7);
+            doc.Add(format_tbl);
+        }
+
         //END CLASS
     }
 }

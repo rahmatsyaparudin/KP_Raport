@@ -29,3 +29,8 @@ E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csproj.GenerateResource.Cache
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.exe
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.pdb
 E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.csprojResolveAssemblyReference.cache
+E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Raport.FormViewPDF.resources
+E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\Interop.AcroPDFLib.dll
+E:\MAMET\PROJECT\KP_Raport\Raport\bin\Debug\AxInterop.AcroPDFLib.dll
+E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\Interop.AcroPDFLib.dll
+E:\MAMET\PROJECT\KP_Raport\Raport\obj\Debug\AxInterop.AcroPDFLib.dll

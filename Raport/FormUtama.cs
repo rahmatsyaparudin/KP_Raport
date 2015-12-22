@@ -353,32 +353,30 @@ namespace Raport
 
         private void raport_printBtn_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 dbToPDF.passTahun = tahuj_combo.Text.ToString();
-                string nis_siswa = "1314.10.006";
                 string kode_kelas = "3";
                 string semester = "SMT1";
-                dbToPDF.passNisSiswa = nis_siswa;
-                dbToPDF.passKodeKelas = kode_kelas;
+                dbToPDF.passKode = kode_kelas;
                 dbToPDF.passSemester = semester;
-                dbToPDF.RaportToPDF(nis_siswa, kode_kelas, semester);
+                dbToPDF.RaportKelasToPDF();
                 db.BrowserDialog(fbDialog, "Data Nilai");
-            }
-            catch (MySqlException myex)
-            {
-                switch (myex.Number)
-                {
-                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                    case 1045: MessageBox.Show("username/password salah."); break;
-                    default: MessageBox.Show("Terjadi kesalahan data atau aplikasi."); break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //}
+            //catch (MySqlException myex)
+            //{
+            //    switch (myex.Number)
+            //    {
+            //        case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+            //        case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+            //        case 1045: MessageBox.Show("username/password salah."); break;
+            //        default: MessageBox.Show("Terjadi kesalahan data atau aplikasi."); break;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         private void saveDataKelas_btn_Click(object sender, EventArgs e)
@@ -407,25 +405,26 @@ namespace Raport
 
         private void saveDataNilai_btn_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 dbToExcel.passTahun = tahuj_combo.Text.ToString();
-            }
-            catch (MySqlException myex)
-            {
-                switch (myex.Number)
-                {
-                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                    case 1045: MessageBox.Show("username/password salah."); break;
-                    default: MessageBox.Show("Terjadi kesalahan data atau aplikasi."); break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        
+                dbToExcel.NilaiToExcel("Tidak Aktif");
+                db.BrowserDialog(fbDialog, "Data Nilai");
+            //}
+            //catch (MySqlException myex)
+            //{
+            //    switch (myex.Number)
+            //    {
+            //        case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+            //        case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+            //        case 1045: MessageBox.Show("username/password salah."); break;
+            //        default: MessageBox.Show("Terjadi kesalahan data atau aplikasi."); break;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         private void export_btn_Click(object sender, EventArgs e)
@@ -441,7 +440,8 @@ namespace Raport
                 dbToPDF.passTahun = tahuj_combo.Text.ToString();
                 dbToPDF.FormatNilaiPDF();
                 string print = dbToPDF.getFormat;
-                //MessageBox.Show(print);
+                MessageBox.Show(print);
+                //db.BrowserDialog(fbDialog, "Print");
                 db.SendToPrinter(print);
             }
             catch (MySqlException myex)
