@@ -37,6 +37,16 @@ namespace Raport
             set { getLevel = value; }
         }
 
+        public DataTable siswadt(string getKodeKelas)
+        {
+            DataTable tabel = new DataTable();
+            this.field = "nis_siswa";
+            this.table = "detailkelassiswa INNER JOIN siswa USING (nis_siswa)";
+            this.cond = "kode_kelas = '" + getKodeKelas + "' AND status_siswa = 'Aktif'";
+            tabel = db.GetDataTable(field, table, cond);
+            return tabel;
+        }
+
         public FormNilai()
         {
             InitializeComponent();
@@ -572,21 +582,8 @@ namespace Raport
         {
             try
             {
-                siswa_grid.DataSource = null;
-                siswa_grid.Columns.Clear();
-                siswa_grid.Rows.Clear();
-
-                //Membuat Checkbox
-                chk.ReadOnly = false;
-                chk.HeaderText = "Pilih";
-                siswa_grid.Columns.Add(chk);
-
-                this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
-                this.field = "nis_siswa";
-                this.table = "detailkelassiswa INNER JOIN siswa USING (nis_siswa)";
-                this.cond = "kode_kelas = '" + kodeKelas + "' AND status_siswa = 'Aktif'";
-                DataTable tabel = db.GetDataTable(field, table, cond);
-                siswa_grid.DataSource = tabel;
+                kodeKelas = this.kelas_combo.SelectedValue.ToString();
+                siswadt(kodeKelas);
             }
             catch (MySqlException myex)
             {
@@ -799,33 +796,29 @@ namespace Raport
 
                 if (jumlah_lbl.Text != "0")
                 {
-                    foreach (DataGridViewRow row in siswa_grid.Rows)
+                    foreach (DataRow row in siswadt(kodeKelas).Rows)
                     {
-                        row.Cells[0].Value = true;
-                        if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                        nis_siswa = row["nis_siswa"].ToString();
+                        this.nis_lbl.Text = "null";
+                        getSiswa = "SELECT count(*) as 'jumlah' FROM nilai WHERE nis_siswa = '" + nis_siswa +
+                                   "' AND kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel +
+                                   "' AND kode_semester = '" + kodeSmt + "'";
+                        myConn.Open();
+                        myComm = new MySqlCommand(getSiswa, myConn);
+                        myReader = myComm.ExecuteReader();
+                        while (myReader.Read())
                         {
-                            nis_siswa = row.Cells[1].Value.ToString();
-                            this.nis_lbl.Text = "null";
-                            getSiswa = "SELECT count(*) as 'jumlah' FROM nilai WHERE nis_siswa = '" + nis_siswa +
-                                       "' AND kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel +
-                                       "' AND kode_semester = '" + kodeSmt + "'";
-                            myConn.Open();
-                            myComm = new MySqlCommand(getSiswa, myConn);
-                            myReader = myComm.ExecuteReader();
-                            while (myReader.Read())
-                            {
-                                nis_lbl.Text = myReader.GetString("jumlah");
-                            }
-                            if (nis_lbl.Text == "0")
-                            {
-                                this.field = "DEFAULT, '" + nis_siswa + "', '" + kodeKelas + "', '" + kodeMapel + "', '" + kodeSmt +
-                                        "', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT";
-                                this.table = "nilai";
-                                db.insertData(table, field);
-                                loadData();
-                            }
-                            myConn.Close();
+                            nis_lbl.Text = myReader.GetString("jumlah");
                         }
+                        if (nis_lbl.Text == "0")
+                        {
+                            this.field = "DEFAULT, '" + nis_siswa + "', '" + kodeKelas + "', '" + kodeMapel + "', '" + kodeSmt +
+                                    "', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT";
+                            this.table = "nilai";
+                            db.insertData(table, field);
+                            loadData();
+                        }
+                        myConn.Close();
                     }
                     this.nis_lbl.Text = "null";
                 }

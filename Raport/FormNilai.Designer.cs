@@ -39,18 +39,17 @@
             this.all_rad = new System.Windows.Forms.RadioButton();
             this.dataNilai_grid = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.load_toolBtn = new System.Windows.Forms.ToolStripButton();
             this.nis_lbl = new System.Windows.Forms.ToolStripLabel();
             this.jumlah_lbl = new System.Windows.Forms.ToolStripLabel();
             this.peng_lbl = new System.Windows.Forms.ToolStripLabel();
-            this.ket_lbl = new System.Windows.Forms.ToolStripLabel();
             this.sikap_lbl = new System.Windows.Forms.ToolStripLabel();
-            this.load_toolBtn = new System.Windows.Forms.ToolStripButton();
+            this.ket_lbl = new System.Windows.Forms.ToolStripLabel();
             this.dPeng_lbl = new System.Windows.Forms.ToolStripLabel();
             this.dKet_lbl = new System.Windows.Forms.ToolStripLabel();
             this.dSik_lbl = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.siswa_grid = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.kelas_combo = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -66,7 +65,6 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataNilai_grid)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.siswa_grid)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -207,6 +205,16 @@
             this.toolStrip1.TabIndex = 13;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // load_toolBtn
+            // 
+            this.load_toolBtn.Enabled = false;
+            this.load_toolBtn.Image = global::Raport.Properties.Resources.refresh;
+            this.load_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.load_toolBtn.Name = "load_toolBtn";
+            this.load_toolBtn.Size = new System.Drawing.Size(66, 22);
+            this.load_toolBtn.Text = "Refresh";
+            this.load_toolBtn.Click += new System.EventHandler(this.load_toolBtn_Click);
+            // 
             // nis_lbl
             // 
             this.nis_lbl.Name = "nis_lbl";
@@ -228,13 +236,6 @@
             this.peng_lbl.Text = "Peng";
             this.peng_lbl.Visible = false;
             // 
-            // ket_lbl
-            // 
-            this.ket_lbl.Name = "ket_lbl";
-            this.ket_lbl.Size = new System.Drawing.Size(24, 22);
-            this.ket_lbl.Text = "Ket";
-            this.ket_lbl.Visible = false;
-            // 
             // sikap_lbl
             // 
             this.sikap_lbl.Name = "sikap_lbl";
@@ -242,15 +243,12 @@
             this.sikap_lbl.Text = "Sikap";
             this.sikap_lbl.Visible = false;
             // 
-            // load_toolBtn
+            // ket_lbl
             // 
-            this.load_toolBtn.Enabled = false;
-            this.load_toolBtn.Image = global::Raport.Properties.Resources.refresh;
-            this.load_toolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.load_toolBtn.Name = "load_toolBtn";
-            this.load_toolBtn.Size = new System.Drawing.Size(66, 22);
-            this.load_toolBtn.Text = "Refresh";
-            this.load_toolBtn.Click += new System.EventHandler(this.load_toolBtn_Click);
+            this.ket_lbl.Name = "ket_lbl";
+            this.ket_lbl.Size = new System.Drawing.Size(24, 22);
+            this.ket_lbl.Text = "Ket";
+            this.ket_lbl.Visible = false;
             // 
             // dPeng_lbl
             // 
@@ -280,20 +278,6 @@
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(65, 22);
             this.toolStripLabel1.Text = "Input Nilai ";
-            // 
-            // siswa_grid
-            // 
-            this.siswa_grid.AllowUserToAddRows = false;
-            this.siswa_grid.AllowUserToDeleteRows = false;
-            this.siswa_grid.AllowUserToResizeColumns = false;
-            this.siswa_grid.AllowUserToResizeRows = false;
-            this.siswa_grid.BackgroundColor = System.Drawing.Color.CornflowerBlue;
-            this.siswa_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.siswa_grid.Location = new System.Drawing.Point(673, 12);
-            this.siswa_grid.Name = "siswa_grid";
-            this.siswa_grid.Size = new System.Drawing.Size(294, 172);
-            this.siswa_grid.TabIndex = 1;
-            this.siswa_grid.Visible = false;
             // 
             // label2
             // 
@@ -432,7 +416,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.siswa_grid);
             this.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(5);
@@ -447,7 +430,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataNilai_grid)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.siswa_grid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -471,7 +453,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox smt_combo;
         private System.Windows.Forms.ToolStripLabel nis_lbl;
-        private System.Windows.Forms.DataGridView siswa_grid;
         private System.Windows.Forms.ToolStripLabel jumlah_lbl;
         private System.Windows.Forms.Button set_btn;
         private System.Windows.Forms.ToolStripLabel peng_lbl;
