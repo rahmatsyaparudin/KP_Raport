@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
@@ -203,25 +204,46 @@ namespace Raport
         {
             try
             {
-                this.field = "kode_kelas as 'Kode', count(*) as 'Jumlah'";
-                this.table = "detailkelassiswa";
-                this.cond = "group by kode_kelas";
-                string query = "SELECT " + field + " FROM " + table + " " + cond;
 
-                myComm = new MySqlCommand(query, myConn);
-                myConn.Open();
-                myReader = myComm.ExecuteReader();
-                while (myReader.Read())
+                this.field = "kode_kelas";
+                this.table = "kelas";
+                this.cond = "status_kelas = 'Aktif'";
+                DataTable dt = db.GetDataTable(field, table, cond);
+
+                foreach (DataRow row in dt.Rows)
                 {
-                    string kode = myReader.GetString("Kode");
-                    string value = myReader.GetString("Jumlah");
-                    string table2 = "kelas";
-                    string field2 = "jumlah_siswa = '" + value + "'";
-                    string cond2 = "kode_kelas = '" + kode + "'";
-                    db.updateData(table2, field2, cond2);
-                    MessageBox.Show(value);
+                    string query = "SELECT kode_kelas as 'Kode', count(*) as 'Jumlah' FROM detailkelassiswa INNER JOIN siswa USING (nis_siswa) " +
+                                    "where kode_kelas = '" + row["kode_kelas"].ToString() + "' AND status_siswa != 'Tidak Aktif'";
+                    myComm = new MySqlCommand(query, myConn);
+                    myConn.Open();
+                    using (myReader = myComm.ExecuteReader())
+                    {
+                        int kode_kelas = myReader.GetOrdinal("Kode");
+                        while (myReader.Read())
+                        {
+                            string kode = myReader.IsDBNull(kode_kelas) ? string.Empty
+                                                : myReader.GetString("Kode");
+                            string value = myReader.GetString("Jumlah");
+                            string table2 = "kelas";
+                            string field2 = "jumlah_siswa = '" + value + "'";
+                            string cond2 = "kode_kelas = '" + kode + "'";
+                            if (String.IsNullOrEmpty(kode))
+                            {
+                                kode = row["kode_kelas"].ToString();
+                                field2 = "jumlah_siswa = '" + value + "'";
+                                cond2 = "kode_kelas = '" + kode + "'";
+                                db.updateData(table2, field2, cond2);
+                            }
+                            else
+                            {
+                                db.updateData(table2, field2, cond2);
+                            }
+                        }
+                    }
+                    myReader.Close();
+                    myConn.Close();
+
                 }
-                myConn.Close();
             }
             catch (MySqlException myex)
             {
@@ -353,34 +375,32 @@ namespace Raport
 
         private void raport_printBtn_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-                dbToPDF.passTahun = tahuj_combo.Text.ToString();
-                string kode_kelas = "3";
-                string semester = "SMT1";
-                dbToPDF.passKode = kode_kelas;
-                dbToPDF.passSemester = semester;
-                dbToPDF.RaportKelasToPDF();
-                db.BrowserDialog(fbDialog, "Data Nilai");
-            //}
-            //catch (MySqlException myex)
-            //{
-            //    switch (myex.Number)
-            //    {
-            //        case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-            //        case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-            //        case 1045: MessageBox.Show("username/password salah."); break;
-            //        default: MessageBox.Show("Terjadi kesalahan data atau aplikasi."); break;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            try
+            {
+                FormViewPDF fView = new FormViewPDF();
+                fView.passTahun = tahuj_combo.Text.ToString();
+                fView.passValue = "Raport";
+                fView.ShowDialog();
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau aplikasi."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void saveDataKelas_btn_Click(object sender, EventArgs e)
         {
+
             try
             {
                 dbToExcel.passTahun = tahuj_combo.Text.ToString();
@@ -405,26 +425,27 @@ namespace Raport
 
         private void saveDataNilai_btn_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-                dbToExcel.passTahun = tahuj_combo.Text.ToString();
-                dbToExcel.NilaiToExcel("Tidak Aktif");
-                db.BrowserDialog(fbDialog, "Data Nilai");
-            //}
-            //catch (MySqlException myex)
-            //{
-            //    switch (myex.Number)
-            //    {
-            //        case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-            //        case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-            //        case 1045: MessageBox.Show("username/password salah."); break;
-            //        default: MessageBox.Show("Terjadi kesalahan data atau aplikasi."); break;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            try
+            {
+                FormViewPDF fView = new FormViewPDF();
+                fView.passTahun = tahuj_combo.Text.ToString();
+                fView.passValue = "Nilai";
+                fView.ShowDialog();
+            }
+            catch (MySqlException myex)
+            {
+                switch (myex.Number)
+                {
+                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+                    case 1045: MessageBox.Show("username/password salah."); break;
+                    default: MessageBox.Show("Terjadi kesalahan data atau aplikasi."); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void export_btn_Click(object sender, EventArgs e)
@@ -437,12 +458,10 @@ namespace Raport
         {
             try
             {
-                dbToPDF.passTahun = tahuj_combo.Text.ToString();
-                dbToPDF.FormatNilaiPDF();
-                string print = dbToPDF.getFormat;
-                MessageBox.Show(print);
-                //db.BrowserDialog(fbDialog, "Print");
-                db.SendToPrinter(print);
+                FormViewPDF fView = new FormViewPDF();
+                fView.passTahun = tahuj_combo.Text.ToString();
+                fView.passValue = "Format";
+                fView.ShowDialog();
             }
             catch (MySqlException myex)
             {

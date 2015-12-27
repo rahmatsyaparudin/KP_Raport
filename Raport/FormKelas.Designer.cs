@@ -546,6 +546,7 @@ namespace Raport
             this.id_lbl.Size = new System.Drawing.Size(19, 21);
             this.id_lbl.TabIndex = 6;
             this.id_lbl.Text = "0";
+            this.id_lbl.Visible = false;
             // 
             // wali_txt
             // 

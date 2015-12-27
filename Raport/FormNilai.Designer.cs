@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -111,7 +111,7 @@
             // 
             this.sss_rad.AutoSize = true;
             this.sss_rad.BackColor = System.Drawing.Color.SteelBlue;
-            this.sss_rad.Location = new System.Drawing.Point(518, -1);
+            this.sss_rad.Location = new System.Drawing.Point(414, 2);
             this.sss_rad.Name = "sss_rad";
             this.sss_rad.Size = new System.Drawing.Size(172, 21);
             this.sss_rad.TabIndex = 17;
@@ -124,7 +124,7 @@
             // 
             this.ket_rad.AutoSize = true;
             this.ket_rad.BackColor = System.Drawing.Color.SteelBlue;
-            this.ket_rad.Location = new System.Drawing.Point(415, -1);
+            this.ket_rad.Location = new System.Drawing.Point(311, 2);
             this.ket_rad.Name = "ket_rad";
             this.ket_rad.Size = new System.Drawing.Size(105, 21);
             this.ket_rad.TabIndex = 16;
@@ -137,7 +137,7 @@
             // 
             this.peng_rad.AutoSize = true;
             this.peng_rad.BackColor = System.Drawing.Color.SteelBlue;
-            this.peng_rad.Location = new System.Drawing.Point(314, -1);
+            this.peng_rad.Location = new System.Drawing.Point(210, 2);
             this.peng_rad.Name = "peng_rad";
             this.peng_rad.Size = new System.Drawing.Size(102, 21);
             this.peng_rad.TabIndex = 15;
@@ -150,7 +150,7 @@
             // 
             this.all_rad.AutoSize = true;
             this.all_rad.BackColor = System.Drawing.Color.SteelBlue;
-            this.all_rad.Location = new System.Drawing.Point(248, -1);
+            this.all_rad.Location = new System.Drawing.Point(144, 2);
             this.all_rad.Name = "all_rad";
             this.all_rad.Size = new System.Drawing.Size(66, 21);
             this.all_rad.TabIndex = 18;
@@ -165,8 +165,8 @@
             this.dataNilai_grid.AllowUserToDeleteRows = false;
             this.dataNilai_grid.AllowUserToResizeColumns = false;
             this.dataNilai_grid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataNilai_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataNilai_grid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dataNilai_grid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -174,8 +174,8 @@
             this.dataNilai_grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataNilai_grid.Location = new System.Drawing.Point(0, 25);
             this.dataNilai_grid.Name = "dataNilai_grid";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dataNilai_grid.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataNilai_grid.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataNilai_grid.Size = new System.Drawing.Size(938, 364);
             this.dataNilai_grid.TabIndex = 14;
             this.dataNilai_grid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataNilai_grid_CellClick);
@@ -255,18 +255,21 @@
             this.dPeng_lbl.Name = "dPeng_lbl";
             this.dPeng_lbl.Size = new System.Drawing.Size(41, 22);
             this.dPeng_lbl.Text = "dPeng";
+            this.dPeng_lbl.Visible = false;
             // 
             // dKet_lbl
             // 
             this.dKet_lbl.Name = "dKet_lbl";
             this.dKet_lbl.Size = new System.Drawing.Size(31, 22);
             this.dKet_lbl.Text = "dKet";
+            this.dKet_lbl.Visible = false;
             // 
             // dSik_lbl
             // 
             this.dSik_lbl.Name = "dSik_lbl";
             this.dSik_lbl.Size = new System.Drawing.Size(29, 22);
             this.dSik_lbl.Text = "dSik";
+            this.dSik_lbl.Visible = false;
             // 
             // toolStripSeparator1
             // 

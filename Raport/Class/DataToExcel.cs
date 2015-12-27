@@ -18,7 +18,7 @@ namespace Raport
         DataTable dt;
         SLStyle style;
         SLTable table;
-        public string getTahun, nama_bulan;
+        public string getTahun, nama_bulan, nama_kelas;
         public string getDiterima, getLahir;
         private string query;
         public string field, cond, dbTabel;
@@ -68,6 +68,7 @@ namespace Raport
         
         public void SiswaToExcel(string status)
         {
+            killExcelProcess();
             Stopwatch sw = Stopwatch.StartNew();
             string path = "Temp\\Data Siswa";
             if (!Directory.Exists(path))
@@ -170,11 +171,12 @@ namespace Raport
             sl.SaveAs(appRootdir() + "\\" + path + "\\" + filename);
 
             sw.Stop();
-            MessageBox.Show("Time taken: " + Convert.ToInt16(sw.Elapsed.TotalSeconds));
+            MessageBox.Show("Selesai dalam: " + Convert.ToInt16(sw.Elapsed.TotalSeconds) + " detik");
         }
         
         public void GuruToExcel(string status)
         {
+            killExcelProcess();
             Stopwatch sw = Stopwatch.StartNew();
             string path = "Temp\\Data Guru";
             if (!Directory.Exists(path))
@@ -247,11 +249,12 @@ namespace Raport
             sl.SaveAs(appRootdir() + "\\" + path + "\\" + filename);
 
             sw.Stop();
-            MessageBox.Show("Time taken: " + Convert.ToInt16(sw.Elapsed.TotalSeconds));
+            MessageBox.Show("Selesai dalam: " + Convert.ToInt16(sw.Elapsed.TotalSeconds) + " detik");
         }
 
         public void KelasToExcel(string status)
         {
+            killExcelProcess();
             Stopwatch sw = Stopwatch.StartNew();
             string path = "Temp\\Data Kelas";
             if (!Directory.Exists(path))
@@ -366,33 +369,28 @@ namespace Raport
             sl.SaveAs(appRootdir() + "\\" + path + "\\" + filename);
 
             sw.Stop();
-            MessageBox.Show("Time taken: " + Convert.ToInt16(sw.Elapsed.TotalSeconds));
+            MessageBox.Show("Selesai dalam: " + Convert.ToInt16(sw.Elapsed.TotalSeconds) + " detik");
         }
 
-        public void NilaiToExcel(string status)
+        public void NilaiToExcel(string status, string kodeKelas, string kodeSemester)
         {
+            killExcelProcess();
             Stopwatch sw = Stopwatch.StartNew();
             string path = "Temp\\Data Nilai";
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
             SLDocument sl = new SLDocument();
-
-            //dbTabel = "nilai INNER JOIN siswa USING (nis_siswa) INNER JOIN mapel USING (kode_mapel)";
-            //field = "nis_siswa as 'NIS Siswa', nama_siswa as 'Nama Siswa', p_skala as 'Skala (P)', p_ang as 'Angka (P)', " +
-            //        "p_pred as 'Predikat (P)', p_desk as 'Deskripsi (P)', k_skala as 'Skala (K)', k_ang as 'Angka (K)', " +
-            //        "k_pred as 'Predikat (K)', k_desk as 'Deskripsi (K)', s_skala as 'Skala (S)', s_sikap as 'SB/B/C/K', " +
-            //        "s_desk as 'Deskripsi (S)', kode_mapel as 'Kode Mapel'";
-            //cond = "status_kelas= '" + status + "' AND tahun_ajaran = '" + getTahun + "'";
-
             dbTabel = "detailmapelkelas INNER JOIN mapel USING (kode_mapel) INNER JOIN guru USING (id_guru)";
-            field = "kode_mapel as 'Kode Mapel', nama_guru as 'Nama Guru', mata_pelajaran as 'Mata Pelajaran', kategori_mapel as 'Kategori'";
-            cond = "kode_kelas = '3'";
+            field = "kode_mapel as 'Kode Mapel', nama_guru as 'Nama Guru', mata_pelajaran as 'Mata Pelajaran', " +
+                "kategori_mapel as 'Kategori', nama_guru as 'Pengajar'";
+            cond = "kode_kelas = '" + kodeKelas + "'";
             dt = db.GetDataTable(field, dbTabel, cond);
 
             foreach (DataRow row in dt.Rows)
             {
                 DataTable result = new DataTable();
+                result.Columns.Add("No.", typeof(int));
                 result.Columns.Add("No. Induk", typeof(string)); result.Columns.Add("Nama Siswa", typeof(string));
                 result.Columns.Add("Skala (P)", typeof(string)); result.Columns.Add("Angka (P)", typeof(string));
                 result.Columns.Add("Predikat (P)", typeof(string)); result.Columns.Add("Deskripsi (P)", typeof(string));
@@ -406,17 +404,18 @@ namespace Raport
                         "p_pred as 'Predikat (P)', p_desk as 'Deskripsi (P)', k_skala as 'Skala (K)', k_ang as 'Angka (K)', " +
                         "k_pred as 'Predikat (K)', k_desk as 'Deskripsi (K)', s_skala as 'Skala (S)', s_sikap as 'SB/B/C/K', " +
                         "s_desk as 'Deskripsi (S)'";
-                cond = "status_siswa != '" + status + "' AND tahun_ajaran = '" + getTahun + 
-                       "' AND kode_kelas = '3' AND kode_mapel ='"+row["Kode Mapel"].ToString()+ "'";
+                cond = "status_siswa != '" + status + "' AND tahun_ajaran = '" + getTahun + "' AND kode_semester = '" + kodeSemester + 
+                       "' AND kode_kelas = '" + kodeKelas + "' AND kode_mapel ='" + row["Kode Mapel"].ToString()+ "'";
                 query = "SELECT " + field + " FROM " + dbTabel + " WHERE " + cond;
                 myComm = new MySqlCommand(query, myConn);
                 myConn.Open();
                 myReader = myComm.ExecuteReader();
+                i = 1;
                 while (myReader.Read())
                 {
                     result.Rows.Add(new object[]
                         {
-                        myReader.GetString("NIS Siswa"), myReader.GetString("Nama Siswa"),
+                        i.ToString(), myReader.GetString("NIS Siswa"), myReader.GetString("Nama Siswa"),
                         myReader.GetString("Skala (P)"), myReader.GetString("Angka (P)"),
                         myReader.GetString("Predikat (P)"), myReader.GetString("Deskripsi (P)"),
                         myReader.GetString("Skala (K)"), myReader.GetString("Angka (K)"),
@@ -424,11 +423,12 @@ namespace Raport
                         myReader.GetString("Skala (S)"), myReader.GetString("SB/B/C/K"),
                         myReader.GetString("Deskripsi (P)")
                         });
+                    i++;
                 }
                 myConn.Close();
                 sl.AddWorksheet(row["Kode Mapel"].ToString());
 
-                int iStartRowIndex = 7;
+                int iStartRowIndex = 9;
                 int iStartColumnIndex = 1;
                 sl.ImportDataTable(iStartRowIndex, iStartColumnIndex, result, true);
                 style = sl.CreateStyle();
@@ -437,6 +437,7 @@ namespace Raport
                 table = sl.CreateTable(iStartRowIndex, iStartColumnIndex, iEndRowIndex, iEndColumnIndex);
                 table.SetTableStyle(SLTableStyleTypeValues.Light10);
                 sl.InsertTable(table);
+
                 int iStartColumnCount = 1;
                 int iStartRowCount = 1;
                 int iEndColumnCount = result.Columns.Count;
@@ -447,6 +448,16 @@ namespace Raport
                 sl.AutoFitColumn(iStartColumnCount, iEndColumnCount);
                 sl.SetColumnStyle(iStartColumnCount, iEndColumnCount, style);
 
+                query = "Select nama_kelas from kelas where kode_kelas = '" + kodeKelas + "'";
+                myConn.Open();
+                myComm = new MySqlCommand(query, myConn);
+                myReader = myComm.ExecuteReader();
+                while (myReader.Read())
+                {
+                    nama_kelas = myReader.GetString("nama_kelas");
+                }
+                myConn.Close();
+
                 style = sl.CreateStyle();
                 style.Alignment.Horizontal = HorizontalAlignmentValues.Center;
                 style.Alignment.JustifyLastLine = true;
@@ -454,10 +465,10 @@ namespace Raport
                 style.Font.FontSize = 18;
                 style.Font.Bold = true;
                 style.Font.FontName = "Times New Roman";
-                sl.MergeWorksheetCells(1, 1, 1, 7);
-                sl.SetCellValue(1, 1, "DATA KELAS SMA NEGERI 1 JAMPANGKULON");
+                sl.MergeWorksheetCells(1, 1, 1, 13);
+                sl.SetCellValue(1, 1, "DATA NILAI SISWA KELAS " + nama_kelas);
                 sl.SetCellStyle(1, 1, style);
-                sl.MergeWorksheetCells(2, 1, 2, 7);
+                sl.MergeWorksheetCells(2, 1, 2, 13);
                 sl.SetCellValue(2, 1, "TAHUN AJARAN " + getTahun);
                 sl.SetCellStyle(2, 1, style);
                 sl.MergeWorksheetCells(3, 1, 3, 7);
@@ -470,30 +481,35 @@ namespace Raport
                 style.Font.Bold = true;
                 style.Font.FontName = "Times New Roman";
                 sl.MergeWorksheetCells(4, 1, 4, 2);
-                sl.SetCellValue(4, 1, "Mata Pelajaran");
+                sl.SetCellValue(4, 1, "Pengajar");
                 sl.SetCellStyle(4, 1, style);
-                sl.MergeWorksheetCells(4, 3, 4, 4);
-                sl.SetCellValue(4, 3, row["Mata Pelajaran"].ToString());
+                sl.MergeWorksheetCells(4, 3, 4, 7);
+                sl.SetCellValue(4, 3, row["Pengajar"].ToString());
                 sl.SetCellStyle(4, 3, style);
                 sl.MergeWorksheetCells(5, 1, 5, 2);
-                sl.SetCellValue(5, 1, "Kategori");
+                sl.SetCellValue(5, 1, "Mata Pelajaran");
                 sl.SetCellStyle(5, 1, style);
-                sl.MergeWorksheetCells(5, 3, 5, 4);
-                sl.SetCellValue(5, 3, row["Kategori"].ToString());
+                sl.MergeWorksheetCells(5, 3, 5, 7);
+                sl.SetCellValue(5, 3, row["Mata Pelajaran"].ToString());
                 sl.SetCellStyle(5, 3, style);
                 sl.MergeWorksheetCells(6, 1, 6, 2);
-                sl.SetCellValue(6, 1, "Tahun Ajaran");
+                sl.SetCellValue(6, 1, "Kategori");
                 sl.SetCellStyle(6, 1, style);
                 sl.MergeWorksheetCells(6, 3, 6, 4);
-                sl.SetCellValue(6, 3, getTahun);
+                sl.SetCellValue(6, 3, row["Kategori"].ToString());
                 sl.SetCellStyle(6, 3, style);
+                sl.MergeWorksheetCells(7, 1, 7, 2);
+                sl.SetCellValue(7, 1, "Tahun Ajaran");
+                sl.SetCellStyle(7, 1, style);
+                sl.MergeWorksheetCells(7, 3, 7, 4);
+                sl.SetCellValue(7, 3, getTahun);
+                sl.SetCellStyle(7, 3, style);
             }
             sl.DeleteWorksheet(SLDocument.DefaultFirstSheetName);
-            filename = "Data Nilai [" + getTahun.ToString().Replace("/", "-") + "].xlsx";
+            filename = "Data Nilai Kelas " + nama_kelas + " [" + kodeSemester + "-" + getTahun.ToString().Replace("/", "-") + "].xlsx";
             sl.SaveAs(appRootdir() + "\\" + path + "\\" + filename);
-
             sw.Stop();
-            MessageBox.Show("Time taken: " + Convert.ToInt16(sw.Elapsed.TotalSeconds));
+            MessageBox.Show("Selesai dalam: " + Convert.ToInt16(sw.Elapsed.TotalSeconds) + " detik");
         }
         //END CLASS
     }

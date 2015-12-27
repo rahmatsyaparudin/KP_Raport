@@ -34,10 +34,10 @@ namespace Raport
         public string nama_sekolah, alamat_sekolah;
         public string nama_guru, nip_guru;
         public string nama_bulan;
-        public string getTahun;
+        public string getTahun, query, path, filename;
         public string valueA, valueB, valueC;
         public string field, table, cond;
-        public string setNisSiswa, setKodeKelas, setKode, setSemeter, getFormat;
+        public string setNisSiswa, setKodeKelas, setKode, setSemeter, getFormat, getValue;
         float[] widths;
         string[] month = { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
                            "Oktober", "November", "Desember" };
@@ -72,6 +72,12 @@ namespace Raport
             get { return getTahun; }
             set { getTahun = value; }
         }
+        
+        public string passValue
+        {
+            get { return getValue; }
+            set { getValue = value; }
+        }
 
         public string printFormat
         {
@@ -81,8 +87,8 @@ namespace Raport
 
         public DataTable saveToPDF(string getKode)
         {
-            table = "detailkelassiswa INNER JOIN kelas USING (kode_kelas)";
-            field = "nis_siswa, kode_kelas";
+            table = "detailkelassiswa INNER JOIN kelas USING (kode_kelas) JOIN siswa USING (nis_siswa)";
+            field = "nis_siswa, nama_siswa, nisn_siswa, kode_kelas";
             cond = "kode_kelas = '" + getKode + "'";
             dt = db.GetDataTable(field, table, cond);
             return dt;
@@ -131,17 +137,40 @@ namespace Raport
         public void RaportKelasToPDF()
         {
             killPDFProcess();
-            MessageBox.Show(setKode);
-            MessageBox.Show(setSemeter);
             try
             {
-                string path = "Temp\\Data Nilai";
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-                string filename = "Data Nilai Siswa (" + kelas_siswa + "-" + setSemeter + ").pdf";
+                Stopwatch sw = Stopwatch.StartNew();
                 string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
+                if (getValue == "PrintRaport")
+                {
+                    path = "Temp\\Print";
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filename = db.randomFile() + db.randomFile() + ".pdf";
+                    printFormat = appRootDir + "\\" + path + "\\" + filename;
+                }
+                else if (getValue == "SaveAsRaport")
+                {
+                    query = "Select nama_kelas from kelas where kode_kelas = '" + setKode + "'";
+                    myConn.Open();
+                    myComm = new MySqlCommand(query, myConn);
+                    myReader = myComm.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        kelas_siswa = myReader.GetString("nama_kelas");
+                    }
+                    myConn.Close();
+
+                    path = "Temp\\Data Nilai";
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filename = "Nilai Siswa " + kelas_siswa + " (" + setSemeter + "-" + getTahun.Replace("/", "-") + ").pdf";
+                }
+                
                 using (FileStream fstream = new FileStream(appRootDir + "\\" + path + "\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None))
                 using (Document doc = new Document(PageSize.A4, 20, 20, 10, 20))
                 using (PdfWriter writer = PdfWriter.GetInstance(doc, fstream))
@@ -157,9 +186,7 @@ namespace Raport
                     var paragraf1 = new Paragraph(new Chunk("LAPORAN \nCAPAIAN KOMPETENSI PESERTA DIDIK" +
                                                         "\nSEKOLAH MENENGAH ATAS \n(SMA)", TB14)); paragraf1.Alignment = Element.ALIGN_CENTER;
                     var paragraf2 = new Paragraph(new Chunk("Nama Peserta Didik", TB12)); paragraf2.Alignment = Element.ALIGN_CENTER;
-                    var paragraf3 = new Paragraph(new Chunk(nama_siswa, TN12)); paragraf3.Alignment = Element.ALIGN_CENTER;
                     var paragraf4 = new Paragraph(new Chunk("NISN:", TB12)); paragraf4.Alignment = Element.ALIGN_CENTER;
-                    var paragraf5 = new Paragraph(new Chunk(nisn_siswa, TN12)); paragraf5.Alignment = Element.ALIGN_CENTER;
                     var paragraf6 = new Paragraph(new Chunk("KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN \nREPUBLIK INDONESIA", TB14));
                     paragraf6.Alignment = Element.ALIGN_CENTER;
                     var paragraf7 = new Paragraph(new Chunk("KETERANGAN TENTANG DIRI PESERTA DIDIK", TB14)); paragraf7.Alignment = Element.ALIGN_CENTER;
@@ -169,6 +196,9 @@ namespace Raport
                     doc.Open();
                     foreach (DataRow row in saveToPDF(setKode).Rows)
                     {
+                        var paragraf3 = new Paragraph(new Chunk(row["nama_siswa"].ToString(), TN12)); paragraf3.Alignment = Element.ALIGN_CENTER;
+                        var paragraf5 = new Paragraph(new Chunk(row["nisn_siswa"].ToString(), TN12)); paragraf5.Alignment = Element.ALIGN_CENTER;
+
                         setKodeKelas = row["kode_kelas"].ToString();
                         setNisSiswa = row["nis_siswa"].ToString();
 
@@ -191,7 +221,7 @@ namespace Raport
                         KepalaSekolah(doc);
                         //LCK
                         doc.NewPage();
-                        detailLCKSiswa(doc, setNisSiswa, setKodeKelas); kriteriaLCK(doc);
+                        detailLCKSiswa(doc, setNisSiswa, setKodeKelas, setSemeter); kriteriaLCK(doc);
                         nilaiLCK(doc, setNisSiswa, setKodeKelas, "Kelompok A (Wajib)", "Kelompok A");
                         nilaiLCK(doc, setNisSiswa, setKodeKelas, "Kelompok B (Wajib)", "Kelompok B");
                         nilaiLCK(doc, setNisSiswa, setKodeKelas, "Kelompok C (Pilihan)", "Kelompok C");
@@ -199,19 +229,19 @@ namespace Raport
                         walikelas_ortu(doc, setKodeKelas);
                         //Deskripsi
                         doc.NewPage();
-                        detailLCKSiswa(doc, setNisSiswa, setKodeKelas); kriteria_desk(doc);
+                        detailLCKSiswa(doc, setNisSiswa, setKodeKelas, setSemeter); kriteria_desk(doc);
                         deskripsiLCK(doc, setKodeKelas, setNisSiswa, "Kelompok A", "Kelompok A (Wajib)");
                         deskripsiLCK(doc, setKodeKelas, setNisSiswa, "Kelompok B", "Kelompok B (Wajib)");
                         deskripsiLCK(doc, setKodeKelas, setNisSiswa, "Kelompok C", "Kelompok C (Pilihan)");
                         walikelas_ortu(doc, setKodeKelas);
 
                     }
-
                     //Close Document
                     doc.Close();
                     writer.Close();
                     fstream.Close();
                 }
+                MessageBox.Show("Selesai dalam: " + Convert.ToInt16(sw.Elapsed.TotalSeconds) + " detik");
             }
             catch (DocumentException de)
             {
@@ -474,7 +504,7 @@ namespace Raport
             doc.Add(raport_tbl);
         }
         
-        public void detailLCKSiswa(Document doc, string getNisSiswa, string getKodeKelas)
+        public void detailLCKSiswa(Document doc, string getNisSiswa, string getKodeKelas, string getSemester)
         {
             PdfPTable raport_tbl = new PdfPTable(6);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
@@ -510,10 +540,19 @@ namespace Raport
             var phrase5 = new Paragraph(new Chunk("Alamat Sekolah", TN11));
             var phrase6 = new Paragraph(new Chunk(alamat_sekolah, TN11));
             var phrase7 = new Paragraph(new Chunk("Semester", TN11));
-            //SEMESTER BELUM DITENTUKAN JANGAN SAMPE LUPA BISA GAWAT
-            var phrase8 = new Paragraph(new Chunk("1 (Satu)", TN11));
-            raport_tbl.AddCell(phrase5); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase6);
-            raport_tbl.AddCell(phrase7); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase8);
+            
+            if (getSemester == "SMT1")
+            {
+                var phrase8 = new Paragraph(new Chunk("1 (Satu)", TN11));
+                raport_tbl.AddCell(phrase5); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase6);
+                raport_tbl.AddCell(phrase7); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase8);
+            }
+            else if (getSemester == "SMT2")
+            {
+                var phrase8 = new Paragraph(new Chunk("2 (Dua)", TN11));
+                raport_tbl.AddCell(phrase5); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase6);
+                raport_tbl.AddCell(phrase7); raport_tbl.AddCell(":"); raport_tbl.AddCell(phrase8);
+            }
 
             var phrase9 = new Paragraph(new Chunk("Nama Peserta Didik", TN11));
             var phrase10 = new Paragraph(new Chunk(nama_siswa, TN11));
@@ -833,13 +872,28 @@ namespace Raport
             killPDFProcess();
             try
             {
-                string path = "Temp\\Print";
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-                string filename = "Format Penilaian Ujian Siswa.pdf";
+                Stopwatch sw = Stopwatch.StartNew();
                 string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
+                if (getValue == "PrintFormat")
+                {
+                    path = "Temp\\Print";
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filename = db.randomFile() + ".pdf";
+                    printFormat = appRootDir + "\\" + path + "\\" + filename;
+                }
+                else if (getValue == "SaveAsFormat")
+                {
+                    path = "Temp\\SaveAs";
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    filename = "Format penilaian siswa.pdf";
+                }
+                
                 using (FileStream fstream = new FileStream(appRootDir + "\\" + path + "\\" + filename, FileMode.Create, FileAccess.Write, FileShare.None))
                 using (Document doc = new Document(PageSize.A4, 20, 20, 10, 20))
                 using (PdfWriter writer = PdfWriter.GetInstance(doc, fstream))
@@ -955,8 +1009,8 @@ namespace Raport
                     doc.Close();
                     writer.Close();
                     fstream.Close();
-                    printFormat = appRootDir + "\\" + path + "\\" + filename;
                 }
+                MessageBox.Show("Selesai dalam: " + Convert.ToInt16(sw.Elapsed.TotalSeconds) + " detik");
             }
             catch (DocumentException de)
             {
@@ -1040,9 +1094,8 @@ namespace Raport
             var cell7 = new PdfPCell(new Phrase(new Chunk("\n\n\n\n\n", TN10)));
             cell7.HorizontalAlignment = Element.ALIGN_LEFT; cell7.Colspan = 7;
             var cell8 = new PdfPCell(new Phrase(new Chunk("\n", TN10))); cell8.BorderWidthBottom = 0f;
-            cell8.Colspan = 7; cell8.BorderWidthLeft = 0f; cell8.BorderWidthRight = 0f;
+            cell8.Colspan = 7; cell8.BorderWidthLeft = 0f; cell8.BorderWidthRight = 0f; cell8.BorderWidthTop = 0f;
 
-            format_tbl.AddCell(paragraf);
             format_tbl.AddCell(cell1);
             format_tbl.AddCell(cell4); format_tbl.AddCell(cell7);
             format_tbl.AddCell(cell5); format_tbl.AddCell(cell7);
@@ -1055,6 +1108,7 @@ namespace Raport
             format_tbl.AddCell(cell4); format_tbl.AddCell(cell7);
             format_tbl.AddCell(cell5); format_tbl.AddCell(cell7);
             format_tbl.AddCell(cell6); format_tbl.AddCell(cell7);
+            doc.Add(paragraf);
             doc.Add(format_tbl);
         }
 

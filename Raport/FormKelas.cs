@@ -898,6 +898,16 @@ namespace Raport
             if (str.Substring(0, i) == "X") naikKelas(str, "XI", judul);
             else if (str.Substring(0, i) == "XI") naikKelas(str, "XII", judul);
         }
+        
+        private void tidakNaikKelasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string judul = "Menetap di Kelas";
+            string str = viewKelas_combo.Text.ToString();
+            int i = str.IndexOf(' ');
+            i = str.IndexOf(' ', i);
+            if (str.Substring(0, i) == "X") naikKelas(str, "X", judul);
+            else if (str.Substring(0, i) == "XI") naikKelas(str, "XI", judul);
+        }
 
         private void lulusToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -948,16 +958,6 @@ namespace Raport
             }
         }
 
-        private void tidakNaikKelasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string judul = "Menetap di Kelas";
-            string str = viewKelas_combo.Text.ToString();
-            int i = str.IndexOf(' ');
-            i = str.IndexOf(' ', i);
-            if (str.Substring(0, i) == "X") naikKelas(str, "X", judul);
-            else if (str.Substring(0, i) == "XI") naikKelas(str, "XI", judul);
-        }
-
         private void tidakLulusToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string judul = "Menetap di Kelas";
@@ -965,6 +965,20 @@ namespace Raport
             int i = str.IndexOf(' ');
             i = str.IndexOf(' ', i);
             if (str.Substring(0, i) == "XII") naikKelas(str, "XII", judul);
+        }
+
+        private void pindahKelasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string judul = "Pindah ke Kelas";
+            string str = viewKelas_combo.Text.ToString();
+            int i = str.IndexOf(' ');
+            i = str.IndexOf(' ', i);
+            if (str.Substring(0, i) == "X")
+                pindahKelas(str, "X", judul, "Pindah Kelas");
+            else if (str.Substring(0, i) == "XI")
+                pindahKelas(str, "XI", judul, "Pindah Kelas");
+            else if (str.Substring(0, i) == "XII")
+                pindahKelas(str, "XII", judul, "Pindah Kelas");
         }
 
         private void dropOutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1010,21 +1024,7 @@ namespace Raport
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void pindahKelasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string judul = "Pindah ke Kelas";
-            string str = viewKelas_combo.Text.ToString();
-            int i = str.IndexOf(' ');
-            i = str.IndexOf(' ', i);
-            if (str.Substring(0, i) == "X")
-                pindahKelas(str, "X", judul, "Pindah Kelas");
-            else if (str.Substring(0, i) == "XI")
-                pindahKelas(str, "XI", judul, "Pindah Kelas");
-            else if (str.Substring(0, i) == "XII")
-                pindahKelas(str, "XII", judul, "Pindah Kelas");
-        }
-
+        
         private void pindahSekolahToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -1083,6 +1083,7 @@ namespace Raport
                 fPindah.passPindah = "";
                 fPindah.ShowDialog();
                 string status_pindah = fPindah.passText;
+                MessageBox.Show(status_pindah);
                 string kodeKelas = fPindah.passKelas;
                 if (status_pindah == "Create")
                     createNewClass(kodeKelas);
@@ -1167,6 +1168,7 @@ namespace Raport
                                             : myReader.GetString("status_siswa");
                             }
                         }
+                        myReader.Close();
                         myConn.Close();
 
                         if (check_siswa != "0")

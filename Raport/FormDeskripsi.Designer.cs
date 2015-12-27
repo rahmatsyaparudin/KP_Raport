@@ -45,10 +45,10 @@
             this.bawah_txt = new System.Windows.Forms.RichTextBox();
             this.desk_tab = new System.Windows.Forms.TabControl();
             this.add_tab = new System.Windows.Forms.TabPage();
-            this.deskID_lbl = new System.Windows.Forms.Label();
-            this.edit_btn = new System.Windows.Forms.Button();
-            this.reset_btn = new System.Windows.Forms.Button();
             this.jumlah_lbl = new System.Windows.Forms.Label();
+            this.edit_btn = new System.Windows.Forms.Button();
+            this.deskID_lbl = new System.Windows.Forms.Label();
+            this.reset_btn = new System.Windows.Forms.Button();
             this.save_btn = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -259,14 +259,15 @@
             this.add_tab.TabIndex = 0;
             this.add_tab.Text = "Add Desc";
             // 
-            // deskID_lbl
+            // jumlah_lbl
             // 
-            this.deskID_lbl.AutoSize = true;
-            this.deskID_lbl.Location = new System.Drawing.Point(688, 8);
-            this.deskID_lbl.Name = "deskID_lbl";
-            this.deskID_lbl.Size = new System.Drawing.Size(36, 21);
-            this.deskID_lbl.TabIndex = 31;
-            this.deskID_lbl.Text = "null";
+            this.jumlah_lbl.AutoSize = true;
+            this.jumlah_lbl.Location = new System.Drawing.Point(646, 8);
+            this.jumlah_lbl.Name = "jumlah_lbl";
+            this.jumlah_lbl.Size = new System.Drawing.Size(36, 21);
+            this.jumlah_lbl.TabIndex = 28;
+            this.jumlah_lbl.Text = "null";
+            this.jumlah_lbl.Visible = false;
             // 
             // edit_btn
             // 
@@ -278,6 +279,16 @@
             this.edit_btn.UseVisualStyleBackColor = true;
             this.edit_btn.Click += new System.EventHandler(this.edit_btn_Click);
             // 
+            // deskID_lbl
+            // 
+            this.deskID_lbl.AutoSize = true;
+            this.deskID_lbl.Location = new System.Drawing.Point(688, 8);
+            this.deskID_lbl.Name = "deskID_lbl";
+            this.deskID_lbl.Size = new System.Drawing.Size(36, 21);
+            this.deskID_lbl.TabIndex = 31;
+            this.deskID_lbl.Text = "null";
+            this.deskID_lbl.Visible = false;
+            // 
             // reset_btn
             // 
             this.reset_btn.Enabled = false;
@@ -288,15 +299,6 @@
             this.reset_btn.Text = "Reset";
             this.reset_btn.UseVisualStyleBackColor = true;
             this.reset_btn.Click += new System.EventHandler(this.reset_btn_Click);
-            // 
-            // jumlah_lbl
-            // 
-            this.jumlah_lbl.AutoSize = true;
-            this.jumlah_lbl.Location = new System.Drawing.Point(646, 8);
-            this.jumlah_lbl.Name = "jumlah_lbl";
-            this.jumlah_lbl.Size = new System.Drawing.Size(36, 21);
-            this.jumlah_lbl.TabIndex = 28;
-            this.jumlah_lbl.Text = "null";
             // 
             // save_btn
             // 

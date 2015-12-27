@@ -48,6 +48,7 @@ namespace Raport
             tahun_combo.DataSource = db.getTahuj();
             tahun_combo.DisplayMember = "valueDisplay";
             tahun_combo.SelectedIndex = Convert.ToInt16(getTahun);
+            MessageBox.Show(getPindah);
             if (getPindah.Equals("Pindah Kelas"))
             {
                 edit_link.Visible = false; kelas_combo.Enabled = true;
@@ -61,7 +62,7 @@ namespace Raport
 
         private void FormPindahKelas_FormClosed(object sender, FormClosedEventArgs e)
         {
-            passText = "Cancel"; this.Close(); passPindah = "";
+            //passText = "Cancel"; this.Close(); passPindah = "";
         }
 
         private void tahun_combo_SelectedIndexChanged(object sender, EventArgs e)
@@ -177,11 +178,11 @@ namespace Raport
         {
             if (String.IsNullOrEmpty(kelas_combo.Text))
                 MessageBox.Show("Kelas belum dipilih");
-            else
+            else if (!String.IsNullOrEmpty(kelas_combo.Text))
             {
                 if (getPindah == "Pindah Kelas")
                     passText = "Pindah Kelas";
-                else if (getPindah == "")
+                else if (getPindah != "Pindah Kelas")
                     passText = "Create";
 
                 passKelas = kelas_combo.SelectedValue.ToString();
