@@ -297,6 +297,7 @@ namespace Raport
         private void eskul_menu_Click(object sender, EventArgs e)
         {
             FormEskul fEskul = new FormEskul();
+            fEskul.passTahun = tahuj_combo.Text.ToString();
             fEskul.ShowDialog();                 
         }
 
