@@ -281,6 +281,7 @@
             this.retypePass_txt.PasswordChar = '*';
             this.retypePass_txt.Size = new System.Drawing.Size(201, 29);
             this.retypePass_txt.TabIndex = 15;
+            this.retypePass_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.retypePass_txt_KeyPress);
             // 
             // label6
             // 
@@ -299,6 +300,7 @@
             this.pass_txt.PasswordChar = '*';
             this.pass_txt.Size = new System.Drawing.Size(201, 29);
             this.pass_txt.TabIndex = 14;
+            this.pass_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.pass_txt_KeyPress);
             // 
             // user_txt
             // 
@@ -307,6 +309,7 @@
             this.user_txt.Name = "user_txt";
             this.user_txt.Size = new System.Drawing.Size(201, 29);
             this.user_txt.TabIndex = 13;
+            this.user_txt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.user_txt_KeyPress);
             // 
             // label3
             // 

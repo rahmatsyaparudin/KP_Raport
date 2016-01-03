@@ -10,10 +10,10 @@ namespace Raport
     {
         MySqlConnection myConn = Function.getKoneksi();
         Function db = new Function();
-        private string table, cond, field;
+        MySqlDataReader myReader;
+        MySqlCommand myComm;
+        private string table, cond, field, query, kodePramuka;
         public string getTahun;
-        DataGridViewComboBoxColumn ekskul1, ekskul2, ekskul3;
-        DataGridViewTextBoxColumn nis, nama, keterangan1, keterangan2, keterangan3;
 
         public string passTahun
         {
@@ -164,7 +164,7 @@ namespace Raport
                 MessageBox.Show(ex.Message);
             }
         }
-
+        
         private void edit_btn_Click(object sender, EventArgs e)
         {
             try
@@ -235,11 +235,57 @@ namespace Raport
         {
             if (kelas_combo.Text.Equals(""))
             {
-                ekskulSiswa_grid.Columns.Clear(); ekskulSiswa_grid.Rows.Clear();
+                ekskulSiswa_grid.DataSource = null;
             }
             else if (!kelas_combo.Text.Equals(""))
             {
-                viewMemberKelas();
+                query = "select count(kode_eskul) as 'kode', kode_eskul from ekstrakurikuler where nama_eskul LIKE '%Pramuka%'";
+                myConn.Open();
+                myComm = new MySqlCommand(query, myConn);
+                myReader = myComm.ExecuteReader();
+                string cekKode = "";
+                int status_pramuka = myReader.GetOrdinal("kode_eskul");
+                while (myReader.Read())
+                {
+                    cekKode = myReader.GetString("kode");
+                    kodePramuka = myReader.IsDBNull(status_pramuka) ? string.Empty
+                                    : myReader.GetString("kode_eskul");
+                }
+                myConn.Close();
+                if (cekKode == "0")
+                {
+                    MessageBox.Show("Ekstrakurikuler Pramuka belum ada di database");
+                }
+                else if (cekKode != "0")
+                {
+                    string pramuka = kodePramuka;
+                    if (siswadt().Rows.Count != 0)
+                    {
+                        foreach (DataRow row in siswadt().Rows)
+                        {
+                            query = "select count(kode_eskul) as 'kode' from deskripsieskul where kode_eskul = '"
+                                    + pramuka + "' AND kode_kelas = '" + kelas_combo.SelectedValue.ToString() +
+                                    "' AND nis_siswa ='" + row["NIS"].ToString() + "'";
+                            myConn.Open();
+                            myComm = new MySqlCommand(query, myConn);
+                            myReader = myComm.ExecuteReader();
+                            string cekJumlah = "";
+                            while (myReader.Read())
+                            {
+                                cekJumlah = myReader.GetString("kode");
+                                if (cekJumlah == "0")
+                                {
+                                    field = "DEFAULT, '" + kelas_combo.SelectedValue.ToString() + "', '" + row["NIS"].ToString() +
+                                    "', '" + kodePramuka + "', 'Aktif sebagai anggota'";
+                                    table = "deskripsieskul";
+                                    db.insertData(table, field);
+                                }
+                            }
+                            myConn.Close();
+                        }
+                    }
+                }
+                    viewMemberKelas();
             }
         }
 
@@ -271,68 +317,33 @@ namespace Raport
             }
         }
 
+        public DataTable siswadt()
+        {
+            DataTable result = new DataTable();
+            string kodeKelas = kelas_combo.SelectedValue.ToString();
+            table = "detailkelassiswa INNER JOIN siswa USING (nis_siswa)";
+            field = "detailkelassiswa.nis_siswa as 'NIS', nama_siswa as 'Nama Siswa'";
+            cond = "kode_kelas= '" + kodeKelas + "' AND (keterangan = 'Data Siswa' OR keterangan = 'Data Kelas')";
+            result = db.GetDataTable(field, table, cond);
+            return result;
+        }
+        
         private void viewMemberKelas()
         {
             try
             {
-                //ekskulSiswa_grid.DataSource = null;
-                ekskulSiswa_grid.Columns.Clear(); ekskulSiswa_grid.Rows.Clear();
-                //ekskulSiswa_grid.ColumnCount = 8;
-                ekskul1 = new DataGridViewComboBoxColumn();
-                ekskul1.Name = "ekskul1";
-                ekskul1.HeaderText = "Ekskul 1";
-                ekskul2 = new DataGridViewComboBoxColumn();
-                ekskul2.Name = "ekskul2";
-                ekskul2.HeaderText = "Ekskul 2";
-                ekskul3 = new DataGridViewComboBoxColumn();
-                ekskul3.Name = "ekskul3";
-                ekskul3.HeaderText = "Ekskul 3";
-                nis = new DataGridViewTextBoxColumn();
-                nis.Name = "nis_siswa";
-                nis.HeaderText = "No. Induk";
-                nama = new DataGridViewTextBoxColumn();
-                nama.Name = "nama_siswa";
-                nama.HeaderText = "Nama Siswa";
-                keterangan1 = new DataGridViewTextBoxColumn();
-                keterangan1.Name = "keterangan1";
-                keterangan1.HeaderText = "Keterangan";
-                keterangan2 = new DataGridViewTextBoxColumn();
-                keterangan2.Name = "keterangan2";
-                keterangan2.HeaderText = "Keterangan";
-                keterangan3 = new DataGridViewTextBoxColumn();
-                keterangan3.Name = "keterangan3";
-                keterangan3.HeaderText = "Keterangan";
-                ekskulSiswa_grid.Columns.Add(nis);
-                ekskulSiswa_grid.Columns.Add(nama);
-                ekskulSiswa_grid.Columns.Add(ekskul1);
-                ekskulSiswa_grid.Columns.Add(keterangan1);
-                ekskulSiswa_grid.Columns.Add(ekskul2);
-                ekskulSiswa_grid.Columns.Add(keterangan2);
-                ekskulSiswa_grid.Columns.Add(ekskul3);
-                ekskulSiswa_grid.Columns.Add(keterangan3);
-
-                string kodeKelas = kelas_combo.SelectedValue.ToString();
-                table = "detailkelassiswa INNER JOIN siswa USING (nis_siswa)";
-                field = "detailkelassiswa.nis_siswa as 'NIS', nama_siswa as 'Nama Siswa'";
-                cond = "kode_kelas= '" + kodeKelas + "' AND (keterangan = 'Data Siswa' OR keterangan = 'Data Kelas')";
-                DataTable result = db.GetDataTable(field, table, cond);
-                foreach (DataRow row in result.Rows)
-                {
-                    string[] row1 = new string[] {
-                        row["NIS"].ToString(),
-                        row["Nama Siswa"].ToString(),
-                        "", "", "", "","", ""
-                    };
-                    ekskulSiswa_grid.Rows.Add(row1);
-                }
-
+                ekskulSiswa_grid.DataSource = siswadt();
                 string idValue = "kode_eskul";
                 string dispValue = "nama_eskul";
                 string sortby = "nama_eskul";
                 table = "ekstrakurikuler";
                 cond = "keterangan = 'Aktif'";
-                ekskul1.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
-                ekskul1.DisplayMember = "valueDisplay"; ekskul1.ValueMember = "valueID";
+                ekskul1_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
+                ekskul1_combo.DisplayMember = "valueDisplay"; ekskul1_combo.ValueMember = "valueID";
+                ekskul2_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
+                ekskul2_combo.DisplayMember = "valueDisplay"; ekskul2_combo.ValueMember = "valueID";
+                ekskul3_combo.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
+                ekskul3_combo.DisplayMember = "valueDisplay"; ekskul3_combo.ValueMember = "valueID";
             }
             catch (MySqlException myex)
             {
@@ -348,115 +359,294 @@ namespace Raport
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        
+        private void refresh_toolBtn_Click(object sender, EventArgs e)
+        {
+            viewMemberKelas();
         }
 
         private void ekskulSiswa_grid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            string kodeKelas = kelas_combo.SelectedValue.ToString();
+            ekskul1_combo.SelectedIndex = -1;
+            ekskul2_combo.SelectedIndex = -1;
+            ekskul3_combo.SelectedIndex = -1;
+            keterangan1_txt.ResetText();
+            keterangan2_txt.ResetText();
+            keterangan3_txt.ResetText();
+            nis_lbl.Text = "0";
+            id1_lbl.Text = "null";
+            id2_lbl.Text = "null";
+            id3_lbl.Text = "null";
+            DataGridViewRow row = this.ekskulSiswa_grid.Rows[e.RowIndex];
+            nis_lbl.Text = row.Cells[0].Value.ToString();
+            this.field = "id_deskripsieskul as 'Detail', kode_eskul as 'Kode', keterangan as 'Ket'";
+            this.table = "deskripsieskul";
+            this.cond = "nis_siswa = '" + nis_lbl.Text + "' AND kode_kelas =  '" + kodeKelas + "' ORDER BY id_deskripsieskul ASC";
+            DataTable ekstra = db.GetDataTable(field, table, cond);
+            MessageBox.Show(ekstra.Rows.Count.ToString());
+            if (ekstra.Rows.Count == 0)
+            {
+                group1.Enabled = true;
+                ekskul1_combo.Enabled = false;
+                group2.Enabled = false;
+                group3.Enabled = false;
+            }
+            else if (ekstra.Rows.Count == 1)
+            {
+                group1.Enabled = false;
+                group2.Enabled = true;
+                group3.Enabled = false;
+                DataRow row0 = ekstra.Rows[0];
+                ekskul1_combo.SelectedValue = row0["Kode"].ToString();
+                keterangan1_txt.Text = row0["Ket"].ToString();
+                id1_lbl.Text = row0["Detail"].ToString();
+            }
+            else if (ekstra.Rows.Count == 2)
+            {
+                group1.Enabled = false;
+                group2.Enabled = false;
+                group3.Enabled = true;
+                DataRow row0 = ekstra.Rows[0];
+                ekskul1_combo.SelectedValue = row0["Kode"].ToString();
+                keterangan1_txt.Text = row0["Ket"].ToString();
+                id1_lbl.Text = row0["Detail"].ToString();
+                DataRow row1 = ekstra.Rows[1];
+                ekskul2_combo.SelectedValue = row1["Kode"].ToString();
+                keterangan2_txt.Text = row1["Ket"].ToString();
+                id2_lbl.Text = row1["Detail"].ToString();
+            }
+            else if (ekstra.Rows.Count == 3)
+            {
+                group1.Enabled = false;
+                group2.Enabled = false;
+                group3.Enabled = true;
+                DataRow row0 = ekstra.Rows[0];
+                ekskul1_combo.SelectedValue = row0["Kode"].ToString();
+                keterangan1_txt.Text = row0["Ket"].ToString();
+                id1_lbl.Text = row0["Detail"].ToString();
+                DataRow row1 = ekstra.Rows[1];
+                ekskul2_combo.SelectedValue = row1["Kode"].ToString();
+                keterangan2_txt.Text = row1["Ket"].ToString();
+                id2_lbl.Text = row1["Detail"].ToString();
+                DataRow row2 = ekstra.Rows[2];
+                ekskul3_combo.SelectedValue = row2["Kode"].ToString();
+                keterangan3_txt.Text = row2["Ket"].ToString();
+                id3_lbl.Text = row2["Detail"].ToString();
+            }
         }
 
-        private void ekskulSiswa_grid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void ekskul1_btn_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in ekskulSiswa_grid.Rows)
+            string kodeKelas = kelas_combo.SelectedValue.ToString();
+            if (string.IsNullOrEmpty(ekskul1_combo.Text) && !string.IsNullOrEmpty(keterangan1_txt.Text))
             {
-                for (int i = 3; i <= 7; i++)
-                {
-                    row.Cells[i].ReadOnly = true;
-                }
-
-                if (Convert.ToString(row.Cells[2].Value) == "")
-                {
-                    row.Cells[3].Value = "";
-                    row.Cells[4].Value = "";
-                    row.Cells[5].Value = "";
-                    row.Cells[6].Value = "";
-                    row.Cells[7].Value = "";
-                }
-                else if (Convert.ToString(row.Cells[2].Value) != "")
-                {
-                    row.Cells[3].ReadOnly = false;
-                    row.Cells[4].ReadOnly = false;
-                    string idValue = "kode_eskul";
-                    string dispValue = "nama_eskul";
-                    string sortby = "nama_eskul";
-                    table = "ekstrakurikuler";
-                    cond = "keterangan = 'Aktif' AND kode_eskul != '" + row.Cells[2].Value.ToString() + "'";
-                    ekskul2.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
-                    ekskul2.DisplayMember = "valueDisplay"; ekskul2.ValueMember = "valueID";
-                }
-
-                if (Convert.ToString(row.Cells[4].Value) == "")
-                {
-                    row.Cells[5].Value = "";
-                    row.Cells[6].Value = "";
-                    row.Cells[7].Value = "";
-                }
-                else if (Convert.ToString(row.Cells[4].Value) != "")
-                {
-                    row.Cells[5].ReadOnly = false;
-                    row.Cells[6].ReadOnly = false;
-                    string idValue = "kode_eskul";
-                    string dispValue = "nama_eskul";
-                    string sortby = "nama_eskul";
-                    table = "ekstrakurikuler";
-                    cond = "keterangan = 'Aktif' AND kode_eskul != '" + row.Cells[2].Value.ToString() +
-                           "' AND kode_eskul != '" + row.Cells[4].Value.ToString() + "'";
-                    ekskul3.DataSource = db.setCombo(idValue, dispValue, table, cond, sortby);
-                    ekskul3.DisplayMember = "valueDisplay"; ekskul3.ValueMember = "valueID";
-                }
-
-                if (Convert.ToString(row.Cells[6].Value) == "")
-                {
-                    row.Cells[7].Value = "";
-                }
-                else if (Convert.ToString(row.Cells[6].Value) != "")
-                {
-                    row.Cells[7].ReadOnly = false;
-                }
+                //DELETE DETAIL YG ADA
+                group1.Enabled = true;
+                group2.Enabled = false;
+                group3.Enabled = false;
+            }
+            else if (string.IsNullOrEmpty(ekskul1_combo.Text) && string.IsNullOrEmpty(keterangan1_txt.Text))
+            {
+                //DELETE DETAIL YG ADA
+                group1.Enabled = true;
+                group2.Enabled = false;
+                group3.Enabled = false;
+            }
+            else if (!string.IsNullOrEmpty(ekskul1_combo.Text) && string.IsNullOrEmpty(keterangan1_txt.Text))
+            {
+                MessageBox.Show("Keterangan tidak boleh kosong!");
+            }
+            else if (!string.IsNullOrEmpty(ekskul1_combo.Text) && !string.IsNullOrEmpty(keterangan1_txt.Text))
+            {
+                //SAVE DATA ESKUL 1
+                field = "keterangan = '" + keterangan1_txt.Text + "'";
+                table = "deskripsieskul";
+                cond = "id_deskripsieskul = '" + id1_lbl.Text + "'";
+                db.updateData(table, field, cond);
+                MessageBox.Show("Data Tersimpan");
+                group1.Enabled = false;
+                group2.Enabled = true;
+                group3.Enabled = false;
             }
         }
 
-        private void ekskulSiswa_grid_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void ekskul2_btn_Click(object sender, EventArgs e)
         {
-            try
+            string kodeKelas = kelas_combo.SelectedValue.ToString();
+            if (string.IsNullOrEmpty(ekskul2_combo.Text) && !string.IsNullOrEmpty(keterangan2_txt.Text))
             {
-                DataGridViewRow row = this.ekskulSiswa_grid.Rows[e.RowIndex];
-                if (Convert.ToString(row.Cells[2].Value) != "")
-                {
-                    row.Cells[3].Value = "";
-                    row.Cells[4].Value = "";
-                    row.Cells[5].Value = "";
-                    row.Cells[6].Value = "";
-                    row.Cells[7].Value = "";
-                }
-
-                if (Convert.ToString(row.Cells[4].Value) != "")
-                {
-                    row.Cells[5].Value = "";
-                    row.Cells[6].Value = "";
-                    row.Cells[7].Value = "";
-                }
-
-                if (Convert.ToString(row.Cells[6].Value) != "")
-                {
-                    row.Cells[7].Value = "";
-                }
+                //DELETE DETAIL YG ADA
+                table = "deskripsieskul";
+                cond = "id_deskripsieskul ='" + id2_lbl.Text + "'";
+                db.deleteData(table, cond);
+                MessageBox.Show("Data dihapus");
+                keterangan2_txt.ResetText();
+                group1.Enabled = true;
+                ekskul1_combo.Enabled = false;
+                group2.Enabled = false;
+                group3.Enabled = false;
             }
-            catch (MySqlException myex)
+            else if (string.IsNullOrEmpty(ekskul2_combo.Text) && string.IsNullOrEmpty(keterangan2_txt.Text))
             {
-                switch (myex.Number)
-                {
-                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                    case 1045: MessageBox.Show("username/password salah."); break;
-                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
-                }
+                //DELETE DETAIL YG ADA
+                table = "deskripsieskul";
+                cond = "id_deskripsieskul ='" + id2_lbl.Text + "'";
+                db.deleteData(table, cond);
+                MessageBox.Show("Data dihapus");
+                group1.Enabled = true;
+                ekskul1_combo.Enabled = false;
+                group2.Enabled = false;
+                group3.Enabled = false;
             }
-            catch (Exception ex)
+            else if (!string.IsNullOrEmpty(ekskul2_combo.Text) && string.IsNullOrEmpty(keterangan2_txt.Text))
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Keterangan tidak boleh kosong!");
+            }
+            else if (!string.IsNullOrEmpty(ekskul2_combo.Text) && !string.IsNullOrEmpty(keterangan2_txt.Text))
+            {
+                if (ekskul2_combo.Text.Equals(ekskul1_combo.Text))
+                {
+                    MessageBox.Show("Ekstrakurikuler sudah dipilih!");
+                }
+                else
+                {
+                    //SAVE DATA ESKUL 2
+                    query = "select count(id_deskripsieskul) as 'kode' from deskripsieskul where kode_kelas = '"
+                            + kodeKelas + "' AND nis_siswa ='" + nis_lbl.Text + "'";
+                    myConn.Open();
+                    myComm = new MySqlCommand(query, myConn);
+                    myReader = myComm.ExecuteReader();
+                    string cekJumlah = "";
+                    while (myReader.Read())
+                    {
+                        cekJumlah = myReader.GetString("kode");
+                    }
+                    myConn.Close();
+                    if (cekJumlah == "1")
+                    {
+                        field = "DEFAULT, '" + kodeKelas + "', '" + nis_lbl.Text +
+                        "', '" + ekskul2_combo.SelectedValue.ToString() + "', '" + keterangan2_txt.Text + "'";
+                        table = "deskripsieskul";
+                        db.insertData(table, field);
+                    }
+                    else if (cekJumlah == "2")
+                    {
+                        field = "kode_eskul = '" + ekskul2_combo.SelectedValue.ToString() +
+                                "', keterangan = '" + keterangan2_txt.Text + "'";
+                        table = "deskripsieskul";
+                        cond = "id_deskripsieskul = '" + id2_lbl.Text + "'";
+                        db.updateData(table, field, cond);
+                    }
+                    query = "select id_deskripsieskul as 'ID' from deskripsieskul where kode_eskul = '" +
+                            ekskul2_combo.SelectedValue.ToString() + "' AND kode_kelas = '"
+                            + kodeKelas + "' AND nis_siswa ='" + nis_lbl.Text + "'";
+                    myConn.Open();
+                    myComm = new MySqlCommand(query, myConn);
+                    myReader = myComm.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        id2_lbl.Text = myReader.GetString("ID");
+                    }
+                    myConn.Close();
+
+                    MessageBox.Show("Data Tersimpan");
+                    group1.Enabled = false;
+                    group2.Enabled = false;
+                    group3.Enabled = true;
+                }
             }
         }
-        //END CLASS
+
+        private void ekskul3_btn_Click(object sender, EventArgs e)
+        {
+            string kodeKelas = kelas_combo.SelectedValue.ToString();
+            if (string.IsNullOrEmpty(ekskul3_combo.Text) && !string.IsNullOrEmpty(keterangan3_txt.Text))
+            {
+                //DELETE DETAIL YG ADA
+                table = "deskripsieskul";
+                cond = "id_deskripsieskul ='" + id3_lbl.Text + "'";
+                db.deleteData(table, cond);
+                MessageBox.Show("Data dihapus");
+                keterangan3_txt.ResetText();
+                group1.Enabled = false;
+                group2.Enabled = true;
+                group3.Enabled = false;
+            }
+            else if (string.IsNullOrEmpty(ekskul3_combo.Text) && string.IsNullOrEmpty(keterangan3_txt.Text))
+            {
+                //DELETE DETAIL YG ADA
+                table = "deskripsieskul";
+                cond = "id_deskripsieskul ='" + id3_lbl.Text + "'";
+                db.deleteData(table, cond);
+                MessageBox.Show("Data dihapus");
+                group1.Enabled = false;
+                group2.Enabled = true;
+                group3.Enabled = false;
+            }
+            else if (!string.IsNullOrEmpty(ekskul3_combo.Text) && string.IsNullOrEmpty(keterangan3_txt.Text))
+            {
+                MessageBox.Show("Keterangan tidak boleh kosong!");
+            }
+            else if (!string.IsNullOrEmpty(ekskul3_combo.Text) && !string.IsNullOrEmpty(keterangan3_txt.Text))
+            {
+                if (ekskul3_combo.Text.Equals(ekskul1_combo.Text))
+                {
+                    MessageBox.Show("Ekstrakurikuler sudah dipilih!");
+                }
+                else if (ekskul3_combo.Text.Equals(ekskul2_combo.Text))
+                {
+                    MessageBox.Show("Ekstrakurikuler sudah dipilih!");
+                }
+                else
+                {
+                    //SAVE DATA ESKUL 3
+                    query = "select count(id_deskripsieskul) as 'kode' from deskripsieskul where kode_kelas = '" 
+                            + kodeKelas + "' AND nis_siswa ='" + nis_lbl.Text + "'";
+                    myConn.Open();
+                    myComm = new MySqlCommand(query, myConn);
+                    myReader = myComm.ExecuteReader();
+                    string cekJumlah = "";
+                    while (myReader.Read())
+                    {
+                        cekJumlah = myReader.GetString("kode");
+                    }
+                    myConn.Close();
+                    if (cekJumlah == "2")
+                    {
+                        field = "DEFAULT, '" + kodeKelas + "', '" + nis_lbl.Text +
+                        "', '" + ekskul3_combo.SelectedValue.ToString() + "', '" + keterangan3_txt.Text + "'";
+                        table = "deskripsieskul";
+                        db.insertData(table, field);
+                    }
+                    else if (cekJumlah == "3")
+                    {
+                        field = "kode_eskul = '" + ekskul3_combo.SelectedValue.ToString() +
+                                "', keterangan = '" + keterangan3_txt.Text + "'";
+                        table = "deskripsieskul";
+                        cond = "id_deskripsieskul = '" + id3_lbl.Text + "'";
+                        db.updateData(table, field, cond);
+                    }
+                    query = "select id_deskripsieskul as 'ID' from deskripsieskul where kode_eskul = '" +
+                            ekskul3_combo.SelectedValue.ToString() + "' AND kode_kelas = '"
+                            + kodeKelas + "' AND nis_siswa ='" + nis_lbl.Text + "'";
+                    myConn.Open();
+                    myComm = new MySqlCommand(query, myConn);
+                    myReader = myComm.ExecuteReader();
+                    while (myReader.Read())
+                    {
+                        id3_lbl.Text = myReader.GetString("ID");
+                    }
+                    myConn.Close();
+                    MessageBox.Show("Data Tersimpan");
+                    group1.Enabled = false;
+                    group2.Enabled = false;
+                    group3.Enabled = true;
+                }
+            }
+        }
+
+//END CLASS
     }
 }

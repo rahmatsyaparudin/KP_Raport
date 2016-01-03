@@ -707,6 +707,7 @@
             this.export_btn.TabIndex = 38;
             this.export_btn.Text = "Export Siswa";
             this.export_btn.UseVisualStyleBackColor = false;
+            this.export_btn.Visible = false;
             this.export_btn.Click += new System.EventHandler(this.export_btn_Click);
             // 
             // back_rest_Btn
@@ -722,6 +723,7 @@
             this.back_rest_Btn.TabIndex = 39;
             this.back_rest_Btn.Text = "Backup/Restore";
             this.back_rest_Btn.UseVisualStyleBackColor = false;
+            this.back_rest_Btn.Visible = false;
             this.back_rest_Btn.Click += new System.EventHandler(this.back_rest_Btn_Click);
             // 
             // LogOut_btn

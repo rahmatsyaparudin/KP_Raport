@@ -422,7 +422,6 @@ namespace Raport
             try
             {
                 DataGridViewRow row = this.dataNilai_grid.Rows[e.RowIndex];
-
                 if (dataNilai_grid.CurrentCell.ColumnIndex.Equals(6) && e.RowIndex != -1)
                 {
                     if ((Convert.ToString(row.Cells[6].Value) == "A") || (Convert.ToString(row.Cells[6].Value) == "a"))
@@ -728,20 +727,13 @@ namespace Raport
             {
                 if ((mapel_combo.Text == "") || (mapel_combo.SelectedIndex == -1))
                 {
-                    load_toolBtn.Enabled = false;
-                    mapel_txt.ResetText();
-                    wali_txt.ResetText();
-                    all_rad.Checked = false;
-                    peng_rad.Checked = false;
-                    ket_rad.Checked = false;
-                    sss_rad.Checked = false;
-                    all_rad.Enabled = false;
-                    peng_rad.Enabled = false;
-                    ket_rad.Enabled = false;
-                    sss_rad.Enabled = false;
-                    dataNilai_grid.DataSource = null;
-                    dataNilai_grid.Columns.Clear();
-                    dataNilai_grid.Rows.Clear();
+                    mapel_txt.ResetText(); wali_txt.ResetText();
+                    load_toolBtn.Enabled = false; all_rad.Checked = false;
+                    peng_rad.Checked = false; ket_rad.Checked = false;
+                    sss_rad.Checked = false; all_rad.Enabled = false;
+                    peng_rad.Enabled = false; ket_rad.Enabled = false;
+                    sss_rad.Enabled = false; dataNilai_grid.DataSource = null;
+                    dataNilai_grid.Columns.Clear(); dataNilai_grid.Rows.Clear();
                 }
                 else if (mapel_combo.Text != "")
                 {
@@ -758,15 +750,10 @@ namespace Raport
                         mapel_txt.Text = myReader.GetString("mata_pelajaran");
                         wali_txt.Text = myReader.GetString("nama_guru");
                     }
-                    myConn.Close();
-                    loadData();
-                    generate_nilai();
-                    load_toolBtn.Enabled = true;
-                    all_rad.Enabled = true;
-                    peng_rad.Enabled = true;
-                    ket_rad.Enabled = true;
-                    sss_rad.Enabled = true;
-                    all_rad.Checked = true;
+                    myConn.Close(); loadData(); generate_nilai();
+                    load_toolBtn.Enabled = true; all_rad.Enabled = true;
+                    peng_rad.Enabled = true; ket_rad.Enabled = true;
+                    sss_rad.Enabled = true; all_rad.Checked = true;
                 }
             }
             catch (MySqlException myex)
@@ -789,9 +776,9 @@ namespace Raport
         {
             try
             {
-                this.kodeKelas = this.kelas_combo.SelectedValue.ToString();
-                this.kodeSmt = this.smt_combo.SelectedValue.ToString();
-                this.kodeMapel = this.mapel_combo.SelectedValue.ToString();
+                kodeKelas = kelas_combo.SelectedValue.ToString();
+                kodeSmt = smt_combo.SelectedValue.ToString();
+                kodeMapel = mapel_combo.SelectedValue.ToString();
                 string nis_siswa, getSiswa;
 
                 if (jumlah_lbl.Text != "0")
@@ -799,7 +786,7 @@ namespace Raport
                     foreach (DataRow row in siswadt(kodeKelas).Rows)
                     {
                         nis_siswa = row["nis_siswa"].ToString();
-                        this.nis_lbl.Text = "null";
+                        nis_lbl.Text = "null";
                         getSiswa = "SELECT count(*) as 'jumlah' FROM nilai WHERE nis_siswa = '" + nis_siswa +
                                    "' AND kode_kelas = '" + kodeKelas + "' AND kode_mapel = '" + kodeMapel +
                                    "' AND kode_semester = '" + kodeSmt + "'";

@@ -137,8 +137,8 @@ namespace Raport
         public void RaportKelasToPDF()
         {
             killPDFProcess();
-            try
-            {
+            //try
+            //{
                 Stopwatch sw = Stopwatch.StartNew();
                 string appRootDir = new DirectoryInfo(Environment.CurrentDirectory).FullName;
                 if (getValue == "PrintRaport")
@@ -225,7 +225,7 @@ namespace Raport
                         nilaiLCK(doc, setNisSiswa, setKodeKelas, "Kelompok A (Wajib)", "Kelompok A");
                         nilaiLCK(doc, setNisSiswa, setKodeKelas, "Kelompok B (Wajib)", "Kelompok B");
                         nilaiLCK(doc, setNisSiswa, setKodeKelas, "Kelompok C (Pilihan)", "Kelompok C");
-                        nilai_LCKAdd(doc); ekskul_siswa(doc); absensi_siswa(doc);
+                        nilai_LCKAdd(doc); ekskul_siswa(doc, setNisSiswa, setKodeKelas); absensi_siswa(doc);
                         walikelas_ortu(doc, setKodeKelas);
                         //Deskripsi
                         doc.NewPage();
@@ -242,29 +242,29 @@ namespace Raport
                     fstream.Close();
                 }
                 MessageBox.Show("Selesai dalam: " + Convert.ToInt16(sw.Elapsed.TotalSeconds) + " detik");
-            }
-            catch (DocumentException de)
-            {
-                MessageBox.Show(de.Message);
-            }
-            catch (IOException ioe)
-            {
-                MessageBox.Show(ioe.Message);
-            }
-            catch (MySqlException myex)
-            {
-                switch (myex.Number)
-                {
-                    case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
-                    case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
-                    case 1045: MessageBox.Show("username/password salah."); break;
-                    default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //}
+            //catch (DocumentException de)
+            //{
+            //    MessageBox.Show(de.Message);
+            //}
+            //catch (IOException ioe)
+            //{
+            //    MessageBox.Show(ioe.Message);
+            //}
+            //catch (MySqlException myex)
+            //{
+            //    switch (myex.Number)
+            //    {
+            //        case 0: MessageBox.Show("Tidak bisa terkkoneksi ke Server."); break;
+            //        case 1042: MessageBox.Show("Koneksi ke Database atau Server tidak ditemukan."); break;
+            //        case 1045: MessageBox.Show("username/password salah."); break;
+            //        default: MessageBox.Show("Terjadi kesalahan data atau duplikasi data."); break;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
    //     //Versi per-Siswa
@@ -672,7 +672,7 @@ namespace Raport
             doc.Add(raport_tbl);
         }
     
-        public void ekskul_siswa(Document doc)
+        public void ekskul_siswa(Document doc, string getNisSiswa, string getKodeKelas)
         {
             raport_tbl = new PdfPTable(3);
             raport_tbl.TotalWidth = 510f; raport_tbl.LockedWidth = true;
@@ -681,17 +681,84 @@ namespace Raport
 
             var cell1 = new PdfPCell(new Phrase(new Chunk("Ekstra Kurikuler", TB11)));
             var cell2 = new PdfPCell(new Phrase(new Chunk("Keikutsertaan dalam kegiatan", TB11))); 
-            var cell3 = new PdfPCell(new Phrase(new Chunk("\n", TN8))); 
+            var cell3 = new PdfPCell(new Phrase(new Chunk("\n", TN8)));
             cell1.HorizontalAlignment = Element.ALIGN_LEFT; cell1.Colspan = 2;
             cell2.HorizontalAlignment = Element.ALIGN_LEFT; cell3.HorizontalAlignment = Element.ALIGN_LEFT; 
             cell3.BorderWidth = 0f; cell3.Colspan = 3;
 
             raport_tbl.AddCell(cell3);
             raport_tbl.AddCell(cell1); raport_tbl.AddCell(cell2);
-            raport_tbl.AddCell("1"); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-            raport_tbl.AddCell("2"); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-            raport_tbl.AddCell("3"); raport_tbl.AddCell(""); raport_tbl.AddCell("");
-
+            dt = null;
+            field = "nama_eskul, deskripsieskul.keterangan as 'KET'";
+            table = "deskripsieskul INNER JOIN ekstrakurikuler USING (kode_eskul)";
+            cond = "nis_siswa = '" + getNisSiswa + "' AND kode_kelas = '" + getKodeKelas + "' order by id_deskripsieskul ASC";
+            dt = db.GetDataTable(field, table, cond);
+            if (dt.Rows.Count == 0)
+            {
+                for (int i = 1; i<=3; i++)
+                {
+                    var cell4 = new PdfPCell(new Phrase(new Chunk(i.ToString(), TN10)));
+                    cell4.HorizontalAlignment = Element.ALIGN_CENTER; cell4.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    raport_tbl.AddCell(cell4); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+                }
+            }
+            else if (dt.Rows.Count == 1)
+            {
+                int j = 1;
+                for (int i = 0; i <= 0; i++)
+                {
+                    DataRow data = dt.Rows[i];
+                    var cell4 = new PdfPCell(new Phrase(new Chunk(j.ToString(), TN10)));
+                    cell4.HorizontalAlignment = Element.ALIGN_CENTER; cell4.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    var cell5 = new PdfPCell(new Phrase(new Chunk(data["nama_eskul"].ToString(), TN10)));
+                    cell5.HorizontalAlignment = Element.ALIGN_LEFT; cell5.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    var cell6 = new PdfPCell(new Phrase(new Chunk(data["KET"].ToString(), TN10)));
+                    cell6.HorizontalAlignment = Element.ALIGN_LEFT; cell6.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    raport_tbl.AddCell(cell4); raport_tbl.AddCell(cell5); raport_tbl.AddCell(cell6);
+                    j++;
+                }
+                var cell7 = new PdfPCell(new Phrase(new Chunk("2", TN10)));
+                cell7.HorizontalAlignment = Element.ALIGN_CENTER; cell7.VerticalAlignment = Element.ALIGN_MIDDLE;
+                raport_tbl.AddCell(cell7); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+                var cell8 = new PdfPCell(new Phrase(new Chunk("3", TN10)));
+                cell8.HorizontalAlignment = Element.ALIGN_CENTER; cell8.VerticalAlignment = Element.ALIGN_MIDDLE;
+                raport_tbl.AddCell(cell8); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+            }
+            else if (dt.Rows.Count == 2)
+            {
+                int j = 1;
+                for (int i = 0; i <= 1; i++)
+                {
+                    DataRow data = dt.Rows[i];
+                    var cell4 = new PdfPCell(new Phrase(new Chunk(j.ToString(), TN10)));
+                    cell4.HorizontalAlignment = Element.ALIGN_CENTER; cell4.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    var cell5 = new PdfPCell(new Phrase(new Chunk(data["nama_eskul"].ToString(), TN10)));
+                    cell5.HorizontalAlignment = Element.ALIGN_LEFT; cell5.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    var cell6 = new PdfPCell(new Phrase(new Chunk(data["KET"].ToString(), TN10)));
+                    cell6.HorizontalAlignment = Element.ALIGN_LEFT; cell6.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    raport_tbl.AddCell(cell4); raport_tbl.AddCell(cell5); raport_tbl.AddCell(cell6);
+                    j++;
+                }
+                var cell7 = new PdfPCell(new Phrase(new Chunk("3", TN10)));
+                cell7.HorizontalAlignment = Element.ALIGN_CENTER; cell7.VerticalAlignment = Element.ALIGN_MIDDLE;
+                raport_tbl.AddCell(cell7); raport_tbl.AddCell(""); raport_tbl.AddCell("");
+            }
+            else if (dt.Rows.Count == 3)
+            {
+                int j = 1;
+                for (int i = 0; i <= 2; i++)
+                {
+                    DataRow data = dt.Rows[i];
+                    var cell4 = new PdfPCell(new Phrase(new Chunk(j.ToString(), TN10)));
+                    cell4.HorizontalAlignment = Element.ALIGN_CENTER; cell4.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    var cell5 = new PdfPCell(new Phrase(new Chunk(data["nama_eskul"].ToString(), TN10)));
+                    cell5.HorizontalAlignment = Element.ALIGN_LEFT; cell5.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    var cell6 = new PdfPCell(new Phrase(new Chunk(data["KET"].ToString(), TN10)));
+                    cell6.HorizontalAlignment = Element.ALIGN_LEFT; cell6.VerticalAlignment = Element.ALIGN_MIDDLE;
+                    raport_tbl.AddCell(cell4); raport_tbl.AddCell(cell5); raport_tbl.AddCell(cell6);
+                    j++;
+                }
+            }
             doc.Add(raport_tbl);
         }
 

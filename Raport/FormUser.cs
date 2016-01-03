@@ -185,6 +185,38 @@ namespace Raport
             filledData();
         }
 
+        private void user_txt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((char.IsLetterOrDigit(e.KeyChar) == false
+                && e.KeyChar != (int)Keys.Back
+                && e.KeyChar != (int)Keys.ShiftKey))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void pass_txt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((char.IsLetterOrDigit(e.KeyChar) == false
+                && e.KeyChar != (int)Keys.Back
+                && e.KeyChar != (int)Keys.ShiftKey))
+            {
+                e.Handled = true;
+                MessageBox.Show("Password hanya boleh berisi kombinasi [0-9][A-Z|a-z]");
+            }
+        }
+
+        private void retypePass_txt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((char.IsLetterOrDigit(e.KeyChar) == false
+                && e.KeyChar != (int)Keys.Back
+                && e.KeyChar != (int)Keys.ShiftKey))
+            {
+                e.Handled = true;
+                MessageBox.Show("Password hanya boleh berisi kombinasi [0-9][A-Z|a-z]");
+            }
+        }
+
         private void filledData()
         {
             value = "NULL";
